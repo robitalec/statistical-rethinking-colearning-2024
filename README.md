@@ -4,10 +4,9 @@ Third round of Statistical Rethinking colearning
 
 Previous:
 
-- second round of [Statistical Rethinking](https://github.com/rmcelreath/stat_rethinking_2023) colearning, 
-this time with 2023 [lectures](https://www.youtube.com/playlist?list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus) and 
+- second round of Statistical Rethinking colearning with 2023 [lectures](https://www.youtube.com/playlist?list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus) and 
 [homework](https://github.com/rmcelreath/stat_rethinking_2023/tree/main/homework)
-- first round of Statistical Rethinking colearning (2022) is available [here](https://github.com/robitalec/statistical-rethinking-colearning-2022).
+- first round of Statistical Rethinking colearning with 2022 course [here](https://github.com/robitalec/statistical-rethinking-colearning-2022)
 
 ## Schedule
 
@@ -55,8 +54,12 @@ Additional material using other packages or languages
 
 See Richard's comments about these here: https://github.com/rmcelreath/stat_rethinking_2024#coding
 
+2023 course:
 
-2022 colearning:
+* Lectures: https://github.com/rmcelreath/stat_rethinking_2023#calendar--topical-outline
+* Homework: https://github.com/rmcelreath/stat_rethinking_2023/tree/main/homework
+
+2022 course:
 
 * Lectures: https://github.com/rmcelreath/stat_rethinking_2022#calendar--topical-outline
 * Homework: https://github.com/rmcelreath/stat_rethinking_2022/tree/main/homework
@@ -88,8 +91,6 @@ Targets
 V8, needed for the `dagitty` package
 
 * [`V8`](https://github.com/jeroen/v8#installation)
-
-
 
 
 ## Code of Conduct
