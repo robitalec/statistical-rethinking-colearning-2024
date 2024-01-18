@@ -47,24 +47,24 @@ Previous:
 
 Additional material using other packages or languages
 
-* Original R: https://github.com/rmcelreath/rethinking/
-* R + Tidyverse + ggplot2 + brms: https://bookdown.org/content/4857/
-* Python and PyMC3: Python/PyMC3
-* Julia and Turing: https://github.com/StatisticalRethinkingJulia and https://github.com/StatisticalRethinkingJulia/TuringModels.jl
+* Original R: <https://github.com/rmcelreath/rethinking/>
+* R + Tidyverse + ggplot2 + brms: <https://bookdown.org/content/4857/>
+* Python and PyMC3: <https://github.com/pymc-devs/resources/tree/master/Rethinking_2>
+* Julia and Turing: <https://github.com/StatisticalRethinkingJulia> and <https://github.com/StatisticalRethinkingJulia/TuringModels.jl>
 
-See Richard's comments about these here: https://github.com/rmcelreath/stat_rethinking_2024#coding
+See Richard's comments about these here: <https://github.com/rmcelreath/stat_rethinking_2024#coding>
 
 2023 course:
 
-* Lectures: https://github.com/rmcelreath/stat_rethinking_2023#calendar--topical-outline
-* Homework: https://github.com/rmcelreath/stat_rethinking_2023/tree/main/homework
+* Lectures: <https://github.com/rmcelreath/stat_rethinking_2023#calendar--topical-outline>
+* Homework: <https://github.com/rmcelreath/stat_rethinking_2023/tree/main/homework>
 
 2022 course:
 
-* Lectures: https://github.com/rmcelreath/stat_rethinking_2022#calendar--topical-outline
-* Homework: https://github.com/rmcelreath/stat_rethinking_2022/tree/main/homework
+* Lectures: <https://github.com/rmcelreath/stat_rethinking_2022#calendar--topical-outline>
+* Homework: <https://github.com/rmcelreath/stat_rethinking_2022/tree/main/homework>
 
-Also, Alec's notes and solutions of the 2019 material: https://github.com/robitalec/statistical-rethinking and https://www.statistical-rethinking.robitalec.ca/
+Also, Alec's notes and solutions of the 2019 material: <https://github.com/robitalec/statistical-rethinking> and <https://www.statistical-rethinking.robitalec.ca/>
 
 
 
@@ -95,5 +95,5 @@ V8, needed for the `dagitty` package
 
 ## Code of Conduct
 
-Please note that this project is released with a [Code of
-Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a [Code of Conduct](CODE_OF_CONDUCT.md). 
+By participating in this project you agree to abide by its terms.
