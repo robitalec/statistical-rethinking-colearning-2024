@@ -1,0 +1,30 @@
+project:
+  type: website
+  output-dir: docs
+  execute-dir: project
+  resources:
+    - "_targets.R"
+
+website:
+  title: "Statistical Rethinking colearning 2024"
+
+  sidebar:
+    contents:
+      - text: "Home"
+        file: index.qmd
+      - section: Notes
+        contents:
+          - auto: "notes/*"
+      - section: Homework
+        contents:
+          - auto: "homework/*"
+format:
+  html:
+    theme:
+      dark: darkly
+      light: flatly
+    toc: true
+    code-line-numbers: false
+    code-copy: true
+    code-link: true
+    code-block-border-left: false
