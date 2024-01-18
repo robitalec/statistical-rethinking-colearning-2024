@@ -4,9 +4,9 @@ Third round of Statistical Rethinking colearning
 
 Previous:
 
-- second round of Statistical Rethinking colearning with 2023 [lectures](https://www.youtube.com/playlist?list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus) and 
-[homework](https://github.com/rmcelreath/stat_rethinking_2023/tree/main/homework)
-- first round of Statistical Rethinking colearning with 2022 course [here](https://github.com/robitalec/statistical-rethinking-colearning-2022)
+- [2023 Statistical Rethinking colearning](https://robitalec.github.io/statistical-rethinking-colearning-2023/)
+- [2022 Statistical Rethinking colearning](https://github.com/robitalec/statistical-rethinking-colearning-2022)
+- [2019 Statistical Rethinking solo-learning](https://github.com/robitalec/statistical-rethinking)
 
 ## Schedule
 
