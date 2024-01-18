@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Statistical Rethinking colearning 2024</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Home</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Statistical Rethinking colearning 2024</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notes/01-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 01 Notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notes/02-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 02 Notes</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Homework</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./homework/targets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">_targets.R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#statistical-rethinking-colearning-2024" id="toc-statistical-rethinking-colearning-2024" class="nav-link active" data-scroll-target="#statistical-rethinking-colearning-2024">Statistical Rethinking colearning 2024</a>
+  <ul class="collapse">
+  <li><a href="#schedule" id="toc-schedule" class="nav-link" data-scroll-target="#schedule">Schedule</a>
+  <ul class="collapse">
+  <li><a href="#lectures" id="toc-lectures" class="nav-link" data-scroll-target="#lectures">Lectures</a></li>
+  <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework">Homework</a></li>
+  </ul></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#code-of-conduct" id="toc-code-of-conduct" class="nav-link" data-scroll-target="#code-of-conduct">Code of Conduct</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="statistical-rethinking-colearning-2024" class="level1">
+<h1>Statistical Rethinking colearning 2024</h1>
+<p>Third round of Statistical Rethinking colearning</p>
+<p>Previous:</p>
+<ul>
+<li>second round of Statistical Rethinking colearning with 2023 <a href="https://www.youtube.com/playlist?list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus">lectures</a> and <a href="https://github.com/rmcelreath/stat_rethinking_2023/tree/main/homework">homework</a></li>
+<li>first round of Statistical Rethinking colearning with 2022 course <a href="https://github.com/robitalec/statistical-rethinking-colearning-2022">here</a></li>
+</ul>
+<section id="schedule" class="level2">
+<h2 class="anchored" data-anchor-id="schedule">Schedule</h2>
+<section id="lectures" class="level3">
+<h3 class="anchored" data-anchor-id="lectures">Lectures</h3>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Week ##</th>
+<th>Meeting date</th>
+<th>Reading</th>
+<th>Lectures</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Week 01</td>
+<td>25 January</td>
+<td>Chapters 1, 2 and 3</td>
+<td>[1] &lt;<a href="https://www.youtube.com/watch?v=FdnMWdICdRs&amp;list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&amp;index=1">Science Before Statistics</a>&gt; &lt;<a href="https://speakerdeck.com/rmcelreath/statistical-rethinking-2023-lecture-01">Slides</a>&gt; <br> [2] &lt;<a href="https://www.youtube.com/watch?v=R1vcdhPBlXA&amp;list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&amp;index=2">Garden of Forking Data</a>&gt; &lt;<a href="https://speakerdeck.com/rmcelreath/statistical-rethinking-2023-lecture-02">Slides</a>&gt;</td>
+</tr>
+<tr class="even">
+<td>Week 02</td>
+<td>08 February</td>
+<td>Chapter 4</td>
+<td>[3] &lt;<a href="https://www.youtube.com/watch?v=tNOu-SEacNU&amp;list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&amp;index=3">Geocentric Models</a>&gt; &lt;<a href="https://speakerdeck.com/rmcelreath/statistical-rethinking-2023-lecture-03">Slides</a>&gt; <br> [4] &lt;<a href="https://www.youtube.com/watch?v=F0N4b7K_iYQ&amp;list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&amp;index=4">Categories and Curves</a>&gt; &lt;<a href="https://speakerdeck.com/rmcelreath/statistical-rethinking-2023-lecture-04">Slides</a>&gt;</td>
+</tr>
+<tr class="odd">
+<td>Week 03</td>
+<td>22 February</td>
+<td>Chapters 5 and 6</td>
+<td>[5] &lt;<a href="https://www.youtube.com/watch?v=mBEA7PKDmiY&amp;list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&amp;index=5">Elemental Confounds</a>&gt; &lt;<a href="https://speakerdeck.com/rmcelreath/statistical-rethinking-2023-lecture-05">Slides</a>&gt; <br> [6] &lt;<a href="https://www.youtube.com/watch?v=uanZZLlzKHw&amp;list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&amp;index=6">Good and Bad Controls</a>&gt; &lt;<a href="https://speakerdeck.com/rmcelreath/statistical-rethinking-2023-lecture-06">Slides</a>&gt;</td>
+</tr>
+<tr class="even">
+<td>Week 04</td>
+<td>07 March</td>
+<td>Chapters 7,8,9</td>
+<td>[7] &lt;<a href="https://www.youtube.com/watch?v=1VgYIsANQck&amp;list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&amp;index=7">Overfitting</a>&gt; &lt;<a href="https://speakerdeck.com/rmcelreath/statistical-rethinking-2023-lecture-07">Slides</a>&gt; <br> [8] &lt;<a href="https://www.youtube.com/watch?v=rZk2FqX2XnY&amp;list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&amp;index=8">MCMC</a>&gt; &lt;<a href="https://speakerdeck.com/rmcelreath/statistical-rethinking-2023-lecture-08">Slides</a>&gt;</td>
+</tr>
+<tr class="odd">
+<td>Week 05</td>
+<td>21 March</td>
+<td>Chapters 10 and 11</td>
+<td>[9] &lt;<a href="https://www.youtube.com/watch?v=Zi6N3GLUJmw&amp;list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&amp;index=9">Modeling Events</a>&gt; &lt;<a href="https://speakerdeck.com/rmcelreath/statistical-rethinking-2023-lecture-09">Slides</a>&gt; <br> [10] &lt;<a href="https://www.youtube.com/watch?v=jokxu18egu0&amp;list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&amp;index=10">Counts and Confounds</a>&gt; &lt;<a href="https://speakerdeck.com/rmcelreath/statistical-rethinking-2023-lecture-10">Slides</a>&gt;</td>
+</tr>
+<tr class="even">
+<td>Week 06</td>
+<td>04 April</td>
+<td>Chapters 11 and 12</td>
+<td>[11] &lt;<a href="https://www.youtube.com/watch?v=VVQaIkom5D0&amp;list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&amp;index=11">Ordered Categories</a>&gt; &lt;<a href="https://github.com/rmcelreath/stat_rethinking_2023/raw/main/slides/Lecture_11-ord_logit.pdf">Slides</a>&gt; <br> [12] &lt;<a href="https://www.youtube.com/watch?v=iwVqiiXYeC4&amp;list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&amp;index=12">Multilevel Models</a>&gt; &lt;<a href="https://raw.githubusercontent.com/rmcelreath/stat_rethinking_2023/main/slides/Lecture_12-GLMM1.pdf">Slides</a>&gt;</td>
+</tr>
+<tr class="odd">
+<td>Week 07</td>
+<td>18 April</td>
+<td>Chapter 13</td>
+<td>[13] &lt;<a href="https://www.youtube.com/watch?v=sgqMkZeslxA&amp;list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&amp;index=13">Multilevel Adventures</a>&gt; &lt;<a href="https://raw.githubusercontent.com/rmcelreath/stat_rethinking_2023/main/slides/Lecture_13-GLMM2.pdf">Slides</a>&gt; <br> [14] &lt;<a href="https://www.youtube.com/watch?v=Es44-Bp1aKo&amp;list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&amp;index=14">Correlated Features</a>&gt; &lt;<a href="https://github.com/rmcelreath/stat_rethinking_2023/raw/main/slides/Lecture_14-GLMM3.pdf">Slides</a>&gt;</td>
+</tr>
+<tr class="even">
+<td>Week 08</td>
+<td>02 May</td>
+<td>Chapter 14</td>
+<td>[15] &lt;<a href="https://www.youtube.com/watch?v=hnYhJzYAQ60&amp;list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&amp;index=15">Social Networks</a>&gt; &lt;<a href="https://github.com/rmcelreath/stat_rethinking_2023/raw/main/slides/Lecture_15-social_networks.pdf">Slides</a>&gt; <br> [16] &lt;<a href="https://www.youtube.com/watch?v=Y2ZLt4iOrXU&amp;list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&amp;index=16">Gaussian Processes</a>&gt; &lt;<a href="https://github.com/rmcelreath/stat_rethinking_2023/raw/main/slides/Lecture_16-gaussian_processes.pdf">Slides</a>&gt;</td>
+</tr>
+<tr class="odd">
+<td>Week 09</td>
+<td>16 May</td>
+<td>Chapter 15</td>
+<td>[17] &lt;<a href="https://www.youtube.com/watch?v=mt9WKbQJrI4&amp;list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&amp;index=17">Measurement</a>&gt; &lt;<a href="https://github.com/rmcelreath/stat_rethinking_2023/raw/main/slides/Lecture_17-measurement.pdf">Slides</a>&gt; <br> [18] &lt;<a href="https://www.youtube.com/watch?v=Oeq6GChHOzc&amp;list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&amp;index=18">Missing Data</a>&gt; &lt;<a href="https://github.com/rmcelreath/stat_rethinking_2023/raw/main/slides/Lecture_18-missing_data.pdf">Slides</a>&gt;</td>
+</tr>
+<tr class="even">
+<td>Week 10</td>
+<td>30 May</td>
+<td>Chapters 16 and 17</td>
+<td>[19] &lt;<a href="https://www.youtube.com/watch?v=zffwg0xDOgE&amp;list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&amp;index=19">Generalized Linear Madness</a>&gt; &lt;<a href="https://github.com/rmcelreath/stat_rethinking_2023/raw/main/slides/Lecture_19-GenLinearMadness.pdf">Slides</a>&gt; <br> [20] &lt;<a href="https://www.youtube.com/watch?v=qwF-st2NGTU&amp;list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus&amp;index=20&amp;pp=sAQB">Horoscopes</a>&gt; &lt;<a href="https://github.com/rmcelreath/stat_rethinking_2023/raw/main/slides/Lecture_20-horoscopes.pdf">Slides</a>&gt;</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="homework" class="level3">
+<h3 class="anchored" data-anchor-id="homework">Homework</h3>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Meeting date</th>
+<th style="text-align: left;">Homework</th>
+<th style="text-align: left;">Solutions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1 February</td>
+<td style="text-align: left;"><a href="https://github.com/rmcelreath/stat_rethinking_2024/blob/main/homework/week01.pdf">Homework 1</a></td>
+<td style="text-align: left;"><a href="https://github.com/rmcelreath/stat_rethinking_2024/blob/main/homework/week01_solutions.pdf">Solutions</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">15 February</td>
+<td style="text-align: left;"><a href="https://github.com/rmcelreath/stat_rethinking_2024/blob/main/homework/week02.pdf">Homework 2</a></td>
+<td style="text-align: left;">Solutions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">29 February</td>
+<td style="text-align: left;">Homework 3</td>
+<td style="text-align: left;">Solutions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">14 March</td>
+<td style="text-align: left;">Homework 4</td>
+<td style="text-align: left;">Solutions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">28 March</td>
+<td style="text-align: left;">Homework 5</td>
+<td style="text-align: left;">Solutions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">11 April</td>
+<td style="text-align: left;">Homework 6</td>
+<td style="text-align: left;">Solutions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">25 April</td>
+<td style="text-align: left;">Homework 7</td>
+<td style="text-align: left;">Solutions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">9 May</td>
+<td style="text-align: left;">Homework 8</td>
+<td style="text-align: left;">Solutions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">23 May</td>
+<td style="text-align: left;">Homework 9</td>
+<td style="text-align: left;">Solutions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">30 May</td>
+<td style="text-align: left;">Homework 10</td>
+<td style="text-align: left;">Solutions</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<p>Additional material using other packages or languages</p>
+<ul>
+<li>Original R: <a href="https://github.com/rmcelreath/rethinking/" class="uri">https://github.com/rmcelreath/rethinking/</a></li>
+<li>R + Tidyverse + ggplot2 + brms: <a href="https://bookdown.org/content/4857/" class="uri">https://bookdown.org/content/4857/</a></li>
+<li>Python and PyMC3: <a href="https://github.com/pymc-devs/resources/tree/master/Rethinking_2" class="uri">https://github.com/pymc-devs/resources/tree/master/Rethinking_2</a></li>
+<li>Julia and Turing: <a href="https://github.com/StatisticalRethinkingJulia" class="uri">https://github.com/StatisticalRethinkingJulia</a> and <a href="https://github.com/StatisticalRethinkingJulia/TuringModels.jl" class="uri">https://github.com/StatisticalRethinkingJulia/TuringModels.jl</a></li>
+</ul>
+<p>See Richard’s comments about these here: <a href="https://github.com/rmcelreath/stat_rethinking_2024#coding" class="uri">https://github.com/rmcelreath/stat_rethinking_2024#coding</a></p>
+<p>2023 course:</p>
+<ul>
+<li>Lectures: <a href="https://github.com/rmcelreath/stat_rethinking_2023#calendar--topical-outline" class="uri">https://github.com/rmcelreath/stat_rethinking_2023#calendar--topical-outline</a></li>
+<li>Homework: <a href="https://github.com/rmcelreath/stat_rethinking_2023/tree/main/homework" class="uri">https://github.com/rmcelreath/stat_rethinking_2023/tree/main/homework</a></li>
+</ul>
+<p>2022 course:</p>
+<ul>
+<li>Lectures: <a href="https://github.com/rmcelreath/stat_rethinking_2022#calendar--topical-outline" class="uri">https://github.com/rmcelreath/stat_rethinking_2022#calendar--topical-outline</a></li>
+<li>Homework: <a href="https://github.com/rmcelreath/stat_rethinking_2022/tree/main/homework" class="uri">https://github.com/rmcelreath/stat_rethinking_2022/tree/main/homework</a></li>
+</ul>
+<p>Also, Alec’s notes and solutions of the 2019 material: <a href="https://github.com/robitalec/statistical-rethinking" class="uri">https://github.com/robitalec/statistical-rethinking</a> and <a href="https://www.statistical-rethinking.robitalec.ca/" class="uri">https://www.statistical-rethinking.robitalec.ca/</a></p>
+</section>
+<section id="installation" class="level2">
+<h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<p>Package specific install instructions.</p>
+<p>Rethinking</p>
+<ul>
+<li><a href="https://github.com/rmcelreath/rethinking#installation"><code>rethinking</code></a></li>
+</ul>
+<p>Stan</p>
+<ul>
+<li><a href="https://mc-stan.org/cmdstanr/articles/cmdstanr.html"><code>cmdstanr</code></a></li>
+<li><a href="https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started"><code>RStan</code></a></li>
+<li><a href="r/brms/#how-do-i-install-brms"><code>brms</code></a></li>
+</ul>
+<p>Targets</p>
+<ul>
+<li><a href="https://github.com/ropensci/targets/#installation"><code>targets</code></a></li>
+<li><a href="https://github.com/ropensci/stantargets/#installation"><code>stantargets</code></a></li>
+</ul>
+<p>V8, needed for the <code>dagitty</code> package</p>
+<ul>
+<li><a href="https://github.com/jeroen/v8#installation"><code>V8</code></a></li>
+</ul>
+</section>
+<section id="code-of-conduct" class="level2">
+<h2 class="anchored" data-anchor-id="code-of-conduct">Code of Conduct</h2>
+<p>Please note that this project is released with a <a href="./CODE_OF_CONDUCT.html">Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'alternate';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
