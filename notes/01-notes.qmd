@@ -7,17 +7,18 @@ date: "2023-01-09"
 
 ## Directed acyclic graphs
 
-Statistical models process data but to provide insight, we require scientific
-models. Causes of data cannot be extracted alone using a statistical model, we
-need causal models.
+Statistical models process data but to provide scientific insight, we need
+scientific/causal models. Causes of data cannot be extracted from the data
+alone.
 
 Causal inference is the prediction of intervention and imputation of missing
 observations.
 
-Causal prediction: knowing a cause means being able to predict the consequences
-of an intervention. Causal imputation: knowing a cause means being able to
-construct unobserved counterfactual outcomes.
-
+- Causal prediction: knowing a cause means being able to predict the consequences
+of an intervention ("what if I do this?").
+- Causal imputation: knowing a cause means being able to
+construct unobserved counterfactual outcomes ("what if I had done something
+else?").
 
 ```{r 01_dag, echo = FALSE}
 suppressPackageStartupMessages(library(ggdag))
@@ -39,23 +40,27 @@ Relationships between *all* variables can impact outcomes.
 
 
 ::: {.callout-note}
-At one moment in time, DAGs are unidirectional. With a time series, 
-you can have reciprocal relationships. 
+DAGs inherently represent unidirectional relationships at one moment in time
+with variable influencing other variables. Reciprocal relationships can be drawn
+in DAGs using multiple variables for different time periods eg. intelligence
+(youth) → educational attainment → income → intelligence (adult) (Rohrer 2018).
 :::
-
 
 DAGs are not specific to one model and therefore can be used for different
 queries and related models. These different models should not necessarily
-include all variables, and DAGs help us determine good and bad controls
+include all variables, and DAGs help us determine appropriate controls
 for each question. DAGs are logically specific and can be used to test and 
 refine the causal model. 
 
-::: {.callout-note}
-How do we justify controls in eg. the relationship between X and Y?
+Causes are always something to consider regardless if the application is 
+descriptive or inferential because a sample always differs from the population,
+and we must think about the causes of this difference.
 
-1. We need a DAG
-1. then we analyse it to determine the adjustment set
-:::
+DAGs are transparent scientific assumptions to 
+
+- justify scientific effort
+- expose scientific assumptions to useful critique
+- connect theories to statistical models
 
 ## Golems
 
