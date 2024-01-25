@@ -1,7 +1,7 @@
 ---
 title: "Lecture 02 Notes"
 author: "Alec L. Robitaille"
-date: "2023-01-09"
+date: "2024-01-25"
 ---
 
 ## Bayesian data analysis
@@ -14,6 +14,11 @@ are more plausible.
 No guarantees except logical. Probability theory is a  method
 of logically deducing the implications of data under the assumptions
 that you must choose. 
+
+Note that the sample that arises is a product of both natural 
+processes and the choices of the scientists collecting the data (biases, 
+limitations of measurement devices, sampling extent, etc.). 
+
 
 
 
@@ -44,7 +49,7 @@ another.
 - N = number of tosses
 
 ::: {.callout-note}
-Variables can be things you observed or things you want to estimate
+Variables can be data (things you observe) or things you want to estimate.
 :::
 
 
@@ -62,6 +67,9 @@ dagify(
 ) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
 ```
 
+When drawing a DAG, consider variables in terms of influences and 
+the consequences of interventions. If you intervene on N, it will influence
+W and L indirectly. 
 
 N influences W and L: if you were to intervene on N (eg. increase the number of
 observations), it would change W and L.
@@ -73,13 +81,13 @@ $W, L = f (P, N)$
 
 What is the function?
 
-|         | W L W      | W     |    |
-|---------|------------|-------|----|
-| 4 L     | 0 x 4 x 0  | 0 x 0 | 0  |
-| 3 L 1 W | 1 x 3 x 1  | 3 x 1 | 3  |
-| 2 L 2 W | 2 x 2 x 2  | 8 x 2 | 16 |
-| 1 L 3 W | 3 x 1 x 3  | 9 x 3 | 27 |
-| 4 W     | 4 x 0 x 4  | 0 x 4 | 0  |
+| Possible globes   | W L W           |
+|-------------------|-----------------|
+| 4 L               | 0 x 4 x 0  = 0  |
+| 3 L 1 W           | 1 x 3 x 1  = 3  |
+| 2 L 2 W           | 2 x 2 x 2  = 16 |
+| 1 L 3 W           | 3 x 1 x 3  = 27 |
+| 4 W               | 4 x 0 x 4  = 0  |
 
 
 Given the table and our scientific understanding, the function is:
@@ -98,21 +106,36 @@ all L).
 
 ## Bayesian inference
 
-- No minimum sample size
-- The shape of the posterior distribution embodies the sample size
-- No point estimate. The distribution is the estimate, **always use the entire distribution**. 
-- No one true interval. Nothing happens at the boundary. 
+- There is no minimum sample size
+- The sample size is embodies in the shape of the posterior distribution
+- There are no point estimate. The posterior distribution is the estimate 
+(**always use the entire distribution**).
+- There is no one true interval. Nothing happens at the boundary. 
+Intervals are summary tools that communicate the shape of the posterior. 
 
 
 ## Posterior predictive simulations
 
-Use samples from the entire posterior distribution to determine
+Posterior prediction is a prediction based on the posterior estimate. Given 
+the knowledge so far (the posterior distribution) what would we predict about
+future samples? 
+
+Samples from the entire posterior distribution allow us to determine the
 implications of the model. 
 
-Uncertainty -> causal model -> implications
+
+![](../graphics/stat_rethinking_l02_post_pred.png)
+![](../graphics/stat_rethinking_2ed_f3_6.png)
+
+In the globe tossing case, the estimate of our model is the distribution of the proportion 
+of water. We can take samples from this distribution (OR in the 
+eventual case of using  MCMC, we'll just start with samples of the posterior distribution)
+which represent a vector of proportions of water. With this vector of samples, 
+we can predict what the eg. next 9 globe tosses would be, incorporating the 
+uncertainty of the posterior distribution. 
 
 
-Types:
+Applications of sampling:
 
 - model-based forecasts
 - causal effects
@@ -127,7 +150,9 @@ error. W* (W_star) is misclassified sample, influenced by the measurement
 process (M). 
 
 
-Note: this DAG is simplified to remove L since N - L = W
+::: {.callout-note}
+This DAG is simplified to remove L since N - L = W
+:::
 
 ```{r 02_dag_misclassified, echo = FALSE, fig.height = 4}
 dagify(
@@ -148,5 +173,5 @@ returns a new formula for the posterior distribution.
 If there is measurement error, better to model it than to ignore it. Samples
 do not need to be representative of the population in order to provide 
 good estimates of the population. The priority is to determine in which ways 
-(why) the sample differs from the population. Then you can modeol the sample
+(why) the sample differs from the population. Then you can model the sample
 process and the causal differences for the population. 
