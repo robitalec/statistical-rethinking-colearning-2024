@@ -4,11 +4,12 @@ author: "Alec L. Robitaille"
 date: "2024-02-01"
 ---
 
-## Packages
+## Setup
 
 ```{r}
 library(ggplot2)
 source('R/globe_tossing.R')
+theme_set(theme_bw())
 ```
 
 
