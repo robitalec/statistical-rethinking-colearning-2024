@@ -20,6 +20,7 @@ website:
       - section: Homework
         contents:
           - auto: "homework/*"
+    tools:
       - icon: github
         href: https://github.com/robitalec/statistical-rethinking-colearning-2024
 
