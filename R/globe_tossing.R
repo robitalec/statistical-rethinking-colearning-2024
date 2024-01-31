@@ -17,3 +17,15 @@ globe_toss_n_ways <- function(w, l, seq_prop) {
 		ways_formula(w, l, p)
 	},  FUN.VALUE = 42)
 }
+
+#' Globe Tossing: computer the posterior
+#'
+#' @param n_ways number of ways a sample can be produced
+#'
+#' @return
+#' @export
+#'
+#' @examples
+globe_toss_posterior <- function(n_ways) {
+	n_ways / sum(n_ways)
+}
