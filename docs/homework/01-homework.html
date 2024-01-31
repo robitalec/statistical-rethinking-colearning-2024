@@ -232,7 +232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </blockquote>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Set number of water and land samples</span></span>
-<span><span class="va">n_water</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
+<span><span class="va">n_water</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
 <span><span class="va">n_land</span> <span class="op">&lt;-</span> <span class="fl">11</span></span>
 <span></span>
 <span><span class="co"># Set sequence of possible proportions</span></span>
@@ -288,9 +288,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#   probability defined in the posterior distribution</span></span>
 <span><span class="va">size</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
 <span><span class="va">posterior_samples</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span></span>
-<span>    <span class="va">q1</span><span class="op">$</span><span class="va">prob_prop</span>,</span>
+<span>    <span class="va">q1</span><span class="op">$</span><span class="va">prop</span>,</span>
 <span>    size <span class="op">=</span> <span class="va">size</span>,</span>
-<span>    prob <span class="op">=</span> <span class="va">q1</span><span class="op">$</span><span class="va">post</span>,</span>
+<span>    prob <span class="op">=</span> <span class="va">q1</span><span class="op">$</span><span class="va">prob_prop</span>,</span>
 <span>    replace <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
