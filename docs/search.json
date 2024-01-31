@@ -123,14 +123,14 @@
     "href": "homework/01-homework.html",
     "title": "Homework 01",
     "section": "",
-    "text": "library(ggplot2)\nsource('R/globe_tossing.R')"
+    "text": "library(ggplot2)\nsource('R/globe_tossing.R')\ntheme_set(theme_bw())"
   },
   {
-    "objectID": "homework/01-homework.html#packages",
-    "href": "homework/01-homework.html#packages",
+    "objectID": "homework/01-homework.html#setup",
+    "href": "homework/01-homework.html#setup",
     "title": "Homework 01",
     "section": "",
-    "text": "library(ggplot2)\nsource('R/globe_tossing.R')"
+    "text": "library(ggplot2)\nsource('R/globe_tossing.R')\ntheme_set(theme_bw())"
   },
   {
     "objectID": "homework/01-homework.html#question-1",
