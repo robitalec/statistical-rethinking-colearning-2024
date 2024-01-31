@@ -64,9 +64,9 @@ the sampling method.
 #   probability defined in the posterior distribution
 size <- 100
 posterior_samples <- sample(
-	q1$prob_prop,
+	q1$prop,
 	size = size,
-	prob = q1$post,
+	prob = q1$prob_prop,
 	replace = TRUE
 )
 
