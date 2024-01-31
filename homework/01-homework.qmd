@@ -21,7 +21,7 @@ be 3 water and 11 land. Construct the posterior distribution.
 
 ```{r}
 # Set number of water and land samples
-n_water <- 5
+n_water <- 3
 n_land <- 11
 
 # Set sequence of possible proportions
