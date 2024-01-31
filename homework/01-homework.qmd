@@ -21,7 +21,7 @@ be 3 water and 11 land. Construct the posterior distribution.
 
 ```{r}
 # Set number of water and land samples
-n_water <- 5
+n_water <- 3
 n_land <- 11
 
 # Set sequence of possible proportions
@@ -64,9 +64,9 @@ the sampling method.
 #   probability defined in the posterior distribution
 size <- 100
 posterior_samples <- sample(
-	q1$prob_prop,
+	q1$prop,
 	size = size,
-	prob = q1$post,
+	prob = q1$prob_prop,
 	replace = TRUE
 )
 
