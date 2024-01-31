@@ -7,6 +7,8 @@ project:
 
 website:
   title: "Statistical Rethinking colearning 2024"
+  repo-url: https://github.com/robitalec/statistical-rethinking-colearning-2024
+  repo-actions: [edit, issue]
 
   sidebar:
     contents:
@@ -18,6 +20,9 @@ website:
       - section: Homework
         contents:
           - auto: "homework/*"
+      - icon: github
+        href: https://github.com/robitalec/statistical-rethinking-colearning-2024
+
 format:
   html:
     theme:
