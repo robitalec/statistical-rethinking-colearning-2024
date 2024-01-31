@@ -3,3 +3,9 @@ title: "Homework 01"
 author: "Alec L. Robitaille"
 date: "2024-02-01"
 ---
+
+## Packages
+
+```{r}
+library(ggplot2)
+source('R/globe_tossing.R')
