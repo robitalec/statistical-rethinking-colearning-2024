@@ -9,3 +9,43 @@ date: "2024-02-01"
 ```{r}
 library(ggplot2)
 source('R/globe_tossing.R')
+```
+
+
+## Question 1
+
+> 1. Suppose the globe tossing data (Lecture 2, Chapter 2) had turned out to
+be 3 water and 11 land. Construct the posterior distribution.
+
+
+```{r}
+# Set number of water and land samples
+n_water <- 5
+n_land <- 11
+
+# Set sequence of possible proportions
+seq_prop <- seq(0, 1, length.out = 10)
+
+# Count number of ways the sample could be produced for each possible proportion
+n_ways <- globe_toss_n_ways(n_water, n_land, seq_prop)
+
+# Compute the posterior distribution as the number of ways / sum of number of ways
+posterior <- globe_toss_posterior(n_ways)
+
+# Q1 data.frame
+q1 <- data.frame(prob_prop = posterior,
+								 prop = seq_prop)
+
+# Q1 plot
+ggplot(q1) + 
+	geom_col(aes(seq_prop, prob_prop)) + 
+	labs(x = 'Proportion of water', y = 'Probability')
+```
+
+```{r}
+# Function: globe_toss_n_ways
+globe_toss_n_ways
+
+# Function: globe_toss_posterior
+globe_toss_posterior
+```
