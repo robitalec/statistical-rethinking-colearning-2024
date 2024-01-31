@@ -49,3 +49,40 @@ globe_toss_n_ways
 # Function: globe_toss_posterior
 globe_toss_posterior
 ```
+
+
+
+## Question 2
+> Using the posterior distribution from 1, compute the posterior predictive
+distribution for the next 5 tosses of the same globe. I recommend you use
+the sampling method.
+
+
+```{r}
+# Take samples from the sequence of proportions using the 
+#   probability defined in the posterior distribution
+size <- 100
+posterior_samples <- sample(
+	q1$prob_prop,
+	size = size,
+	prob = q1$post,
+	replace = TRUE
+)
+
+# With the samples from the posterior distribution, 
+#   simulate 5 tosses with each sampled probability probability
+#   Binomial distributions are defined using 
+#   a number of events and a probability of success
+n_tosses <- 5
+posterior_predict <- rbinom(size, size = n_tosses, p = posterior_samples)
+
+# Plot number of W tosses
+q2 <- data.frame(post_pred = posterior_predict)
+
+# Plot
+ggplot(q2) + 
+	geom_bar(aes(x = post_pred)) +
+	labs(x = 'Number of water samples in 5 tosses',
+			 y = 'Count') + 
+	ylim(0, size)
+```
