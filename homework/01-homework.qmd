@@ -86,3 +86,30 @@ ggplot(q2) +
 			 y = 'Count') + 
 	ylim(0, size)
 ```
+
+
+## Question 3 (optional)
+> This problem is an optional challenge for people who are taking the course for
+a second or third time. uppose you observe W = 7 water points, but you forgot to
+write down how many times the globe was tossed, so you don’t know the number of
+land points L. Assume that p = 0.7 and compute the posterior distribution of the
+number of tosses N. Hint: Use the binomial distribution
+
+```{r}
+n_water <- 7
+n_land <- NA
+p <- 0.7
+n_tosses <- 5
+
+n_samples <- seq(1, 25)
+
+post <- vapply(n_samples, function(n) {
+	dbinom(n_water, size = n, prob = p)
+}, FUN.VALUE = 42)
+
+q3 <- data.frame(n_prop = post, n = n_samples)
+
+ggplot(q3) + 
+	geom_col(aes(n_samples, n_prop)) + 
+	labs(x = 'Proportion of water', y = 'Probability')
+```
