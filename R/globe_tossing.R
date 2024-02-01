@@ -10,7 +10,7 @@
 #' @examples
 globe_toss_n_ways <- function(w, l, seq_prop) {
 	ways_formula <- function(w, l, prop) {
-		(prop * 4) ^ w  * ((1 - prop) * 4) ^ l
+		(prop ^ w)  * (1 - prop) ^ l
 	}
 
 	vapply(seq_prop, function(p) {
