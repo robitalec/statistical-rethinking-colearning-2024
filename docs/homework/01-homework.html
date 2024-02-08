@@ -152,6 +152,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Lecture 02 Notes</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/03-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 03 Notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/04-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 04 Notes</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -263,7 +275,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>function (w, l, seq_prop) 
 {
     ways_formula &lt;- function(w, l, prop) {
-        (prop * 4)^w * ((1 - prop) * 4)^l
+        (prop^w) * (1 - prop)^l
     }
     vapply(seq_prop, function(p) {
         ways_formula(w, l, p)
