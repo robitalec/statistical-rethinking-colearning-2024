@@ -2,6 +2,9 @@ data_Howell <- function() {
 	if (!'rethinking' %in% .packages()) {
 		stop('please load the rethinking package')
 	}
+	if (!'data.table' %in% .packages()) {
+		stop('please load the data.table package')
+	}
 
 	data(Howell1)
   DT <- data.table(Howell1)
