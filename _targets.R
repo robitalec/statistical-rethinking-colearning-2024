@@ -20,10 +20,11 @@ options(mc.cores = 2,
 # Quarto ------------------------------------------------------------------
 targets_quarto <- c(
 	tar_quarto(site, path = '.')
+# Homework 01 -------------------------------------------------------------
 targets_h01 <- c(
 	tar_target(
 		Howell_lte_13,
-		data_Howell()[age <= 13]
+		data_Howell()[age <= 13][, age_factor := factor(round(age))]
 	),
 	zar_brms(
 		h01_q02,
@@ -36,7 +37,6 @@ targets_h01 <- c(
 		)
 	)
 )
-
 
 
 # Targets: all ------------------------------------------------------------

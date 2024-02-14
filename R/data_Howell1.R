@@ -13,7 +13,5 @@ data_Howell <- function() {
 	DT[, scale_height := scale(height)]
 	DT[, scale_weight := scale(weight)]
 
-	DT[, age_factor := factor(round(age))]
-
 	return(DT)
 }
