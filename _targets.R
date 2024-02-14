@@ -20,6 +20,11 @@ options(mc.cores = 2,
 # Quarto ------------------------------------------------------------------
 targets_quarto <- c(
 	tar_quarto(site, path = '.')
+targets_h01 <- c(
+	tar_target(
+		Howell_lte_13,
+		data_Howell()[age <= 13]
+	),
 )
 
 
