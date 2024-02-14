@@ -17,6 +17,7 @@ targets::tar_source('R')
 targets::tar_source('R')
 ```
 ```{r}
+DT <- data_Howell()
 data_Howell
 ```
 
