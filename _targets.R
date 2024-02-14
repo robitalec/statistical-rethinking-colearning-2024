@@ -24,11 +24,11 @@ targets_quarto <- c(
 targets_h01 <- c(
 	tar_target(
 		Howell_lte_13,
-		data_Howell()[age <= 13][, age_factor := factor(round(age))]
+		data_Howell()[age <= 13]
 	),
 	zar_brms(
 		h01_q02,
-		formula = weight ~ age_factor,
+		formula = weight ~ age,
 		data = Howell_lte_13,
 		prior = c(
 			prior(normal(5, 0.5), Intercept),
