@@ -7,15 +7,15 @@ data_Howell <- function() {
 	}
 
 	data(Howell1)
-  DT <- data.table(Howell1)
-  DT[, sex := .GRP, by = male]
+	DT <- data.table::data.table(Howell1)
+	DT[, sex := .GRP, by = male]
 
-  DT[, scale_height := scale(height)]
-  DT[, scale_weight := scale(weight)]
-  DT[, scale_age := scale(age)]
+	DT[, scale_height := scale(height)]
+	DT[, scale_weight := scale(weight)]
+	DT[, scale_age := scale(age)]
 
-  DT[, scale_height_div_mean := height / mean(height)]
-  DT[, scale_weight_div_mean := weight / mean(weight)]
-  
-  return(DT)
+	DT[, scale_height_div_mean := height / mean(height)]
+	DT[, scale_weight_div_mean := weight / mean(weight)]
+
+	return(DT)
 }
