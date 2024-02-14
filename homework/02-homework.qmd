@@ -86,6 +86,7 @@ indirectly through height ([Lecture 4: slide 28](https://speakerdeck.com/rmcelre
 
 
 ```{r}
+# Load data
 DT <- tar_read(Howell_lte_13)
 
 # Print priors used
@@ -93,6 +94,7 @@ tar_read(h01_q02_brms_prior)
 
 # Load model
 tar_load(h01_q02_brms_sample_prior)
+h01_q02_brms_sample_prior
 
 # Read draws from the priors and append predictions
 q02_draws <- h01_q02_brms_sample_prior |> 
