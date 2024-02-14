@@ -17,7 +17,6 @@ targets::tar_source('R')
 targets::tar_source('R')
 ```
 ```{r}
-DT <- data_Howell()
 data_Howell
 ```
 
@@ -81,6 +80,39 @@ ggplot(simulate_hw(n, max_age)) +
 The total causal effect of age on weight is estimated by excluding the height
 variable to include both paths in the DAG from age to weight directly and
 indirectly through height ([Lecture 4: slide 28](https://speakerdeck.com/rmcelreath/statistical-rethinking-2023-lecture-04?slide=28)).
+
+
+### Prior predictive simulation
+
+
+```{r}
+DT <- tar_read(Howell_lte_13)
+
+# Print priors used
+tar_read(h01_q02_brms_prior)
+
+# Load model
+tar_load(h01_q02_brms_sample_prior)
+
+# Read draws from the priors and append predictions
+q02_draws <- h01_q02_brms_sample_prior |> 
+	add_predicted_draws(newdata = unique(DT[, .(age_factor)]))
+
+# Convert to data.table
+setDT(q02_draws)
+
+# Reverse the scale on weight to look at prior predictive on original scale
+weight_scale <- attr(DT$scale_weight, 'scaled:scale')
+weight_center <- attr(DT$scale_weight, 'scaled:center')
+q02_draws[, weight := (.prediction * weight_scale) + weight_center]
+
+# Plot distribution of weights at each age
+ggplot(q02_draws) + 
+	stat_halfeye(aes(age_factor, weight)) + 
+	geom_hline(yintercept = 0, alpha = 0.7) + 
+	labs(x = 'Age', y = 'Weight')
+```
+
 ## Question 3
 
 > The data in data(Oxboys) (rethinking package) are growth records for 26 boys
