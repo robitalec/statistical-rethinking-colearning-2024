@@ -97,14 +97,31 @@ h01_q02_brms_sample_prior
 
 # Read N draws from the priors and append expected predictions
 n_draws <- 50
-q02_draws <- h01_q02_brms_sample_prior |> 
+q02_draws <- h01_q02_brms_sample_prior |>
 	add_epred_draws(newdata = unique(DT[, .(age)]),
-											ndraws = n_draws)
+									ndraws = n_draws)
 
 # Plot prior expectations for relationship between age and weight
 ggplot(q02_draws) + 
 	geom_line(aes(age, .epred, group = .draw), alpha = 0.5) +
 	labs(x = 'Age', y = 'Weight')
+```
+
+### Analyse the data
+
+```{r}
+# Load model
+tar_load(h01_q02_brms_sample)
+h01_q02_brms_sample
+
+# Tidy draws
+q02_draws <- h01_q02_brms_sample |> 
+	tidy_draws()
+
+# Total causal effect of each year of growth on weight
+ggplot(q02_draws) + 
+	stat_halfeye(aes(b_age)) + 
+	labs(x = 'Increase in weight per year of growth', y = '')
 ```
 
 ## Question 3
