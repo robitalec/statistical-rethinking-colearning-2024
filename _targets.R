@@ -31,8 +31,8 @@ targets_h01 <- c(
 		formula = weight ~ age,
 		data = Howell_lte_13,
 		prior = c(
-			prior(normal(5, 0.5), Intercept),
-			prior(normal(2, 1), b),
+			prior(normal(22.5, 0.5), Intercept),
+			prior(normal(3, 0.5), b),
 			prior(exponential(1), sigma)
 		)
 	)

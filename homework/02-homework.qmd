@@ -84,7 +84,6 @@ indirectly through height ([Lecture 4: slide 28](https://speakerdeck.com/rmcelre
 
 ### Prior predictive simulation
 
-
 ```{r}
 # Load data
 DT <- tar_read(Howell_lte_13)
@@ -96,13 +95,13 @@ tar_read(h01_q02_brms_prior)
 tar_load(h01_q02_brms_sample_prior)
 h01_q02_brms_sample_prior
 
-# Read N draws from the priors and append predictions
+# Read N draws from the priors and append expected predictions
 n_draws <- 50
 q02_draws <- h01_q02_brms_sample_prior |> 
 	add_epred_draws(newdata = unique(DT[, .(age)]),
 											ndraws = n_draws)
 
-# Plot distribution of weights at each age
+# Plot prior expectations for relationship between age and weight
 ggplot(q02_draws) + 
 	geom_line(aes(age, .epred, group = .draw), alpha = 0.5) +
 	labs(x = 'Age', y = 'Weight')
