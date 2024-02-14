@@ -7,8 +7,17 @@ date: "2024-02-15"
 ## Setup
 
 ```{r}
-library(ggplot2)
-theme_set(theme_bw())
+#| include: false
+targets::tar_source('R')
+```
+
+
+```{r}
+#| eval: false
+targets::tar_source('R')
+```
+```{r}
+data_Howell
 ```
 
 
