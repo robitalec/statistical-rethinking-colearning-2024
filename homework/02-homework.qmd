@@ -33,6 +33,21 @@ changes in muscle growth and body proportions.
 generative simulation that takes age as an input and simulates height and
 weight, obeying the relationships in the DAG.
 
+
+```{r}
+coords <- data.frame(
+    name = c('H', 'A', 'W'),
+    x =    c(2,    1,   1),
+    y =    c(1,    2,   0)
+)
+
+dagify(
+    W ~ H + A,
+    H ~ A,
+  coords = coords
+) |> ggdag(seed = 2) + theme_dag()
+```
+
 ## Question 2
 
 > Estimate the total causal effect of each year of growth on weight.
