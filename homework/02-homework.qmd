@@ -96,7 +96,8 @@ tar_read(h01_q02_brms_prior)
 tar_load(h01_q02_brms_sample_prior)
 h01_q02_brms_sample_prior
 
-# Read draws from the priors and append predictions
+# Read N draws from the priors and append predictions
+n_draws <- 50
 q02_draws <- h01_q02_brms_sample_prior |> 
 	add_predicted_draws(newdata = unique(DT[, .(age_factor)]))
 
