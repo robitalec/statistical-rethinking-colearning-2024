@@ -104,8 +104,7 @@ q02_draws <- h01_q02_brms_sample_prior |>
 
 # Plot distribution of weights at each age
 ggplot(q02_draws) + 
-	stat_halfeye(aes(age_factor, weight)) + 
-	geom_hline(yintercept = 0, alpha = 0.7) + 
+	geom_line(aes(age, .epred, group = .draw), alpha = 0.5) +
 	labs(x = 'Age', y = 'Weight')
 ```
 
