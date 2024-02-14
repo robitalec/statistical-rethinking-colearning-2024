@@ -78,6 +78,9 @@ ggplot(simulate_hw(n, max_age)) +
 
 > Estimate the total causal effect of each year of growth on weight.
 
+The total causal effect of age on weight is estimated by excluding the height
+variable to include both paths in the DAG from age to weight directly and
+indirectly through height ([Lecture 4: slide 28](https://speakerdeck.com/rmcelreath/statistical-rethinking-2023-lecture-04?slide=28)).
 ## Question 3
 
 > The data in data(Oxboys) (rethinking package) are growth records for 26 boys
