@@ -52,18 +52,22 @@ dagify(
 ```{r}
 n <- 1e2
 max_age <- 13
-age <- runif(n, 0, max_age)
 
-# General vague height at 13 years old (cm) = 130
-beta_height <- 10
-height <- age * beta_height
+simulate_hw <- function(n, max_age) {
+	age <- runif(n, 0, max_age)
+	
+	# General vague height at 13 years old (cm) = 130
+	beta_age_on_height <- 10
+	height <- rnorm(n = n, mean = age * beta_age_on_height, 2)
 
-# General vague weight at 13 years old (kg) = 45
-# Betas chosen to hit approximately at 13 years oldd 
-beta_height_on_weight <- 0.2
-beta_age_on_weight <- 1.5
-weight <- (age * beta_age_on_weight) + (beta_height_on_weight * height)
-weight
+	# General vague weight at 13 years old (kg) = 45
+	# Betas chosen to hit approximately at 13 years oldd 
+	beta_height_on_weight <- 0.2
+	beta_age_on_weight <- 1.5
+	weight <- (age * beta_age_on_weight) + (beta_height_on_weight * height)
+	
+	data.table(age, height, weight)
+}
 ```
 
 ## Question 2
