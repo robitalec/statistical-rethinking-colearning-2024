@@ -27,7 +27,7 @@ targets_h01 <- c(
 	),
 	zar_brms(
 		h01_q02,
-		formula = scale_weight ~ factor(age),
+		formula = scale_weight ~ age_factor,
 		data = Howell_lte_13,
 		prior = c(
 			prior(normal(0, 0.5), Intercept),
