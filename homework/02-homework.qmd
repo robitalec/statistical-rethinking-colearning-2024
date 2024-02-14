@@ -68,6 +68,8 @@ simulate_hw <- function(n, max_age) {
 	
 	data.table(age, height, weight)
 }
+ggplot(simulate_hw(n, max_age)) + 
+	geom_point(aes(age, weight))
 ```
 
 ## Question 2
