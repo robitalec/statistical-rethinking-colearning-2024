@@ -99,15 +99,8 @@ h01_q02_brms_sample_prior
 # Read N draws from the priors and append predictions
 n_draws <- 50
 q02_draws <- h01_q02_brms_sample_prior |> 
-	add_predicted_draws(newdata = unique(DT[, .(age_factor)]))
-
-# Convert to data.table
-setDT(q02_draws)
-
-# Reverse the scale on weight to look at prior predictive on original scale
-weight_scale <- attr(DT$scale_weight, 'scaled:scale')
-weight_center <- attr(DT$scale_weight, 'scaled:center')
-q02_draws[, weight := (.prediction * weight_scale) + weight_center]
+	add_epred_draws(newdata = unique(DT[, .(age)]),
+											ndraws = n_draws)
 
 # Plot distribution of weights at each age
 ggplot(q02_draws) + 
