@@ -23,6 +23,7 @@ theme_set(theme_bw())
 
 library(knitr)
 
+library(zarg)
 library(cmdstanr)
 library(rethinking)
 library(brms)
@@ -32,6 +33,7 @@ library(emmeans)
 library(mice)
 
 library(janitor)
+
 
 
 # Installs ----------------------------------------------------------------
