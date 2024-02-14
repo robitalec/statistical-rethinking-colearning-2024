@@ -48,6 +48,24 @@ dagify(
 ) |> ggdag(seed = 2) + theme_dag()
 ```
 
+
+```{r}
+n <- 1e3
+max_age <- 13
+age <- runif(n, 0, max_age)
+
+# General vague height at 13 years old (cm) = 130
+beta_height <- 10
+height <- age * beta_height
+
+# General vague weight at 13 years old (kg) = 45
+# Betas chosen to hit approximately at 13 years oldd 
+beta_height_on_weight <- 0.2
+beta_age_on_weight <- 1.5
+weight <- (age * beta_age_on_weight) + (beta_height_on_weight * height)
+weight
+```
+
 ## Question 2
 
 > Estimate the total causal effect of each year of growth on weight.
