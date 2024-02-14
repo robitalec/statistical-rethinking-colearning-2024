@@ -50,7 +50,7 @@ dagify(
 
 
 ```{r}
-n <- 1e3
+n <- 1e2
 max_age <- 13
 age <- runif(n, 0, max_age)
 
