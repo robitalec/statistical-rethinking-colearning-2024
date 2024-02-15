@@ -36,6 +36,7 @@ library(tidybayes)
 library(bayesplot)
 library(emmeans)
 library(mice)
+library(modelr)
 
 library(janitor)
 
