@@ -150,3 +150,34 @@ always positive—it should not be possible for the model to think that boys can
 shrink from year to year. Finally compute the posterior distribution of the
 total growth over all 9 occasions.
 
+
+
+### Prior predictive simulation
+
+```{r}
+# Function for preparing Oxboys data
+data_Oxboys
+```
+
+```{r}
+# Load data
+DT <- tar_read(prep_Oxboys)
+
+# Print priors used
+tar_read(h02_q03_brms_prior)
+
+# Load model
+tar_load(h02_q03_brms_sample_prior)
+h02_q03_brms_sample_prior
+
+# Read N draws from the priors and append expected predictions
+n_draws <- 100
+q03_newdata <- na.omit(DT)[, .(occasion_factor = unique(occasion_factor))]
+q03_draws <- h02_q03_brms_sample_prior |>
+	add_epred_draws(newdata = q03_newdata, ndraws = n_draws)
+
+# Plot prior expectations for relationship between occasion and height
+ggplot(q03_draws) + 
+	geom_line(aes(occasion_factor, .epred, group = .draw), alpha = 0.5) +
+	labs(x = 'Occasion', y = 'Difference in height')
+```
