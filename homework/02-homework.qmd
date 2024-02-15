@@ -16,9 +16,6 @@ targets::tar_source('R')
 #| eval: false
 targets::tar_source('R')
 ```
-```{r}
-data_Howell
-```
 
 
 ## Question 1
@@ -83,6 +80,11 @@ indirectly through height ([Lecture 4: slide 28](https://speakerdeck.com/rmcelre
 
 
 ### Prior predictive simulation
+
+```{r}
+# Function for preparing Howell data
+data_Howell
+```
 
 ```{r}
 # Load data
