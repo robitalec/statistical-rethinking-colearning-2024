@@ -118,10 +118,21 @@ h01_q02_brms_sample
 q02_draws <- h01_q02_brms_sample |> 
 	tidy_draws()
 
+q02_newdata <- data_grid(DT, age = seq_range(age, 20))
+q02_epred <- h01_q02_brms_sample |> 
+	epred_draws(q02_newdata)
+
 # Total causal effect of each year of growth on weight
-ggplot(q02_draws) + 
+g1 <- ggplot(q02_draws) + 
 	stat_halfeye(aes(b_age)) + 
 	labs(x = 'Increase in weight per year of growth', y = '')
+
+g2 <- ggplot(q02_epred) + 
+	stat_ribbon(aes(age, .epred), alpha = 0.5) +
+	scale_fill_grey(start = 0.8, end = 0.2) + 
+	labs(x = 'Age', y = 'Weight')
+
+g1 + g2
 ```
 
 ## Question 3
