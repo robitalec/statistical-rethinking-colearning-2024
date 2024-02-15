@@ -1,0 +1,13 @@
+```{r}
+#| echo: false
+
+nms <- targets::tar_meta(contains('stancode'))$name
+names(nms) <- nms
+
+zz <- lapply(nms, function(nm) {
+	writeLines(paste('Model:', nm))
+	writeLines('\n')
+	writeLines(targets::tar_read_raw(nm))
+	writeLines('\n\n\n\n')
+})
+```
