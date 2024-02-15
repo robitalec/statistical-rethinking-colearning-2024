@@ -180,3 +180,25 @@ ggplot(q03_epred_prior) +
 	stat_halfeye(aes(occasion_factor, .epred), alpha = 0.5) +
 	labs(x = 'Occasion', y = 'Difference in height')
 ```
+
+
+### Analyse the data
+
+```{r}
+# Load model
+tar_load(h02_q03_brms_sample)
+h02_q03_brms_sample
+
+# Expectation draws
+q03_epred <- h02_q03_brms_sample |>
+	add_epred_draws(newdata = q03_newdata, ndraws = n_draws)
+
+# Plot posterior expectations for relationship between occasion and height
+ggplot(q03_epred) + 
+	stat_halfeye(aes(occasion_factor, .epred), alpha = 0.5) +
+	labs(x = 'Occasion', y = 'Difference in height')
+
+# Tidy draws
+q03_draws  <- h02_q03_brms_sample |>
+	tidy_draws() |>
+	data.table()
