@@ -202,3 +202,11 @@ ggplot(q03_epred) +
 q03_draws  <- h02_q03_brms_sample |>
 	tidy_draws() |>
 	data.table()
+
+# Calculate total growth
+q03_draws[, total_growth := rowSums(.SD), .SDcols = patterns('b_occasion')]
+
+ggplot(q03_draws) + 
+	stat_halfeye(aes(total_growth)) + 
+	labs(x = 'Total growth over 9 occasions', y = '')
+```
