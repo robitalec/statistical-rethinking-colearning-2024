@@ -1,0 +1,212 @@
+---
+title: "Homework 02"
+author: "Alec L. Robitaille"
+date: "2024-02-15"
+---
+
+## Setup
+
+```{r}
+#| include: false
+targets::tar_source('R')
+```
+
+
+```{r}
+#| eval: false
+targets::tar_source('R')
+```
+
+
+## Question 1
+
+> From the Howell1 dataset, consider only the people younger than 13 years old.
+Estimate the causal association between age and weight. Assume that age
+influences weight through two paths. First, age influences height, and height
+influences weight. Second, age directly influences weight through age- related
+changes in muscle growth and body proportions.
+
+> Draw the DAG that represents these causal relationships. And then write a
+generative simulation that takes age as an input and simulates height and
+weight, obeying the relationships in the DAG.
+
+
+```{r}
+coords <- data.frame(
+    name = c('H', 'A', 'W'),
+    x =    c(2,    1,   1),
+    y =    c(1,    2,   0)
+)
+
+dagify(
+    W ~ H + A,
+    H ~ A,
+  coords = coords
+) |> ggdag(seed = 2) + theme_dag()
+```
+
+
+```{r}
+n <- 1e2
+max_age <- 13
+
+simulate_hw <- function(n, max_age) {
+	age <- runif(n, 0, max_age)
+	
+	# General vague height at 13 years old (cm) = 130
+	beta_age_on_height <- 10
+	height <- rnorm(n = n, mean = age * beta_age_on_height, 2)
+
+	# General vague weight at 13 years old (kg) = 45
+	# Betas chosen to hit 45 kg approximately at 13 years old
+	beta_height_on_weight <- 0.2
+	beta_age_on_weight <- 1.5
+	weight <- (age * beta_age_on_weight) + 
+		(beta_height_on_weight * height)
+	
+	data.table(age, height, weight)
+}
+ggplot(simulate_hw(n, max_age)) + 
+	geom_point(aes(age, weight))
+```
+
+## Question 2
+
+> Estimate the total causal effect of each year of growth on weight.
+
+The total causal effect of age on weight is estimated by excluding the height
+variable to include both paths in the DAG from age to weight directly and
+indirectly through height ([Lecture 4: slide 28](https://speakerdeck.com/rmcelreath/statistical-rethinking-2023-lecture-04?slide=28)).
+
+
+### Prior predictive simulation
+
+```{r}
+# Function for preparing Howell data
+data_Howell
+```
+
+```{r}
+# Load data
+DT <- tar_read(Howell_lte_13)
+
+# Print priors used
+tar_read(h02_q02_brms_prior)
+
+# Load model
+tar_load(h02_q02_brms_sample_prior)
+h02_q02_brms_sample_prior
+
+# Read N draws from the priors and append expected predictions
+n_draws <- 50
+q02_draws <- h02_q02_brms_sample_prior |>
+	add_epred_draws(newdata = unique(DT[, .(age)]),
+									ndraws = n_draws)
+
+# Plot prior expectations for relationship between age and weight
+ggplot(q02_draws) + 
+	geom_line(aes(age, .epred, group = .draw), alpha = 0.5) +
+	labs(x = 'Age', y = 'Weight')
+```
+
+### Analyse the data
+
+```{r}
+# Load model
+tar_load(h02_q02_brms_sample)
+h02_q02_brms_sample
+
+# Tidy draws
+q02_draws <- h02_q02_brms_sample |> 
+	tidy_draws()
+
+q02_newdata <- data_grid(DT, age = seq_range(age, 20))
+q02_epred <- h02_q02_brms_sample |> 
+	epred_draws(q02_newdata)
+
+# Total causal effect of each year of growth on weight
+g1 <- ggplot(q02_draws) + 
+	stat_halfeye(aes(b_age)) + 
+	labs(x = 'Increase in weight per year of growth', y = '')
+
+g2 <- ggplot(q02_epred) + 
+	stat_ribbon(aes(age, .epred), alpha = 0.5) +
+	scale_fill_grey(start = 0.8, end = 0.2) + 
+	labs(x = 'Age', y = 'Weight')
+
+g1 + g2
+```
+
+## Question 3
+
+> The data in data(Oxboys) (rethinking package) are growth records for 26 boys
+measured over 9 periods. I want you to model their growth. Specifically, model
+the increments in growth from one period (Occasion in the data table) to the
+next. Each increment is simply the difference between height in one occasion and
+height in the previous occasion. Since none of these boys shrunk during the
+study, all of the growth increments are greater than zero. Estimate the
+posterior distribution of these increments. Constrain the distribution so it is
+always positive—it should not be possible for the model to think that boys can
+shrink from year to year. Finally compute the posterior distribution of the
+total growth over all 9 occasions.
+
+
+### Prior predictive simulation
+
+```{r}
+# Function for preparing Oxboys data
+data_Oxboys
+```
+
+```{r}
+# Load data
+DT <- tar_read(prep_Oxboys)
+
+# Print priors used
+tar_read(h02_q03_brms_prior)
+
+# Load model
+tar_load(h02_q03_brms_sample_prior)
+h02_q03_brms_sample_prior
+
+# Read N draws from the priors and append expected predictions
+n_draws <- 100
+q03_newdata <- na.omit(DT)[, .(occasion_factor = unique(occasion_factor))]
+q03_epred_prior <- h02_q03_brms_sample_prior |>
+	add_epred_draws(newdata = q03_newdata, ndraws = n_draws)
+
+# Plot prior expectations for relationship between occasion and height
+ggplot(q03_epred_prior) + 
+	stat_halfeye(aes(occasion_factor, .epred), alpha = 0.5) +
+	labs(x = 'Occasion', y = 'Difference in height')
+```
+
+
+### Analyse the data
+
+```{r}
+# Load model
+tar_load(h02_q03_brms_sample)
+h02_q03_brms_sample
+
+# Expectation draws
+q03_epred <- h02_q03_brms_sample |>
+	add_epred_draws(newdata = q03_newdata, ndraws = n_draws)
+
+# Plot posterior expectations for relationship between occasion and height
+ggplot(q03_epred) + 
+	stat_halfeye(aes(occasion_factor, .epred), alpha = 0.5) +
+	labs(x = 'Occasion', y = 'Difference in height')
+
+# Tidy draws
+q03_draws  <- h02_q03_brms_sample |>
+	tidy_draws() |>
+	data.table()
+
+# Calculate total growth
+q03_draws[, total_growth := rowSums(.SD), .SDcols = patterns('b_occasion')]
+
+ggplot(q03_draws) + 
+	stat_halfeye(aes(total_growth)) + 
+	labs(x = 'Total growth over 9 occasions', y = '')
+```

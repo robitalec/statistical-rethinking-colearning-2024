@@ -28,14 +28,14 @@ Previous:
 
 ### Homework
 
-| Meeting date | Homework                                                                                       | Solutions                                                                                               |
+| Meeting date | Homework | Solutions |
 |:-------------|:---------------------------|:-----------------------------|
 | 1 February   | [Homework 1](https://github.com/rmcelreath/stat_rethinking_2024/blob/main/homework/week01.pdf) | [Solutions](https://github.com/rmcelreath/stat_rethinking_2024/blob/main/homework/week01_solutions.pdf) |
-| 15 February  | [Homework 2](https://github.com/rmcelreath/stat_rethinking_2024/blob/main/homework/week02.pdf) | Solutions                                                                                               |
-| 29 February  | Homework 3                                                                                     | Solutions                                                                                               |
-| 14 March     | Homework 4                                                                                     | Solutions                                                                                               |
-| 28 March     | Homework 5                                                                                     | Solutions                                                                                               |
-| 11 April     | Homework 6                                                                                     | Solutions                                                                                               |
+| 15 February  | [Homework 2](https://github.com/rmcelreath/stat_rethinking_2024/blob/main/homework/week02.pdf) | [Solutions](https://github.com/rmcelreath/stat_rethinking_2024/blob/main/homework/week02_solutions.pdf)  |
+| 29 February  | [Homework 3](https://github.com/rmcelreath/stat_rethinking_2024/blob/main/homework/week03.pdf) | [Solutions](https://github.com/rmcelreath/stat_rethinking_2024/blob/main/homework/week03_solutions.pdf)  |
+| 14 March     | [Homework 4](https://github.com/rmcelreath/stat_rethinking_2024/blob/main/homework/week04.pdf) | [Solutions](https://github.com/rmcelreath/stat_rethinking_2024/blob/main/homework/week04_solutions.pdf)  |
+| 28 March     | [Homework 5](https://github.com/rmcelreath/stat_rethinking_2024/blob/main/homework/week05.pdf) | [Solutions](https://github.com/rmcelreath/stat_rethinking_2024/blob/main/homework/week05_solutions.pdf)  |
+| 11 April     | [Homework 6](https://github.com/rmcelreath/stat_rethinking_2024/blob/main/homework/week06.pdf) | [Solutions](https://github.com/rmcelreath/stat_rethinking_2024/blob/main/homework/week06_solutions.pdf)  |
 | 25 April     | Homework 7                                                                                     | Solutions                                                                                               |
 | 9 May        | Homework 8                                                                                     | Solutions                                                                                               |
 | 23 May       | Homework 9                                                                                     | Solutions                                                                                               |

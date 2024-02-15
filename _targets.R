@@ -4,8 +4,7 @@
 
 
 # Source ------------------------------------------------------------------
-lapply(dir('R', '*.R', full.names = TRUE), source)
-
+targets::tar_source('R')
 
 
 # Options -----------------------------------------------------------------
@@ -23,6 +22,39 @@ targets_quarto <- c(
 	tar_quarto(site, path = '.')
 )
 
+
+# Homework 02 -------------------------------------------------------------
+targets_h02 <- c(
+	tar_target(
+		Howell_lte_13,
+		data_Howell()[age <= 13]
+	),
+	zar_brms(
+		h02_q02,
+		formula = weight ~ age,
+		data = Howell_lte_13,
+		prior = c(
+			prior(normal(22.5, 0.5), Intercept),
+			prior(normal(3, 0.5), b),
+			prior(exponential(1), sigma)
+		)
+	),
+	tar_target(
+		prep_Oxboys,
+		data_Oxboys()
+	),
+	zar_brms(
+		h02_q03,
+		formula = diff_height | trunc(lb = 0) ~ occasion_factor,
+		data = prep_Oxboys,
+		prior = c(
+			prior(normal(5, 2), Intercept),
+			prior(normal(3, 1), b),
+			prior(exponential(1), sigma)
+		)
+	)
+
+)
 
 
 # Targets: all ------------------------------------------------------------

@@ -1,4 +1,4 @@
-data_Howell <- function() {
+data_Oxboys <- function() {
 	if (!'rethinking' %in% .packages()) {
 		stop('please load the rethinking package')
 	}
@@ -6,12 +6,12 @@ data_Howell <- function() {
 		stop('please load the data.table package')
 	}
 
-	data(Howell1)
-	DT <- data.table::data.table(Howell1)
-	DT[, sex := .GRP, by = male]
+	data("Oxboys")
+	DT <- data.table::data.table(Oxboys)
 
-	DT[, scale_height := scale(height)]
-	DT[, scale_weight := scale(weight)]
+	DT[, diff_height := height - shift(height), by = Subject]
+
+	DT[, occasion_factor := factor(Occasion)]
 
 	return(DT)
 }
