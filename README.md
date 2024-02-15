@@ -8,6 +8,7 @@ Previous:
 - [2022 Statistical Rethinking colearning](https://github.com/robitalec/statistical-rethinking-colearning-2022)
 - [2019 Statistical Rethinking solo-learning](https://github.com/robitalec/statistical-rethinking)
 
+
 ## Schedule
 
 ### Lectures
@@ -67,7 +68,6 @@ See Richard's comments about these here: <https://github.com/rmcelreath/stat_ret
 Also, Alec's notes and solutions of the 2019 material: <https://github.com/robitalec/statistical-rethinking> and <https://www.statistical-rethinking.robitalec.ca/>
 
 
-
 ## Installation
 
 Package specific install instructions.
@@ -93,7 +93,19 @@ V8, needed for the `dagitty` package
 * [`V8`](https://github.com/jeroen/v8#installation)
 
 
-## Code of Conduct
+## Community
+
+Our colearning group is sponsored by [Zulip](https://zulip.com/) (an open-source modern
+team chat app designed to keep both live and asynchronous conversations
+organized) and we are grateful for their support. 
+
+Get in touch to join the colearning group. 
+
+![](https://raw.githubusercontent.com/zulip/zulip/main/static/images/logo/zulip-icon-128x128.png)
+
+
+
+### Code of Conduct
 
 Please note that this project is released with a [Code of Conduct](CODE_OF_CONDUCT.md). 
 By participating in this project you agree to abide by its terms.
