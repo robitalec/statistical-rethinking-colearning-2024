@@ -42,7 +42,17 @@ targets_h02 <- c(
 		prep_Oxboys,
 		data_Oxboys()
 	),
+	zar_brms(
+		h02_q03,
+		formula = diff_height | trunc(lb = 0) ~ occasion_factor,
+		data = prep_Oxboys,
+		prior = c(
+			prior(normal(5, 2), Intercept),
+			prior(normal(3, 1), b),
+			prior(exponential(1), sigma)
+		)
 	)
+
 )
 
 
