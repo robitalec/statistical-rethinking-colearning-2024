@@ -91,15 +91,15 @@ data_Howell
 DT <- tar_read(Howell_lte_13)
 
 # Print priors used
-tar_read(h01_q02_brms_prior)
+tar_read(h02_q02_brms_prior)
 
 # Load model
-tar_load(h01_q02_brms_sample_prior)
-h01_q02_brms_sample_prior
+tar_load(h02_q02_brms_sample_prior)
+h02_q02_brms_sample_prior
 
 # Read N draws from the priors and append expected predictions
 n_draws <- 50
-q02_draws <- h01_q02_brms_sample_prior |>
+q02_draws <- h02_q02_brms_sample_prior |>
 	add_epred_draws(newdata = unique(DT[, .(age)]),
 									ndraws = n_draws)
 
@@ -113,15 +113,15 @@ ggplot(q02_draws) +
 
 ```{r}
 # Load model
-tar_load(h01_q02_brms_sample)
-h01_q02_brms_sample
+tar_load(h02_q02_brms_sample)
+h02_q02_brms_sample
 
 # Tidy draws
-q02_draws <- h01_q02_brms_sample |> 
+q02_draws <- h02_q02_brms_sample |> 
 	tidy_draws()
 
 q02_newdata <- data_grid(DT, age = seq_range(age, 20))
-q02_epred <- h01_q02_brms_sample |> 
+q02_epred <- h02_q02_brms_sample |> 
 	epred_draws(q02_newdata)
 
 # Total causal effect of each year of growth on weight
@@ -143,7 +143,7 @@ g1 + g2
 measured over 9 periods. I want you to model their growth. Specifically, model
 the increments in growth from one period (Occasion in the data table) to the
 next. Each increment is simply the difference between height in one occasion and
-height in the pre- vious occasion. Since none of these boys shrunk during the
+height in the previous occasion. Since none of these boys shrunk during the
 study, all of the growth increments are greater than zero. Estimate the
 posterior distribution of these increments. Constrain the distribution so it is
 always positive—it should not be possible for the model to think that boys can
