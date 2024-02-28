@@ -232,7 +232,7 @@ $$\mu_{i} = \alpha + \beta_{F} F_{i}$$
 
 $$\alpha \sim Normal(0, 0.2)$$
 
-$$\beta_{A} \sim Normal(0, 0.5)$$
+$$\beta_{F} \sim Normal(0, 0.5)$$
 
 $$\sigma \sim Exponnential(1)$$
 
