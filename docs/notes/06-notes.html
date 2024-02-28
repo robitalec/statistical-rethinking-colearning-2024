@@ -604,7 +604,7 @@ sigma  1.17508483 0.05849987  1.08159075  1.2685789</code></pre>
 <span></span>
 <span><span class="fu">ggdag_status</span><span class="op">(</span><span class="va">dag</span>, seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="06-notes_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="384"></p>
+<p><img src="06-notes_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>This is selection on outcome, stratifying on the outcome. It reduces the variation in the outcome that the exposure can explain. Eg. if X is education, Y is occupation and Z is income: we would reduce the influence of education because we are looking at a more limited number of occupations within each level of income.</p>
@@ -620,7 +620,7 @@ sigma  1.17508483 0.05849987  1.08159075  1.2685789</code></pre>
 <span></span>
 <span><span class="fu">ggdag_status</span><span class="op">(</span><span class="va">dag</span>, seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="06-notes_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="384"></p>
+<p><img src="06-notes_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>There are no backdoors. There are no good reasons to condition on Z. Stratifying by Z explains away variation in X and reduces the precision of the estimate.</p>
@@ -637,7 +637,7 @@ sigma  1.17508483 0.05849987  1.08159075  1.2685789</code></pre>
 <span></span>
 <span><span class="fu">ggdag_status</span><span class="op">(</span><span class="va">dag</span>, seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="06-notes_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="384"></p>
+<p><img src="06-notes_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>X and Y are confounded by U. The covariation in X and Y requires variation in their causes. Within each level of Z, there is less variation in X. The confound U is more important within each Z relative to the model where it is not included.</p>
@@ -665,7 +665,7 @@ sigma  1.17508483 0.05849987  1.08159075  1.2685789</code></pre>
 <span></span>
 <span><span class="fu">ggdag_status</span><span class="op">(</span><span class="va">dag</span>, seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="06-notes_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" width="384"></p>
+<p><img src="06-notes_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>X: HIV, Y: Stroke</p>
