@@ -83,3 +83,29 @@ There are no backdoor paths entering the treatment (A). The adjustment set is em
 adjustmentSets(dag, effect = 'total')
 ```
 
+
+### Statistical model
+
+$$F_{i} \sim Normal(\mu_{i}, \sigma)$$
+$$\mu_{i} = \alpha + \beta_{A} A_{i}$$
+
+$$\alpha \sim Normal(0, 0.2)$$
+
+$$\beta_{A} \sim Normal(0, 0.5)$$
+
+$$\sigma \sim Exponnential(1)$$
+
+#### Prior predictive simulation
+
+```{r}
+n <- 100
+ggplot() + 
+	geom_abline(aes(intercept = rnorm(n, 0, 0.2),
+									slope = rnorm(n, 0, 0.5)),
+							alpha = 0.1, linewidth = 2) + 
+	labs(x = 'area (standardized)', 
+			 y = 'average food (standardized)',
+			 title = TeX(r"($\alpha \sim Normal(0, 0.2)$, $\beta_{F} \sim Normal(0, 0.5)$)")) + 
+	xlim(-2, 2) + 
+	ylim(-2, 2)
+```
