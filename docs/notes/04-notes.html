@@ -164,6 +164,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Lecture 04 Notes</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/05-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 05 Notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/06-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical Rethinking 2022 - Lecture 06</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -212,8 +224,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>
 <a href="#categories" id="toc-categories" class="nav-link active" data-scroll-target="#categories">Categories</a>
   <ul class="collapse">
-<li><a href="#example-weights-in-howell-data" id="toc-example-weights-in-howell-data" class="nav-link" data-scroll-target="#example-weights-in-howell-data">Example: weights in Howell data</a></li>
+<li>
+<a href="#example-weights-in-howell-data" id="toc-example-weights-in-howell-data" class="nav-link" data-scroll-target="#example-weights-in-howell-data">Example: weights in Howell data</a>
+  <ul class="collapse">
+<li><a href="#estimand" id="toc-estimand" class="nav-link" data-scroll-target="#estimand">1. Estimand</a></li>
+  <li><a href="#generative-model" id="toc-generative-model" class="nav-link" data-scroll-target="#generative-model">2. Generative model</a></li>
+  <li><a href="#statistical-model" id="toc-statistical-model" class="nav-link" data-scroll-target="#statistical-model">3. Statistical model</a></li>
+  <li><a href="#validate" id="toc-validate" class="nav-link" data-scroll-target="#validate">4. Validate</a></li>
   <li><a href="#analyze-the-data" id="toc-analyze-the-data" class="nav-link" data-scroll-target="#analyze-the-data">5. Analyze the data</a></li>
+  </ul>
+</li>
   </ul>
 </li>
   <li>
@@ -253,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
-</header><section id="categories" class="level2"><h2 class="anchored" data-anchor-id="categories">Categories</h2>
+</header><section id="categories" class="level1"><h1>Categories</h1>
 <p>Problem: discrete unordered types</p>
 <p>Solution: stratify by category and fit a separate line for each</p>
 <p>Two options for coding categorical variables:</p>
@@ -267,13 +287,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><span class="math inline">\(\mu_{i} = \alpha_{S[i]}\)</span></p>
 <p><span class="math inline">\(\alpha \sim Normal(60, 10)\)</span></p>
 <p><span class="math inline">\(\sigma \sim Uniform(0, 10)\)</span></p>
-<section id="example-weights-in-howell-data" class="level3"><h3 class="anchored" data-anchor-id="example-weights-in-howell-data">Example: weights in Howell data</h3>
-<section id="estimand" class="level4"><h4 class="anchored" data-anchor-id="estimand">1. Estimand</h4>
+<section id="example-weights-in-howell-data" class="level2"><h2 class="anchored" data-anchor-id="example-weights-in-howell-data">Example: weights in Howell data</h2>
+<section id="estimand" class="level3"><h3 class="anchored" data-anchor-id="estimand">1. Estimand</h3>
 <ul>
 <li>Causal effect of height on weight?</li>
 <li>Causal effect of sex on weight?</li>
 <li>Direct causal effect of sex on weight?</li>
-</ul></section><section id="generative-model" class="level4"><h4 class="anchored" data-anchor-id="generative-model">2. Generative model</h4>
+</ul></section><section id="generative-model" class="level3"><h3 class="anchored" data-anchor-id="generative-model">2. Generative model</h3>
 <p>Stratify by sex</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
@@ -296,7 +316,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><span class="math inline">\(H = f_{H} (S)\)</span></p>
 <p><span class="math inline">\(W = f_{W}(H, S)\)</span></p>
 <p>Note that unobserved confounds can be ignored unless they are shared by multiple variables.</p>
-</section><section id="statistical-model" class="level4"><h4 class="anchored" data-anchor-id="statistical-model">3. Statistical model</h4>
+</section><section id="statistical-model" class="level3"><h3 class="anchored" data-anchor-id="statistical-model">3. Statistical model</h3>
 <p>Causal effect of S on W</p>
 <p><span class="math inline">\(W_{i} \sim Normal(\mu_{i}, \sigma)\)</span></p>
 <p><span class="math inline">\(\mu_{i} = \alpha_{S[i]}\)</span></p>
@@ -309,23 +329,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><span class="math inline">\(\alpha \sim Normal(60, 10)\)</span></p>
 <p><span class="math inline">\(\beta \sim Normal(0, 1)\)</span></p>
 <p><span class="math inline">\(\sigma \sim Uniform(0, 10)\)</span></p>
-</section><section id="validate" class="level4"><h4 class="anchored" data-anchor-id="validate">4. Validate</h4>
+</section><section id="validate" class="level3"><h3 class="anchored" data-anchor-id="validate">4. Validate</h3>
 <p>Test with simulated individuals</p>
-</section></section><section id="analyze-the-data" class="level3"><h3 class="anchored" data-anchor-id="analyze-the-data">5. Analyze the data</h3>
+</section><section id="analyze-the-data" class="level3"><h3 class="anchored" data-anchor-id="analyze-the-data">5. Analyze the data</h3>
 <p>Analyze the real data with the statistical model defined in 3 (and validated in 4).</p>
 <p>Extract samples from the posterior and compute a contrast. Note, it is insufficient to compare the posterior mean parameter estimates or to plot the densities of parameter estimates. Take the entire sample of the posterior distribution and compute the contrast distribution. No comparing confidence intervals or p-values.</p>
 <p>Always summarize last. We want the mean different and not mean of differences.</p>
-</section></section><section id="curves" class="level2"><h2 class="anchored" data-anchor-id="curves">Curves</h2>
+</section></section></section><section id="curves" class="level1"><h1>Curves</h1>
 <p>H -&gt; W obviously not linear</p>
 <p>We can use linear models to curves, but note, like all linear models, this is not mechanistic.</p>
 <p>Solution: splines and generalized additive models</p>
 <p>We avoid polynomial linear models because there is forced symmetry and explosive uncertainty at the edges. There is no local smoothing, only global.</p>
-<section id="splines" class="level3"><h3 class="anchored" data-anchor-id="splines">Splines</h3>
+<section id="splines" class="level2"><h2 class="anchored" data-anchor-id="splines">Splines</h2>
 <p>Splines offer a locally inferred function, where many locally trained functions that are combined and smoothed into a continuous function. They are powerful geocentric devices.</p>
 <p>Basis splines are linear models with synthetic variables.</p>
 <p><span class="math inline">\(\mu_{i} = \alpha + w_{1} B_{i, 1} + w_{2} B_{i, 2} + w_{3} B_{i, 3} + ...\)</span></p>
 <p>Weights w are like slopes and basis functions B are synthetic variables. Spline is the sum of the weights at any point on the x-axis (eg. age).</p>
-</section><section id="example-heights-as-a-function-of-age" class="level3"><h3 class="anchored" data-anchor-id="example-heights-as-a-function-of-age">Example: heights as a function of age</h3>
+</section><section id="example-heights-as-a-function-of-age" class="level2"><h2 class="anchored" data-anchor-id="example-heights-as-a-function-of-age">Example: heights as a function of age</h2>
 <p>Height as a function of age</p>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
@@ -338,7 +358,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Strange to consider age as a cause because what is a definable intervention? Does age simply represent accumulated growth? In this case, those are not measured so we will consider it as a proxy for those variables.</p>
-</section></section><section id="full-luxury-bayes" class="level2"><h2 class="anchored" data-anchor-id="full-luxury-bayes">Full Luxury Bayes</h2>
+</section></section><section id="full-luxury-bayes" class="level1"><h1>Full Luxury Bayes</h1>
 <p>In the heights in Howell data example above, we used two models for two estimands: the total causal effect and the direct causal effect of sex on weight.</p>
 <p>An alternative and equivalent approach is to use one model of the entire causal system, then use the joint posterior to compute each estimand. Multiple models approach requires more models, Full Luxury Bayes approach requires more simulation.</p>
 <div class="quarto-figure quarto-figure-center">

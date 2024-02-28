@@ -164,6 +164,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Lecture 04 Notes</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/05-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 05 Notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/06-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical Rethinking 2022 - Lecture 06</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -219,7 +231,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <a href="#linear-regression" id="toc-linear-regression" class="nav-link" data-scroll-target="#linear-regression">Linear regression</a>
   <ul class="collapse">
 <li><a href="#workflow" id="toc-workflow" class="nav-link" data-scroll-target="#workflow">Workflow</a></li>
-  <li><a href="#example-howell-data" id="toc-example-howell-data" class="nav-link" data-scroll-target="#example-howell-data">Example: Howell data</a></li>
+  <li>
+<a href="#example-howell-data" id="toc-example-howell-data" class="nav-link" data-scroll-target="#example-howell-data">Example: Howell data</a>
+  <ul class="collapse">
+<li><a href="#estimand" id="toc-estimand" class="nav-link" data-scroll-target="#estimand">1. Estimand</a></li>
+  <li><a href="#scientific-model" id="toc-scientific-model" class="nav-link" data-scroll-target="#scientific-model">2. Scientific model</a></li>
+  <li><a href="#statistical-model" id="toc-statistical-model" class="nav-link" data-scroll-target="#statistical-model">3. Statistical model</a></li>
+  <li><a href="#validate-model" id="toc-validate-model" class="nav-link" data-scroll-target="#validate-model">4. Validate model</a></li>
+  <li><a href="#analyze-the-data" id="toc-analyze-the-data" class="nav-link" data-scroll-target="#analyze-the-data">5. Analyze the data</a></li>
+  </ul>
+</li>
   </ul>
 </li>
   </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/edit/main/notes/03-notes.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -251,25 +272,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
-</header><section id="geocentric-models" class="level2"><h2 class="anchored" data-anchor-id="geocentric-models">Geocentric models</h2>
+</header><section id="geocentric-models" class="level1"><h1>Geocentric models</h1>
 <p>Prediction without explanation. The geocentric model has epicycles and Earth is the center of the universe.</p>
-<p>Linear regressions are geocentric - they describe associations, make predictions bubt are mechanically wrong. Therefore, they are useful when handled with care.</p>
-<section id="normal-distribution" class="level3"><h3 class="anchored" data-anchor-id="normal-distribution">Normal distribution</h3>
+<p>Linear regressions are geocentric - they describe associations, make predictions but are mechanically wrong. Therefore, they are useful when handled with care.</p>
+<section id="normal-distribution" class="level2"><h2 class="anchored" data-anchor-id="normal-distribution">Normal distribution</h2>
 <p>Summed fluctuations tend towards the normal distribution</p>
 <p>For estimating only the mean and variance, the normal distribution is the least informative distribution (maxent).</p>
 <p>Note: variables do not have to be normally distributed for normal models to be useful.</p>
-</section></section><section id="linear-regression" class="level2"><h2 class="anchored" data-anchor-id="linear-regression">Linear regression</h2>
-<section id="workflow" class="level3"><h3 class="anchored" data-anchor-id="workflow">Workflow</h3>
+</section></section><section id="linear-regression" class="level1"><h1>Linear regression</h1>
+<section id="workflow" class="level2"><h2 class="anchored" data-anchor-id="workflow">Workflow</h2>
 <ol type="1">
 <li>Question/goal/estimand</li>
 <li>Scientific model</li>
 <li>Statistical model(s)</li>
 <li>Validate model</li>
 <li>Analyze data</li>
-</ol></section><section id="example-howell-data" class="level3"><h3 class="anchored" data-anchor-id="example-howell-data">Example: Howell data</h3>
-<section id="estimand" class="level4"><h4 class="anchored" data-anchor-id="estimand">1. Estimand</h4>
+</ol></section><section id="example-howell-data" class="level2"><h2 class="anchored" data-anchor-id="example-howell-data">Example: Howell data</h2>
+<section id="estimand" class="level3"><h3 class="anchored" data-anchor-id="estimand">1. Estimand</h3>
 <p>Describe the association between adult weight and height</p>
-</section><section id="scientific-model" class="level4"><h4 class="anchored" data-anchor-id="scientific-model">2. Scientific model</h4>
+</section><section id="scientific-model" class="level3"><h3 class="anchored" data-anchor-id="scientific-model">2. Scientific model</h3>
 <p>How does height influence weight?</p>
 <p>H -&gt; W &lt;- U</p>
 <div class="cell">
@@ -314,7 +335,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [36] 22.440434 22.827402 23.409742 23.944094 24.475349 24.961641</code></pre>
 </div>
 </div>
-</section><section id="statistical-model" class="level4"><h4 class="anchored" data-anchor-id="statistical-model">3. Statistical model</h4>
+</section><section id="statistical-model" class="level3"><h3 class="anchored" data-anchor-id="statistical-model">3. Statistical model</h3>
 <p><span class="math inline">\(E(W_{i} | H_{i}) = \alpha + \beta H_{i}\)</span></p>
 <ul>
 <li>
@@ -324,7 +345,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>
 <span class="math inline">\(\beta H_{i}\)</span>: slope</li>
 </ul>
-<section id="posterior-distribution" class="level5"><h5 class="anchored" data-anchor-id="posterior-distribution">Posterior distribution</h5>
+<section id="posterior-distribution" class="level4"><h4 class="anchored" data-anchor-id="posterior-distribution">Posterior distribution</h4>
 <p><span class="math inline">\(Pr(\alpha, \beta, \sigma | H_{i}, W_{i}) = \frac{Pr(W_{i} | H_{i}, \alpha, \beta, \sigma) Pr (\alpha, \beta, \sigma)}{Z}\)</span></p>
 <ul>
 <li>
@@ -338,7 +359,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Alpha, beta and sigma are unobserved variables, height and weight are observed.</p>
 <p>The posterior distribution is proportional to the product of the number of ways the observations could arise according to our assumptions multiplied by our prior.</p>
-</section><section id="prior-predictive-simulation" class="level5"><h5 class="anchored" data-anchor-id="prior-predictive-simulation">Prior predictive simulation</h5>
+</section><section id="prior-predictive-simulation" class="level4"><h4 class="anchored" data-anchor-id="prior-predictive-simulation">Prior predictive simulation</h4>
 <p>What do the observable variables look like with these priors?</p>
 <p><span class="math inline">\(W_{i} \sim Normal(\mu_{i}, \sigma)\)</span></p>
 <p><span class="math inline">\(\mu_{i} = \alpha + \beta H_{i}\)</span></p>
@@ -352,14 +373,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>justify with information outside the data, like the rest of the model</li>
 <li>priors become more important as models get more complex</li>
 <li>always simulate from the priors, better than trying to intuit what they mean from the definitions</li>
-</ul></section></section><section id="validate-model" class="level4"><h4 class="anchored" data-anchor-id="validate-model">4. Validate model</h4>
+</ul></section></section><section id="validate-model" class="level3"><h3 class="anchored" data-anchor-id="validate-model">4. Validate model</h3>
 <p>Test statistical model with simulated observations from scientific model. Stronger test: simulation-based calibration</p>
 <ul>
 <li>simulate individuals with known parameters from scientific model</li>
 <li>use model to determine if it can recover parameters</li>
 <li>use a large sample</li>
 <li>test with different values and sample sizes</li>
-</ul></section><section id="analyze-the-data" class="level4"><h4 class="anchored" data-anchor-id="analyze-the-data">5. Analyze the data</h4>
+</ul></section><section id="analyze-the-data" class="level3"><h3 class="anchored" data-anchor-id="analyze-the-data">5. Analyze the data</h3>
 <p>Once you’ve done steps 1-4, you are ready to analyze the real data.</p>
 <p>Parameters are not independent, do not interpret them separately.</p>
 <p>Use the posterior distribution to generate predictions on the outcome scale then describe and interpret those.</p>
