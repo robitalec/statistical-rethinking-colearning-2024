@@ -315,3 +315,122 @@ Stratifying by a consequence of the treatment induces post-treatment bias
 
 Can mislead that the treatment doesn't work
 
+
+## The collider
+
+```{r}
+#| echo: false
+coords <- data.frame(
+	name = c('X', 'Y', 'Z'),
+	x =    c(1,    3,   2),
+	y =    c(0,    0,   0)
+)
+```
+
+```{r}
+#| fig.height: 3
+#| fig.width: 4 
+dagify(
+	Z ~ X + Y,
+  coords = coords
+) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
+```
+
+Z is a "collider"
+
+- X and Y are not associated ($Y  \perp\!\!\!\perp X$)
+- Z is caused by both X and Z
+- Once stratified by Z, X and Y are associated ($Y \not\!\perp\!\!\!\perp X | Z$)
+
+
+```{r}
+n <- 1e3
+X <- rbern(n, 0.5)
+Y <- rbern(n, 0.5)
+Z <- rbern(n, ifelse(X + Y > 0, 0.9, 0.2))
+
+table(X, Y)
+cor(X, Y)
+
+table(X[Z == 0], Y[Z == 0])
+cor(X[Z == 0], Y[Z == 0])
+
+table(X[Z == 1], Y[Z == 1])
+cor(X[Z == 1], Y[Z == 1])
+```
+
+
+### Example: grant applications
+
+```{r}
+#| echo: false
+coords <- data.frame(
+	name = c('N', 'T', 'A'),
+	x =    c(1,    3,   2),
+	y =    c(0,    0,   0)
+)
+```
+
+```{r}
+#| fig.height: 3
+#| fig.width: 4 
+dagify(
+	A ~ N + T,
+  coords = coords
+) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
+```
+
+
+Each grant application scored on newsworthiness and trustworthiness.
+
+Grants are only awarded if sufficiently newsworthy or trustworthy. Few grants
+are high in both, therefore there is a negative association between
+newsworthiness and trustworthiness that arises from conditioning on 
+awards. This is a post-selection sample, where the sample (eg. awards or jobs)
+have already selected for features. 
+
+
+### Example: age and happiness
+
+There are post-treatment colliders like the example above and there are colliders
+that are a result from the statistical processing, within the analysis. 
+
+#### Estimand
+
+Does age influence happiness?
+
+
+#### Scientific model
+
+Possible confound is marital status
+
+
+```{r}
+#| echo: false
+coords <- data.frame(
+	name = c('H', 'A', 'M'),
+	x =    c(1,    3,   2),
+	y =    c(0,    0,   0)
+)
+```
+
+```{r}
+#| fig.height: 3
+#| fig.width: 4 
+dagify(
+	M ~ A + H,
+  coords = coords
+) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
+```
+
+
+#### Statistical model
+
+(In the textbook on pages 176-177)
+
+
+#### Analyse the data
+
+No association between age and happiness but when stratified by marital status, 
+there is a negative association between age and happiness. 
+
