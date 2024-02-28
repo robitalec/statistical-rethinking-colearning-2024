@@ -434,3 +434,59 @@ dagify(
 No association between age and happiness but when stratified by marital status, 
 there is a negative association between age and happiness. 
 
+
+## The descendant
+
+```{r}
+#| echo: false
+coords <- data.frame(
+	name = c('X', 'Y', 'Z', 'A'),
+	x =    c(1,    3,   2, 2),
+	y =    c(0,    0,   0, -1)
+)
+```
+
+```{r}
+#| fig.height: 3
+#| fig.width: 4 
+dagify(
+	Z ~ X + Y,
+	A ~ Z,
+  coords = coords
+) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
+```
+
+A is a descendant
+
+Including A is like including Z
+
+- X and Y are causally associated through Z ($Y  \not\!\perp\!\!\!\perp X$)
+- A holds information about Z
+- Once stratified by A, X and Y are less associated ($Y \perp\!\!\!\perp X | Z$)
+
+
+```{r}
+n <- 1e3
+
+X <- rbern(n, 0.5)
+Z <- rbern(n, (1-X) * 0.1 + X * 0.9)
+Y <- rbern(n, (1-Z) * 0.1 + Z * 0.9)
+A <- rbern(n, (1-Z) * 0.1 + Z * 0.9)
+
+table(X, Y)
+cor(X, Y)
+
+table(X[A == 0], Y[A == 0])
+cor(X[A == 0], Y[A == 0])
+
+table(X[A == 1], Y[A == 1])
+cor(X[A == 1], Y[A == 1])
+```
+
+
+In this case, the correlation is reduced by about half. 
+
+Descendants are everywhere, because many measurements we have are proxies
+for other things we would be ideally measuring directly. Eg. factor analysis, 
+measurement error, social networks. 
+
