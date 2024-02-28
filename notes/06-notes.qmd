@@ -310,3 +310,17 @@ is also a collider with the unobserved confound U. We cannot estimate the direct
 effect of of G on C but we can estimate the total effect of G on C.  
 
 
+# Good and Bad Controls
+
+"Control" variables are models added to an analysis so that a causal estimate
+is possible. 
+
+Wrong heuristics:
+
+- Don't include everything in the spreadsheet
+- Don't exclude variables simply because they are highly collinear. Collinearity
+can arise from many causal processes, we need to analyse a causal model to
+understand if collinearity is a problem. 
+- Don't include any variables simply because they are pre-treatment measurements
+
+Read more in Cinelli, Forney, Pearl 2021 A Crash Course in Good and Bad Controls. 
