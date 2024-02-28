@@ -145,17 +145,19 @@ q01_epred <- h03_q01_brms_sample |>
     epred_draws(q01_newdata)
 
 # Total causal influence of area on avg food
-g1 <- ggplot(q01_draws) + 
-    stat_halfeye(aes(b_scale_area)) + 
-    labs(x = 'Total causal influence of area on average food', y = '')
+g1 <- ggplot(q01_epred) +
+	stat_ribbon(aes(
+		reverse_scale(scale_area, attributes(DT$scale_area)),
+		reverse_scale(.epred, attributes(DT$scale_avgfood))
+	), alpha = 0.5) +
+	scale_fill_grey(start = 0.8, end = 0.2) +
+	labs(x = 'Area', y = 'Average food')
 
-g2 <- ggplot(q01_epred) + 
-    stat_ribbon(aes(
-    	reverse_scale(scale_area, attributes(DT$scale_area)),
-    	reverse_scale(.epred, attributes(DT$scale_avgfood))
-  	), alpha = 0.5) +
-    scale_fill_grey(start = 0.8, end = 0.2) + 
-    labs(x = 'Area', y = 'Average food')
+g2 <- ggplot(q01_draws) +
+	geom_vline(xintercept = 0, color = 'grey70') +
+	stat_halfeye(aes(b_scale_area)) +
+	labs(x = 'Total causal influence of area on average food', y = '') + 
+	xlim(-1.2, 1.2)
 
 g1 / g2
 ```
