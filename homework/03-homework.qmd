@@ -405,7 +405,6 @@ g1 <- ggplot(q03_epred) +
 			'at low, medium and high group size'
 		)
 	) +
-	# ylim(2, 6) +
 	facet_wrap( ~ group_size)
 
 g2 <- ggplot(q03_draws) +
@@ -419,4 +418,75 @@ g1 / g2
 
 
 Holding group size constant, we see a positive association between average 
-food and weight. 
+food and weight. We can expect that fox in larger groups have access to
+more available food, they also have to share with more conspecifics. 
+
+
+## Question 4
+
+> Suppose there is an unobserved confound that influences F and G, like [below].
+Assuming the DAG above is correct, again estimate both the total and direct
+causal effects of F on W. What impact does the unobserved confound have?
+
+
+### Estimand 
+
+What is the direct and total effect of F on W? What impact does the unobserved
+confound U have?
+
+
+### Scientific model
+
+```{r}
+#| echo: false
+coords <- data.frame(
+	name = c('F', 'G', 'A', 'W', 'U'),
+	x =    c(1,    2,   1, 1.5,   2),
+	y =    c(0,    0,   1, -1,    1)
+)
+```
+
+```{r}
+dag <- dagify(
+	G ~ F + U,
+	F ~ A + U,
+	W ~ F + G,
+  coords = coords,
+	exposure = 'F',
+	outcome = 'W',
+	latent = 'U'
+)
+ggdag_status(dag, seed = 2, layout = 'auto') + theme_dag()
+```
+
+
+#### Backdoor criterion
+
+1. Identify all paths connecting treatment to the outcome, regardless of the
+direction of arrows
+
+- `F -> W`
+- `F -> G -> W`
+- `F <- U -> G -> W`
+
+2. Identify paths with arrows entering the treatment (backdoor). These are 
+non-casual paths, because causal paths exit the treatment (frontdoor). 
+
+- ~~`F -> W`~~
+- ~~`F -> G -> W`~~
+- `F <- U -> G -> W`
+
+
+3. Find adjustment sets that close all backdoor/non-causal paths. 
+
+There is one backdoor path entering the treatment (F) through the 
+unobserved confound U. The total causal effect can be estimated as in 
+Q02, since the unobserved confound should not be added as a control. The
+direct causal path can also simply be estimated as in Q03.
+
+```{r}
+adjustmentSets(dag, effect = 'total')
+adjustmentSets(dag, effect = 'direct')
+```
+
+
