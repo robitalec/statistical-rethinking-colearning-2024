@@ -41,8 +41,7 @@ coords <- data.frame(
 ```
 
 ```{r}
-#| fig.height: 2
-#| fig.width: 4 
+#| fig-height: 2
 dagify(
 	X ~ Z,
 	Y ~ Z,
@@ -101,8 +100,7 @@ coords <- data.frame(
 ```
 
 ```{r}
-#| fig.height: 4
-#| fig.width: 4 
+#| fig-height: 3
 dagify(
 	M ~ A,
 	D ~ A + M,
@@ -195,8 +193,7 @@ what difference it makes.
 1. Compute the contrast
 
 ```{r}
-#| fig.height: 4
-#| fig.width: 5
+#| fig-height: 4
 g1 <- dagify(
 	M ~ A,
 	D ~ A + M,
@@ -231,8 +228,7 @@ coords <- data.frame(
 ```
 
 ```{r}
-#| fig.height: 3
-#| fig.width: 4 
+#| fig-height: 3
 dagify(
 	Z ~ X,
 	Y ~ Z,
@@ -289,8 +285,7 @@ coords <- data.frame(
 ```
 
 ```{r}
-#| fig.height: 4
-#| fig.width: 5
+#| fig-height: 4
 dagify(
 	H1 ~ H0 + F + T,
 	F ~ T,
@@ -328,8 +323,7 @@ coords <- data.frame(
 ```
 
 ```{r}
-#| fig.height: 3
-#| fig.width: 4 
+#| fig-height: 3
 dagify(
 	Z ~ X + Y,
   coords = coords
@@ -372,8 +366,7 @@ coords <- data.frame(
 ```
 
 ```{r}
-#| fig.height: 3
-#| fig.width: 4 
+#| fig-height: 3
 dagify(
 	A ~ N + T,
   coords = coords
@@ -415,8 +408,7 @@ coords <- data.frame(
 ```
 
 ```{r}
-#| fig.height: 3
-#| fig.width: 4 
+#| fig-height: 3
 dagify(
 	M ~ A + H,
   coords = coords
@@ -447,8 +439,7 @@ coords <- data.frame(
 ```
 
 ```{r}
-#| fig.height: 3
-#| fig.width: 4 
+#| fig-height: 3
 dagify(
 	Z ~ X + Y,
 	A ~ Z,
