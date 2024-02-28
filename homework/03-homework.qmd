@@ -109,3 +109,53 @@ ggplot() +
 	xlim(-2, 2) + 
 	ylim(-2, 2)
 ```
+
+
+### Analyze the data
+
+`?foxes` 
+
+- group : ID of group
+- avgfood : Average available food in group's territory
+- groupsize : Size of each group
+- area : Area of group territory
+- weight : Body weight of individual fox
+
+```{r}
+data_foxes
+```
+
+```{r}
+# Load data
+DT <- tar_read(scaled_foxes)
+
+# Print priors used
+tar_read(h03_q01_brms_prior)
+
+# Load model
+tar_load(h03_q01_brms_sample)
+h03_q01_brms_sample
+
+# Tidy draws
+q01_draws <- h03_q01_brms_sample |> 
+    tidy_draws()
+
+q01_newdata <- data_grid(DT, scale_area = seq_range(scale_area, 20))
+q01_epred <- h03_q01_brms_sample |> 
+    epred_draws(q01_newdata)
+
+# Total causal influence of area on avg food
+g1 <- ggplot(q01_draws) + 
+    stat_halfeye(aes(b_scale_area)) + 
+    labs(x = 'Total causal influence of area on average food', y = '')
+
+g2 <- ggplot(q01_epred) + 
+    stat_ribbon(aes(
+    	reverse_scale(scale_area, attributes(DT$scale_area)),
+    	reverse_scale(.epred, attributes(DT$scale_avgfood))
+  	), alpha = 0.5) +
+    scale_fill_grey(start = 0.8, end = 0.2) + 
+    labs(x = 'Area', y = 'Average food')
+
+g1 / g2
+```
