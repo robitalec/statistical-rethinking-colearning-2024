@@ -95,3 +95,15 @@ DAGs don't make assumptions about functional relationships, they are non-paramet
 
 DAGs allow us to justify if we need to make additional assumptions at all, 
 without needing additional assumptions about the functional relationships. 
+
+
+### Backdoor criterion
+
+The backdoor criterion is the rule to find the set of variables to stratify by
+to yield `P(Y | do(X))`
+
+1. Identify all paths connecting treatment to the outcome, regardless of the
+direction of arrows
+2. Identify paths with arrows entering the treatment (backdoor). These are non-casual paths, because causal paths exit the treatment
+(frontdoor). 
+3. Find adjustment sets that close all backdoor/non-causal paths.
