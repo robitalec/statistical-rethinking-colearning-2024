@@ -64,6 +64,19 @@ targets_h03 <- c(
 		scaled_foxes,
 		data_foxes(scale = TRUE)
 	),
+	zar_brms(
+		h03_q01,
+		formula = scale_avgfood ~ scale_area,
+		data = scaled_foxes,
+		prior = c(
+			prior(normal(0, 0.2), Intercept),
+			prior(normal(0, 0.5), b),
+			prior(exponential(1), sigma)
+		)
+	)
+)
+
+
 # Targets: all ------------------------------------------------------------
 # Automatically grab all the "targets_*" lists above
 lapply(grep('targets', ls(), value = TRUE), get)
