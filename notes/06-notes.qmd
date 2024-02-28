@@ -486,3 +486,37 @@ ggdag_status(dag, seed = 2, layout = 'auto') + theme_dag()
 There are no backdoors. There are no good reasons to condition on Z. Stratifying
 by Z explains away variation in X and reduces the precision of the estimate. 
 
+
+## Example: Bad Controls - Bias Amplification
+
+```{r}
+#| echo: false
+coords <- data.frame(
+	name = c('X', 'Y', 'Z', 'U'),
+	x =    c(1,    3,   1, 2),
+	y =    c(0,    0,   1, 1)
+)
+```
+
+```{r}
+#| fig-height: 4
+#| fig-width: 4
+dag <- dagify(
+	Y ~ X + U,
+	X ~ Z + U,
+  coords = coords,
+	exposure = 'X',
+	outcome = 'Y',
+	latent = 'U'
+)
+
+ggdag_status(dag, seed = 2, layout = 'auto') + theme_dag()
+```
+
+X and Y are confounded by U. The covariation in X and Y requires variation in
+their causes. Within each level of Z, there is less variation in X. The confound
+U is more important within each Z relative to the model where it is not
+included.
+
+For example, where Z is education, X is occupation, U is regional factors and
+Y is income. 
