@@ -165,6 +165,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../homework/03-homework.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 03</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../homework/stan.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Stan</span></a>
   </div>
@@ -248,6 +254,46 @@ targets_h02 &lt;- c(
         )
     )
 
+)
+
+
+
+# Homework 03 -------------------------------------------------------------
+targets_h03 &lt;- c(
+    tar_target(
+        scaled_foxes,
+        data_foxes(scale = TRUE)
+    ),
+    zar_brms(
+        h03_q01,
+        formula = scale_avgfood ~ scale_area,
+        data = scaled_foxes,
+        prior = c(
+            prior(normal(0, 0.2), Intercept),
+            prior(normal(0, 0.5), b),
+            prior(exponential(1), sigma)
+        )
+    ),
+    zar_brms(
+        h03_q02,
+        formula = scale_weight ~ scale_avgfood,
+        data = scaled_foxes,
+        prior = c(
+            prior(normal(0, 0.2), Intercept),
+            prior(normal(0, 0.5), b),
+            prior(exponential(1), sigma)
+        )
+    ),
+    zar_brms(
+        h03_q03,
+        formula = scale_weight ~ scale_avgfood + scale_groupsize,
+        data = scaled_foxes,
+        prior = c(
+            prior(normal(0, 0.2), Intercept),
+            prior(normal(0, 0.5), b),
+            prior(exponential(1), sigma)
+        )
+    )
 )
 
 
