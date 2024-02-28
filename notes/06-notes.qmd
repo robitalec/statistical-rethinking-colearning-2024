@@ -3,3 +3,24 @@ title: "Lecture 06 Notes"
 author: "Alec L. Robitaille"
 date: "2024-02-22"
 ---
+
+```{r}
+#| include: false
+source('R/packages.R')
+```
+
+# Causal Thinking
+
+In an experiment, we remove the causes of the treatment by randomizing it
+
+We need a statistical procedure that mimics randomization, that allows us to
+transform our sample into results that were as if we could have done that
+experiment
+
+We communicate assumptions clearly using DAGs, and use logic to derive the
+implications of the causal model
+
+Recall from L05, three common confounds and their implications for the 
+relationships between X, Y, and Z: 
+
+![](../graphics/stat_rethinking_l05_four_elemental_xyz.png)
