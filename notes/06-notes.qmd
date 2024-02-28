@@ -275,3 +275,38 @@ adjustmentSets(dag)
 
 
 #### Example: grandparents
+
+##### Estimand
+
+What is the direct causal effect of grandparent education on child education?
+
+
+##### Scientific model
+
+```{r}
+#| echo: false
+coords <- data.frame(
+	name = c('G', 'P', 'U', 'C'),
+	x =    c(1,    2,   3,   2),
+	y =    c(1,    1,   0.5, 0)
+)
+```
+
+```{r}
+dag <- dagify(
+	P ~ G + U,
+	C ~ G + U + P,
+  coords = coords,
+	exposure = 'G',
+	outcome = 'C',
+	latent = 'U'
+)
+
+ggdag_status(dag, seed = 2, layout = 'auto') + theme_dag()
+```
+
+Parent education is a mediator (G -> P -> C is a pipe). Parent education
+is also a collider with the unobserved confound U. We cannot estimate the direct
+effect of of G on C but we can estimate the total effect of G on C.  
+
+
