@@ -255,9 +255,6 @@ ggplot() +
 ### Analyze the data
 
 ```{r}
-# Load data
-DT <- tar_read(scaled_foxes)
-
 # Print priors used
 tar_read(h03_q02_brms_prior)
 
@@ -274,18 +271,20 @@ q02_epred <- h03_q02_brms_sample |>
     epred_draws(q02_newdata)
 
 # Total causal influence of area on avg food
-g1 <- ggplot(q02_draws) + 
-    stat_halfeye(aes(b_scale_avgfood)) + 
-    labs(x = 'Total causal influence of average food on weight', y = '')
-
-g2 <- ggplot(q02_epred) + 
-    stat_ribbon(aes(
-    	reverse_scale(scale_avgfood, attributes(DT$scale_avgfood)),
-    	reverse_scale(.epred, attributes(DT$scale_weight))
-  	), alpha = 0.5) +
-    scale_fill_grey(start = 0.8, end = 0.2) + 
-    labs(x = 'Average food', y = 'Weight') + 
+g1 <- ggplot(q02_epred) +
+	stat_ribbon(aes(
+		reverse_scale(scale_avgfood, attributes(DT$scale_avgfood)),
+		reverse_scale(.epred, attributes(DT$scale_weight))
+	), alpha = 0.5) +
+	scale_fill_grey(start = 0.8, end = 0.2) +
+	labs(x = 'Average food', y = 'Weight') +
 	ylim(2, 6)
+
+g2 <- ggplot(q02_draws) +
+	geom_vline(xintercept = 0, color = 'grey70') +
+	stat_halfeye(aes(b_scale_avgfood)) +
+	labs(x = 'Total causal influence of average food on weight', y = '') + 
+	xlim(-1.2, 1.2)
 
 g1 / g2
 ```
