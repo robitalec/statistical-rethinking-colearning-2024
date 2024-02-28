@@ -1,0 +1,13 @@
+---
+title: "Lecture 05 Notes"
+author: "Alec L. Robitaille"
+date: "2024-02-22"
+---
+
+```{r}
+#| include: false
+source('R/packages.R')
+```
+
+
+# The four elemental confounds
