@@ -26,3 +26,191 @@ us. Sources of confounds are diverse but there are four elemental
 confounds. 
 
 Causes are not in the data.
+
+## The fork
+
+```{r}
+coords <- data.frame(
+	name = c('X', 'Y', 'Z'),
+	x =    c(1,    3,   2),
+	y =    c(0,    0,   0)
+)
+```
+
+```{r}
+#| fig.height: 2
+#| fig.width: 4 
+dagify(
+	X ~ Z,
+	Y ~ Z,
+  coords = coords
+) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
+```
+
+
+- X and Y are associated ($Y \not\!\perp\!\!\!\perp X$)
+- X and Y share common cause Z
+- Once stratified by Z, there will be no association ($Y \perp\!\!\!\perp X | Z$)
+
+
+
+$\not\!\perp\!\!\!\perp$: not independent of
+
+$\perp\!\!\!\perp$: independent of
+
+$|$: conditional of
+
+
+
+```{r}
+n <- 1e3
+Z <- rbern(n, 0.5)
+X <- rbern(n, (1-Z) * 0.1 + Z * 0.9)
+Y <- rbern(n, (1-Z) * 0.1 + Z * 0.9)
+
+table(X, Y)
+cor(X, Y)
+```
+
+
+### Example: marriage and divorce
+
+
+#### Estimand
+
+Why do regions of the USA with higher rates of marriage also have higher
+rates of divorce?
+
+
+#### Scientific model
+
+Age at marriage is also associated with divorce and marriage rates. 
+Is the relationship between marriage rate and divorce rate solely
+a result of the fork, their shared relationship with age at marriage? 
+
+```{r}
+coords <- data.frame(
+	name = c('M', 'D', 'A'),
+	x =    c(1,    3,   2),
+	y =    c(0,    0,   -1)
+)
+```
+
+```{r}
+#| fig.height: 3
+#| fig.width: 4 
+dagify(
+	M ~ A,
+	D ~ A + M,
+  coords = coords
+) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
+```
+
+
+To estimate the causal effect of marriage rate, we need to stratify
+by age at marriage. Within each level of age at marriage, the 
+part of the association between marriage rate and divorce rate that
+is caused by age at marriage is removed. 
+
+Stratifying by a continuous variable: every value of A produces 
+a different relationship between D and M. We have a different expected
+relationship. 
+
+
+#### Statistical model
+
+If we standardize (or rescale) the data, priors are easier to set for linear
+models. Standardize = subtract the mean (mean of 0) and divide by the standard
+deviation (sd of 1). "Since the outcome and the predictor are both standardized,
+the intercept should be very close to zero. The slope beta indicates that a
+change in one standard deviation in the predictor corresponds to a change in one
+standard deviation in the outcome" (Page 126).
+
+
+##### Prior predictive simulation  
+
+$D_{i} \sim Normal(\mu_{i}, \sigma)$
+
+$\mu_{i} = \alpha + \beta_{M} M_{i} + \beta_{A} A_{i}$
+
+$\alpha \sim Normal(0, 0.2)$
+
+$\beta_{M} \sim Normal(0, 0.5)$
+
+$\beta_{A} \sim Normal(0, 0.5)$
+
+$\sigma \sim Exponnential(1)$
+
+
+```{r}
+n <- 100
+ggplot() + 
+	geom_abline(aes(intercept = rnorm(n, 0, 10), 
+									slope = rnorm(n, 0, 10)),
+							alpha = 0.1, linewidth = 2) + 
+	labs(x = 'median age at marriage (standardized)', 
+			 y = 'divorce rate (standardized)',
+			 title = TeX(r"($\alpha \sim Normal(0, 10)$, $\beta \sim Normal(0, 10)$)")) + 
+	xlim(-2, 2) + 
+	ylim(-2, 2)
+
+ggplot() + 
+	geom_abline(aes(intercept = rnorm(n, 0, 0.2), 
+									slope = rnorm(n, 0, 0.5)),
+							alpha = 0.1, linewidth = 2) + 
+	labs(x = 'median age at marriage (standardized)', 
+			 y = 'divorce rate (standardized)',
+			 title = TeX(r"($\alpha \sim Normal(0, 0.2)$, $\beta \sim Normal(0, 0.5)$)")) + 
+	xlim(-2, 2) + 
+	ylim(-2, 2)
+```
+
+#### Analyze the data
+
+The causal effect is not a function of one parameter, so
+reporting simply the mean estimated parameter is often 
+insufficient -  especially when considering non-linear models 
+or more complicated models. 
+
+Instead, simulate interventions. 
+
+$p(D|do(M))$
+
+The distribution of D when we intervene (do) on M. This is 
+different than 
+
+When we do(M), we remove all arrows into M. Using a common
+set of values for A, we set different values for M and see
+what difference it makes. 
+
+1. Generate common set of values for A 
+1. Set first value for M
+1. Simulate for first value of M and common set of values for A
+1. Set second value for M
+1. Simulate for second value of M and common set of values for A
+1. Compute the contrast
+
+```{r}
+#| fig.height: 3
+#| fig.width: 5
+g1 <- dagify(
+	M ~ A,
+	D ~ A + M,
+	coords = coords
+) |> ggdag(seed = 2) + theme_dag() + labs(title = 'no intervention') 
+
+g2 <- dagify(
+	D ~ A + M,
+	coords = coords
+) |>  ggdag(seed = 2) + theme_dag() + labs(title = 'do(M)') 
+
+g1 + g2
+```
+
+
+What about $p(D|do(A))$?
+
+Total causal effect of A on D requires a new model, since
+M is a pipe between A and D. 
+
+
