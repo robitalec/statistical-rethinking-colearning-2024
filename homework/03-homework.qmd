@@ -37,3 +37,49 @@ food inside it?
 What is the total causal influence of A on F? What effect would increasing the
 area of a territory have on the amount of food inside it?
 
+
+### Scientific model
+
+```{r}
+#| echo: false
+coords <- data.frame(
+	name = c('F', 'G', 'A', 'W'),
+	x =    c(1,    2,   1.5, 1.5),
+	y =    c(0,    0,   1, -1)
+)
+```
+
+```{r}
+dag <- dagify(
+	G ~ F,
+	F ~ A,
+	W ~ F + G,
+  coords = coords,
+	exposure = 'A',
+	outcome = 'F'
+)
+ggdag(dag, seed = 2, layout = 'auto') + theme_dag()
+```
+
+
+#### Backdoor criterion
+
+1. Identify all paths connecting treatment to the outcome, regardless of the
+direction of arrows
+
+- `A -> F`
+
+2. Identify paths with arrows entering the treatment (backdoor). These are 
+non-casual paths, because causal paths exit the treatment (frontdoor). 
+
+- ~~`A -> F`~~
+
+
+3. Find adjustment sets that close all backdoor/non-causal paths. 
+
+There are no backdoor paths entering the treatment (A). The adjustment set is empty. 
+
+```{r}
+adjustmentSets(dag, effect = 'total')
+```
+
