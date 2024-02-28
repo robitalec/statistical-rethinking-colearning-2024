@@ -288,3 +288,135 @@ g2 <- ggplot(q02_draws) +
 
 g1 / g2
 ```
+
+
+
+## Question 3
+
+> Infer the direct causal effect of adding food F to a territory on the weight W
+of foxes. In light of your estimates from this problem and the previous one,
+what do you think is going on with these foxes?
+
+
+### Estimand 
+
+What is the direct causal influence of average food on weight? 
+
+
+### Scientific model
+
+```{r}
+#| echo: false
+coords <- data.frame(
+	name = c('F', 'G', 'A', 'W'),
+	x =    c(1,    2,   1.5, 1.5),
+	y =    c(0,    0,   1, -1)
+)
+```
+
+```{r}
+dag <- dagify(
+	G ~ F,
+	F ~ A,
+	W ~ F + G,
+  coords = coords,
+	exposure = 'F',
+	outcome = 'W'
+)
+ggdag_status(dag, seed = 2, layout = 'auto') + theme_dag()
+```
+
+
+#### Backdoor criterion
+
+1. Identify all paths connecting treatment to the outcome, regardless of the
+direction of arrows
+
+- `F -> W`
+- `F -> G -> W`
+
+2. Identify paths with arrows entering the treatment (backdoor). These are 
+non-casual paths, because causal paths exit the treatment (frontdoor). 
+
+- ~~`F -> W`~~
+- ~~`F -> G -> W`~~
+
+
+3. Find adjustment sets that close all backdoor/non-causal paths. 
+
+There are no backdoor paths entering the treatment (F). However, unlike in Q02, 
+we are interested in the direct effect. Therefore, the adjustment set includes
+group size. 
+
+```{r}
+adjustmentSets(dag, effect = 'direct')
+```
+
+
+### Statistical model
+
+$$W_{i} \sim Normal(\mu_{i}, \sigma)$$
+$$\mu_{i} = \alpha + \beta_{F} F_{i} + \beta_{G} G_{i}$$
+
+$$\alpha \sim Normal(0, 0.2)$$
+
+$$\beta_{G} \sim Normal(0, 0.5)$$
+
+$$\beta_{F} \sim Normal(0, 0.5)$$
+
+$$\sigma \sim Exponnential(1)$$
+
+### Analyze the data
+
+```{r}
+# Print priors used
+tar_read(h03_q03_brms_prior)
+
+# Load model
+tar_load(h03_q03_brms_sample)
+h03_q03_brms_sample
+
+# Tidy draws
+q03_draws <- h03_q03_brms_sample |> 
+    tidy_draws()
+
+# New data, with three levels of group size (L, M, H)
+q03_newdata <- data_grid(DT, scale_avgfood = seq_range(scale_avgfood, 20),
+												 scale_groupsize = seq_range(scale_groupsize, 3))
+q03_newdata$group_size <- as.factor(q03_newdata$scale_groupsize)
+levels(q03_newdata$group_size) <- c('L', 'M', 'H')
+
+q03_epred <- h03_q03_brms_sample |> 
+    epred_draws(q03_newdata)
+
+# Direct causal influence of area on avg food
+g1 <- ggplot(q03_epred) +
+	stat_ribbon(aes(
+		reverse_scale(scale_avgfood, attributes(DT$scale_avgfood)),
+		reverse_scale(.epred, attributes(DT$scale_weight))
+	), alpha = 0.5) +
+	scale_fill_grey(start = 0.8, end = 0.2) +
+	labs(
+		x = 'Average food',
+		y = 'Weight',
+		title = paste(
+			'Direct causal influence of average food on weight,',
+			'\n',
+			'at low, medium and high group size'
+		)
+	) +
+	# ylim(2, 6) +
+	facet_wrap( ~ group_size)
+
+g2 <- ggplot(q03_draws) +
+	geom_vline(xintercept = 0, color = 'grey70') +
+	stat_halfeye(aes(b_scale_avgfood)) +
+	labs(x = TeX(r"($\beta_{F}$)"), y = '') + 
+	xlim(-1.2, 1.2)
+
+g1 / g2
+```
+
+
+Holding group size constant, we see a positive association between average 
+food and weight. 
