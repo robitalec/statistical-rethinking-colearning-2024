@@ -107,3 +107,115 @@ direction of arrows
 2. Identify paths with arrows entering the treatment (backdoor). These are non-casual paths, because causal paths exit the treatment
 (frontdoor). 
 3. Find adjustment sets that close all backdoor/non-causal paths.
+
+
+#### Example: XYZU
+
+```{r}
+#| echo: false
+coords <- data.frame(
+	name = c('X', 'Y', 'U', 'Z'),
+	x =    c(1,    3,   2, 1.5),
+	y =    c(0,    0,   1, 0.5)
+)
+```
+
+```{r}
+dag <- dagify(
+	X ~ Z,
+	Y ~ U + X,
+	Z ~ U,
+  coords = coords,
+	exposure = 'X',
+	outcome = 'Y',
+	latent = 'U'
+)
+ggdag_status(dag, seed = 2, layout = 'auto') + theme_dag()
+```
+
+1. Identify all paths connecting treatment to the outcome, regardless of the
+direction of arrows
+
+- `X -> Y`
+- `X <- Z <- U -> Y`
+
+2. Identify paths with arrows entering the treatment (backdoor). These are non-casual paths, because causal paths exit the treatment
+(frontdoor). 
+
+- ~~`X -> Y`~~
+- `X <- Z <- U -> Y`
+
+
+
+3. Find adjustment sets that close all backdoor/non-causal paths.
+
+```{r}
+adjustmentSets(dag)
+```
+
+Block the pipe: $X \perp\!\!\!\perp U | Z$
+
+Z "knows" all of the association between X and Y that is due to U. 
+
+
+##### Expressions
+
+$$P(Y|do(X)) = \sum_{U}P(Y|X, Z)P(Z = z)$$
+
+$$Y_{i} \sim Normal(\mu_{i}, \sigma)$$
+
+$$\mu_{i} = \alpha + \beta_{X} X_{i} + \beta_{Z} Z_{i}$$
+
+##### Simulations 
+
+```{r}
+# simulate confounded Y
+N <- 200
+b_XY <- 0
+b_UY <- -1
+b_UZ <- -1
+b_ZX <- 1
+set.seed(10)
+U <- rbern(N)
+Z <- rnorm(N, b_UZ * U)
+X <- rnorm(N, b_ZX * Z)
+Y <- rnorm(N, b_XY * X + b_UY * U)
+d <- list(Y = Y, X = X, Z = Z)
+
+
+# ignore U,Z
+m_YX <- quap(alist(
+	Y ~ dnorm(mu , sigma),
+	mu <- a + b_XY * X,
+	a ~ dnorm(0 , 1),
+	b_XY ~ dnorm(0 , 1),
+	sigma ~ dexp(1)
+),
+data = d)
+
+# stratify by Z
+m_YXZ <- quap(alist(
+	Y ~ dnorm(mu , sigma),
+	mu <- a + b_XY * X + b_Z * Z,
+	a ~ dnorm(0 , 1),
+	c(b_XY, b_Z) ~ dnorm(0 , 1),
+	sigma ~ dexp(1)
+),
+data = d)
+
+post <- extract.samples(m_YX)
+post2 <- extract.samples(m_YXZ)
+dens(post$b_XY, lwd = 3, col = 1, xlab = "posterior b_XY", xlim = c(-0.3, 0.3))
+dens(post2$b_XY, lwd = 3, col = 2, add = TRUE)
+```
+
+Note: the coefficient b_Z is meaningless and does not represent the causal 
+effect of Z on Y. This model is not structured to estimate this effect 
+and it would require a different adjustment set. Any coefficients for
+a variable that you add as part of the adjustment set are not usually 
+interpretable. 
+
+```{r}
+precis(m_YXZ)
+```
+
