@@ -456,3 +456,33 @@ variation in the outcome that the exposure can explain. Eg. if X is education,
 Y is occupation and Z is income: we would reduce the influence of education
 because we are looking at a more limited number of occupations within 
 each level of income. 
+
+
+## Example: Bad Controls - Precision Parasite
+
+```{r}
+#| echo: false
+coords <- data.frame(
+	name = c('X', 'Y', 'Z'),
+	x =    c(1,    3,   1),
+	y =    c(0,    0,   1)
+)
+```
+
+```{r}
+#| fig-height: 4
+#| fig-width: 4
+dag <- dagify(
+	Y ~ X,
+	X ~ Z,
+  coords = coords,
+	exposure = 'X',
+	outcome = 'Y'
+)
+
+ggdag_status(dag, seed = 2, layout = 'auto') + theme_dag()
+```
+
+There are no backdoors. There are no good reasons to condition on Z. Stratifying
+by Z explains away variation in X and reduces the precision of the estimate. 
+
