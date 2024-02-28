@@ -373,3 +373,54 @@ adjustmentSets(dag)
 The backdoor path is closed because Z is a collider which block the association. 
 Z is a bad control. 
 
+
+## Example: Bad Controls - No Backdoor
+
+```{r}
+#| echo: false
+coords <- data.frame(
+	name = c('X', 'Y', 'Z', 'U'),
+	x =    c(1,    3,   2,   2.5),
+	y =    c(0,    0,   0,   1)
+)
+```
+
+```{r}
+#| fig-height: 4
+#| fig-width: 4
+dag <- dagify(
+	Z ~ X + U,
+	Y ~ Z + U,
+  coords = coords,
+	exposure = 'X',
+	outcome = 'Y',
+	latent = 'U'
+)
+
+ggdag_status(dag, seed = 2, layout = 'auto') + theme_dag()
+```
+
+
+1. Identify all paths connecting treatment to the outcome, regardless of the
+direction of arrows
+
+- `X -> Y`
+- `X -> Z <- u -> Y`
+
+
+2. Identify paths with arrows entering the treatment (backdoor). These are non-casual paths, because causal paths exit the treatment (frontdoor). 
+
+- ~~`X -> Y`~~
+- ~~`X -> Z <- u -> Y`~~
+
+
+3. Find adjustment sets that close all backdoor/non-causal paths.
+
+```{r}
+adjustmentSets(dag)
+```
+
+There are no backdoor paths and there is no need to control for Z. Controlling
+for Z biases the treatment estimate. Controlling for Z also opens a biasing 
+path through U. We can estimate the effect of X but we cannot estimate the 
+mediation effect of Z. Z is a posttreatment variable. 
