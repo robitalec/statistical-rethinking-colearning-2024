@@ -11,7 +11,7 @@ source('R/packages.R')
 
 
 
-## Categories
+# Categories
 
 Problem: discrete unordered types
 
@@ -40,17 +40,17 @@ $\alpha \sim Normal(60, 10)$
 $\sigma \sim Uniform(0, 10)$
 
 
-### Example: weights in Howell data
+## Example: weights in Howell data
 
 
-#### 1. Estimand
+### 1. Estimand
 
 - Causal effect of height on weight?
 - Causal effect of sex on weight?
 - Direct causal effect of sex on weight?
 
 
-#### 2. Generative model
+### 2. Generative model
 
 Stratify by sex
 
@@ -85,7 +85,7 @@ Note that unobserved confounds can be ignored unless they are shared by
 multiple variables. 
 
 
-#### 3. Statistical model
+### 3. Statistical model
 
 Causal effect of S on W
 
@@ -116,7 +116,7 @@ $\sigma \sim Uniform(0, 10)$
 
 
 
-#### 4. Validate
+### 4. Validate
 
 
 Test with simulated individuals
@@ -136,7 +136,7 @@ confidence intervals or p-values.
 Always summarize last. We want the mean different and not mean of differences. 
 
 
-## Curves
+# Curves
 
 H -> W obviously not linear
 
@@ -150,7 +150,7 @@ We avoid polynomial linear models because there is forced symmetry  and
 explosive uncertainty at the edges. There is no local smoothing, only global. 
 
 
-### Splines
+## Splines
 
 Splines offer a locally inferred function, where many locally trained 
 functions that are combined and smoothed into a continuous function.
@@ -167,7 +167,7 @@ Spline is the sum of the weights at any point on the x-axis (eg. age).
 
 
 
-### Example: heights as a function of age
+## Example: heights as a function of age
 
 
 Height as a function of age
@@ -188,7 +188,7 @@ measured so we will consider it as a proxy for those variables.
 
 
 
-## Full Luxury Bayes
+# Full Luxury Bayes
 
 In the heights in Howell data example above, we used two models for two
 estimands: the total causal effect and the direct causal effect of sex on

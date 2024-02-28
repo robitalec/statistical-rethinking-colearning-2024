@@ -5,7 +5,7 @@ date: "2024-01-25"
 ---
 
 
-## Directed acyclic graphs
+# Directed acyclic graphs
 
 Statistical models process data but to provide scientific insight, we need
 scientific/causal models. Causes of data cannot be extracted from the data
@@ -62,7 +62,7 @@ DAGs are transparent scientific assumptions to
 - expose scientific assumptions to useful critique
 - connect theories to statistical models
 
-## Golems
+# Golems
 
 Statistical models are powerful but dangerous and have no wisdom or foresight. 
 Flowcharts of tests that are isolated for specific uses are not intuitive or 
@@ -76,7 +76,7 @@ What are other process models that are consistent with this same fact?
 :::
 
 
-## Owls
+# Owls
 
 Emphasis on documenting and testing code, using a *respectable* workflow
 

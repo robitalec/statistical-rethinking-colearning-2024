@@ -4,7 +4,7 @@ author: "Alec L. Robitaille"
 date: "2024-01-25"
 ---
 
-## Bayesian data analysis
+# Bayesian data analysis
 
 Bayesian data analysis is Bayesian inference applied to scientific data
 analysis. For each possible explanation of the sample, count all the ways the
@@ -22,7 +22,7 @@ limitations of measurement devices, sampling extent, etc.).
 
 
 
-## Workflow
+# Workflow
 
 1. Define generative model of the sample
 1. Define a specific estimand
@@ -31,7 +31,7 @@ limitations of measurement devices, sampling extent, etc.).
 1. Analyse the sample, summarize
 
 
-## Globe tossing model
+# Globe tossing model
 
 Estimand: proportion of globe covered in water
 
@@ -95,7 +95,7 @@ Given the table and our scientific understanding, the function is:
 $W, L = (4p) ^ {W} *  (4-4p) ^ {L}$
 
 
-## Generative simulation
+# Generative simulation
 
 Simulate a data set with known parameters, then test if your statistical 
 estimator returns these known parameters. 
@@ -104,7 +104,7 @@ Repeat with different sampling designs, with extreme simulations (eg. all W or
 all L).
 
 
-## Bayesian inference
+# Bayesian inference
 
 - There is no minimum sample size
 - The sample size is embodies in the shape of the posterior distribution
@@ -114,7 +114,7 @@ all L).
 Intervals are summary tools that communicate the shape of the posterior. 
 
 
-## Posterior predictive simulations
+# Posterior predictive simulations
 
 Posterior prediction is a prediction based on the posterior estimate. Given 
 the knowledge so far (the posterior distribution) what would we predict about
@@ -143,7 +143,7 @@ Applications of sampling:
 - prior predictions
 
 
-## Misclassification 
+# Misclassification 
 
 Consider the true number of water samples is unobserved, eg. due to measurement
 error. W* (W_star) is misclassified sample, influenced by the measurement 
