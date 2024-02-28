@@ -57,6 +57,13 @@ targets_h02 <- c(
 )
 
 
+
+# Homework 03 -------------------------------------------------------------
+targets_h03 <- c(
+	tar_target(
+		scaled_foxes,
+		data_foxes(scale = TRUE)
+	),
 # Targets: all ------------------------------------------------------------
 # Automatically grab all the "targets_*" lists above
 lapply(grep('targets', ls(), value = TRUE), get)
