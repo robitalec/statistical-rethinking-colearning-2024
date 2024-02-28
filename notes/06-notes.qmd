@@ -81,3 +81,17 @@ dagify(
 When cheetahs are present, baboons hang out near trees and do not predate on
 gazelles. When cheetahs are absent, baboons predate on gazelles. The causal
 effect of baboons depends on the distribution of cheetahs.
+
+
+## do-calculus
+
+do-calculus are the rules for finding $P(Y | do(X))$, that justify graphical
+analysis of DAGs and say what is possible.
+
+$P(Y | do(X))$: the distribution of Y, stratified by X and U, averaged over the
+distribution of U
+
+DAGs don't make assumptions about functional relationships, they are non-parametric
+
+DAGs allow us to justify if we need to make additional assumptions at all, 
+without needing additional assumptions about the functional relationships. 
