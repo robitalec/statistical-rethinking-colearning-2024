@@ -63,8 +63,7 @@ coords <- data.frame(
 ```
 
 ```{r}
-#| fig.height: 4
-#| fig.width: 4 
+#| fig-height: 4
 dagify(
 	W ~ H + S,
 	H ~ S,
@@ -173,8 +172,7 @@ Spline is the sum of the weights at any point on the x-axis (eg. age).
 Height as a function of age
 
 ```{r}
-#| fig.height: 4
-#| fig.width: 4 
+#| fig-height: 4
 dagify(
 	W ~ H + S + A, 
 	H ~ S + A,

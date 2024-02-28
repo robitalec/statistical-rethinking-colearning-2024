@@ -62,8 +62,7 @@ coords <- data.frame(
 ```
 
 ```{r}
-#| fig.height: 4
-#| fig.width: 4 
+#| fig-height: 4
 dagify(
 	W ~ H + U,
   coords = coords

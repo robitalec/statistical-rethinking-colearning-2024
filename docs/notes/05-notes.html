@@ -173,7 +173,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notes/06-notes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Statistical Rethinking 2022 - Lecture 06</span></a>
+ <span class="menu-text">Lecture 06 Notes</span></a>
   </div>
 </li>
       </ul>
@@ -294,7 +294,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  coords <span class="op">=</span> <span class="va">coords</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="05-notes_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="384"></p>
+<p><img src="05-notes_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <ul>
@@ -335,7 +335,7 @@ X     0   1
 <span>  coords <span class="op">=</span> <span class="va">coords</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="05-notes_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="384"></p>
+<p><img src="05-notes_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>To estimate the causal effect of marriage rate, we need to stratify by age at marriage. Within each level of age at marriage, the part of the association between marriage rate and divorce rate that is caused by age at marriage is removed.</p>
@@ -351,17 +351,14 @@ X     0   1
 <p><span class="math inline">\(\sigma \sim Exponnential(1)\)</span></p>
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">geom_abline</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>intercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span>,</span>
 <span>                                    slope <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                            alpha <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span>                            linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">labs</span><span class="op">(</span></span>
-<span>        x <span class="op">=</span> <span class="st">'median age at marriage (standardized)'</span>,</span>
-<span>        y <span class="op">=</span> <span class="st">'divorce rate (standardized)'</span>,</span>
-<span>        title <span class="op">=</span> <span class="fu">TeX</span><span class="op">(</span><span class="st">r"($\alpha \sim Normal(0, 10)$, $\beta \sim Normal(0, 10)$)"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">xlim</span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>                            alpha <span class="op">=</span> <span class="fl">0.1</span>, linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">'median age at marriage (standardized)'</span>, </span>
+<span>             y <span class="op">=</span> <span class="st">'divorce rate (standardized)'</span>,</span>
+<span>             title <span class="op">=</span> <span class="fu">TeX</span><span class="op">(</span><span class="st">r"($\alpha \sim Normal(0, 10)$, $\beta \sim Normal(0, 10)$)"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu">xlim</span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">ylim</span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="05-notes_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
@@ -407,27 +404,20 @@ X     0   1
 <span></span>
 <span><span class="va">g1</span> <span class="op">+</span> <span class="va">g2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="05-notes_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="480"></p>
+<p><img src="05-notes_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>What about the causal effect of A, <span class="math inline">\(p(D|do(A))\)</span>?</p>
 <p>The total causal effect of A on D requires a new model, since M is a pipe between A and D. To estimate the causal effect of A, we need a new model that does not include the variable M.</p>
 </section></section></section><section id="the-pipe" class="level2"><h2 class="anchored" data-anchor-id="the-pipe">The pipe</h2>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
-<span>    name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'X'</span>, <span class="st">'Y'</span>, <span class="st">'Z'</span><span class="op">)</span>,</span>
-<span>    x <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,    <span class="fl">3</span>,   <span class="fl">2</span><span class="op">)</span>,</span>
-<span>    y <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,    <span class="fl">0</span>,   <span class="fl">0</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
 <span>    <span class="va">Z</span> <span class="op">~</span> <span class="va">X</span>,</span>
 <span>    <span class="va">Y</span> <span class="op">~</span> <span class="va">Z</span>,</span>
 <span>  coords <span class="op">=</span> <span class="va">coords</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="05-notes_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="384"></p>
+<p><img src="05-notes_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Z is a “mediator”</p>
@@ -437,7 +427,7 @@ X     0   1
 <li>Once stratified by Z, there will be no association (<span class="math inline">\(Y \perp\!\!\!\perp X | Z\)</span>)</li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1e3</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1e3</span></span>
 <span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu">rbern</span><span class="op">(</span><span class="va">n</span>, <span class="fl">0.5</span><span class="op">)</span></span>
 <span><span class="va">Z</span> <span class="op">&lt;-</span> <span class="fu">rbern</span><span class="op">(</span><span class="va">n</span>, <span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">X</span><span class="op">)</span> <span class="op">*</span> <span class="fl">0.1</span> <span class="op">+</span> <span class="va">X</span> <span class="op">*</span> <span class="fl">0.9</span><span class="op">)</span></span>
 <span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu">rbern</span><span class="op">(</span><span class="va">n</span>, <span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">Z</span><span class="op">)</span> <span class="op">*</span> <span class="fl">0.1</span> <span class="op">+</span> <span class="va">Z</span> <span class="op">*</span> <span class="fl">0.9</span><span class="op">)</span></span>
@@ -449,29 +439,29 @@ X     0   1
   0 399 104
   1  89 408</code></pre>
 </div>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.614332</code></pre>
 </div>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   
       0   1
   0 396  50
   1  46   7</code></pre>
 </div>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.01934141</code></pre>
 </div>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   
       0   1
   0   3  54
   1  43 401</code></pre>
 </div>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.04862018</code></pre>
 </div>
@@ -487,20 +477,13 @@ X     0   1
 <li>T: anti-fungal treatment</li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
-<span>    name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'F'</span>, <span class="st">'H1'</span>, <span class="st">'H0'</span>, <span class="st">'T'</span><span class="op">)</span>,</span>
-<span>    x <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,    <span class="fl">2</span>,   <span class="fl">3</span>, <span class="fl">0</span><span class="op">)</span>,</span>
-<span>    y <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,    <span class="fl">1</span>,   <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
 <span>    <span class="va">H1</span> <span class="op">~</span> <span class="va">H0</span> <span class="op">+</span> <span class="cn">F</span> <span class="op">+</span> <span class="cn">T</span>,</span>
 <span>    <span class="cn">F</span> <span class="op">~</span> <span class="cn">T</span>,</span>
 <span>  coords <span class="op">=</span> <span class="va">coords</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="05-notes_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="480"></p>
+<p><img src="05-notes_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section><section id="analyse-the-data" class="level4"><h4 class="anchored" data-anchor-id="analyse-the-data">Analyse the data</h4>
@@ -512,19 +495,12 @@ X     0   1
 <p>Can mislead that the treatment doesn’t work</p>
 </section></section><section id="the-collider" class="level2"><h2 class="anchored" data-anchor-id="the-collider">The collider</h2>
 <div class="cell">
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
-<span>    name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'X'</span>, <span class="st">'Y'</span>, <span class="st">'Z'</span><span class="op">)</span>,</span>
-<span>    x <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,    <span class="fl">3</span>,   <span class="fl">2</span><span class="op">)</span>,</span>
-<span>    y <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,    <span class="fl">0</span>,   <span class="fl">0</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
 <span>    <span class="va">Z</span> <span class="op">~</span> <span class="va">X</span> <span class="op">+</span> <span class="va">Y</span>,</span>
 <span>  coords <span class="op">=</span> <span class="va">coords</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="05-notes_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="384"></p>
+<p><img src="05-notes_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Z is a “collider”</p>
@@ -534,7 +510,7 @@ X     0   1
 <li>Once stratified by Z, X and Y are associated (<span class="math inline">\(Y \not\!\perp\!\!\!\perp X | Z\)</span>)</li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1e3</span></span>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1e3</span></span>
 <span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu">rbern</span><span class="op">(</span><span class="va">n</span>, <span class="fl">0.5</span><span class="op">)</span></span>
 <span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu">rbern</span><span class="op">(</span><span class="va">n</span>, <span class="fl">0.5</span><span class="op">)</span></span>
 <span><span class="va">Z</span> <span class="op">&lt;-</span> <span class="fu">rbern</span><span class="op">(</span><span class="va">n</span>, <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">X</span> <span class="op">+</span> <span class="va">Y</span> <span class="op">&gt;</span> <span class="fl">0</span>, <span class="fl">0.9</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
@@ -546,75 +522,76 @@ X     0   1
   0 249 254
   1 250 247</code></pre>
 </div>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.00798816</code></pre>
 </div>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   
       0   1
   0 200  27
   1  28  22</code></pre>
 </div>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3236048</code></pre>
 </div>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   
       0   1
   0  49 227
   1 222 225</code></pre>
 </div>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">Z</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.3202523</code></pre>
 </div>
 </div>
 <section id="example-grant-applications" class="level3"><h3 class="anchored" data-anchor-id="example-grant-applications">Example: grant applications</h3>
-<p>Each grant application scored on newsworthiness and trustworthiness</p>
-<p>Grants are only awarded if sufficiently newsworthy or trustworthy. Few grants are high in both, therefore there is a negative association between newsworthiness and trustworthiness that arises from conditioning on awards. This is a post-selection sample, where the sample eg. awards or jobs have already selected for features.</p>
+<div class="cell">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
+<span>    <span class="va">A</span> <span class="op">~</span> <span class="va">N</span> <span class="op">+</span> <span class="cn">T</span>,</span>
+<span>  coords <span class="op">=</span> <span class="va">coords</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="05-notes_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Each grant application scored on newsworthiness and trustworthiness.</p>
+<p>Grants are only awarded if sufficiently newsworthy or trustworthy. Few grants are high in both, therefore there is a negative association between newsworthiness and trustworthiness that arises from conditioning on awards. This is a post-selection sample, where the sample (eg. awards or jobs) have already selected for features.</p>
 </section><section id="example-age-and-happiness" class="level3"><h3 class="anchored" data-anchor-id="example-age-and-happiness">Example: age and happiness</h3>
 <p>There are post-treatment colliders like the example above and there are colliders that are a result from the statistical processing, within the analysis.</p>
-<p>Estimand: influence of age on happiness</p>
+<section id="estimand-2" class="level4"><h4 class="anchored" data-anchor-id="estimand-2">Estimand</h4>
+<p>Does age influence happiness?</p>
+</section><section id="scientific-model-2" class="level4"><h4 class="anchored" data-anchor-id="scientific-model-2">Scientific model</h4>
 <p>Possible confound is marital status</p>
 <div class="cell">
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
-<span>    name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'H'</span>, <span class="st">'A'</span>, <span class="st">'M'</span><span class="op">)</span>,</span>
-<span>    x <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,    <span class="fl">3</span>,   <span class="fl">2</span><span class="op">)</span>,</span>
-<span>    y <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,    <span class="fl">0</span>,   <span class="fl">0</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
 <span>    <span class="va">M</span> <span class="op">~</span> <span class="va">A</span> <span class="op">+</span> <span class="va">H</span>,</span>
 <span>  coords <span class="op">=</span> <span class="va">coords</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="05-notes_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="384"></p>
+<p><img src="05-notes_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section></section><section id="the-descendant" class="level2"><h2 class="anchored" data-anchor-id="the-descendant">The descendant</h2>
+</section><section id="statistical-model-1" class="level4"><h4 class="anchored" data-anchor-id="statistical-model-1">Statistical model</h4>
+<p>(In the textbook on pages 176-177)</p>
+</section><section id="analyse-the-data-1" class="level4"><h4 class="anchored" data-anchor-id="analyse-the-data-1">Analyse the data</h4>
+<p>No association between age and happiness but when stratified by marital status, there is a negative association between age and happiness.</p>
+</section></section></section><section id="the-descendant" class="level2"><h2 class="anchored" data-anchor-id="the-descendant">The descendant</h2>
 <div class="cell">
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
-<span>    name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'X'</span>, <span class="st">'Y'</span>, <span class="st">'Z'</span>, <span class="st">'A'</span><span class="op">)</span>,</span>
-<span>    x <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,    <span class="fl">3</span>,   <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,</span>
-<span>    y <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,    <span class="fl">0</span>,   <span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
 <span>    <span class="va">Z</span> <span class="op">~</span> <span class="va">X</span> <span class="op">+</span> <span class="va">Y</span>,</span>
 <span>    <span class="va">A</span> <span class="op">~</span> <span class="va">Z</span>,</span>
 <span>  coords <span class="op">=</span> <span class="va">coords</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="05-notes_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="384"></p>
+<p><img src="05-notes_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>A is the descendant</p>
+<p>A is a descendant</p>
 <p>Including A is like including Z</p>
 <ul>
 <li>X and Y are causally associated through Z (<span class="math inline">\(Y \not\!\perp\!\!\!\perp X\)</span>)</li>
@@ -622,7 +599,7 @@ X     0   1
 <li>Once stratified by A, X and Y are less associated (<span class="math inline">\(Y \perp\!\!\!\perp X | Z\)</span>)</li>
 </ul>
 <div class="cell">
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1e3</span></span>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1e3</span></span>
 <span></span>
 <span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu">rbern</span><span class="op">(</span><span class="va">n</span>, <span class="fl">0.5</span><span class="op">)</span></span>
 <span><span class="va">Z</span> <span class="op">&lt;-</span> <span class="fu">rbern</span><span class="op">(</span><span class="va">n</span>, <span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">X</span><span class="op">)</span> <span class="op">*</span> <span class="fl">0.1</span> <span class="op">+</span> <span class="va">X</span> <span class="op">*</span> <span class="fl">0.9</span><span class="op">)</span></span>
@@ -636,35 +613,35 @@ X     0   1
   0 399 104
   1  89 408</code></pre>
 </div>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.614332</code></pre>
 </div>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">A</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">A</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">A</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">A</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   
       0   1
   0 359  55
   1  42  49</code></pre>
 </div>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">A</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">A</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">A</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">A</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3855157</code></pre>
 </div>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">A</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">A</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">A</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">A</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   
       0   1
   0  40  49
   1  47 359</code></pre>
 </div>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">A</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">A</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="va">A</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span>, <span class="va">Y</span><span class="op">[</span><span class="va">A</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.33666</code></pre>
 </div>
 </div>
 <p>In this case, the correlation is reduced by about half.</p>
-<p>Descendants are everywhere, because many measurements we have are</p>
+<p>Descendants are everywhere, because many measurements we have are proxies for other things we would be ideally measuring directly. Eg. factor analysis, measurement error, social networks.</p>
 
 
 </section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
