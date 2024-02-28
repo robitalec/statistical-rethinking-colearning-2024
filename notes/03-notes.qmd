@@ -10,16 +10,16 @@ date: "2024-02-08"
 source('R/packages.R')
 ```
 
-## Geocentric models
+# Geocentric models
 
 Prediction without explanation. The geocentric model has epicycles and Earth 
 is the center of the universe. 
 
 Linear regressions are geocentric - they describe associations, make predictions
-bubt are mechanically wrong. Therefore, they are useful when handled with care. 
+but are mechanically wrong. Therefore, they are useful when handled with care. 
 
 
-### Normal distribution
+## Normal distribution
 
 Summed fluctuations tend towards the normal distribution
 
@@ -30,9 +30,9 @@ Note: variables do not have to be normally distributed for normal models
 to be useful. 
 
 
-## Linear regression
+# Linear regression
 
-### Workflow
+## Workflow
 
 1. Question/goal/estimand
 1. Scientific model
@@ -41,13 +41,13 @@ to be useful.
 1. Analyze data
 
 
-### Example: Howell data
+## Example: Howell data
 
-#### 1. Estimand
+### 1. Estimand
 
 Describe the association between adult weight and height
 
-#### 2. Scientific model
+### 2. Scientific model
 
 How does height influence weight? 
 
@@ -103,7 +103,7 @@ heights <- seq.int(10, 50)
 sim_weight(heights, beta = 0.5, sigma = 0.1)
 ```
 
-#### 3. Statistical model
+### 3. Statistical model
 
 $E(W_{i} | H_{i}) = \alpha + \beta H_{i}$
 
@@ -112,7 +112,7 @@ $E(W_{i} | H_{i}) = \alpha + \beta H_{i}$
 - $\beta H_{i}$: slope
 
 
-##### Posterior distribution
+#### Posterior distribution
 
 $Pr(\alpha, \beta, \sigma | H_{i}, W_{i}) = \frac{Pr(W_{i} | H_{i}, \alpha, \beta, \sigma) Pr (\alpha, \beta, \sigma)}{Z}$
 
@@ -130,7 +130,7 @@ the observations could arise according to our assumptions multiplied by our
 prior. 
 
 
-##### Prior predictive simulation
+#### Prior predictive simulation
 
 What do the observable variables look like with these priors?
 
@@ -158,7 +158,7 @@ Priors:
 from the definitions
 
 
-#### 4. Validate model
+### 4. Validate model
 
 Test statistical model with simulated observations from scientific model. 
 Stronger test: simulation-based calibration
@@ -169,7 +169,7 @@ Stronger test: simulation-based calibration
 - test with different values and sample sizes
 
 
-#### 5. Analyze the data
+### 5. Analyze the data
 
 Once you've done steps 1-4, you are ready to analyze the real data.
 
