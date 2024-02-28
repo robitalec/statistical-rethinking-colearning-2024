@@ -58,7 +58,7 @@ dag <- dagify(
 	exposure = 'A',
 	outcome = 'F'
 )
-ggdag(dag, seed = 2, layout = 'auto') + theme_dag()
+ggdag_status(dag, seed = 2, layout = 'auto') + theme_dag()
 ```
 
 
@@ -156,6 +156,134 @@ g2 <- ggplot(q01_epred) +
   	), alpha = 0.5) +
     scale_fill_grey(start = 0.8, end = 0.2) + 
     labs(x = 'Area', y = 'Average food')
+
+g1 / g2
+```
+
+
+## Question 2
+
+
+> Infer the total causal effect of adding food F to a territory on the weight W
+of foxes. Can you calculate the causal effect by simulating an intervention on
+food?
+
+
+### Estimand 
+
+What is the total causal influence of F on W? What effect would increasing the
+amount of food have on weights?
+
+
+### Scientific model
+
+```{r}
+#| echo: false
+coords <- data.frame(
+	name = c('F', 'G', 'A', 'W'),
+	x =    c(1,    2,   1.5, 1.5),
+	y =    c(0,    0,   1, -1)
+)
+```
+
+```{r}
+dag <- dagify(
+	G ~ F,
+	F ~ A,
+	W ~ F + G,
+  coords = coords,
+	exposure = 'F',
+	outcome = 'W'
+)
+ggdag_status(dag, seed = 2, layout = 'auto') + theme_dag()
+```
+
+
+#### Backdoor criterion
+
+1. Identify all paths connecting treatment to the outcome, regardless of the
+direction of arrows
+
+- `F -> W`
+- `F -> G -> W`
+
+2. Identify paths with arrows entering the treatment (backdoor). These are 
+non-casual paths, because causal paths exit the treatment (frontdoor). 
+
+- ~~`F -> W`~~
+- ~~`F -> G -> W`~~
+
+
+3. Find adjustment sets that close all backdoor/non-causal paths. 
+
+There are no backdoor paths entering the treatment (F). The adjustment set is empty. 
+
+```{r}
+adjustmentSets(dag, effect = 'total')
+```
+
+
+### Statistical model
+
+$$W_{i} \sim Normal(\mu_{i}, \sigma)$$
+$$\mu_{i} = \alpha + \beta_{F} F_{i}$$
+
+$$\alpha \sim Normal(0, 0.2)$$
+
+$$\beta_{A} \sim Normal(0, 0.5)$$
+
+$$\sigma \sim Exponnential(1)$$
+
+#### Prior predictive simulation
+
+```{r}
+n <- 100
+ggplot() + 
+	geom_abline(aes(intercept = rnorm(n, 0, 0.2),
+									slope = rnorm(n, 0, 0.5)),
+							alpha = 0.1, linewidth = 2) + 
+	labs(x = 'average food (standardized)', 
+			 y = 'weight (standardized)',
+			 title = TeX(r"($\alpha \sim Normal(0, 0.2)$, $\beta_{F} \sim Normal(0, 0.5)$)")) + 
+	xlim(-2, 2) + 
+	ylim(-2, 2)
+```
+
+
+### Analyze the data
+
+```{r}
+# Load data
+DT <- tar_read(scaled_foxes)
+
+# Print priors used
+tar_read(h03_q02_brms_prior)
+
+# Load model
+tar_load(h03_q02_brms_sample)
+h03_q02_brms_sample
+
+# Tidy draws
+q02_draws <- h03_q02_brms_sample |> 
+    tidy_draws()
+
+q02_newdata <- data_grid(DT, scale_avgfood = seq_range(scale_avgfood, 20))
+q02_epred <- h03_q02_brms_sample |> 
+    epred_draws(q02_newdata)
+
+# Total causal influence of area on avg food
+g1 <- ggplot(q02_draws) + 
+    stat_halfeye(aes(b_scale_avgfood)) + 
+    labs(x = 'Total causal influence of average food on weight', y = '')
+
+g2 <- ggplot(q02_epred) + 
+    stat_ribbon(aes(
+    	reverse_scale(scale_avgfood, attributes(DT$scale_avgfood)),
+    	reverse_scale(.epred, attributes(DT$scale_weight))
+  	), alpha = 0.5) +
+    scale_fill_grey(start = 0.8, end = 0.2) + 
+    labs(x = 'Average food', y = 'Weight') + 
+	ylim(2, 6)
 
 g1 / g2
 ```
