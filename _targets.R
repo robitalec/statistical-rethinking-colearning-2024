@@ -73,6 +73,16 @@ targets_h03 <- c(
 			prior(normal(0, 0.5), b),
 			prior(exponential(1), sigma)
 		)
+	),
+	zar_brms(
+		h03_q02,
+		formula = scale_weight ~ scale_avgfood,
+		data = scaled_foxes,
+		prior = c(
+			prior(normal(0, 0.2), Intercept),
+			prior(normal(0, 0.5), b),
+			prior(exponential(1), sigma)
+		)
 	)
 )
 
