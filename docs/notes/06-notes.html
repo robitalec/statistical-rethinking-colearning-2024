@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.3.450">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>Statistical Rethinking colearning 2024 – notes</title>
+<meta name="author" content="Alec L. Robitaille">
+<meta name="dcterms.date" content="2024-02-22">
+<title>Statistical Rethinking colearning 2024 - Lecture 06 Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,8 +19,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
-
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
@@ -40,8 +72,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -60,34 +91,25 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-
-
+}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
-
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/01-notes.html">Notes</a></li><li class="breadcrumb-item"><a href="../notes/06-notes.html">Statistical Rethinking 2022 - Lecture 06</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/01-notes.html">Notes</a></li><li class="breadcrumb-item"><a href="../notes/06-notes.html">Lecture 06 Notes</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Statistical Rethinking colearning 2024</a> 
         <div class="sidebar-tools-main">
@@ -103,7 +125,7 @@ ul.task-list li input[type="checkbox"] {
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
@@ -117,8 +139,8 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notes/01-notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 01 Notes</span></a>
@@ -151,11 +173,11 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notes/06-notes.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Statistical Rethinking 2022 - Lecture 06</span></a>
+ <span class="menu-text">Lecture 06 Notes</span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
@@ -164,8 +186,8 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../homework/01-homework.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework 01</span></a>
@@ -190,62 +212,503 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#statistical-rethinking-2022---lecture-06" id="toc-statistical-rethinking-2022---lecture-06" class="nav-link active" data-scroll-target="#statistical-rethinking-2022---lecture-06">Statistical Rethinking 2022 - Lecture 06</a>
+<li>
+<a href="#causal-thinking" id="toc-causal-thinking" class="nav-link active" data-scroll-target="#causal-thinking">Causal Thinking</a>
   <ul class="collapse">
-  <li><a href="#do-calculus" id="toc-do-calculus" class="nav-link" data-scroll-target="#do-calculus">Do calculus</a>
+<li><a href="#example-xyu" id="toc-example-xyu" class="nav-link" data-scroll-target="#example-xyu">Example: XYU</a></li>
+  <li><a href="#example-cheetahs-baboons-and-gazelles" id="toc-example-cheetahs-baboons-and-gazelles" class="nav-link" data-scroll-target="#example-cheetahs-baboons-and-gazelles">Example: cheetahs, baboons and gazelles</a></li>
+  <li>
+<a href="#do-calculus" id="toc-do-calculus" class="nav-link" data-scroll-target="#do-calculus">do-calculus</a>
   <ul class="collapse">
-  <li><a href="#back-door-criterion" id="toc-back-door-criterion" class="nav-link" data-scroll-target="#back-door-criterion">Back door criterion</a></li>
-  </ul></li>
-  <li><a href="#table-2-fallacy" id="toc-table-2-fallacy" class="nav-link" data-scroll-target="#table-2-fallacy">Table 2 Fallacy</a></li>
-  </ul></li>
+<li><a href="#backdoor-criterion" id="toc-backdoor-criterion" class="nav-link" data-scroll-target="#backdoor-criterion">Backdoor criterion</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/edit/main/notes/06-notes.md" class="toc-action">Edit this page</a></p><p><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+</li>
+  </ul>
+</li>
+  <li>
+<a href="#good-and-bad-controls" id="toc-good-and-bad-controls" class="nav-link" data-scroll-target="#good-and-bad-controls">Good and Bad Controls</a>
+  <ul class="collapse">
+<li><a href="#example-bad-controls---collider" id="toc-example-bad-controls---collider" class="nav-link" data-scroll-target="#example-bad-controls---collider">Example: Bad Controls - Collider</a></li>
+  <li><a href="#example-bad-controls---no-backdoor" id="toc-example-bad-controls---no-backdoor" class="nav-link" data-scroll-target="#example-bad-controls---no-backdoor">Example: Bad Controls - No Backdoor</a></li>
+  <li><a href="#example-bad-controls---case-control-bias" id="toc-example-bad-controls---case-control-bias" class="nav-link" data-scroll-target="#example-bad-controls---case-control-bias">Example: Bad Controls - Case Control Bias</a></li>
+  <li><a href="#example-bad-controls---precision-parasite" id="toc-example-bad-controls---precision-parasite" class="nav-link" data-scroll-target="#example-bad-controls---precision-parasite">Example: Bad Controls - Precision Parasite</a></li>
+  <li><a href="#example-bad-controls---bias-amplification" id="toc-example-bad-controls---bias-amplification" class="nav-link" data-scroll-target="#example-bad-controls---bias-amplification">Example: Bad Controls - Bias Amplification</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#table-2-fallacy" id="toc-table-2-fallacy" class="nav-link" data-scroll-target="#table-2-fallacy">Table 2 Fallacy</a>
+  <ul class="collapse">
+<li>
+<a href="#example-hiv-and-stroke" id="toc-example-hiv-and-stroke" class="nav-link" data-scroll-target="#example-hiv-and-stroke">Example: HIV and Stroke</a>
+  <ul class="collapse">
+<li><a href="#estimand-1" id="toc-estimand-1" class="nav-link" data-scroll-target="#estimand-1">Estimand</a></li>
+  <li><a href="#scientific-model-1" id="toc-scientific-model-1" class="nav-link" data-scroll-target="#scientific-model-1">Scientific model</a></li>
+  <li><a href="#statistical-model" id="toc-statistical-model" class="nav-link" data-scroll-target="#statistical-model">Statistical model</a></li>
+  <li><a href="#analyse-the-data" id="toc-analyse-the-data" class="nav-link" data-scroll-target="#analyse-the-data">Analyse the data</a></li>
+  <li><a href="#unobserved-confounds" id="toc-unobserved-confounds" class="nav-link" data-scroll-target="#unobserved-confounds">Unobserved confounds</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/edit/main/notes/06-notes.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Lecture 06 Notes</h1>
+</div>
 
 
 
-<section id="statistical-rethinking-2022---lecture-06" class="level1">
-<h1>Statistical Rethinking 2022 - Lecture 06</h1>
-<section id="do-calculus" class="level2">
-<h2 class="anchored" data-anchor-id="do-calculus">Do calculus</h2>
-<p><code>P(Y | do(X))</code> = The distribution of Y, stratified by X and U, averaged over the distribution of U</p>
-<p><code>do(X)</code> means to intervene on X. The distribution of Y conditional</p>
-<p>The causal effect of X on Y is not the coefficient relating X to Y, it is the distribution of Y when we change X, averaged over the distributions of the control variables (=marginal effect).</p>
-<section id="back-door-criterion" class="level3">
-<h3 class="anchored" data-anchor-id="back-door-criterion">Back door criterion</h3>
-<p>The back door criterion is the rule to find the set of variables to stratify by to yield <code>P(Y | do(X))</code></p>
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Alec L. Robitaille </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 22, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header><section id="causal-thinking" class="level1"><h1>Causal Thinking</h1>
+<p>In an experiment, we remove the causes of the treatment by randomizing it</p>
+<p>We need a statistical procedure that mimics randomization, that allows us to transform our sample into results that were as if we could have done that experiment</p>
+<p>We communicate assumptions clearly using DAGs, and use logic to derive the implications of the causal model</p>
+<p>Recall from L05, three common confounds and their implications for the relationships between X, Y, and Z:</p>
+<p><img src="../graphics/stat_rethinking_l05_four_elemental_xyz.png" class="img-fluid"></p>
+<section id="example-xyu" class="level2"><h2 class="anchored" data-anchor-id="example-xyu">Example: XYU</h2>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
+<span>    <span class="va">X</span> <span class="op">~</span> <span class="va">U</span>,</span>
+<span>    <span class="va">Y</span> <span class="op">~</span> <span class="va">U</span> <span class="op">+</span> <span class="va">X</span>,</span>
+<span>  coords <span class="op">=</span> <span class="va">coords</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="06-notes_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Removing the confound U</p>
+<p>U is a common cause of X and Y. X and Y are associated because of their common cause U and we can remove that association by stratifying on U. Then, the remaining association after stratifying by U is the association of X and Y.</p>
+<p><span class="math display">\[P(Y|do(X)) = \sum_{U}P(Y|X, U)P(U) = E_{U}(Y|X,U)\]</span></p>
+<p>The distribution of Y, stratified by X and U, averaged over the distribution of U.</p>
+<p>The causal effect of X on Y is not the coefficient relating X to Y, it is the distribution of Y when we change X, averaged over the distributions of the control variables.</p>
+</section><section id="example-cheetahs-baboons-and-gazelles" class="level2"><h2 class="anchored" data-anchor-id="example-cheetahs-baboons-and-gazelles">Example: cheetahs, baboons and gazelles</h2>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
+<span>    <span class="va">B</span> <span class="op">~</span> <span class="va">C</span>,</span>
+<span>    <span class="va">G</span> <span class="op">~</span> <span class="va">C</span> <span class="op">+</span> <span class="va">B</span>,</span>
+<span>  coords <span class="op">=</span> <span class="va">coords</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="06-notes_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>When cheetahs are present, baboons hang out near trees and do not predate on gazelles. When cheetahs are absent, baboons predate on gazelles. The causal effect of baboons depends on the distribution of cheetahs.</p>
+</section><section id="do-calculus" class="level2"><h2 class="anchored" data-anchor-id="do-calculus">do-calculus</h2>
+<p>do-calculus are the rules for finding <span class="math inline">\(P(Y | do(X))\)</span>, that justify graphical analysis of DAGs and say what is possible.</p>
+<p><span class="math inline">\(P(Y | do(X))\)</span>: the distribution of Y, stratified by X and U, averaged over the distribution of U</p>
+<p>DAGs don’t make assumptions about functional relationships, they are non-parametric</p>
+<p>DAGs allow us to justify if we need to make additional assumptions at all, without needing additional assumptions about the functional relationships.</p>
+<section id="backdoor-criterion" class="level3"><h3 class="anchored" data-anchor-id="backdoor-criterion">Backdoor criterion</h3>
+<p>The backdoor criterion is the rule to find the set of variables to stratify by to yield <code>P(Y | do(X))</code></p>
 <ol type="1">
-<li>Identify all paths connecting treatment to the outcome, regardless of direction of arrows.</li>
-<li>Identify paths with arrows entering the treatment (back door). These are non casual paths, because causal paths exit the treatment (front door).</li>
-<li>Find adjustment sets that close back door paths.</li>
+<li>Identify all paths connecting treatment to the outcome, regardless of the direction of arrows</li>
+<li>Identify paths with arrows entering the treatment (backdoor). These are non-casual paths, because causal paths exit the treatment (frontdoor).</li>
+<li>Find adjustment sets that close all backdoor/non-causal paths.</li>
 </ol>
-</section>
-</section>
-<section id="table-2-fallacy" class="level2">
-<h2 class="anchored" data-anchor-id="table-2-fallacy">Table 2 Fallacy</h2>
+<section id="example-xyzu" class="level4"><h4 class="anchored" data-anchor-id="example-xyzu">Example: XYZU</h4>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dag</span> <span class="op">&lt;-</span> <span class="fu">dagify</span><span class="op">(</span></span>
+<span>    <span class="va">X</span> <span class="op">~</span> <span class="va">Z</span>,</span>
+<span>    <span class="va">Y</span> <span class="op">~</span> <span class="va">U</span> <span class="op">+</span> <span class="va">X</span>,</span>
+<span>    <span class="va">Z</span> <span class="op">~</span> <span class="va">U</span>,</span>
+<span>  coords <span class="op">=</span> <span class="va">coords</span>,</span>
+<span>    exposure <span class="op">=</span> <span class="st">'X'</span>,</span>
+<span>    outcome <span class="op">=</span> <span class="st">'Y'</span>,</span>
+<span>    latent <span class="op">=</span> <span class="st">'U'</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu">ggdag_status</span><span class="op">(</span><span class="va">dag</span>, seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="06-notes_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ol type="1">
+<li>Identify all paths connecting treatment to the outcome, regardless of the direction of arrows</li>
+</ol>
+<ul>
+<li><code>X -&gt; Y</code></li>
+<li><code>X &lt;- Z &lt;- U -&gt; Y</code></li>
+</ul>
+<ol start="2" type="1">
+<li>Identify paths with arrows entering the treatment (backdoor). These are non-casual paths, because causal paths exit the treatment (frontdoor).</li>
+</ol>
+<ul>
+<li><del><code>X -&gt; Y</code></del></li>
+<li><code>X &lt;- Z &lt;- U -&gt; Y</code></li>
+</ul>
+<ol start="3" type="1">
+<li>Find adjustment sets that close all backdoor/non-causal paths.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">adjustmentSets</span><span class="op">(</span><span class="va">dag</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{ Z }</code></pre>
+</div>
+</div>
+<p>Block the pipe: <span class="math inline">\(X \perp\!\!\!\perp U | Z\)</span></p>
+<p>Z “knows” all of the association between X and Y that is due to U.</p>
+<section id="expressions" class="level5"><h5 class="anchored" data-anchor-id="expressions">Expressions</h5>
+<p><span class="math display">\[P(Y|do(X)) = \sum_{U}P(Y|X, Z)P(Z = z)\]</span></p>
+<p><span class="math display">\[Y_{i} \sim Normal(\mu_{i}, \sigma)\]</span></p>
+<p><span class="math display">\[\mu_{i} = \alpha + \beta_{X} X_{i} + \beta_{Z} Z_{i}\]</span></p>
+</section><section id="simulations" class="level5"><h5 class="anchored" data-anchor-id="simulations">Simulations</h5>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># simulate confounded Y</span></span>
+<span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">200</span></span>
+<span><span class="va">b_XY</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
+<span><span class="va">b_UY</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">1</span></span>
+<span><span class="va">b_UZ</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">1</span></span>
+<span><span class="va">b_ZX</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="va">U</span> <span class="op">&lt;-</span> <span class="fu">rbern</span><span class="op">(</span><span class="va">N</span><span class="op">)</span></span>
+<span><span class="va">Z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">N</span>, <span class="va">b_UZ</span> <span class="op">*</span> <span class="va">U</span><span class="op">)</span></span>
+<span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">N</span>, <span class="va">b_ZX</span> <span class="op">*</span> <span class="va">Z</span><span class="op">)</span></span>
+<span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">N</span>, <span class="va">b_XY</span> <span class="op">*</span> <span class="va">X</span> <span class="op">+</span> <span class="va">b_UY</span> <span class="op">*</span> <span class="va">U</span><span class="op">)</span></span>
+<span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>Y <span class="op">=</span> <span class="va">Y</span>, X <span class="op">=</span> <span class="va">X</span>, Z <span class="op">=</span> <span class="va">Z</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># ignore U,Z</span></span>
+<span><span class="va">m_YX</span> <span class="op">&lt;-</span> <span class="fu">quap</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">alist</a></span><span class="op">(</span></span>
+<span>    <span class="va">Y</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">mu</span> , <span class="va">sigma</span><span class="op">)</span>,</span>
+<span>    <span class="va">mu</span> <span class="op">&lt;-</span> <span class="va">a</span> <span class="op">+</span> <span class="va">b_XY</span> <span class="op">*</span> <span class="va">X</span>,</span>
+<span>    <span class="va">a</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span> , <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    <span class="va">b_XY</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span> , <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    <span class="va">sigma</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html">dexp</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">)</span>,</span>
+<span>data <span class="op">=</span> <span class="va">d</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># stratify by Z</span></span>
+<span><span class="va">m_YXZ</span> <span class="op">&lt;-</span> <span class="fu">quap</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">alist</a></span><span class="op">(</span></span>
+<span>    <span class="va">Y</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">mu</span> , <span class="va">sigma</span><span class="op">)</span>,</span>
+<span>    <span class="va">mu</span> <span class="op">&lt;-</span> <span class="va">a</span> <span class="op">+</span> <span class="va">b_XY</span> <span class="op">*</span> <span class="va">X</span> <span class="op">+</span> <span class="va">b_Z</span> <span class="op">*</span> <span class="va">Z</span>,</span>
+<span>    <span class="va">a</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span> , <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">b_XY</span>, <span class="va">b_Z</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span> , <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    <span class="va">sigma</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html">dexp</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">)</span>,</span>
+<span>data <span class="op">=</span> <span class="va">d</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">post</span> <span class="op">&lt;-</span> <span class="fu">extract.samples</span><span class="op">(</span><span class="va">m_YX</span><span class="op">)</span></span>
+<span><span class="va">post2</span> <span class="op">&lt;-</span> <span class="fu">extract.samples</span><span class="op">(</span><span class="va">m_YXZ</span><span class="op">)</span></span>
+<span><span class="fu">dens</span><span class="op">(</span><span class="va">post</span><span class="op">$</span><span class="va">b_XY</span>, lwd <span class="op">=</span> <span class="fl">3</span>, col <span class="op">=</span> <span class="fl">1</span>, xlab <span class="op">=</span> <span class="st">"posterior b_XY"</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.3</span>, <span class="fl">0.3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">dens</span><span class="op">(</span><span class="va">post2</span><span class="op">$</span><span class="va">b_XY</span>, lwd <span class="op">=</span> <span class="fl">3</span>, col <span class="op">=</span> <span class="fl">2</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="06-notes_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Note: the coefficient b_Z is meaningless and does not represent the causal effect of Z on Y. This model is not structured to estimate this effect and it would require a different adjustment set. Any coefficients for a variable that you add as part of the adjustment set are not usually interpretable.</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">precis</span><span class="op">(</span><span class="va">m_YXZ</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             mean         sd        5.5%      94.5%
+a     -0.32468273 0.09122175 -0.47047270 -0.1788928
+b_XY  -0.01163028 0.07616178 -0.13335151  0.1100910
+b_Z    0.24182415 0.11247877  0.06206135  0.4215870
+sigma  1.17508483 0.05849987  1.08159075  1.2685789</code></pre>
+</div>
+</div>
+</section></section><section id="example-xyzabc" class="level4"><h4 class="anchored" data-anchor-id="example-xyzabc">Example: XYZABC</h4>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dag</span> <span class="op">&lt;-</span> <span class="fu">dagify</span><span class="op">(</span></span>
+<span>    <span class="va">X</span> <span class="op">~</span> <span class="va">Z</span> <span class="op">+</span> <span class="va">A</span> <span class="op">+</span> <span class="va">C</span>,</span>
+<span>    <span class="va">Y</span> <span class="op">~</span> <span class="va">X</span> <span class="op">+</span> <span class="va">B</span> <span class="op">+</span> <span class="va">Z</span> <span class="op">+</span> <span class="va">C</span>,</span>
+<span>    <span class="va">Z</span> <span class="op">~</span> <span class="va">A</span> <span class="op">+</span> <span class="va">B</span>,</span>
+<span>  coords <span class="op">=</span> <span class="va">coords</span>,</span>
+<span>    exposure <span class="op">=</span> <span class="st">'X'</span>,</span>
+<span>    outcome <span class="op">=</span> <span class="st">'Y'</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggdag_status</span><span class="op">(</span><span class="va">dag</span>, seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="06-notes_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ol type="1">
+<li>Identify all paths connecting treatment to the outcome, regardless of the direction of arrows</li>
+</ol>
+<ul>
+<li><code>X -&gt; Y</code></li>
+<li><code>X &lt;- C -&gt; Y</code></li>
+<li><code>X &lt;- Z -&gt; Y</code></li>
+<li><code>X &lt;- A -&gt; Z &lt;- B -&gt; Y</code></li>
+<li><code>X &lt;- A -&gt; Z -&gt; Y</code></li>
+<li><code>X &lt;- Z &lt;- B -&gt; Y</code></li>
+</ul>
+<ol start="2" type="1">
+<li>Identify paths with arrows entering the treatment (backdoor). These are non-casual paths, because causal paths exit the treatment (frontdoor).</li>
+</ol>
+<ul>
+<li><del><code>X -&gt; Y</code></del></li>
+<li><code>X &lt;- C -&gt; Y</code></li>
+<li><code>X &lt;- Z -&gt; Y</code></li>
+<li><code>X &lt;- A -&gt; Z &lt;- B -&gt; Y</code></li>
+<li><code>X &lt;- A -&gt; Z -&gt; Y</code></li>
+<li><code>X &lt;- Z &lt;- B -&gt; Y</code></li>
+</ul>
+<ol start="3" type="1">
+<li>Find adjustment sets that close all backdoor/non-causal paths.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">adjustmentSets</span><span class="op">(</span><span class="va">dag</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{ B, C, Z }
+{ A, C, Z }</code></pre>
+</div>
+</div>
+</section><section id="example-grandparents" class="level4"><h4 class="anchored" data-anchor-id="example-grandparents">Example: grandparents</h4>
+<section id="estimand" class="level5"><h5 class="anchored" data-anchor-id="estimand">Estimand</h5>
+<p>What is the direct causal effect of grandparent education on child education?</p>
+</section><section id="scientific-model" class="level5"><h5 class="anchored" data-anchor-id="scientific-model">Scientific model</h5>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dag</span> <span class="op">&lt;-</span> <span class="fu">dagify</span><span class="op">(</span></span>
+<span>    <span class="va">P</span> <span class="op">~</span> <span class="va">G</span> <span class="op">+</span> <span class="va">U</span>,</span>
+<span>    <span class="va">C</span> <span class="op">~</span> <span class="va">G</span> <span class="op">+</span> <span class="va">U</span> <span class="op">+</span> <span class="va">P</span>,</span>
+<span>  coords <span class="op">=</span> <span class="va">coords</span>,</span>
+<span>    exposure <span class="op">=</span> <span class="st">'G'</span>,</span>
+<span>    outcome <span class="op">=</span> <span class="st">'C'</span>,</span>
+<span>    latent <span class="op">=</span> <span class="st">'U'</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggdag_status</span><span class="op">(</span><span class="va">dag</span>, seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="06-notes_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Parent education is a mediator (G -&gt; P -&gt; C is a pipe). Parent education is also a collider with the unobserved confound U. We cannot estimate the direct effect of of G on C but we can estimate the total effect of G on C.</p>
+</section></section></section></section></section><section id="good-and-bad-controls" class="level1"><h1>Good and Bad Controls</h1>
+<p>“Control” variables are models added to an analysis so that a causal estimate is possible.</p>
+<p>Wrong heuristics:</p>
+<ul>
+<li>Don’t include everything in the spreadsheet</li>
+<li>Don’t exclude variables simply because they are highly collinear. Collinearity can arise from many causal processes, we need to analyse a causal model to understand if collinearity is a problem.</li>
+<li>Don’t include any variables simply because they are pre-treatment measurements</li>
+</ul>
+<p>Read more in Cinelli, Forney, Pearl 2021 A Crash Course in Good and Bad Controls.</p>
+<section id="example-bad-controls---collider" class="level2"><h2 class="anchored" data-anchor-id="example-bad-controls---collider">Example: Bad Controls - Collider</h2>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dag</span> <span class="op">&lt;-</span> <span class="fu">dagify</span><span class="op">(</span></span>
+<span>    <span class="va">X</span> <span class="op">~</span> <span class="va">U</span>,</span>
+<span>    <span class="va">Y</span> <span class="op">~</span> <span class="va">X</span> <span class="op">+</span> <span class="va">V</span>,</span>
+<span>    <span class="va">Z</span> <span class="op">~</span> <span class="va">U</span> <span class="op">+</span> <span class="va">V</span>,</span>
+<span>  coords <span class="op">=</span> <span class="va">coords</span>,</span>
+<span>    exposure <span class="op">=</span> <span class="st">'X'</span>,</span>
+<span>    outcome <span class="op">=</span> <span class="st">'Y'</span>,</span>
+<span>    latent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'U'</span>, <span class="st">'V'</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggdag_status</span><span class="op">(</span><span class="va">dag</span>, seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="06-notes_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ol type="1">
+<li>Identify all paths connecting treatment to the outcome, regardless of the direction of arrows</li>
+</ol>
+<ul>
+<li><code>X -&gt; Y</code></li>
+<li><code>X &lt;- U -&gt; Z &lt;- V -&gt; Y</code></li>
+</ul>
+<ol start="2" type="1">
+<li>Identify paths with arrows entering the treatment (backdoor). These are non-casual paths, because causal paths exit the treatment (frontdoor).</li>
+</ol>
+<ul>
+<li><del><code>X -&gt; Y</code></del></li>
+<li><code>X &lt;- U -&gt; Z &lt;- V -&gt; Y</code></li>
+</ul>
+<ol start="3" type="1">
+<li>Find adjustment sets that close all backdoor/non-causal paths.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">adjustmentSets</span><span class="op">(</span><span class="va">dag</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code><a href="https://rdrr.io/r/base/Paren.html"> {}</a></code></pre>
+</div>
+</div>
+<p>The backdoor path is closed because Z is a collider which block the association. Z is a bad control.</p>
+</section><section id="example-bad-controls---no-backdoor" class="level2"><h2 class="anchored" data-anchor-id="example-bad-controls---no-backdoor">Example: Bad Controls - No Backdoor</h2>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dag</span> <span class="op">&lt;-</span> <span class="fu">dagify</span><span class="op">(</span></span>
+<span>    <span class="va">Z</span> <span class="op">~</span> <span class="va">X</span> <span class="op">+</span> <span class="va">U</span>,</span>
+<span>    <span class="va">Y</span> <span class="op">~</span> <span class="va">Z</span> <span class="op">+</span> <span class="va">U</span>,</span>
+<span>  coords <span class="op">=</span> <span class="va">coords</span>,</span>
+<span>    exposure <span class="op">=</span> <span class="st">'X'</span>,</span>
+<span>    outcome <span class="op">=</span> <span class="st">'Y'</span>,</span>
+<span>    latent <span class="op">=</span> <span class="st">'U'</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggdag_status</span><span class="op">(</span><span class="va">dag</span>, seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="06-notes_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<ol type="1">
+<li>Identify all paths connecting treatment to the outcome, regardless of the direction of arrows</li>
+</ol>
+<ul>
+<li><code>X -&gt; Y</code></li>
+<li><code>X -&gt; Z &lt;- u -&gt; Y</code></li>
+</ul>
+<ol start="2" type="1">
+<li>Identify paths with arrows entering the treatment (backdoor). These are non-casual paths, because causal paths exit the treatment (frontdoor).</li>
+</ol>
+<ul>
+<li><del><code>X -&gt; Y</code></del></li>
+<li><del><code>X -&gt; Z &lt;- u -&gt; Y</code></del></li>
+</ul>
+<ol start="3" type="1">
+<li>Find adjustment sets that close all backdoor/non-causal paths.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">adjustmentSets</span><span class="op">(</span><span class="va">dag</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code><a href="https://rdrr.io/r/base/Paren.html"> {}</a></code></pre>
+</div>
+</div>
+<p>There are no backdoor paths and there is no need to control for Z. Controlling for Z biases the treatment estimate. Controlling for Z also opens a biasing path through U. We can estimate the effect of X but we cannot estimate the mediation effect of Z. Z is a posttreatment variable.</p>
+</section><section id="example-bad-controls---case-control-bias" class="level2"><h2 class="anchored" data-anchor-id="example-bad-controls---case-control-bias">Example: Bad Controls - Case Control Bias</h2>
+<div class="cell">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dag</span> <span class="op">&lt;-</span> <span class="fu">dagify</span><span class="op">(</span></span>
+<span>    <span class="va">Y</span> <span class="op">~</span> <span class="va">X</span>,</span>
+<span>    <span class="va">Z</span> <span class="op">~</span> <span class="va">Y</span>,</span>
+<span>  coords <span class="op">=</span> <span class="va">coords</span>,</span>
+<span>    exposure <span class="op">=</span> <span class="st">'X'</span>,</span>
+<span>    outcome <span class="op">=</span> <span class="st">'Y'</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggdag_status</span><span class="op">(</span><span class="va">dag</span>, seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="06-notes_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<p>This is selection on outcome, stratifying on the outcome. It reduces the variation in the outcome that the exposure can explain. Eg. if X is education, Y is occupation and Z is income: we would reduce the influence of education because we are looking at a more limited number of occupations within each level of income.</p>
+</section><section id="example-bad-controls---precision-parasite" class="level2"><h2 class="anchored" data-anchor-id="example-bad-controls---precision-parasite">Example: Bad Controls - Precision Parasite</h2>
+<div class="cell">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dag</span> <span class="op">&lt;-</span> <span class="fu">dagify</span><span class="op">(</span></span>
+<span>    <span class="va">Y</span> <span class="op">~</span> <span class="va">X</span>,</span>
+<span>    <span class="va">X</span> <span class="op">~</span> <span class="va">Z</span>,</span>
+<span>  coords <span class="op">=</span> <span class="va">coords</span>,</span>
+<span>    exposure <span class="op">=</span> <span class="st">'X'</span>,</span>
+<span>    outcome <span class="op">=</span> <span class="st">'Y'</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggdag_status</span><span class="op">(</span><span class="va">dag</span>, seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="06-notes_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<p>There are no backdoors. There are no good reasons to condition on Z. Stratifying by Z explains away variation in X and reduces the precision of the estimate.</p>
+</section><section id="example-bad-controls---bias-amplification" class="level2"><h2 class="anchored" data-anchor-id="example-bad-controls---bias-amplification">Example: Bad Controls - Bias Amplification</h2>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dag</span> <span class="op">&lt;-</span> <span class="fu">dagify</span><span class="op">(</span></span>
+<span>    <span class="va">Y</span> <span class="op">~</span> <span class="va">X</span> <span class="op">+</span> <span class="va">U</span>,</span>
+<span>    <span class="va">X</span> <span class="op">~</span> <span class="va">Z</span> <span class="op">+</span> <span class="va">U</span>,</span>
+<span>  coords <span class="op">=</span> <span class="va">coords</span>,</span>
+<span>    exposure <span class="op">=</span> <span class="st">'X'</span>,</span>
+<span>    outcome <span class="op">=</span> <span class="st">'Y'</span>,</span>
+<span>    latent <span class="op">=</span> <span class="st">'U'</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggdag_status</span><span class="op">(</span><span class="va">dag</span>, seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="06-notes_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<p>X and Y are confounded by U. The covariation in X and Y requires variation in their causes. Within each level of Z, there is less variation in X. The confound U is more important within each Z relative to the model where it is not included.</p>
+<p>For example, where Z is education, X is occupation, U is regional factors and Y is income.</p>
+</section></section><section id="table-2-fallacy" class="level1"><h1>Table 2 Fallacy</h1>
 <p>Not all coefficients represent causal effects. The statistical model designed to model the causal effect of X on Y will not also necessarily identify the causal effects of control variables.</p>
 <p>A table including all coefficients from a model as if they are all causal effects is wrong and misleading. Some variables are included as controls, eg. to close back doors into the treatment variable.</p>
 <p>Alternatively, present only the coefficients for causal variables, or provide an explicit interpretation of the coefficients as justified by the causal structure.</p>
+<p>Read more in Westreich &amp; Greenland 2013 The Table 2 Fallacy</p>
+<p>Potential solutions: do not present control coefficients or give explicit interpretations of each.</p>
+<p>No interpretation is possible for any coefficient without a causal model.</p>
+<section id="example-hiv-and-stroke" class="level2"><h2 class="anchored" data-anchor-id="example-hiv-and-stroke">Example: HIV and Stroke</h2>
+<section id="estimand-1" class="level3"><h3 class="anchored" data-anchor-id="estimand-1">Estimand</h3>
+<p>What is the relationship between HIV and stroke?</p>
+</section><section id="scientific-model-1" class="level3"><h3 class="anchored" data-anchor-id="scientific-model-1">Scientific model</h3>
+<div class="cell">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dag</span> <span class="op">&lt;-</span> <span class="fu">dagify</span><span class="op">(</span></span>
+<span>    <span class="va">Y</span> <span class="op">~</span> <span class="va">X</span> <span class="op">+</span> <span class="va">A</span> <span class="op">+</span> <span class="va">S</span>,</span>
+<span>    <span class="va">X</span> <span class="op">~</span> <span class="va">S</span> <span class="op">+</span> <span class="va">A</span>,</span>
+<span>    <span class="va">S</span> <span class="op">~</span> <span class="va">A</span>,</span>
+<span>  coords <span class="op">=</span> <span class="va">coords</span>,</span>
+<span>    exposure <span class="op">=</span> <span class="st">'X'</span>,</span>
+<span>    outcome <span class="op">=</span> <span class="st">'Y'</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggdag_status</span><span class="op">(</span><span class="va">dag</span>, seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="06-notes_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<p>X: HIV, Y: Stroke</p>
+<section id="backdoor-criterion-1" class="level4"><h4 class="anchored" data-anchor-id="backdoor-criterion-1">Backdoor criterion</h4>
+<ol type="1">
+<li>Identify all paths connecting treatment to the outcome, regardless of the direction of arrows</li>
+</ol>
+<ul>
+<li><code>X -&gt; Y</code></li>
+<li><code>X &lt;- S -&gt; Y</code></li>
+<li><code>X &lt;- A -&gt; Y</code></li>
+<li><code>X &lt;- A -&gt; S -&gt; Y</code></li>
+</ul>
+<ol start="2" type="1">
+<li>Identify paths with arrows entering the treatment (backdoor). These are non-casual paths, because causal paths exit the treatment (frontdoor).</li>
+</ol>
+<ul>
+<li><del><code>X -&gt; Y</code></del></li>
+<li><code>X &lt;- S -&gt; Y</code></li>
+<li><code>X &lt;- A -&gt; Y</code></li>
+<li><code>X &lt;- A -&gt; S -&gt; Y</code></li>
+</ul>
+<ol start="3" type="1">
+<li>Find adjustment sets that close all backdoor/non-causal paths.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">adjustmentSets</span><span class="op">(</span><span class="va">dag</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{ A, S }</code></pre>
+</div>
+</div>
+</section></section><section id="statistical-model" class="level3"><h3 class="anchored" data-anchor-id="statistical-model">Statistical model</h3>
+<p>Stratify by Age and Smoking</p>
+<p><span class="math display">\[Y_{i} \sim Normal(\mu_{i}, \sigma)\]</span></p>
+<p><span class="math display">\[\mu_{i} = \alpha + \beta_{X} X_{i} + \beta_{S} S_{i} + \beta_{A} A_{i}\]</span></p>
+</section><section id="analyse-the-data" class="level3"><h3 class="anchored" data-anchor-id="analyse-the-data">Analyse the data</h3>
+<p>What do the coefficients mean?</p>
+<p>Conditional on A and S, <span class="math inline">\(\beta_{X}\)</span> represents the effect of X on Y after marginalizing. <span class="math inline">\(\beta_{S}\)</span> is confounded by A but conditional on A and X, <span class="math inline">\(\beta_{X}\)</span> represents the direct effect of S on Y. <span class="math inline">\(\beta_{A}\)</span> the total causal effect of A on Y through all paths but conditional on X and S, <span class="math inline">\(\beta_{A}\)</span> represents the direct effect of A on Y.</p>
+</section><section id="unobserved-confounds" class="level3"><h3 class="anchored" data-anchor-id="unobserved-confounds">Unobserved confounds</h3>
+<p>Taking all pairs of variables, consider if there are potential unobserved common causes for each pair.</p>
 
 
-</section>
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
