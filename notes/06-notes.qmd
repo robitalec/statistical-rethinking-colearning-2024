@@ -56,3 +56,28 @@ The distribution of Y, stratified by X and U, averaged over the distribution of 
 The causal effect of X on Y is not the coefficient relating X to Y, it is the
 distribution of Y when we change X, averaged over the distributions of the
 control variables.
+
+
+## Example: cheetahs, baboons and gazelles
+
+```{r}
+#| echo: false
+coords <- data.frame(
+	name = c('B', 'G', 'C'),
+	x =    c(1,    3,   2),
+	y =    c(0,    0,   1)
+)
+```
+
+```{r}
+dagify(
+	B ~ C,
+	G ~ C + B,
+  coords = coords
+) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
+```
+
+
+When cheetahs are present, baboons hang out near trees and do not predate on
+gazelles. When cheetahs are absent, baboons predate on gazelles. The causal
+effect of baboons depends on the distribution of cheetahs.
