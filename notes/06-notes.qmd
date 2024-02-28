@@ -24,3 +24,35 @@ Recall from L05, three common confounds and their implications for the
 relationships between X, Y, and Z: 
 
 ![](../graphics/stat_rethinking_l05_four_elemental_xyz.png)
+
+## Example: XYU
+```{r}
+#| echo: false
+coords <- data.frame(
+	name = c('X', 'Y', 'U'),
+	x =    c(1,    3,   2),
+	y =    c(0,    0,   1)
+)
+```
+
+```{r}
+dagify(
+	X ~ U,
+	Y ~ U + X,
+  coords = coords
+) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
+```
+
+Removing the confound U 
+
+U is a common cause of X and Y. X and Y are associated because of their 
+common cause U and we can remove that association by stratifying on U. Then, 
+the remaining association after stratifying by U is the association of X and Y.
+
+$$P(Y|do(X)) = \sum_{U}P(Y|X, U)P(U) = E_{U}(Y|X,U)$$
+
+The distribution of Y, stratified by X and U, averaged over the distribution of U. 
+
+The causal effect of X on Y is not the coefficient relating X to Y, it is the
+distribution of Y when we change X, averaged over the distributions of the
+control variables.
