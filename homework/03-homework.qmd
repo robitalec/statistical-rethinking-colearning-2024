@@ -80,7 +80,7 @@ non-casual paths, because causal paths exit the treatment (frontdoor).
 There are no backdoor paths entering the treatment (A). The adjustment set is empty. 
 
 ```{r}
-adjustmentSets(dag, effect = 'total')
+ggdag_adjustment_set(dag, effect = 'total') + theme_dag()
 ```
 
 
@@ -221,7 +221,7 @@ non-casual paths, because causal paths exit the treatment (frontdoor).
 There are no backdoor paths entering the treatment (F). The adjustment set is empty. 
 
 ```{r}
-adjustmentSets(dag, effect = 'total')
+ggdag_adjustment_set(dag, effect = 'total') + theme_dag()
 ```
 
 
@@ -349,7 +349,7 @@ we are interested in the direct effect. Therefore, the adjustment set includes
 group size. 
 
 ```{r}
-adjustmentSets(dag, effect = 'direct')
+ggdag_adjustment_set(dag, effect = 'direct') + theme_dag()
 ```
 
 
@@ -480,13 +480,14 @@ non-casual paths, because causal paths exit the treatment (frontdoor).
 3. Find adjustment sets that close all backdoor/non-causal paths. 
 
 There is one backdoor path entering the treatment (F) through the 
-unobserved confound U. The total causal effect can be estimated as in 
-Q02, since the unobserved confound should not be added as a control. The
-direct causal path can also simply be estimated as in Q03.
+unobserved confound U. The total causal effect cannot be estimate 
+because of the unobserved confound introducing a backdoor path into 
+the treatment that cannot be controlled for. The direct causal effect
+can be estimated as in Q03 by including G in the adjustment set. 
 
 ```{r}
-adjustmentSets(dag, effect = 'total')
-adjustmentSets(dag, effect = 'direct')
+ggdag_adjustment_set(dag, effect = 'total')  + theme_dag()
+ggdag_adjustment_set(dag, effect = 'direct') + theme_dag()
 ```
 
 

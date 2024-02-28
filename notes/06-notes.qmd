@@ -152,7 +152,7 @@ direction of arrows
 3. Find adjustment sets that close all backdoor/non-causal paths.
 
 ```{r}
-adjustmentSets(dag)
+ggdag_adjustment_set(dag) + theme_dag()
 ```
 
 Block the pipe: $X \perp\!\!\!\perp U | Z$
@@ -272,7 +272,7 @@ direction of arrows
 3. Find adjustment sets that close all backdoor/non-causal paths.
 
 ```{r}
-adjustmentSets(dag)
+ggdag_adjustment_set(dag) + theme_dag()
 ```
 
 
@@ -369,7 +369,7 @@ direction of arrows
 3. Find adjustment sets that close all backdoor/non-causal paths.
 
 ```{r}
-adjustmentSets(dag)
+ggdag_adjustment_set(dag) + theme_dag()
 ```
 
 The backdoor path is closed because Z is a collider which block the association. 
@@ -419,7 +419,7 @@ direction of arrows
 3. Find adjustment sets that close all backdoor/non-causal paths.
 
 ```{r}
-adjustmentSets(dag)
+ggdag_adjustment_set(dag) + theme_dag()
 ```
 
 There are no backdoor paths and there is no need to control for Z. Controlling
@@ -594,7 +594,7 @@ direction of arrows
 3. Find adjustment sets that close all backdoor/non-causal paths.
 
 ```{r}
-adjustmentSets(dag)
+ggdag_adjustment_set(dag) + theme_dag()
 ```
 
 
