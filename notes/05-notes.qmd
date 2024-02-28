@@ -12,8 +12,11 @@ source('R/packages.R')
 
 # The four elemental confounds
 
-Correlation is common in nature, causation is sparse
+Correlation is common in nature, causation is sparse. 
+Causes are not in the data.
 
+
+![](../graphics/stat_rethinking_l05_four_elemental.png)
 
 Recall: 
 
@@ -25,11 +28,11 @@ Confounds are features of the sample and how we use the sample that misleads
 us. Sources of confounds are diverse but there are four elemental 
 confounds. 
 
-Causes are not in the data.
 
 ## The fork
 
 ```{r}
+#| echo: false
 coords <- data.frame(
 	name = c('X', 'Y', 'Z'),
 	x =    c(1,    3,   2),
@@ -89,6 +92,7 @@ Is the relationship between marriage rate and divorce rate solely
 a result of the fork, their shared relationship with age at marriage? 
 
 ```{r}
+#| echo: false
 coords <- data.frame(
 	name = c('M', 'D', 'A'),
 	x =    c(1,    3,   2),
@@ -97,7 +101,7 @@ coords <- data.frame(
 ```
 
 ```{r}
-#| fig.height: 3
+#| fig.height: 4
 #| fig.width: 4 
 dagify(
 	M ~ A,
@@ -145,7 +149,7 @@ $\sigma \sim Exponnential(1)$
 ```{r}
 n <- 100
 ggplot() + 
-	geom_abline(aes(intercept = rnorm(n, 0, 10), 
+	geom_abline(aes(intercept = rnorm(n, 0, 10),
 									slope = rnorm(n, 0, 10)),
 							alpha = 0.1, linewidth = 2) + 
 	labs(x = 'median age at marriage (standardized)', 
@@ -155,13 +159,13 @@ ggplot() +
 	ylim(-2, 2)
 
 ggplot() + 
-	geom_abline(aes(intercept = rnorm(n, 0, 0.2), 
+	geom_abline(aes(intercept = rnorm(n, 0, 0.2),
 									slope = rnorm(n, 0, 0.5)),
-							alpha = 0.1, linewidth = 2) + 
-	labs(x = 'median age at marriage (standardized)', 
+							alpha = 0.1, linewidth = 2) +
+	labs(x = 'median age at marriage (standardized)',
 			 y = 'divorce rate (standardized)',
-			 title = TeX(r"($\alpha \sim Normal(0, 0.2)$, $\beta \sim Normal(0, 0.5)$)")) + 
-	xlim(-2, 2) + 
+			 title = TeX(r"($\alpha \sim Normal(0, 0.2)$, $\beta \sim Normal(0, 0.5)$)")) +
+	xlim(-2, 2) +
 	ylim(-2, 2)
 ```
 
@@ -191,7 +195,7 @@ what difference it makes.
 1. Compute the contrast
 
 ```{r}
-#| fig.height: 3
+#| fig.height: 4
 #| fig.width: 5
 g1 <- dagify(
 	M ~ A,
