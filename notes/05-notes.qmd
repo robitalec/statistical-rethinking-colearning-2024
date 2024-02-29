@@ -141,7 +141,7 @@ $\beta_{M} \sim Normal(0, 0.5)$
 
 $\beta_{A} \sim Normal(0, 0.5)$
 
-$\sigma \sim Exponnential(1)$
+$\sigma \sim Exponential(1)$
 
 
 ```{r}

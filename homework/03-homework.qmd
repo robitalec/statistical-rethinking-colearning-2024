@@ -93,7 +93,7 @@ $$\alpha \sim Normal(0, 0.2)$$
 
 $$\beta_{A} \sim Normal(0, 0.5)$$
 
-$$\sigma \sim Exponnential(1)$$
+$$\sigma \sim Exponential(1)$$
 
 #### Prior predictive simulation
 
@@ -234,7 +234,7 @@ $$\alpha \sim Normal(0, 0.2)$$
 
 $$\beta_{F} \sim Normal(0, 0.5)$$
 
-$$\sigma \sim Exponnential(1)$$
+$$\sigma \sim Exponential(1)$$
 
 #### Prior predictive simulation
 
@@ -364,7 +364,7 @@ $$\beta_{G} \sim Normal(0, 0.5)$$
 
 $$\beta_{F} \sim Normal(0, 0.5)$$
 
-$$\sigma \sim Exponnential(1)$$
+$$\sigma \sim Exponential(1)$$
 
 ### Analyze the data
 
