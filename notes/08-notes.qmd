@@ -253,3 +253,48 @@ plot(precis(mQO, 2))
 ```
 
 
+## Judge effects
+
+Lastly, introduce judge effects. 
+
+Judges' biases are a competing cause and we use two additional latent variables
+(H and D) to measure them. $\mu_{i}$ is the expected score of a wine and it is
+calculated by multiplying the judge discrimination (D) by wine quality added to 
+origin (O) subtracted by judge harshness (H). Harshness represents how good
+a wine has to be to give it an average score. Discriminatory judges give very 
+disperse scores to different wines, whereas non-discriminatory judges give
+similar scores to all wines. This formulation comes from common judge or item 
+response models. 
+
+
+
+$$S_{i} \sim Normal(\mu_{i}, \sigma)$$
+$$\mu_{i} = (Q_{W[i]} + O_{X[i]} - H_{J[i]})D_{J[i]}$$
+$$Q_{j} \sim Normal(0, 1)$$
+$$O_{j} \sim Normal(0, 1)$$
+$$H_{j} \sim Normal(0, 1)$$
+$$D_{j} \sim Normal(0, 1)$$
+$$\sigma \sim Exponential(1)$$
+
+```{r}
+#| cache: true
+mQOJ <- ulam(
+	alist(
+		S ~ dnorm(mu, sigma),
+		mu <- (Q[W] + O[X] - H[J]) * D[J],
+		Q[W] ~ dnorm(0, 1),
+		O[X] ~ dnorm(0, 1),
+		H[J] ~ dnorm(0, 1),
+		D[J] ~ dexp(1),
+		sigma ~ dexp(1)
+	),
+	data = dat,
+	chains = 4
+)
+plot(precis(mQOJ, 2))
+```
+
+We see a lot of variation between judges. Judge 4 has a high harshness value
+compared to judges 5 and 6. Including judge specific latent effects helps us
+provide better estimates by dealing with these known contributing causes of wine
+score.
