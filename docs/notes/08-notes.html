@@ -418,12 +418,14 @@ model {
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dag</span> <span class="op">&lt;-</span> <span class="fu">dagify</span><span class="op">(</span></span>
 <span>    <span class="va">S</span> <span class="op">~</span> <span class="va">Q</span> <span class="op">+</span> <span class="va">J</span>,</span>
+<span>    <span class="va">Q</span> <span class="op">~</span> <span class="va">X</span>,</span>
+<span>    <span class="va">J</span> <span class="op">~</span> <span class="va">Z</span>,</span>
 <span>  coords <span class="op">=</span> <span class="va">coords</span>,</span>
 <span>    exposure <span class="op">=</span> <span class="st">'Q'</span>,</span>
 <span>    outcome <span class="op">=</span> <span class="st">'S'</span>,</span>
-<span>  latent <span class="op">=</span> <span class="st">'Q'</span></span>
+<span>  latent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Q'</span>, <span class="st">'J'</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="fu">ggdag_status</span><span class="op">(</span><span class="va">dag</span>, seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu">ggdag</span><span class="op">(</span><span class="va">dag</span>, seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="08-notes_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -439,7 +441,7 @@ model {
 <p>First, model the association of wine score with wine quality.</p>
 <p>Wine quality is an unobserved parameter in the model. Since score is standardized, the average wine score will have an average quality.</p>
 <p><span class="math display">\[S_{i} \sim Normal(\mu_{i}, \sigma)\]</span> <span class="math display">\[\mu_{i} = Q_{W[i]}\]</span> <span class="math display">\[Q_{j} \sim Normal(0, 1)\]</span> <span class="math display">\[\sigma \sim Exponential(1)\]</span></p>
-<div class="cell" data-hash="08-notes_cache/html/unnamed-chunk-4_0a8948ff774c254d48ffa7a5d83e8d8e">
+<div class="cell" data-hash="08-notes_cache/html/unnamed-chunk-4_eea8a723b0b1d59008f9818f8dc4447a">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">Wines2012</span><span class="op">)</span></span>
 <span><span class="va">d</span> <span class="op">&lt;-</span> <span class="va">Wines2012</span></span>
 <span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
@@ -458,69 +460,26 @@ model {
 <span>    chains <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>    cores <span class="op">=</span> <span class="fl">4</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Running MCMC with 4 parallel chains, with 1 thread(s) per chain...
-
-Chain 1 Iteration:   1 / 1000 [  0%]  (Warmup) 
-Chain 1 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-Chain 1 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-Chain 1 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-Chain 1 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-Chain 1 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-Chain 1 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-Chain 1 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling) 
-Chain 2 Iteration:   1 / 1000 [  0%]  (Warmup) 
-Chain 2 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-Chain 2 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-Chain 2 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-Chain 2 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-Chain 2 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-Chain 2 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-Chain 2 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-Chain 2 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-Chain 2 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling) 
-Chain 3 Iteration:   1 / 1000 [  0%]  (Warmup) 
-Chain 3 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-Chain 3 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-Chain 3 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-Chain 3 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-Chain 3 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-Chain 3 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-Chain 3 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-Chain 3 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-Chain 3 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-Chain 3 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-Chain 3 Iteration: 1000 / 1000 [100%]  (Sampling) 
-Chain 4 Iteration:   1 / 1000 [  0%]  (Warmup) 
-Chain 4 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-Chain 4 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-Chain 4 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-Chain 4 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-Chain 4 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-Chain 4 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-Chain 4 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-Chain 4 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-Chain 4 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-Chain 4 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling) 
-Chain 1 finished in 0.1 seconds.
-Chain 2 finished in 0.1 seconds.
-Chain 3 finished in 0.1 seconds.
-Chain 4 finished in 0.1 seconds.
-
-All 4 chains finished successfully.
-Mean chain execution time: 0.1 seconds.
-Total execution time: 0.4 seconds.</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
 </div>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu">precis</span><span class="op">(</span><span class="va">mQ</span>, depth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/tmp/RtmprqCij4/model-185fa255e9ad4.stan', line 19, column 4 to column 29)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu">precis</span><span class="op">(</span><span class="va">mQ</span>, depth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="08-notes_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<p><img src="08-notes_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Note: there is variability in the estimate unobserved parameter Q across wines.</p>
@@ -528,8 +487,8 @@ Total execution time: 0.4 seconds.</code></pre>
 <p>Next, add the wine origin variable and stratify by it.</p>
 <p><span class="math display">\[S_{i} \sim Normal(\mu_{i}, \sigma)\]</span> <span class="math display">\[\mu_{i} = Q_{W[i]} + O_{X[i]}\]</span> <span class="math display">\[Q_{j} \sim Normal(0, 1)\]</span> <span class="math display">\[O_{j} \sim Normal(0, 1)\]</span></p>
 <p><span class="math display">\[\sigma \sim Exponential(1)\]</span></p>
-<div class="cell" data-hash="08-notes_cache/html/unnamed-chunk-5_43ed9300daab06c78a4c4f5046fdce32">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mQO</span> <span class="op">&lt;-</span> <span class="fu">ulam</span><span class="op">(</span></span>
+<div class="cell" data-hash="08-notes_cache/html/unnamed-chunk-6_83fa156f3cd70b87b5935437f04cd241">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mQO</span> <span class="op">&lt;-</span> <span class="fu">ulam</span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html">alist</a></span><span class="op">(</span></span>
 <span>        <span class="va">S</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span>,</span>
 <span>        <span class="va">mu</span> <span class="op">&lt;-</span> <span class="va">Q</span><span class="op">[</span><span class="va">W</span><span class="op">]</span> <span class="op">+</span> <span class="va">O</span><span class="op">[</span><span class="va">X</span><span class="op">]</span>,</span>
@@ -541,94 +500,34 @@ Total execution time: 0.4 seconds.</code></pre>
 <span>    chains <span class="op">=</span> <span class="fl">4</span> ,</span>
 <span>    cores <span class="op">=</span> <span class="fl">4</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Running MCMC with 4 parallel chains, with 1 thread(s) per chain...
-
-Chain 1 Iteration:   1 / 1000 [  0%]  (Warmup) 
-Chain 1 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-Chain 1 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-Chain 1 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-Chain 1 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-Chain 1 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-Chain 1 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-Chain 1 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling) 
-Chain 2 Iteration:   1 / 1000 [  0%]  (Warmup) 
-Chain 2 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-Chain 2 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-Chain 2 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-Chain 2 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-Chain 2 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-Chain 2 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-Chain 2 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-Chain 2 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-Chain 2 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling) 
-Chain 3 Iteration:   1 / 1000 [  0%]  (Warmup) 
-Chain 3 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-Chain 3 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-Chain 3 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-Chain 3 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-Chain 3 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-Chain 3 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-Chain 3 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-Chain 3 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-Chain 3 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-Chain 3 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-Chain 3 Iteration: 1000 / 1000 [100%]  (Sampling) 
-Chain 4 Iteration:   1 / 1000 [  0%]  (Warmup) 
-Chain 4 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-Chain 4 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-Chain 4 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-Chain 4 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-Chain 4 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-Chain 4 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-Chain 4 Iteration: 600 / 1000 [ 60%]  (Sampling) </code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>Chain 3 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/tmp/RtmprqCij4/model-185fa5e844bfb.stan', line 21, column 4 to column 29)</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/tmp/RtmpmlkHSp/model-16dad705833ab.stan', line 21, column 4 to column 29)</code></pre>
+<pre><code>Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>Chain 3 </code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 4 </code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Chain 1 finished in 0.1 seconds.
-Chain 2 finished in 0.2 seconds.
-Chain 3 finished in 0.2 seconds.
-Chain 4 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-Chain 4 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-Chain 4 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling) 
-Chain 4 finished in 0.2 seconds.
-
-All 4 chains finished successfully.
-Mean chain execution time: 0.2 seconds.
-Total execution time: 0.4 seconds.</code></pre>
-</div>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu">precis</span><span class="op">(</span><span class="va">mQO</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu">precis</span><span class="op">(</span><span class="va">mQO</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="08-notes_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<p><img src="08-notes_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section></section><section id="judge-effects" class="level2"><h2 class="anchored" data-anchor-id="judge-effects">Judge effects</h2>
 <p>Lastly, introduce judge effects.</p>
 <p>Judges’ biases are a competing cause and we use two additional latent variables (H and D) to measure them. <span class="math inline">\(\mu_{i}\)</span> is the expected score of a wine and it is calculated by multiplying the judge discrimination (D) by wine quality added to origin (O) subtracted by judge harshness (H). Harshness represents how good a wine has to be to give it an average score. Discriminatory judges give very disperse scores to different wines, whereas non-discriminatory judges give similar scores to all wines. This formulation comes from common judge or item response models.</p>
 <p><span class="math display">\[S_{i} \sim Normal(\mu_{i}, \sigma)\]</span> <span class="math display">\[\mu_{i} = (Q_{W[i]} + O_{X[i]} - H_{J[i]})D_{J[i]}\]</span> <span class="math display">\[Q_{j} \sim Normal(0, 1)\]</span> <span class="math display">\[O_{j} \sim Normal(0, 1)\]</span> <span class="math display">\[H_{j} \sim Normal(0, 1)\]</span> <span class="math display">\[D_{j} \sim Normal(0, 1)\]</span> <span class="math display">\[\sigma \sim Exponential(1)\]</span></p>
-<div class="cell" data-hash="08-notes_cache/html/unnamed-chunk-6_b98165bccea3835e471f5d84d5678519">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mQOJ</span> <span class="op">&lt;-</span> <span class="fu">ulam</span><span class="op">(</span></span>
+<div class="cell" height="9" data-hash="08-notes_cache/html/unnamed-chunk-8_16f466b9abeaa92a8420893711261b7d">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mQOJ</span> <span class="op">&lt;-</span> <span class="fu">ulam</span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html">alist</a></span><span class="op">(</span></span>
 <span>        <span class="va">S</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span>,</span>
 <span>        <span class="va">mu</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">Q</span><span class="op">[</span><span class="va">W</span><span class="op">]</span> <span class="op">+</span> <span class="va">O</span><span class="op">[</span><span class="va">X</span><span class="op">]</span> <span class="op">-</span> <span class="va">H</span><span class="op">[</span><span class="va">J</span><span class="op">]</span><span class="op">)</span> <span class="op">*</span> <span class="va">D</span><span class="op">[</span><span class="va">J</span><span class="op">]</span>,</span>
@@ -641,69 +540,11 @@ Total execution time: 0.4 seconds.</code></pre>
 <span>    data <span class="op">=</span> <span class="va">dat</span>,</span>
 <span>    chains <span class="op">=</span> <span class="fl">4</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Running MCMC with 4 sequential chains, with 1 thread(s) per chain...
-
-Chain 1 Iteration:   1 / 1000 [  0%]  (Warmup) 
-Chain 1 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-Chain 1 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-Chain 1 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-Chain 1 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-Chain 1 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-Chain 1 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-Chain 1 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling) 
-Chain 1 finished in 0.5 seconds.
-Chain 2 Iteration:   1 / 1000 [  0%]  (Warmup) 
-Chain 2 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-Chain 2 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-Chain 2 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-Chain 2 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-Chain 2 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-Chain 2 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-Chain 2 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-Chain 2 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-Chain 2 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling) 
-Chain 2 finished in 0.4 seconds.
-Chain 3 Iteration:   1 / 1000 [  0%]  (Warmup) 
-Chain 3 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-Chain 3 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-Chain 3 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-Chain 3 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-Chain 3 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-Chain 3 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-Chain 3 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-Chain 3 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-Chain 3 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-Chain 3 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-Chain 3 Iteration: 1000 / 1000 [100%]  (Sampling) 
-Chain 3 finished in 0.5 seconds.
-Chain 4 Iteration:   1 / 1000 [  0%]  (Warmup) 
-Chain 4 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-Chain 4 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-Chain 4 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-Chain 4 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-Chain 4 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-Chain 4 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-Chain 4 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-Chain 4 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-Chain 4 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-Chain 4 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling) 
-Chain 4 finished in 0.5 seconds.
-
-All 4 chains finished successfully.
-Mean chain execution time: 0.5 seconds.
-Total execution time: 2.3 seconds.</code></pre>
 </div>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu">precis</span><span class="op">(</span><span class="va">mQOJ</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu">precis</span><span class="op">(</span><span class="va">mQOJ</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="08-notes_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<p><img src="08-notes_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>We see a lot of variation between judges. Judge 4 has a high harshness value compared to judges 5 and 6. Including judge specific latent effects helps us provide better estimates by dealing with these known contributing causes of wine score.</p>
