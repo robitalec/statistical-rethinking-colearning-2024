@@ -220,3 +220,36 @@ plot(precis(mQ, depth = 2))
 ```
 
 Note: there is variability in the estimate unobserved parameter Q across wines. 
+
+
+### Wine origin
+
+Next, add the wine origin variable and stratify by it. 
+
+
+$$S_{i} \sim Normal(\mu_{i}, \sigma)$$
+$$\mu_{i} = Q_{W[i]} + O_{X[i]}$$
+$$Q_{j} \sim Normal(0, 1)$$
+$$O_{j} \sim Normal(0, 1)$$
+
+$$\sigma \sim Exponential(1)$$
+
+
+```{r}
+#| cache: true
+mQO <- ulam(
+	alist(
+		S ~ dnorm(mu, sigma),
+		mu <- Q[W] + O[X],
+		Q[W] ~ dnorm(0, 1),
+		O[X] ~ dnorm(0, 1),
+		sigma ~ dexp(1)
+	),
+	data = dat ,
+	chains = 4 ,
+	cores = 4
+)
+plot(precis(mQO, 2))
+```
+
+
