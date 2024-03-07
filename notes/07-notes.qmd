@@ -3,3 +3,22 @@ title: "Lecture 07 Notes"
 author: "Alec L. Robitaille"
 date: "2024-03-07"
 ---
+
+
+```{r}
+#| include: false
+source('R/packages.R')
+```
+
+
+Occam's razor is often mentioned as a recommendation to select the simplest
+explanation of some process. Usually however, there isn't a set of comparably
+accurate models where one is more complicated than the other. Instead, 
+the trade off is between simplicity and accuracy. 
+
+Problems of prediction:
+
+1. What function describes these points? (fitting a line)
+1. What function explains these points? (causal inference)
+1. What would happen if we changed a point's mass? (intervention)
+1. What is the next observation from the same process? (prediction without intervention)
