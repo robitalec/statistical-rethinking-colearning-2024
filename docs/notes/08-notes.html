@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -57,7 +91,7 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
+}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body class="nav-sidebar floating">
 
@@ -220,7 +254,22 @@ ul.task-list li input[type="checkbox"] {
   <li>
 <a href="#stan" id="toc-stan" class="nav-link" data-scroll-target="#stan">Stan</a>
   <ul class="collapse">
-<li><a href="#diagonstics" id="toc-diagonstics" class="nav-link" data-scroll-target="#diagonstics">Diagonstics</a></li>
+<li><a href="#diagnostics" id="toc-diagnostics" class="nav-link" data-scroll-target="#diagnostics">Diagnostics</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#example-judgement-at-princeton" id="toc-example-judgement-at-princeton" class="nav-link" data-scroll-target="#example-judgement-at-princeton">Example: Judgement at Princeton</a>
+  <ul class="collapse">
+<li><a href="#scientific-model" id="toc-scientific-model" class="nav-link" data-scroll-target="#scientific-model">Scientific model</a></li>
+  <li><a href="#estimand" id="toc-estimand" class="nav-link" data-scroll-target="#estimand">Estimand</a></li>
+  <li>
+<a href="#statistical-model" id="toc-statistical-model" class="nav-link" data-scroll-target="#statistical-model">Statistical model</a>
+  <ul class="collapse">
+<li><a href="#association-of-wine-score-and-quality" id="toc-association-of-wine-score-and-quality" class="nav-link" data-scroll-target="#association-of-wine-score-and-quality">Association of wine score and quality</a></li>
+  <li><a href="#wine-origin" id="toc-wine-origin" class="nav-link" data-scroll-target="#wine-origin">Wine origin</a></li>
+  </ul>
+</li>
+  <li><a href="#judge-effects" id="toc-judge-effects" class="nav-link" data-scroll-target="#judge-effects">Judge effects</a></li>
   </ul>
 </li>
   </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/edit/main/notes/08-notes.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -323,7 +372,7 @@ model {
 </ul>
 </li>
 </ul>
-<section id="diagonstics" class="level2"><h2 class="anchored" data-anchor-id="diagonstics">Diagonstics</h2>
+<section id="diagnostics" class="level2"><h2 class="anchored" data-anchor-id="diagnostics">Diagnostics</h2>
 <ol type="1">
 <li>Trace plots
 <ul>
@@ -363,6 +412,142 @@ model {
 </ol>
 <p>“When you have computation problems, often there’s a problem with your model” - Andrew Gelman</p>
 <p>By problems with the models, he is referring to the probability assumptions, the priors, the statistical assumptions</p>
+</section></section><section id="example-judgement-at-princeton" class="level1"><h1>Example: Judgement at Princeton</h1>
+<p>This is an example of modeling latent variables and item response models.</p>
+<section id="scientific-model" class="level2"><h2 class="anchored" data-anchor-id="scientific-model">Scientific model</h2>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dag</span> <span class="op">&lt;-</span> <span class="fu">dagify</span><span class="op">(</span></span>
+<span>    <span class="va">S</span> <span class="op">~</span> <span class="va">Q</span> <span class="op">+</span> <span class="va">J</span>,</span>
+<span>    <span class="va">Q</span> <span class="op">~</span> <span class="va">X</span>,</span>
+<span>    <span class="va">J</span> <span class="op">~</span> <span class="va">Z</span>,</span>
+<span>  coords <span class="op">=</span> <span class="va">coords</span>,</span>
+<span>    exposure <span class="op">=</span> <span class="st">'Q'</span>,</span>
+<span>    outcome <span class="op">=</span> <span class="st">'S'</span>,</span>
+<span>  latent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Q'</span>, <span class="st">'J'</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu">ggdag</span><span class="op">(</span><span class="va">dag</span>, seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08-notes_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Wine quality (Q) is a latent variable meaning it is unobserved. There is no way to directly measure the quality of a wine because that is determined by preferences, etc.</p>
+<p>We can observe the score (S) given by judges, who each have their own unobservable characteristics such as dispositions, opinions, biases, etc. Wine origin may affect the wine quality and the score (which may occur if judges’ origin biases them to wine origin).</p>
+<p>If the blinding is not 100% accurate, if judges can guess the origin of the wine, they may be biased.</p>
+</section><section id="estimand" class="level2"><h2 class="anchored" data-anchor-id="estimand">Estimand</h2>
+<p>What is the association between wine quality and wine origin, stratified by judge to improve precision of influence of wine origin?</p>
+</section><section id="statistical-model" class="level2"><h2 class="anchored" data-anchor-id="statistical-model">Statistical model</h2>
+<p>In the lectures, Richard builds up the model in components, slowly adding complexity.</p>
+<section id="association-of-wine-score-and-quality" class="level3"><h3 class="anchored" data-anchor-id="association-of-wine-score-and-quality">Association of wine score and quality</h3>
+<p>First, model the association of wine score with wine quality.</p>
+<p>Wine quality is an unobserved parameter in the model. Since score is standardized, the average wine score will have an average quality.</p>
+<p><span class="math display">\[S_{i} \sim Normal(\mu_{i}, \sigma)\]</span> <span class="math display">\[\mu_{i} = Q_{W[i]}\]</span> <span class="math display">\[Q_{j} \sim Normal(0, 1)\]</span> <span class="math display">\[\sigma \sim Exponential(1)\]</span></p>
+<div class="cell" data-hash="08-notes_cache/html/unnamed-chunk-4_eea8a723b0b1d59008f9818f8dc4447a">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">Wines2012</span><span class="op">)</span></span>
+<span><span class="va">d</span> <span class="op">&lt;-</span> <span class="va">Wines2012</span></span>
+<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>    S <span class="op">=</span> <span class="fu">standardize</span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">score</span><span class="op">)</span>,</span>
+<span>    J <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">judge</span><span class="op">)</span>,</span>
+<span>    W <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">wine</span><span class="op">)</span>,</span>
+<span>    X <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">wine.amer</span> <span class="op">==</span> <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    Z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">judge.amer</span> <span class="op">==</span> <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">mQ</span> <span class="op">&lt;-</span> <span class="fu">ulam</span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html">alist</a></span><span class="op">(</span><span class="va">S</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span>,</span>
+<span>                <span class="va">mu</span> <span class="op">&lt;-</span> <span class="va">Q</span><span class="op">[</span><span class="va">W</span><span class="op">]</span>,</span>
+<span>                <span class="va">Q</span><span class="op">[</span><span class="va">W</span><span class="op">]</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                <span class="va">sigma</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html">dexp</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">dat</span>,</span>
+<span>    chains <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>    cores <span class="op">=</span> <span class="fl">4</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/tmp/RtmprqCij4/model-185fa255e9ad4.stan', line 19, column 4 to column 29)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu">precis</span><span class="op">(</span><span class="va">mQ</span>, depth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08-notes_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Note: there is variability in the estimate unobserved parameter Q across wines.</p>
+</section><section id="wine-origin" class="level3"><h3 class="anchored" data-anchor-id="wine-origin">Wine origin</h3>
+<p>Next, add the wine origin variable and stratify by it.</p>
+<p><span class="math display">\[S_{i} \sim Normal(\mu_{i}, \sigma)\]</span> <span class="math display">\[\mu_{i} = Q_{W[i]} + O_{X[i]}\]</span> <span class="math display">\[Q_{j} \sim Normal(0, 1)\]</span> <span class="math display">\[O_{j} \sim Normal(0, 1)\]</span></p>
+<p><span class="math display">\[\sigma \sim Exponential(1)\]</span></p>
+<div class="cell" data-hash="08-notes_cache/html/unnamed-chunk-6_83fa156f3cd70b87b5935437f04cd241">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mQO</span> <span class="op">&lt;-</span> <span class="fu">ulam</span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html">alist</a></span><span class="op">(</span></span>
+<span>        <span class="va">S</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span>,</span>
+<span>        <span class="va">mu</span> <span class="op">&lt;-</span> <span class="va">Q</span><span class="op">[</span><span class="va">W</span><span class="op">]</span> <span class="op">+</span> <span class="va">O</span><span class="op">[</span><span class="va">X</span><span class="op">]</span>,</span>
+<span>        <span class="va">Q</span><span class="op">[</span><span class="va">W</span><span class="op">]</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>        <span class="va">O</span><span class="op">[</span><span class="va">X</span><span class="op">]</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>        <span class="va">sigma</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html">dexp</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">dat</span> ,</span>
+<span>    chains <span class="op">=</span> <span class="fl">4</span> ,</span>
+<span>    cores <span class="op">=</span> <span class="fl">4</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/tmp/RtmprqCij4/model-185fa5e844bfb.stan', line 21, column 4 to column 29)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Chain 3 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu">precis</span><span class="op">(</span><span class="va">mQO</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08-notes_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section></section><section id="judge-effects" class="level2"><h2 class="anchored" data-anchor-id="judge-effects">Judge effects</h2>
+<p>Lastly, introduce judge effects.</p>
+<p>Judges’ biases are a competing cause and we use two additional latent variables (H and D) to measure them. <span class="math inline">\(\mu_{i}\)</span> is the expected score of a wine and it is calculated by multiplying the judge discrimination (D) by wine quality added to origin (O) subtracted by judge harshness (H). Harshness represents how good a wine has to be to give it an average score. Discriminatory judges give very disperse scores to different wines, whereas non-discriminatory judges give similar scores to all wines. This formulation comes from common judge or item response models.</p>
+<p><span class="math display">\[S_{i} \sim Normal(\mu_{i}, \sigma)\]</span> <span class="math display">\[\mu_{i} = (Q_{W[i]} + O_{X[i]} - H_{J[i]})D_{J[i]}\]</span> <span class="math display">\[Q_{j} \sim Normal(0, 1)\]</span> <span class="math display">\[O_{j} \sim Normal(0, 1)\]</span> <span class="math display">\[H_{j} \sim Normal(0, 1)\]</span> <span class="math display">\[D_{j} \sim Normal(0, 1)\]</span> <span class="math display">\[\sigma \sim Exponential(1)\]</span></p>
+<div class="cell" height="9" data-hash="08-notes_cache/html/unnamed-chunk-8_16f466b9abeaa92a8420893711261b7d">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mQOJ</span> <span class="op">&lt;-</span> <span class="fu">ulam</span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html">alist</a></span><span class="op">(</span></span>
+<span>        <span class="va">S</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span>,</span>
+<span>        <span class="va">mu</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">Q</span><span class="op">[</span><span class="va">W</span><span class="op">]</span> <span class="op">+</span> <span class="va">O</span><span class="op">[</span><span class="va">X</span><span class="op">]</span> <span class="op">-</span> <span class="va">H</span><span class="op">[</span><span class="va">J</span><span class="op">]</span><span class="op">)</span> <span class="op">*</span> <span class="va">D</span><span class="op">[</span><span class="va">J</span><span class="op">]</span>,</span>
+<span>        <span class="va">Q</span><span class="op">[</span><span class="va">W</span><span class="op">]</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>        <span class="va">O</span><span class="op">[</span><span class="va">X</span><span class="op">]</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>        <span class="va">H</span><span class="op">[</span><span class="va">J</span><span class="op">]</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>        <span class="va">D</span><span class="op">[</span><span class="va">J</span><span class="op">]</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html">dexp</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,</span>
+<span>        <span class="va">sigma</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html">dexp</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">dat</span>,</span>
+<span>    chains <span class="op">=</span> <span class="fl">4</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu">precis</span><span class="op">(</span><span class="va">mQOJ</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08-notes_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We see a lot of variation between judges. Judge 4 has a high harshness value compared to judges 5 and 6. Including judge specific latent effects helps us provide better estimates by dealing with these known contributing causes of wine score.</p>
 
 
 </section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
