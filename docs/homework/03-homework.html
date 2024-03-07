@@ -176,6 +176,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Lecture 06 Notes</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/07-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 07 Notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/08-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 08 Notes</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -343,7 +355,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><span class="math display">\[F_{i} \sim Normal(\mu_{i}, \sigma)\]</span> <span class="math display">\[\mu_{i} = \alpha + \beta_{A} A_{i}\]</span></p>
 <p><span class="math display">\[\alpha \sim Normal(0, 0.2)\]</span></p>
 <p><span class="math display">\[\beta_{A} \sim Normal(0, 0.5)\]</span></p>
-<p><span class="math display">\[\sigma \sim Exponnential(1)\]</span></p>
+<p><span class="math display">\[\sigma \sim Exponential(1)\]</span></p>
 <section id="prior-predictive-simulation" class="level4"><h4 class="anchored" data-anchor-id="prior-predictive-simulation">Prior predictive simulation</h4>
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
@@ -506,7 +518,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <p><span class="math display">\[W_{i} \sim Normal(\mu_{i}, \sigma)\]</span> <span class="math display">\[\mu_{i} = \alpha + \beta_{F} F_{i}\]</span></p>
 <p><span class="math display">\[\alpha \sim Normal(0, 0.2)\]</span></p>
 <p><span class="math display">\[\beta_{F} \sim Normal(0, 0.5)\]</span></p>
-<p><span class="math display">\[\sigma \sim Exponnential(1)\]</span></p>
+<p><span class="math display">\[\sigma \sim Exponential(1)\]</span></p>
 <section id="prior-predictive-simulation-1" class="level4"><h4 class="anchored" data-anchor-id="prior-predictive-simulation-1">Prior predictive simulation</h4>
 <div class="cell">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
@@ -637,7 +649,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <p><span class="math display">\[\alpha \sim Normal(0, 0.2)\]</span></p>
 <p><span class="math display">\[\beta_{G} \sim Normal(0, 0.5)\]</span></p>
 <p><span class="math display">\[\beta_{F} \sim Normal(0, 0.5)\]</span></p>
-<p><span class="math display">\[\sigma \sim Exponnential(1)\]</span></p>
+<p><span class="math display">\[\sigma \sim Exponential(1)\]</span></p>
 </section><section id="analyze-the-data-2" class="level3"><h3 class="anchored" data-anchor-id="analyze-the-data-2">Analyze the data</h3>
 <div class="cell">
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Print priors used</span></span>

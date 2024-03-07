@@ -1,0 +1,133 @@
+---
+title: "Lecture 08 Notes"
+author: "Alec L. Robitaille"
+date: "2024-03-07"
+---
+
+```{r}
+#| include: false
+source('R/packages.R')
+```
+
+# Markov chain Monte Carlo
+
+- Chain: sequence of draws from distribution
+- Markov chain: history doesn't matter, just current location
+- Monte Carlo: some numerical algorithm that uses random simulation
+
+
+Use in Bayesian statistics: to draw samples from a distribution
+
+Sample each parameter value in proportion to its probability
+
+There can be any number of dimensions (parameters)
+
+At every step, the comparison is between the current combination of parameter
+values, and the candidate combination of parameter values. In this way, 
+we don't need to evaluate the entire grid
+
+
+## Algorithms
+
+### Metropolis algorithm
+
+Simple version of Markov chain Monte Carlo (MCMC)
+
+- simple, easy to code
+- very general
+- inefficient, especially at higher dimensions
+- tuning step size where large often rejected or small where sampling is slow 
+and samples are similar
+
+
+### Hamiltonian Monte Carlo
+
+- physics simulation of gradients (local curvature of the distribution)
+- friction-less particle moves in a random direction along gradient of probability
+distribution
+- tuning step size where large often results in U-turns or small where sampling
+is slow
+- particularly useful when probability distributions are more complex
+- automatic differentiation translates model code into symbolic derivatives
+
+
+
+# Stan
+
+Modern, open source, high-performance statistical computation tool. 
+
+```{}
+data {
+	// the observed variables
+	vector[50] D;
+	vector[50] A;
+	vector[50] M;
+}
+parameters {
+	// the unobserved variables
+	real a;
+	real bM;
+	real bA;
+	real<lower=0> sigma;
+}
+model {
+	// compute the log posterior probability
+	vector[50] mu;
+	sigma ~ exponential( 1 );
+	bA ~ normal( 0 , 0.5 );
+	bM ~ normal( 0 , 0.5 );
+	a ~ normal( 0 , 0.2 );
+	for ( i in 1:50 ) {
+		mu[i] = a + bM * M[i] + bA * A[i];
+	}
+	D ~ normal( mu , sigma );
+}
+```
+
+- data
+	- represents the observed variables
+	- requires setting the length of each variable
+- parameters
+	- represents the unobserved variables
+	- requires setting the types and constraints
+- model
+	- represents the distributional parts of the model sufficient to compute the 
+	posterior probability
+
+
+## Diagonstics
+
+1. Trace plots
+	- graphical display of sequential samples plotted as a timeline
+	- optionally also include the warm up region
+	- "healthy" is stationary, remaining in the same general region 
+through time ("hairy caterpillar") 
+1. Trace rank plots
+	- multiple chains are used to measure convergence where every chain explores
+the same distribution
+	- because of overlap between chains, trace rank plots can be easier to
+visualize multiple chains
+	- shows rank order
+	- "healthy" is switching between orders, no chain occupies consistently higher rank
+1. R-hat convergence measure
+	- R-hat is a ratio of variances, as total variance shrinks to average variance
+within chains, R-hat approaches 1
+	- no threshold, not a test, just a diagnostic criterion
+1. Number of effective samples
+	- number of effective samples
+	- "how long would the chain be if each sample was independent of the one before it?"
+	- when samples are auto correlated, there are fewer effective samples
+	- ineffective samples means that sequential samples share information
+1. Divergent transitions
+	- a kind of rejected proposal
+	- simulation diverges from true path
+
+
+"When you have computation problems, often there's a problem with your model" -
+Andrew Gelman
+
+By problems with the models, he is referring to the probability assumptions, the
+priors, the statistical assumptions
+
+
+
