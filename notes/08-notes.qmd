@@ -141,20 +141,22 @@ This is an example of modeling latent variables and item response models.
 #| echo: false
 coords <- data.frame(
 	name = c('Q', 'S', 'J', 'X', 'Z'),
-	x =    c(1,    2,   1,   2,   3),
-	y =    c(2,    2,   2,   1,   1)
+	x =    c(1,    2,   2,   1,   3),
+	y =    c(2,    2,   1,   1,   1)
 )
 ```
 
 ```{r}
 dag <- dagify(
 	S ~ Q + J,
+	Q ~ X,
+	J ~ Z,
   coords = coords,
 	exposure = 'Q',
 	outcome = 'S',
-  latent = 'Q'
+  latent = c('Q', 'J')
 )
-ggdag_status(dag, seed = 2, layout = 'auto') + theme_dag()
+ggdag(dag, seed = 2, layout = 'auto') + theme_dag()
 ```
 
 Wine quality (Q) is a latent variable meaning it is unobserved. There is no way 
