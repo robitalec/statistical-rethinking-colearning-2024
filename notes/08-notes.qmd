@@ -200,6 +200,7 @@ $$\sigma \sim Exponential(1)$$
 
 ```{r}
 #| cache: true
+#| results: hide
 data(Wines2012)
 d <- Wines2012
 dat <- list(
@@ -218,6 +219,9 @@ mQ <- ulam(
 	chains = 4,
 	cores = 4
 )
+```
+
+```{r}
 plot(precis(mQ, depth = 2))
 ```
 
@@ -239,6 +243,7 @@ $$\sigma \sim Exponential(1)$$
 
 ```{r}
 #| cache: true
+#| results: hide
 mQO <- ulam(
 	alist(
 		S ~ dnorm(mu, sigma),
@@ -251,6 +256,9 @@ mQO <- ulam(
 	chains = 4 ,
 	cores = 4
 )
+```
+
+```{r}
 plot(precis(mQO, 2))
 ```
 
@@ -280,6 +288,8 @@ $$\sigma \sim Exponential(1)$$
 
 ```{r}
 #| cache: true
+#| results: hide
+#| height: 9
 mQOJ <- ulam(
 	alist(
 		S ~ dnorm(mu, sigma),
@@ -293,6 +303,9 @@ mQOJ <- ulam(
 	data = dat,
 	chains = 4
 )
+```
+
+```{r}
 plot(precis(mQOJ, 2))
 ```
 
