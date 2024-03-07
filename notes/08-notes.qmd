@@ -168,3 +168,9 @@ judges' origin biases them to wine origin).
 
 If the blinding is not 100% accurate, if judges can guess the origin of the wine, 
 they may be biased. 
+
+
+## Estimand
+
+What is the association between wine quality and wine origin, stratified by
+judge to improve precision of influence of wine origin?
