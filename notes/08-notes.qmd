@@ -286,7 +286,6 @@ $$\sigma \sim Exponential(1)$$
 
 ```{r}
 #| results: hide
-#| height: 9
 mQOJ <- ulam(
 	alist(
 		S ~ dnorm(mu, sigma),
@@ -303,7 +302,7 @@ mQOJ <- ulam(
 ```
 
 ```{r}
-#| height: 10
+#| height: 12
 plot(precis(mQOJ, 2), xlim = c(-3, 3))
 ```
 
