@@ -33,3 +33,15 @@ Out of sample error: error with one point dropped (repeated for all points and a
 For simple models, as model complexity increases, in sample error decreases and
 out of sample error increases. This is the concept of overfitting. In models
 with hyper parameters, this relationship is not necessarily true. 
+
+# Regularization
+
+Not every feature in a data set is regular (representative of the long running
+generative process). 
+
+Regularization for Bayesian models is controlled by using more skeptical 
+priors. (And see hyper parameters in multilevel models)
+
+Regularization increases in sample error and decreases out of sample error
+
+Priors that are too skeptical are a risk when the sample size is small
