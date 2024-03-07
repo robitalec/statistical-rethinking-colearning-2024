@@ -26,3 +26,27 @@ At every step, the comparison is between the current combination of parameter
 values, and the candidate combination of parameter values. In this way, 
 we don't need to evaluate the entire grid
 
+
+## Algorithms
+
+### Metropolis algorithm
+
+Simple version of Markov chain Monte Carlo (MCMC)
+
+- simple, easy to code
+- very general
+- inefficient, especially at higher dimensions
+- tuning step size where large often rejected or small where sampling is slow 
+and samples are similar
+
+
+### Hamiltonian Monte Carlo
+
+- physics simulation of gradients (local curvature of the distribution)
+- friction-less particle moves in a random direction along gradient of probability
+distribution
+- tuning step size where large often results in U-turns or small where sampling
+is slow
+- particularly useful when probability distributions are more complex
+- automatic differentiation translates model code into symbolic derivatives
+
