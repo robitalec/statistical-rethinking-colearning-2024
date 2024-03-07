@@ -1,0 +1,81 @@
+---
+title: "Lecture 07 Notes"
+author: "Alec L. Robitaille"
+date: "2024-03-07"
+---
+
+
+```{r}
+#| include: false
+source('R/packages.R')
+```
+
+
+Occam's razor is often mentioned as a recommendation to select the simplest
+explanation of some process. Usually however, there isn't a set of comparably
+accurate models where one is more complicated than the other. Instead, 
+the trade off is between simplicity and accuracy. 
+
+Problems of prediction:
+
+1. What function describes these points? (fitting a line)
+1. What function explains these points? (causal inference)
+1. What would happen if we changed a point's mass? (intervention)
+1. What is the next observation from the same process? (prediction without intervention)
+
+
+# Leave-one-out cross-validation
+
+In sample error: error within the sample
+
+Out of sample error: error with one point dropped (repeated for all points and aggregated)
+
+For simple models, as model complexity increases, in sample error decreases and
+out of sample error increases. This is the concept of overfitting. In models
+with hyper parameters, this relationship is not necessarily true. 
+
+# Regularization
+
+Not every feature in a data set is regular (representative of the long running
+generative process). 
+
+Regularization for Bayesian models is controlled by using more skeptical 
+priors. (And see hyper parameters in multilevel models)
+
+Regularization increases in sample error and decreases out of sample error
+
+Priors that are too skeptical are a risk when the sample size is small
+
+
+# Overfitting
+
+PSIS and WAIC measure overfitting
+
+Regularization manages overfitting
+
+Never use PSIS, WAIC for causal inference
+
+PSIS/WAIC and regularization also help understanding model fit in the context
+of finite data
+
+Recall that DAGs don't consider sample size limitations related to estimators
+
+Confounds, colliders, conditioning on post-treatment variables are preferred by
+PSIS/WAIC
+
+
+# Outliers
+
+
+Outliers usually observed in the tails of predictive distributions
+
+Outliers are points that are more influential than others
+
+A direct measure of outliers in the PSIS K-value or WAIC penalty (no need to guess)
+
+Don't drop information in outliers, use a better model that is more appropriate
+for modeling with outliers. This is often a mixture model, eg. the Student-t 
+distribution which is a mixture of Gaussian distributions with same mean, but
+different variation. 
+
+
