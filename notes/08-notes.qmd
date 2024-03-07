@@ -199,7 +199,6 @@ $$Q_{j} \sim Normal(0, 1)$$
 $$\sigma \sim Exponential(1)$$
 
 ```{r}
-#| cache: true
 #| results: hide
 data(Wines2012)
 d <- Wines2012
@@ -222,7 +221,7 @@ mQ <- ulam(
 ```
 
 ```{r}
-plot(precis(mQ, depth = 2))
+plot(precis(mQ, depth = 2), xlim = c(-3, 3))
 ```
 
 Note: there is variability in the estimate unobserved parameter Q across wines. 
@@ -242,7 +241,6 @@ $$\sigma \sim Exponential(1)$$
 
 
 ```{r}
-#| cache: true
 #| results: hide
 mQO <- ulam(
 	alist(
@@ -259,7 +257,7 @@ mQO <- ulam(
 ```
 
 ```{r}
-plot(precis(mQO, 2))
+plot(precis(mQO, 2), xlim = c(-3, 3))
 ```
 
 
@@ -287,7 +285,6 @@ $$D_{j} \sim Normal(0, 1)$$
 $$\sigma \sim Exponential(1)$$
 
 ```{r}
-#| cache: true
 #| results: hide
 #| height: 9
 mQOJ <- ulam(
@@ -306,7 +303,8 @@ mQOJ <- ulam(
 ```
 
 ```{r}
-plot(precis(mQOJ, 2))
+#| height: 10
+plot(precis(mQOJ, 2), xlim = c(-3, 3))
 ```
 
 We see a lot of variation between judges. Judge 4 has a high harshness value
