@@ -56,8 +56,7 @@ is slow
 
 Modern, open source, high-performance statistical computation tool. 
 
-```{stan}
-#| eval: false
+```{}
 data {
 	// the observed variables
 	vector[50] D;
