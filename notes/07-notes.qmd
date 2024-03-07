@@ -1,0 +1,5 @@
+---
+title: "Lecture 07 Notes"
+author: "Alec L. Robitaille"
+date: "2024-03-07"
+---
