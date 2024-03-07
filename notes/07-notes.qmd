@@ -62,3 +62,20 @@ Recall that DAGs don't consider sample size limitations related to estimators
 
 Confounds, colliders, conditioning on post-treatment variables are preferred by
 PSIS/WAIC
+
+
+# Outliers
+
+
+Outliers usually observed in the tails of predictive distributions
+
+Outliers are points that are more influential than others
+
+A direct measure of outliers in the PSIS K-value or WAIC penalty (no need to guess)
+
+Don't drop information in outliers, use a better model that is more appropriate
+for modeling with outliers. This is often a mixture model, eg. the Student-t 
+distribution which is a mixture of Gaussian distributions with same mean, but
+different variation. 
+
+
