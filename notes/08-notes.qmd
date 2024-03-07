@@ -302,7 +302,7 @@ mQOJ <- ulam(
 ```
 
 ```{r}
-#| height: 12
+#| fig-height: 12
 plot(precis(mQOJ, 2), xlim = c(-3, 3))
 ```
 
