@@ -174,3 +174,13 @@ they may be biased.
 
 What is the association between wine quality and wine origin, stratified by
 judge to improve precision of influence of wine origin?
+
+
+
+## Statistical model
+
+In the lectures, Richard builds up the model in components,
+slowly adding complexity. 
+
+
+
