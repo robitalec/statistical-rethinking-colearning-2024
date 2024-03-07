@@ -95,7 +95,7 @@ model {
 	posterior probability
 
 
-## Diagonstics
+## Diagnostics
 
 1. Trace plots
 	- graphical display of sequential samples plotted as a timeline
