@@ -133,3 +133,38 @@ priors, the statistical assumptions
 # Example: Judgement at Princeton
 
 This is an example of modeling latent variables and item response models. 
+
+
+## Scientific model
+
+```{r}
+#| echo: false
+coords <- data.frame(
+	name = c('Q', 'S', 'J', 'X', 'Z'),
+	x =    c(1,    2,   1,   2,   3),
+	y =    c(2,    2,   2,   1,   1)
+)
+```
+
+```{r}
+dag <- dagify(
+	S ~ Q + J,
+  coords = coords,
+	exposure = 'Q',
+	outcome = 'S',
+  latent = 'Q'
+)
+ggdag_status(dag, seed = 2, layout = 'auto') + theme_dag()
+```
+
+Wine quality (Q) is a latent variable meaning it is unobserved. There is no way 
+to  directly measure the quality of a wine because that is determined by 
+preferences, etc. 
+
+We can observe the score (S) given by judges, who each have their own
+unobservable characteristics such as dispositions, opinions, biases, etc. 
+Wine origin may affect the wine quality and the score (which may occur if 
+judges' origin biases them to wine origin). 
+
+If the blinding is not 100% accurate, if judges can guess the origin of the wine, 
+they may be biased. 
