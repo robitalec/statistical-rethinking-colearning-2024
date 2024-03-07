@@ -130,4 +130,6 @@ By problems with the models, he is referring to the probability assumptions, the
 priors, the statistical assumptions
 
 
+# Example: Judgement at Princeton
 
+This is an example of modeling latent variables and item response models. 
