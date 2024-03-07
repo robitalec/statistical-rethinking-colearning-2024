@@ -22,3 +22,14 @@ Problems of prediction:
 1. What function explains these points? (causal inference)
 1. What would happen if we changed a point's mass? (intervention)
 1. What is the next observation from the same process? (prediction without intervention)
+
+
+# Leave-one-out cross-validation
+
+In sample error: error within the sample
+
+Out of sample error: error with one point dropped (repeated for all points and aggregated)
+
+For simple models, as model complexity increases, in sample error decreases and
+out of sample error increases. This is the concept of overfitting. In models
+with hyper parameters, this relationship is not necessarily true. 
