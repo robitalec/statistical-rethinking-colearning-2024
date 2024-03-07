@@ -8,3 +8,21 @@ date: "2024-03-07"
 #| include: false
 source('R/packages.R')
 ```
+
+# Markov chain Monte Carlo
+
+- Chain: sequence of draws from distribution
+- Markov chain: history doesn't matter, just current location
+- Monte Carlo: some numerical algorithm that uses random simulation
+
+
+Use in Bayesian statistics: to draw samples from a distribution
+
+Sample each parameter value in proportion to its probability
+
+There can be any number of dimensions (parameters)
+
+At every step, the comparison is between the current combination of parameter
+values, and the candidate combination of parameter values. In this way, 
+we don't need to evaluate the entire grid
+
