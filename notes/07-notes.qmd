@@ -45,3 +45,20 @@ priors. (And see hyper parameters in multilevel models)
 Regularization increases in sample error and decreases out of sample error
 
 Priors that are too skeptical are a risk when the sample size is small
+
+
+# Overfitting
+
+PSIS and WAIC measure overfitting
+
+Regularization manages overfitting
+
+Never use PSIS, WAIC for causal inference
+
+PSIS/WAIC and regularization also help understanding model fit in the context
+of finite data
+
+Recall that DAGs don't consider sample size limitations related to estimators
+
+Confounds, colliders, conditioning on post-treatment variables are preferred by
+PSIS/WAIC
