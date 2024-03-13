@@ -131,3 +131,31 @@ on predictive grounds? On scientific grounds? If your answers to these questions
 differ, why? This is a challenging exercise, because the data are so scarce. But
 it is also a realistic example, because people publish Nature papers with even
 less data. So do your best, and I look forward to seeing your growth curves.
+
+```{r}
+
+```
+
+
+https://paul-buerkner.github.io/brms/articles/brms_nonlinear.html#a-simple-non-linear-model
+
+look  at 
+
+ηn=b1exp(b2xn)
+
+
+we need to set priors on betas
+
+switch from just one species to multiple
+
+```{r}
+tar_load(h04_q02_m_exp_brms_sample)
+
+plot(conditional_effects(h04_q02_m_exp_brms_sample), points = TRUE)
+
+tar_load(h04_q02_m_lin_brms_sample)
+
+plot(conditional_effects(h04_q02_m_lin_brms_sample), points = TRUE)
+
+
+```
