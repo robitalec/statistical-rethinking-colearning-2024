@@ -123,6 +123,58 @@ targets_h04 <- c(
 			prior(normal(0, 2), b),
 			prior(exponential(1), sigma)
 		)
+	),
+	zar_brms(
+		h04_q02_m_1,
+		formula = scale_weight ~ scale_area,
+		data = scaled_foxes,
+		prior = c(
+			prior(normal(0, 0.2), Intercept),
+			prior(normal(0, 0.5), b),
+			prior(exponential(1), sigma)
+		)
+	),
+	# m_2 = h03_q02,
+	zar_brms(
+		h04_q02_m_3,
+		formula = scale_weight ~ scale_groupsize,
+		data = scaled_foxes,
+		prior = c(
+			prior(normal(0, 0.2), Intercept),
+			prior(normal(0, 0.5), b),
+			prior(exponential(1), sigma)
+		)
+	),
+	zar_brms(
+		h04_q02_m_4,
+		formula = scale_weight ~ scale_area + scale_avgfood,
+		data = scaled_foxes,
+		prior = c(
+			prior(normal(0, 0.2), Intercept),
+			prior(normal(0, 0.5), b),
+			prior(exponential(1), sigma)
+		)
+	),
+	zar_brms(
+		h04_q02_m_5,
+		formula = scale_weight ~ scale_area + scale_groupsize,
+		data = scaled_foxes,
+		prior = c(
+			prior(normal(0, 0.2), Intercept),
+			prior(normal(0, 0.5), b),
+			prior(exponential(1), sigma)
+		)
+	),
+	#m_6 = h03_q03,
+	zar_brms(
+		h04_q02_m_7,
+		formula = scale_weight ~ scale_area + scale_avgfood + groupsize,
+		data = scaled_foxes,
+		prior = c(
+			prior(normal(0, 0.2), Intercept),
+			prior(normal(0, 0.5), b),
+			prior(exponential(1), sigma)
+		)
 	)
 )
 
