@@ -57,7 +57,7 @@ weight (W, weight)? What causal interpretation can you assign each coefficient
 (parameter) from the best scoring model?
 
 
-Area, average food, group size:
+All combinations of the three variables, area, average food, and group size:
 
 1. Area
 2. Average food (H03 Q02)
@@ -66,6 +66,26 @@ Area, average food, group size:
 5. Area, group size
 6. Average food, group size (H03 Q03)
 7. Area, average food, group size
+
+```{r}
+q02_m1 <- tar_read(h04_q02_m_1_brms_sample) |> add_criterion('loo')
+q02_m2 <- tar_read(h03_q02_brms_sample) |> add_criterion('loo')
+q02_m3 <- tar_read(h04_q02_m_3_brms_sample) |> add_criterion('loo')
+q02_m4 <- tar_read(h04_q02_m_4_brms_sample) |> add_criterion('loo')
+q02_m5 <- tar_read(h04_q02_m_5_brms_sample) |> add_criterion('loo')
+q02_m6 <- tar_read(h03_q03_brms_sample) |> add_criterion('loo')
+q02_m7 <- tar_read(h04_q02_m_7_brms_sample) |> add_criterion('loo')
+
+loo_compare(
+	q02_m1,
+	q02_m2,
+	q02_m3,
+	q02_m4,
+	q02_m5,
+	q02_m6,
+	q02_m7
+)
+```
 ## Question 3 
 
 > The data in data(Dinosaurs) are body mass estimates at different estimated
