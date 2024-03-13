@@ -25,3 +25,16 @@ targets::tar_source('R')
 using both PSIS and WAIC. Which model is expected to make better predictions,
 according to these criteria, and which model yields the correct causal
 inference?
+
+
+```{r}
+
+```
+
+
+## Question 2
+
+> Reconsider the urban fox analysis from last week’s homework. On the basis
+of PSIS and WAIC scores, which combination of variables best predicts body
+weight (W, weight)? What causal interpretation can you assign each coefficient
+(parameter) from the best scoring model?
