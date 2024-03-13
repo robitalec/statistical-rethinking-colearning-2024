@@ -105,14 +105,15 @@ targets_h04 <- c(
 		data_marriage()
 	),
 	zar_brms(
-		h04_q01_m69,
-		formula = happiness ~ factor(mid),
+		h04_q01_m6_9,
+		formula = happiness ~ factor(mid) + A,
 		data = marriage,
 		prior = c(
 			prior(normal(0, 1), Intercept),
 			prior(normal(0, 2), b),
 			prior(exponential(1), sigma)
 		)
+	),
 	)
 )
 
