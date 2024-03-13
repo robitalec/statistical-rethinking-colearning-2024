@@ -86,6 +86,8 @@ loo_compare(
 	q02_m7
 )
 ```
+
+The best combination of variables on the basis of prediction is: all three. 
 ## Question 3 
 
 > The data in data(Dinosaurs) are body mass estimates at different estimated
