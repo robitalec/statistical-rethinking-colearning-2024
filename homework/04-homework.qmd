@@ -57,7 +57,15 @@ weight (W, weight)? What causal interpretation can you assign each coefficient
 (parameter) from the best scoring model?
 
 
+Area, average food, group size:
 
+1. Area
+2. Average food (H03 Q02)
+3. Group size
+4. Area, average food
+5. Area, group size
+6. Average food, group size (H03 Q03)
+7. Area, average food, group size
 ## Question 3 
 
 > The data in data(Dinosaurs) are body mass estimates at different estimated
