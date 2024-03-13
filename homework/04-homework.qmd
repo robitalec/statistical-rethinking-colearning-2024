@@ -38,3 +38,18 @@ inference?
 of PSIS and WAIC scores, which combination of variables best predicts body
 weight (W, weight)? What causal interpretation can you assign each coefficient
 (parameter) from the best scoring model?
+
+
+
+## Question 3 
+
+> The data in data(Dinosaurs) are body mass estimates at different estimated
+ages for six different dinosaur species. See ?Dinosaurs for more details. Choose
+one or more of these species (at least one, but as many as you like) and model
+its growth. To be precise: Make a predictive model of body mass using age as a
+predictor. Consider two or more model types for the function relating age to
+body mass and score each using PSIS and WAIC. Which model do you think is best,
+on predictive grounds? On scientific grounds? If your answers to these questions
+differ, why? This is a challenging exercise, because the data are so scarce. But
+it is also a realistic example, because people publish Nature papers with even
+less data. So do your best, and I look forward to seeing your growth curves.
