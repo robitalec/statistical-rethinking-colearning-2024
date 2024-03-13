@@ -175,6 +175,11 @@ targets_h04 <- c(
 			prior(normal(0, 0.5), b),
 			prior(exponential(1), sigma)
 		)
+	),
+	tar_target(
+		dino,
+		data_dinosaurs()
+	),
 	)
 )
 
