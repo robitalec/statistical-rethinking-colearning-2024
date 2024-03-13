@@ -97,6 +97,13 @@ targets_h03 <- c(
 )
 
 
+
+# Homework 04 -------------------------------------------------------------
+targets_h04 <- c(
+	tar_target(
+		marriage,
+		data_marriage()
+	),
 # Targets: all ------------------------------------------------------------
 # Automatically grab all the "targets_*" lists above
 lapply(grep('targets', ls(), value = TRUE), get)
