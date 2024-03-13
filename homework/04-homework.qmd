@@ -28,8 +28,25 @@ inference?
 
 
 ```{r}
+tar_load(h04_q01_m6_9_brms_sample)
+tar_load(h04_q01_m6_10_brms_sample)
 
+m6_9_loo <- add_criterion(h04_q01_m6_9_brms_sample, 'loo')
+m6_10_loo <- add_criterion(h04_q01_m6_10_brms_sample, 'loo')
+
+loo_compare(m6_9_loo, m6_10_loo)
 ```
+
+The criterion of model fit selected is the Bayesian LOO estimate of the expected
+log pointwise predictive density (ELPD). The model with the highest LOO ELPD
+is model 6.9 which includes a known collider: marriage status. Model 6.9 
+is expected to make better predictions but not expected to yield the 
+correct causal inference. Model 6.10 without marriage status 
+has a lower LOO ELPD, "a coarse measure of uncertainty
+about the predictive performance of unknown future data" 
+([{loo} glossary](https://mc-stan.org/loo/reference/loo-glossary.html)), but
+is expected to yield the correct causal inference. 
+
 
 
 ## Question 2
