@@ -109,6 +109,17 @@ dag <- dagify(
 )
 ggdag_status(dag, seed = 2, layout = 'auto') + theme_dag()
 ```
+
+Taking each variable in turn, we can consider the causal interpretations of 
+each: 
+
+| Variable         | Direct effect                                                                                                                                    | Total effect                                                                      | Interpretation variable in the context of W ~ A + F + G                                                                                                                                                |
+|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Area (A)         | When estimating the direct effect of A on W, there is a biasing path through F. If F is included, the direct effect of A on W can be estimated.  | No other variables should be included when estimating the total effect of A on W. | Coefficient indicates the direct effect of A on W but F is a mediator or pipe along the path which should, if the DAG is correctly representing the system, result in no association between A and W.  |
+| Average food (F) | When estimating the direct effect of F on W, there is a biasing path through G. If G is included, the direct effect of F on W can be estimated.  | G should not be included when estimating the total effect of F on W.              | Coefficient indicates the direct effect of F on W.                                                                                                                                                     |
+| Group size (G)   | When estimating the direct effect of G on W, there is a biasing path through F. If F is included, the direct effect of G on W can be estimated.  | G must be included to estimate the total effect of G on W.                        | Coefficient indicates the direct effect of G on W.                                                                                                                                                     |
+
+
 ## Question 3 
 
 > The data in data(Dinosaurs) are body mass estimates at different estimated
