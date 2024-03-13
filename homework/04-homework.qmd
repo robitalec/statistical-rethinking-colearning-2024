@@ -56,7 +56,6 @@ of PSIS and WAIC scores, which combination of variables best predicts body
 weight (W, weight)? What causal interpretation can you assign each coefficient
 (parameter) from the best scoring model?
 
-
 All combinations of the three variables, area, average food, and group size:
 
 1. Area
