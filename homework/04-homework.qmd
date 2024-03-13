@@ -88,6 +88,27 @@ loo_compare(
 ```
 
 The best combination of variables on the basis of prediction is: all three. 
+
+```{r}
+#| echo: false
+coords <- data.frame(
+	name = c('F', 'G', 'A', 'W'),
+	x =    c(1,    2,   1.5, 1.5),
+	y =    c(0,    0,   1, -1)
+)
+```
+
+```{r}
+dag <- dagify(
+	G ~ F,
+	F ~ A,
+	W ~ F + G,
+  coords = coords,
+	exposure = c('F', 'G', 'A'),
+	outcome = 'W'
+)
+ggdag_status(dag, seed = 2, layout = 'auto') + theme_dag()
+```
 ## Question 3 
 
 > The data in data(Dinosaurs) are body mass estimates at different estimated
