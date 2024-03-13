@@ -104,6 +104,20 @@ targets_h04 <- c(
 		marriage,
 		data_marriage()
 	),
+	zar_brms(
+		h04_q01_m69,
+		formula = happiness ~ factor(mid),
+		data = marriage,
+		prior = c(
+			prior(normal(0, 1), Intercept),
+			prior(normal(0, 2), b),
+			prior(exponential(1), sigma)
+		)
+	)
+)
+
+
+
 # Targets: all ------------------------------------------------------------
 # Automatically grab all the "targets_*" lists above
 lapply(grep('targets', ls(), value = TRUE), get)
