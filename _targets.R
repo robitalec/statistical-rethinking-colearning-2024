@@ -192,15 +192,15 @@ targets_h04 <- c(
 	),
 	zar_brms(
 		h04_q02_m_exp,
-		formula = bf(scale_mass ~ b1 * exp(b2 * scale_age),
-								 b1 + b2 ~ 1,
+		formula = bf(scale_mass ~ a * b  ^ (c * scale_age + d),
+								 a + b + c + d ~ 1 | species_factor,
 								 nl = TRUE),
-		data = dino[species_factor == 'Psittacosaurus mongoliensis'],
+		data = dino,
 		prior = c(
-			# prior(normal(0, 0.2), Intercept),
-			# prior(normal(0, 0.5), b),
-			prior(normal(0, 2), nlpar = 'b1'),
-			prior(normal(0, 2), nlpar = 'b2'),
+			prior(normal(0, 2), nlpar = 'a'),
+			prior(normal(0, 2), nlpar = 'b'),
+			prior(normal(0, 2), nlpar = 'c', lb = 0),
+			prior(normal(0, 2), nlpar = 'd'),
 			prior(exponential(1), sigma)
 		)
 	)#,
