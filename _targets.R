@@ -181,9 +181,9 @@ targets_h04 <- c(
 		data_dinosaurs()
 	),
 	zar_brms(
-		h04_q02_m_lin,
-		formula = scale_mass ~ scale_age + (1  | species_factor),
-		data = dino,
+		h04_q03_m_lin_Massos,
+		formula = scale_mass ~ scale_age,
+		data = dino[grepl('Massos', species_factor)],
 		prior = c(
 			prior(normal(0, 0.2), Intercept),
 			prior(normal(0, 0.5), b),
@@ -191,11 +191,11 @@ targets_h04 <- c(
 		)
 	),
 	zar_brms(
-		h04_q02_m_exp,
+		h04_q03_m_exp_Massos,
 		formula = bf(scale_mass ~ a * b  ^ (c * scale_age + d),
-								 a + b + c + d ~ 1 | species_factor,
+								 a + b + c + d ~ 1,
 								 nl = TRUE),
-		data = dino,
+		data = dino[grepl('Massos', species_factor)],
 		prior = c(
 			prior(normal(0, 2), nlpar = 'a'),
 			prior(normal(0, 2), nlpar = 'b'),

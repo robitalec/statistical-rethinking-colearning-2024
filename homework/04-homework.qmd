@@ -150,12 +150,10 @@ switch from just one species to multiple
 
 ```{r}
 tar_load(dino)
-tar_load(h04_q02_m_exp_brms_sample)
+tar_load(h04_q03_m_exp_Massos_brms_sample)
 
-plot(conditional_effects(h04_q02_m_exp_brms_sample), points = TRUE)
+dino_Massos <- dino[grepl('Massos', species_factor)]
 
-newdata <- dino[, data_grid(.SD, scale_age = seq_range(scale_age, n = 10)),
-								by = species_factor]
 epred <- h04_q02_m_exp_brms_sample |> 
     epred_draws(newdata)
 
@@ -165,20 +163,18 @@ epred <- h04_q02_m_exp_brms_sample |>
 		reverse_scale(scale_age, attributes(dino$scale_age)),
 		reverse_scale(.epred, attributes(dino$scale_mass))
 	), alpha = 0.5) +
-	geom_point(aes(age, mass), data = dino, color = 'lightgreen') + 
+	geom_point(aes(age, mass), data = dino_Massos, color = 'lightgreen') + 
 	scale_fill_grey(start = 0.8, end = 0.2) +
 	labs(x = 'Age', y = 'Mass') + 
 	facet_wrap(~species_factor, scales = 'free_y')#+
 	# ylim(2, 6)
 
 
-tar_load(h04_q02_m_lin_brms_sample)
+tar_load(h04_q03_m_lin_Massos_brms_sample)
 
-plot(conditional_effects(h04_q02_m_lin_brms_sample), points = TRUE)
+plot(conditional_effects(h04_q03_m_lin_Massos_brms_sample), points = TRUE)
 
-newdata <- dino[, data_grid(.SD, scale_age = seq_range(scale_age, n = 10)),
-								by = species_factor]
-epred <- h04_q02_m_lin_brms_sample |> 
+newdata <- data_grid(dino_Massos, scale_age = seq_range(scale_age, n = 10))
     epred_draws(newdata)
 
 # g1 <- 
