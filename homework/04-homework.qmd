@@ -147,13 +147,22 @@ loo_compare(
 theme_set(theme_bw())
 
 # Linear
-plot(conditional_effects(m_lin), points = TRUE)
+plot(conditional_effects(m_lin), points = TRUE, plot = FALSE)[[1]] + 
+	lims(x = c(0, 15), y = c(-50, 300)) + 
+	geom_hline(yintercept = 0, alpha = 0.3) + 
+	labs(title = 'Linear')
 
 # Exponential
-plot(conditional_effects(m_exp), points = TRUE)
+plot(conditional_effects(m_exp), points = TRUE, plot = FALSE)[[1]] + 
+	lims(x = c(0, 15), y = c(-50, 300)) + 
+	geom_hline(yintercept = 0, alpha = 0.3) + 
+	labs(title = 'Exponential')
 
 # Weibull
-plot(conditional_effects(m_wei), points = TRUE)
+plot(conditional_effects(m_wei), points = TRUE, plot = FALSE)[[1]] + 
+	lims(x = c(0, 15), y = c(-50, 300)) + 
+	geom_hline(yintercept = 0, alpha = 0.3) + 
+	labs(title = 'Weibull')
 ```
 
 
