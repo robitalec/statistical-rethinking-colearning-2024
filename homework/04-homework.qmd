@@ -165,9 +165,17 @@ plot(conditional_effects(m_wei), points = TRUE, plot = FALSE)[[1]] +
 	labs(title = 'Weibull')
 ```
 
+According to the LOO ELPD, the most predictive model is the exponential model
+followed closely by the Weibull model. The linear model has worse model fit 
+criterion (LOO ELPD) making it a worse model for prediction. On scientific grounds,
+we would also not expect a linear model to best describe the relationship
+between age and mass. Both the Weibull and exponential models have better
+expectations nearing age 0, while the linear model expects that mass should
+be negative at young ages. 
 
 Resources:
 
 - https://paul-buerkner.github.io/brms/articles/brms_nonlinear.html
 - https://journal.r-project.org/archive/2018/RJ-2018-017/RJ-2018-017.pdf
 - https://www.magesblog.com/post/2015-11-03-loss-developments-via-growth-curves-and/
+- https://en.wikipedia.org/wiki/Exponential_function
