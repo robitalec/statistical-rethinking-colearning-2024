@@ -5,8 +5,8 @@
 <meta name="generator" content="quarto-1.3.450">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Alec L. Robitaille">
-<meta name="dcterms.date" content="2024-02-01">
-<title>Statistical Rethinking colearning 2024 - Homework 01</title>
+<meta name="dcterms.date" content="2024-03-13">
+<title>Statistical Rethinking colearning 2024 - Homework 04</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -100,7 +100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../homework/01-homework.html">Homework</a></li><li class="breadcrumb-item"><a href="../homework/01-homework.html">Homework 01</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../homework/01-homework.html">Homework</a></li><li class="breadcrumb-item"><a href="../homework/04-homework.html">Homework 04</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -201,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../homework/01-homework.html" class="sidebar-item-text sidebar-link active">
+  <a href="../homework/01-homework.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework 01</span></a>
   </div>
 </li>
@@ -219,7 +219,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../homework/04-homework.html" class="sidebar-item-text sidebar-link">
+  <a href="../homework/04-homework.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Homework 04</span></a>
   </div>
 </li>
@@ -248,12 +248,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
   <li><a href="#question-1" id="toc-question-1" class="nav-link" data-scroll-target="#question-1">Question 1</a></li>
   <li><a href="#question-2" id="toc-question-2" class="nav-link" data-scroll-target="#question-2">Question 2</a></li>
-  <li><a href="#question-3-optional" id="toc-question-3-optional" class="nav-link" data-scroll-target="#question-3-optional">Question 3 (optional)</a></li>
-  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/edit/main/homework/01-homework.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+  <li><a href="#question-3" id="toc-question-3" class="nav-link" data-scroll-target="#question-3">Question 3</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/edit/main/homework/04-homework.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Homework 01</h1>
+<h1 class="title">Homework 04</h1>
 </div>
 
 
@@ -270,7 +270,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 1, 2024</p>
+      <p class="date">March 13, 2024</p>
     </div>
   </div>
   
@@ -280,125 +280,191 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">'R/globe_tossing.R'</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">targets</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_source.html">tar_source</a></span><span class="op">(</span><span class="st">'R'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="question-1" class="level2"><h2 class="anchored" data-anchor-id="question-1">Question 1</h2>
 <blockquote class="blockquote">
-<ol type="1">
-<li>Suppose the globe tossing data (Lecture 2, Chapter 2) had turned out to be 3 water and 11 land. Construct the posterior distribution.</li>
-</ol>
+<p>Revisit the marriage, age, and happiness collider bias example from Chapter 6. Run models m6.9 and m6.10 again (pages 178–179). Compare these two models using both PSIS and WAIC. Which model is expected to make better predictions, according to these criteria, and which model yields the correct causal inference?</p>
 </blockquote>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Set number of water and land samples</span></span>
-<span><span class="va">n_water</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
-<span><span class="va">n_land</span> <span class="op">&lt;-</span> <span class="fl">11</span></span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h04_q01_m6_9_brms_sample</span><span class="op">)</span></span>
+<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h04_q01_m6_10_brms_sample</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Set sequence of possible proportions</span></span>
-<span><span class="va">seq_prop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, length.out <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="va">m6_9_loo</span> <span class="op">&lt;-</span> <span class="fu">add_criterion</span><span class="op">(</span><span class="va">h04_q01_m6_9_brms_sample</span>, <span class="st">'loo'</span><span class="op">)</span></span>
+<span><span class="va">m6_10_loo</span> <span class="op">&lt;-</span> <span class="fu">add_criterion</span><span class="op">(</span><span class="va">h04_q01_m6_10_brms_sample</span>, <span class="st">'loo'</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Count number of ways the sample could be produced for each possible proportion</span></span>
-<span><span class="va">n_ways</span> <span class="op">&lt;-</span> <span class="fu">globe_toss_n_ways</span><span class="op">(</span><span class="va">n_water</span>, <span class="va">n_land</span>, <span class="va">seq_prop</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Compute the posterior distribution as the number of ways / sum of number of ways</span></span>
-<span><span class="va">posterior</span> <span class="op">&lt;-</span> <span class="fu">globe_toss_posterior</span><span class="op">(</span><span class="va">n_ways</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Q1 data.frame</span></span>
-<span><span class="va">q1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>prob_prop <span class="op">=</span> <span class="va">posterior</span>,</span>
-<span>                                 prop <span class="op">=</span> <span class="va">seq_prop</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Q1 plot</span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">q1</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">seq_prop</span>, <span class="va">prob_prop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">'Proportion of water'</span>, y <span class="op">=</span> <span class="st">'Probability'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="01-homework_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Function: globe_toss_n_ways</span></span>
-<span><span class="va">globe_toss_n_ways</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu">loo_compare</span><span class="op">(</span><span class="va">m6_9_loo</span>, <span class="va">m6_10_loo</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>function (w, l, seq_prop) 
-{
-    ways_formula &lt;- function(w, l, prop) {
-        (prop^w) * (1 - prop)^l
-    }
-    vapply(seq_prop, function(p) {
-        ways_formula(w, l, p)
-    }, FUN.VALUE = 42)
-}</code></pre>
-</div>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Function: globe_toss_posterior</span></span>
-<span><span class="va">globe_toss_posterior</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>function (n_ways) 
-{
-    n_ways/sum(n_ways)
-}</code></pre>
+<pre><code>          elpd_diff se_diff
+m6_9_loo     0.0       0.0 
+m6_10_loo -194.0      17.6 </code></pre>
 </div>
 </div>
+<p>The criterion of model fit selected is the Bayesian LOO estimate of the expected log pointwise predictive density (ELPD). The model with the highest LOO ELPD is model 6.9 which includes a known collider: marriage status. Model 6.9 is expected to make better predictions but not expected to yield the correct causal inference. Model 6.10 without marriage status has a lower LOO ELPD, “a coarse measure of uncertainty about the predictive performance of unknown future data” (<a href="https://mc-stan.org/loo/reference/loo-glossary.html">{loo} glossary</a>), but is expected to yield the correct causal inference.</p>
 </section><section id="question-2" class="level2"><h2 class="anchored" data-anchor-id="question-2">Question 2</h2>
 <blockquote class="blockquote">
-<p>Using the posterior distribution from 1, compute the posterior predictive distribution for the next 5 tosses of the same globe. I recommend you use the sampling method.</p>
+<p>Reconsider the urban fox analysis from last week’s homework. On the basis of PSIS and WAIC scores, which combination of variables best predicts body weight (W, weight)? What causal interpretation can you assign each coefficient (parameter) from the best scoring model?</p>
 </blockquote>
+<p>All combinations of the three variables, area, average food, and group size:</p>
+<ol type="1">
+<li>Area</li>
+<li>Average food (H03 Q02)</li>
+<li>Group size</li>
+<li>Area, average food</li>
+<li>Area, group size</li>
+<li>Average food, group size (H03 Q03)</li>
+<li>Area, average food, group size</li>
+</ol>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Take samples from the sequence of proportions using the </span></span>
-<span><span class="co">#   probability defined in the posterior distribution</span></span>
-<span><span class="va">size</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
-<span><span class="va">posterior_samples</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span></span>
-<span>    <span class="va">q1</span><span class="op">$</span><span class="va">prop</span>,</span>
-<span>    size <span class="op">=</span> <span class="va">size</span>,</span>
-<span>    prob <span class="op">=</span> <span class="va">q1</span><span class="op">$</span><span class="va">prob_prop</span>,</span>
-<span>    replace <span class="op">=</span> <span class="cn">TRUE</span></span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">q02_m1</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">h04_q02_m_1_brms_sample</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">add_criterion</span><span class="op">(</span><span class="st">'loo'</span><span class="op">)</span></span>
+<span><span class="va">q02_m2</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">h03_q02_brms_sample</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">add_criterion</span><span class="op">(</span><span class="st">'loo'</span><span class="op">)</span></span>
+<span><span class="va">q02_m3</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">h04_q02_m_3_brms_sample</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">add_criterion</span><span class="op">(</span><span class="st">'loo'</span><span class="op">)</span></span>
+<span><span class="va">q02_m4</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">h04_q02_m_4_brms_sample</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">add_criterion</span><span class="op">(</span><span class="st">'loo'</span><span class="op">)</span></span>
+<span><span class="va">q02_m5</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">h04_q02_m_5_brms_sample</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">add_criterion</span><span class="op">(</span><span class="st">'loo'</span><span class="op">)</span></span>
+<span><span class="va">q02_m6</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">h03_q03_brms_sample</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">add_criterion</span><span class="op">(</span><span class="st">'loo'</span><span class="op">)</span></span>
+<span><span class="va">q02_m7</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">h04_q02_m_7_brms_sample</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">add_criterion</span><span class="op">(</span><span class="st">'loo'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">loo_compare</span><span class="op">(</span></span>
+<span>    <span class="va">q02_m1</span>,</span>
+<span>    <span class="va">q02_m2</span>,</span>
+<span>    <span class="va">q02_m3</span>,</span>
+<span>    <span class="va">q02_m4</span>,</span>
+<span>    <span class="va">q02_m5</span>,</span>
+<span>    <span class="va">q02_m6</span>,</span>
+<span>    <span class="va">q02_m7</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       elpd_diff se_diff
+q02_m7  0.0       0.0   
+q02_m5 -0.4       1.6   
+q02_m6 -0.4       1.7   
+q02_m3 -4.0       3.0   
+q02_m2 -5.3       3.6   
+q02_m1 -5.4       3.7   
+q02_m4 -5.9       3.6   </code></pre>
+</div>
+</div>
+<p>The best combination of variables on the basis of prediction is: all three.</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dag</span> <span class="op">&lt;-</span> <span class="fu">dagify</span><span class="op">(</span></span>
+<span>    <span class="va">G</span> <span class="op">~</span> <span class="cn">F</span>,</span>
+<span>    <span class="cn">F</span> <span class="op">~</span> <span class="va">A</span>,</span>
+<span>    <span class="va">W</span> <span class="op">~</span> <span class="cn">F</span> <span class="op">+</span> <span class="va">G</span>,</span>
+<span>  coords <span class="op">=</span> <span class="va">coords</span>,</span>
+<span>    exposure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'F'</span>, <span class="st">'G'</span>, <span class="st">'A'</span><span class="op">)</span>,</span>
+<span>    outcome <span class="op">=</span> <span class="st">'W'</span></span>
 <span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># With the samples from the posterior distribution, </span></span>
-<span><span class="co">#   simulate 5 tosses with each sampled probability probability</span></span>
-<span><span class="co">#   Binomial distributions are defined using </span></span>
-<span><span class="co">#   a number of events and a probability of success</span></span>
-<span><span class="va">n_tosses</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
-<span><span class="va">posterior_predict</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="va">size</span>, size <span class="op">=</span> <span class="va">n_tosses</span>, p <span class="op">=</span> <span class="va">posterior_samples</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Plot number of W tosses</span></span>
-<span><span class="va">q2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>post_pred <span class="op">=</span> <span class="va">posterior_predict</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Plot</span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">q2</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">post_pred</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">'Number of water samples in 5 tosses'</span>,</span>
-<span>             y <span class="op">=</span> <span class="st">'Count'</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html">ylim</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">size</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu">ggdag_status</span><span class="op">(</span><span class="va">dag</span>, seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01-homework_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<p><img src="04-homework_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section><section id="question-3-optional" class="level2"><h2 class="anchored" data-anchor-id="question-3-optional">Question 3 (optional)</h2>
+<p>Taking each variable in turn, we can consider the causal interpretations of each:</p>
+<table class="table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 32%">
+<col style="width: 18%">
+<col style="width: 44%">
+</colgroup>
+<thead><tr class="header">
+<th>Variable</th>
+<th>Direct effect</th>
+<th>Total effect</th>
+<th>Interpretation variable in the context of W ~ A + F + G</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Area (A)</td>
+<td>When estimating the direct effect of A on W, there is a biasing path through F. If F is included, the direct effect of A on W can be estimated.</td>
+<td>No other variables should be included when estimating the total effect of A on W.</td>
+<td>Coefficient indicates the direct effect of A on W but F is a mediator or pipe along the path which should, if the DAG is correctly representing the system, result in no association between A and W.</td>
+</tr>
+<tr class="even">
+<td>Average food (F)</td>
+<td>When estimating the direct effect of F on W, there is a biasing path through G. If G is included, the direct effect of F on W can be estimated.</td>
+<td>G should not be included when estimating the total effect of F on W.</td>
+<td>Coefficient indicates the direct effect of F on W.</td>
+</tr>
+<tr class="odd">
+<td>Group size (G)</td>
+<td>When estimating the direct effect of G on W, there is a biasing path through F. If F is included, the direct effect of G on W can be estimated.</td>
+<td>G must be included to estimate the total effect of G on W.</td>
+<td>Coefficient indicates the direct effect of G on W.</td>
+</tr>
+</tbody>
+</table></section><section id="question-3" class="level2"><h2 class="anchored" data-anchor-id="question-3">Question 3</h2>
 <blockquote class="blockquote">
-<p>This problem is an optional challenge for people who are taking the course for a second or third time. uppose you observe W = 7 water points, but you forgot to write down how many times the globe was tossed, so you don’t know the number of land points L. Assume that p = 0.7 and compute the posterior distribution of the number of tosses N. Hint: Use the binomial distribution</p>
+<p>The data in data(Dinosaurs) are body mass estimates at different estimated ages for six different dinosaur species. See ?Dinosaurs for more details. Choose one or more of these species (at least one, but as many as you like) and model its growth. To be precise: Make a predictive model of body mass using age as a predictor. Consider two or more model types for the function relating age to body mass and score each using PSIS and WAIC. Which model do you think is best, on predictive grounds? On scientific grounds? If your answers to these questions differ, why? This is a challenging exercise, because the data are so scarce. But it is also a realistic example, because people publish Nature papers with even less data. So do your best, and I look forward to seeing your growth curves.</p>
 </blockquote>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n_water</span> <span class="op">&lt;-</span> <span class="fl">7</span></span>
-<span><span class="va">n_land</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
-<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">0.7</span></span>
-<span><span class="va">n_tosses</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m_lin</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">h04_q03_m_lin_Massos_brms_sample</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">add_criterion</span><span class="op">(</span><span class="st">'loo'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Found 2 observations with a pareto_k &gt; 0.7 in model
+'tar_read(h04_q03_m_lin_Massos_brms_sample)'. It is recommended to set
+'moment_match = TRUE' in order to perform moment matching for problematic
+observations.</code></pre>
+</div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m_exp</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">h04_q03_m_exp_Massos_brms_sample</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">add_criterion</span><span class="op">(</span><span class="st">'loo'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Found 2 observations with a pareto_k &gt; 0.7 in model
+'tar_read(h04_q03_m_exp_Massos_brms_sample)'. It is recommended to set
+'moment_match = TRUE' in order to perform moment matching for problematic
+observations.</code></pre>
+</div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m_wei</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">h04_q03_m_wei_Massos_brms_sample</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">add_criterion</span><span class="op">(</span><span class="st">'loo'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Found 2 observations with a pareto_k &gt; 0.7 in model
+'tar_read(h04_q03_m_wei_Massos_brms_sample)'. It is recommended to set
+'moment_match = TRUE' in order to perform moment matching for problematic
+observations.</code></pre>
+</div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">loo_compare</span><span class="op">(</span></span>
+<span>    <span class="va">m_lin</span>,</span>
+<span>    <span class="va">m_exp</span>,</span>
+<span>    <span class="va">m_wei</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      elpd_diff se_diff
+m_exp  0.0       0.0   
+m_wei -1.4       9.4   
+m_lin -8.8      10.1   </code></pre>
+</div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">theme_set</span><span class="op">(</span><span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">n_samples</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">25</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">post</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">n_samples</span>, <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">dbinom</a></span><span class="op">(</span><span class="va">n_water</span>, size <span class="op">=</span> <span class="va">n</span>, prob <span class="op">=</span> <span class="va">p</span><span class="op">)</span></span>
-<span><span class="op">}</span>, FUN.VALUE <span class="op">=</span> <span class="fl">42</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">q3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>n_prop <span class="op">=</span> <span class="va">post</span>, n <span class="op">=</span> <span class="va">n_samples</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">q3</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">n_samples</span>, <span class="va">n_prop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">'Proportion of water'</span>, y <span class="op">=</span> <span class="st">'Probability'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co"># Linear</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu">conditional_effects</span><span class="op">(</span><span class="va">m_lin</span><span class="op">)</span>, points <span class="op">=</span> <span class="cn">TRUE</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">+</span> </span>
+<span>    <span class="fu">lims</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">15</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">50</span>, <span class="fl">300</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">'Linear'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01-homework_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<p><img src="04-homework_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Exponential</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu">conditional_effects</span><span class="op">(</span><span class="va">m_exp</span><span class="op">)</span>, points <span class="op">=</span> <span class="cn">TRUE</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">+</span> </span>
+<span>    <span class="fu">lims</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">15</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">50</span>, <span class="fl">300</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">'Exponential'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04-homework_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Weibull</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu">conditional_effects</span><span class="op">(</span><span class="va">m_wei</span><span class="op">)</span>, points <span class="op">=</span> <span class="cn">TRUE</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">+</span> </span>
+<span>    <span class="fu">lims</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">15</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">50</span>, <span class="fl">300</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">'Weibull'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04-homework_files/figure-html/unnamed-chunk-7-3.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>According to the LOO ELPD, the most predictive model is the exponential model followed closely by the Weibull model. The linear model has worse model fit criterion (LOO ELPD) making it a worse model for prediction. On scientific grounds, we would also not expect a linear model to best describe the relationship between age and mass. Both the Weibull and exponential models have better expectations nearing age 0, while the linear model expects that mass should be negative at young ages.</p>
+<p>Resources:</p>
+<ul>
+<li>https://paul-buerkner.github.io/brms/articles/brms_nonlinear.html</li>
+<li>https://journal.r-project.org/archive/2018/RJ-2018-017/RJ-2018-017.pdf</li>
+<li>https://www.magesblog.com/post/2015-11-03-loss-developments-via-growth-curves-and/</li>
+<li>https://en.wikipedia.org/wiki/Exponential_function</li>
+</ul>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

@@ -97,6 +97,130 @@ targets_h03 <- c(
 )
 
 
+
+# Homework 04 -------------------------------------------------------------
+targets_h04 <- c(
+	tar_target(
+		marriage,
+		data_marriage()
+	),
+	zar_brms(
+		h04_q01_m6_9,
+		formula = happiness ~ factor(mid) + A,
+		data = marriage,
+		prior = c(
+			prior(normal(0, 1), Intercept),
+			prior(normal(0, 2), b),
+			prior(exponential(1), sigma)
+		)
+	),
+	zar_brms(
+		h04_q01_m6_10,
+		formula = happiness ~ A,
+		data = marriage,
+		prior = c(
+			prior(normal(0, 1), Intercept),
+			prior(normal(0, 2), b),
+			prior(exponential(1), sigma)
+		)
+	),
+	zar_brms(
+		h04_q02_m_1,
+		formula = scale_weight ~ scale_area,
+		data = scaled_foxes,
+		prior = c(
+			prior(normal(0, 0.2), Intercept),
+			prior(normal(0, 0.5), b),
+			prior(exponential(1), sigma)
+		)
+	),
+	# m_2 = h03_q02,
+	zar_brms(
+		h04_q02_m_3,
+		formula = scale_weight ~ scale_groupsize,
+		data = scaled_foxes,
+		prior = c(
+			prior(normal(0, 0.2), Intercept),
+			prior(normal(0, 0.5), b),
+			prior(exponential(1), sigma)
+		)
+	),
+	zar_brms(
+		h04_q02_m_4,
+		formula = scale_weight ~ scale_area + scale_avgfood,
+		data = scaled_foxes,
+		prior = c(
+			prior(normal(0, 0.2), Intercept),
+			prior(normal(0, 0.5), b),
+			prior(exponential(1), sigma)
+		)
+	),
+	zar_brms(
+		h04_q02_m_5,
+		formula = scale_weight ~ scale_area + scale_groupsize,
+		data = scaled_foxes,
+		prior = c(
+			prior(normal(0, 0.2), Intercept),
+			prior(normal(0, 0.5), b),
+			prior(exponential(1), sigma)
+		)
+	),
+	#m_6 = h03_q03,
+	zar_brms(
+		h04_q02_m_7,
+		formula = scale_weight ~ scale_area + scale_avgfood + groupsize,
+		data = scaled_foxes,
+		prior = c(
+			prior(normal(0, 0.2), Intercept),
+			prior(normal(0, 0.5), b),
+			prior(exponential(1), sigma)
+		)
+	),
+	tar_target(
+		dino,
+		data_dinosaurs()
+	),
+	zar_brms(
+		h04_q03_m_lin_Massos,
+		formula = mass ~ age,
+		data = dino[grepl('Massos', species_factor)],
+		prior = c(
+			prior(normal(125, 10), Intercept),
+			prior(normal(20, 5), b),
+			prior(exponential(1), sigma)
+		)
+	),
+	zar_brms(
+		h04_q03_m_exp_Massos,
+		formula = bf(mass ~ a * b  ^ (c * age + d),
+								 a + b + c + d ~ 1,
+								 nl = TRUE),
+		data = dino[grepl('Massos', species_factor)],
+		prior = c(
+			prior(normal(0, 20), nlpar = 'a'),
+			prior(normal(0, 20), nlpar = 'b'),
+			prior(normal(0, 20), nlpar = 'c', lb = 0),
+			prior(normal(0, 20), nlpar = 'd'),
+			prior(exponential(1), sigma)
+		)
+	),
+	zar_brms(
+		h04_q03_m_wei_Massos,
+		formula = bf(mass ~ a * (1 - exp(-(age / theta) ^ w)),
+								 a + theta + w ~ 1,
+								 nl = TRUE),
+		data = dino[grepl('Massos', species_factor)],
+		prior = c(
+			prior(normal(0, 200), nlpar = 'a', lb = 0),
+			prior(normal(0, 200), nlpar = 'theta', lb = 0),
+			prior(normal(0, 200), nlpar = 'w', lb = 0),
+			prior(exponential(1), sigma)
+		)
+	)
+)
+
+
+
 # Targets: all ------------------------------------------------------------
 # Automatically grab all the "targets_*" lists above
 lapply(grep('targets', ls(), value = TRUE), get)
