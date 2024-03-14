@@ -206,3 +206,11 @@ plot(conditional_effects(h04_q02_m_lin_brms_sample), points = TRUE)
 
 
 ```
+
+
+https://journal.r-project.org/archive/2018/RJ-2018-017/RJ-2018-017.pdf
+
+
+exponential function 
+
+$$f(x) = ab^{cx + d}$$
