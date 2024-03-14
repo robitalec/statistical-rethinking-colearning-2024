@@ -203,17 +203,20 @@ targets_h04 <- c(
 			prior(normal(0, 2), nlpar = 'd'),
 			prior(exponential(1), sigma)
 		)
-	)#,
-	# zar_brms(
-	# 	h04_q02_m_log,
-	# 	formula = bf(scale_mass ~ log(scale_age), nl = TRUE),
-	# 	data = dino,
-	# 	prior = c(
-	# 		prior(normal(0, 0.2), Intercept),
-	# 		prior(normal(0, 0.5), b),
-	# 		prior(exponential(1), sigma)
-	# 	)
-	# )
+	),
+	zar_brms(
+		h04_q03_m_log_Massos,
+		formula = bf(mass ~ L / (1 + exp(1) ^ (-k * (age - x0))),
+								 L + k + x0 ~ 1,
+								 nl = TRUE),
+		data = dino[grepl('Massos', species_factor)],
+		prior = c(
+			prior(normal(0, 2), nlpar = 'L', lb = 0),
+			prior(normal(0, 2), nlpar = 'k', lb = 0),
+			prior(normal(0, 2), nlpar = 'x0', lb = 0),
+			prior(exponential(1), sigma)
+		)
+	),
 )
 
 
