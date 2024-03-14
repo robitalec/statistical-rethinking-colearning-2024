@@ -217,6 +217,19 @@ targets_h04 <- c(
 			prior(exponential(1), sigma)
 		)
 	),
+	zar_brms(
+		h04_q03_m_wei_Massos,
+		formula = bf(mass ~ a * (1 - exp(-(age / theta) ^ w)),
+								 a + theta + w ~ 1,
+								 nl = TRUE),
+		data = dino[grepl('Massos', species_factor)],
+		prior = c(
+			prior(normal(0, 200), nlpar = 'a', lb = 0),
+			prior(normal(0, 200), nlpar = 'theta', lb = 0),
+			prior(normal(0, 200), nlpar = 'w', lb = 0),
+			prior(exponential(1), sigma)
+		)
+	)
 )
 
 
