@@ -134,8 +134,6 @@ less data. So do your best, and I look forward to seeing your growth curves.
 
 
 ```{r}
-tar_load(dino)
-
 m_lin <- tar_read(h04_q03_m_lin_Massos_brms_sample) |> add_criterion('loo')
 m_exp <- tar_read(h04_q03_m_exp_Massos_brms_sample) |> add_criterion('loo')
 m_wei <- tar_read(h04_q03_m_wei_Massos_brms_sample) |> add_criterion('loo')
@@ -145,6 +143,8 @@ loo_compare(
 	m_exp,
 	m_wei
 )
+
+theme_set(theme_bw())
 
 # Linear
 plot(conditional_effects(m_lin), points = TRUE)
