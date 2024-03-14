@@ -186,7 +186,7 @@ targets_h04 <- c(
 		data = dino[grepl('Massos', species_factor)],
 		prior = c(
 			prior(normal(125, 10), Intercept),
-			prior(normal(20, 1), b),
+			prior(normal(20, 5), b),
 			prior(exponential(1), sigma)
 		)
 	),
