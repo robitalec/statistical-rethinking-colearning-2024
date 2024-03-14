@@ -157,9 +157,8 @@ plot(conditional_effects(m_wei), points = TRUE)
 ```
 
 
-https://journal.r-project.org/archive/2018/RJ-2018-017/RJ-2018-017.pdf
+Resources:
 
-
-exponential function 
-
-$$f(x) = ab^{cx + d}$$
+- https://paul-buerkner.github.io/brms/articles/brms_nonlinear.html
+- https://journal.r-project.org/archive/2018/RJ-2018-017/RJ-2018-017.pdf
+- https://www.magesblog.com/post/2015-11-03-loss-developments-via-growth-curves-and/
