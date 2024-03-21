@@ -33,16 +33,29 @@ outcome is bounded. Gaussian models are the only type of model where
 this is not true since the outcome is unbounded. 
 
 
+## Distributions
 
-$p_{i} = f^{-1}(\alpha + \beta_{{X}} X_{i} + \beta_{Z} Z_{i})$
-
-
-Logistic regression: binary [0,1] outcome and logit link, with Bernoulli distribution
-
-Binomial regression: count [0, N] outcome and logit link, with Binomial distribution (Binomimal variables are sums of Bernoulli variables)
+Distributions are matched to the constraints on observed variables. 
+The link function is matched to this distribution. 
 
 
-### Distributions
+![](../graphics/stat_rethinking_2ed_f10_6.png)
+
+- Exponential distribution: time to event that has a constant rate. 
+Greater than 0, single parameter $\lambda$ that defines the rate.
+- Binomial distribution: count events bounded in an observation window. 
+eg. some number of trials
+- Poisson distribution: count events with constant rate. This is the count 
+distribution of the exponentially distributed events. We don't know the maximum 
+or number of coin tosses.
+- Gamma distribution: sum up exponential processes.
+- Normal distribution: Gamma distribution with large mean converges to the 
+Normal distribution. 
+
+Distribution you want to use to model an observed variable is governed by the 
+constraints on observation. Eg. you can't have negative counts. You can't use 
+some test to decide if your data are "Normal". 
+
 
 The distribution is matched to constraints on observed variables and the link 
 function is matched to this distribution. 
