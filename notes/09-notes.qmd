@@ -273,7 +273,7 @@ Eg. at a different university, the distributions would differ, and we could
 predict how the consequences of intervention differ
 
 
-### Survival analysis
+## Survival analysis
 
 How long did an event take to happen? Time-to-event. 
 
@@ -282,17 +282,17 @@ Cannot ignore censored cases, where event never happened.
 - Left-censored: don't know when time started
 - Right-censored: observation ended before event
 
-#### Example: cat adoptions
+### Example: cat adoptions
 
 Adoption rates of black and non-black cats
 
 Events: adopted, or something else (death, escape, censored)
 
 
-Outcome variables: days to event. Appropriate distributions are exponential
-and gamma. Exponential arises from a single part that needs to fail before 
-the so-called machine dies, whereas the Gamma distribution requires
-multiple parts to fail. 
+Outcome variables: days to event. Appropriate distributions are exponential and
+gamma. Exponential arises from a single part that needs to fail before the
+so-called machine dies, whereas the Gamma distribution requires multiple parts
+to fail.
 
 
 For simplest situation, time to adoption, this represents it:
@@ -304,11 +304,11 @@ $p(D_{i} | \lambda_{i}) = \lambda_{i} exp(-\lambda_{i} D_{i})$
 
 But what about the censored cats?
 
-Event happened = cumulative distribution, probability of event happening
-up to time x
+Event happened = cumulative distribution, probability of event happening up to
+time x
 
-Event didn't happen = complementary cumulative distribution, probability
-event hasn't occurred up to time x
+Event didn't happen = complementary cumulative distribution, probability event
+hasn't occurred up to time x
 
 
 $D_{i} = 1 \sim Exponential(\lambda_{i})$
