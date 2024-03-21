@@ -5,8 +5,8 @@
 <meta name="generator" content="quarto-1.3.450">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Alec L. Robitaille">
-<meta name="dcterms.date" content="2024-03-07">
-<title>Statistical Rethinking colearning 2024 - Lecture 07 Notes</title>
+<meta name="dcterms.date" content="2024-03-21">
+<title>Statistical Rethinking colearning 2024 - Lecture 09 Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -18,6 +18,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -57,7 +91,7 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
+}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body class="nav-sidebar floating">
 
@@ -66,7 +100,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/01-notes.html">Notes</a></li><li class="breadcrumb-item"><a href="../notes/07-notes.html">Lecture 07 Notes</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/01-notes.html">Notes</a></li><li class="breadcrumb-item"><a href="../notes/09-notes.html">Lecture 09 Notes</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -144,7 +178,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notes/07-notes.html" class="sidebar-item-text sidebar-link active">
+  <a href="../notes/07-notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 07 Notes</span></a>
   </div>
 </li>
@@ -156,7 +190,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notes/09-notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../notes/09-notes.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lecture 09 Notes</span></a>
   </div>
 </li>
@@ -223,15 +257,36 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#leave-one-out-cross-validation" id="toc-leave-one-out-cross-validation" class="nav-link active" data-scroll-target="#leave-one-out-cross-validation">Leave-one-out cross-validation</a></li>
-  <li><a href="#regularization" id="toc-regularization" class="nav-link" data-scroll-target="#regularization">Regularization</a></li>
-  <li><a href="#overfitting" id="toc-overfitting" class="nav-link" data-scroll-target="#overfitting">Overfitting</a></li>
-  <li><a href="#outliers" id="toc-outliers" class="nav-link" data-scroll-target="#outliers">Outliers</a></li>
-  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/edit/main/notes/07-notes.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<li>
+<a href="#generalized-linear-models" id="toc-generalized-linear-models" class="nav-link active" data-scroll-target="#generalized-linear-models">Generalized linear models</a>
+  <ul class="collapse">
+<li><a href="#distributions" id="toc-distributions" class="nav-link" data-scroll-target="#distributions">Distributions</a></li>
+  <li><a href="#modeling-events" id="toc-modeling-events" class="nav-link" data-scroll-target="#modeling-events">Modeling events</a></li>
+  <li><a href="#logit-link" id="toc-logit-link" class="nav-link" data-scroll-target="#logit-link">Logit link</a></li>
+  <li><a href="#logistic-priors" id="toc-logistic-priors" class="nav-link" data-scroll-target="#logistic-priors">Logistic priors</a></li>
+  <li>
+<a href="#example-uc-berkeley-admissions" id="toc-example-uc-berkeley-admissions" class="nav-link" data-scroll-target="#example-uc-berkeley-admissions">Example: UC Berkeley Admissions</a>
+  <ul class="collapse">
+<li><a href="#estimand" id="toc-estimand" class="nav-link" data-scroll-target="#estimand">1. Estimand</a></li>
+  <li><a href="#generative-model" id="toc-generative-model" class="nav-link" data-scroll-target="#generative-model">2. Generative model</a></li>
+  <li><a href="#statistical-models" id="toc-statistical-models" class="nav-link" data-scroll-target="#statistical-models">3. Statistical models</a></li>
+  <li><a href="#validate-the-model" id="toc-validate-the-model" class="nav-link" data-scroll-target="#validate-the-model">4. Validate the model</a></li>
+  <li><a href="#analyze-the-data" id="toc-analyze-the-data" class="nav-link" data-scroll-target="#analyze-the-data">5. Analyze the data</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#survival-analysis" id="toc-survival-analysis" class="nav-link" data-scroll-target="#survival-analysis">Survival analysis</a>
+  <ul class="collapse">
+<li><a href="#example-cat-adoptions" id="toc-example-cat-adoptions" class="nav-link" data-scroll-target="#example-cat-adoptions">Example: cat adoptions</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/edit/main/notes/09-notes.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Lecture 07 Notes</h1>
+<h1 class="title">Lecture 09 Notes</h1>
 </div>
 
 
@@ -248,7 +303,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 7, 2024</p>
+      <p class="date">March 21, 2024</p>
     </div>
   </div>
   
@@ -256,38 +311,207 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
-</header><p>Occam’s razor is often mentioned as a recommendation to select the simplest explanation of some process. Usually however, there isn’t a set of comparably accurate models where one is more complicated than the other. Instead, the trade off is between simplicity and accuracy.</p>
-<p>Problems of prediction:</p>
-<ol type="1">
-<li>What function describes these points? (fitting a line)</li>
-<li>What function explains these points? (causal inference)</li>
-<li>What would happen if we changed a point’s mass? (intervention)</li>
-<li>What is the next observation from the same process? (prediction without intervention)</li>
-</ol>
-<section id="leave-one-out-cross-validation" class="level1"><h1>Leave-one-out cross-validation</h1>
-<p>In sample error: error within the sample</p>
-<p>Out of sample error: error with one point dropped (repeated for all points and aggregated)</p>
-<p>For simple models, as model complexity increases, in sample error decreases and out of sample error increases. This is the concept of overfitting. In models with hyper parameters, this relationship is not necessarily true.</p>
-</section><section id="regularization" class="level1"><h1>Regularization</h1>
-<p>Not every feature in a data set is regular (representative of the long running generative process).</p>
-<p>Regularization for Bayesian models is controlled by using more skeptical priors. (And see hyper parameters in multilevel models)</p>
-<p>Regularization increases in sample error and decreases out of sample error</p>
-<p>Priors that are too skeptical are a risk when the sample size is small</p>
-</section><section id="overfitting" class="level1"><h1>Overfitting</h1>
-<p>PSIS and WAIC measure overfitting</p>
-<p>Regularization manages overfitting</p>
-<p>Never use PSIS, WAIC for causal inference</p>
-<p>PSIS/WAIC and regularization also help understanding model fit in the context of finite data</p>
-<p>Recall that DAGs don’t consider sample size limitations related to estimators</p>
-<p>Confounds, colliders, conditioning on post-treatment variables are preferred by PSIS/WAIC</p>
-</section><section id="outliers" class="level1"><h1>Outliers</h1>
-<p>Outliers usually observed in the tails of predictive distributions</p>
-<p>Outliers are points that are more influential than others</p>
-<p>A direct measure of outliers in the PSIS K-value or WAIC penalty (no need to guess)</p>
-<p>Don’t drop information in outliers, use a better model that is more appropriate for modeling with outliers. This is often a mixture model, eg. the Student-t distribution which is a mixture of Gaussian distributions with same mean, but different variation.</p>
+</header><section id="generalized-linear-models" class="level1"><h1>Generalized linear models</h1>
+<p>Linear models: expected value is an additive combination of parameters</p>
+<p><span class="math display">\[Y_{i} \sim Normal(\mu_{i}, \sigma)\]</span> <span class="math display">\[\mu_{i} = \alpha + \beta_{X} X_{i} + \beta_{Z} Z_{i}\]</span></p>
+<p>Generalized linear models: expected value is <em>some function</em> of an additive combination of parameters</p>
+<p><span class="math display">\[Y_{i} \sim Bernoulli(p_{i})\]</span> <span class="math display">\[f(p_{i}) = \alpha + \beta_{X} X_{i} + \beta_{Z} Z_{i}\]</span></p>
+<ul>
+<li>
+<span class="math inline">\(Y_{i}\)</span>: 0/1 outcome</li>
+<li>
+<span class="math inline">\(p_{i}\)</span>: probability of event</li>
+<li>
+<span class="math inline">\(f(p_{i})\)</span>: f() maps probability scale to linear model scale</li>
+<li>
+<span class="math inline">\(\alpha + \beta_{{X}} X_{i} + \beta_{Z} Z_{i})\)</span>: can be any real value</li>
+</ul>
+<p>In generalized linear models, all parameters interact because the outcome is bounded. Gaussian models are the only type of model where this is not true since the outcome is unbounded.</p>
+<section id="distributions" class="level2"><h2 class="anchored" data-anchor-id="distributions">Distributions</h2>
+<p>Distributions are matched to the constraints on observed variables. The link function is matched to this distribution.</p>
+<p><img src="../graphics/stat_rethinking_2ed_f10_6.png" class="img-fluid"></p>
+<ul>
+<li>Exponential distribution: time to event that has a constant rate. Greater than 0, single parameter <span class="math inline">\(\lambda\)</span> that defines the rate.</li>
+<li>Binomial distribution: count events bounded in an observation window. eg. some number of trials</li>
+<li>Poisson distribution: count events with constant rate. This is the count distribution of the exponentially distributed events. We don’t know the maximum or number of coin tosses.</li>
+<li>Gamma distribution: sum up exponential processes.</li>
+<li>Normal distribution: Gamma distribution with large mean converges to the Normal distribution.</li>
+</ul>
+<p>Distribution you want to use to model an observed variable is governed by the constraints on observation. Eg. you can’t have negative counts. You can’t use some test to decide if your data are “Normal”.</p>
+</section><section id="modeling-events" class="level2"><h2 class="anchored" data-anchor-id="modeling-events">Modeling events</h2>
+<blockquote class="blockquote">
+<p>Like tide prediction engines (analog computers), the gears inside the machine bear no resemblance to the observable predictions that they output</p>
+</blockquote>
+<ul>
+<li>Events are discrete, unordered outcomes</li>
+<li>Observations are counts of events</li>
+<li>Estimates are on the probability or log-odds/logit scale</li>
+</ul>
+<p>These estimates are bounded, eg. the probability of an event is restricted to 0-1.</p>
+<p>Two options, that are equivalent for inference:</p>
+<ul>
+<li>Logistic regression: binary [0,1] outcome and logit link, with Bernoulli distribution</li>
+<li>Binomial regression: count [0, N] outcome and logit link, with Binomial distribution. Binomial variables are sums of Bernoulli variables.</li>
+</ul></section><section id="logit-link" class="level2"><h2 class="anchored" data-anchor-id="logit-link">Logit link</h2>
+<p>Bernoulli and binomial models most often use the logit link.</p>
+<p><span class="math inline">\(logit\)</span> is the link function</p>
+<p><span class="math inline">\(logit(p_{i} = \alpha + \beta_{{X}} X_{i} + \beta_{Z} Z_{i})\)</span></p>
+<p><span class="math inline">\(logit^{-1}\)</span> (logistic) is the inverse link function.</p>
+<p><span class="math inline">\(p_{i} = logit^{-1}(\alpha + \beta_{{X}} X_{i} + \beta_{Z} Z_{i})\)</span></p>
+<p>Logit link is a harsh transformation</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0.01</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="fu">data.table</span><span class="op">(</span>logit_p<span class="op">=</span> <span class="fu">logit</span><span class="op">(</span><span class="va">p</span><span class="op">)</span>, p <span class="op">=</span> <span class="va">p</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">logit_p</span>, <span class="va">p</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09-notes_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section><section id="logistic-priors" class="level2"><h2 class="anchored" data-anchor-id="logistic-priors">Logistic priors</h2>
+<p>The logit link compresses parameter distributions. Anything above +4 = almost always, anything below -4 = almost never.</p>
+<p><img src="../graphics/stat_rethinking_l09_slide64.png" class="img-fluid"></p>
+</section><section id="example-uc-berkeley-admissions" class="level2"><h2 class="anchored" data-anchor-id="example-uc-berkeley-admissions">Example: UC Berkeley Admissions</h2>
+<ul>
+<li>Graduate school applications for 1973 UC Berkeley</li>
+<li>Stratified by department and gender of application</li>
+</ul>
+<p>See more here:</p>
+<p>Traag, V.A. and Waltman, L., 2022. Causal foundations of bias, disparity and fairness. arXiv preprint arXiv:2207.13665.</p>
+<section id="estimand" class="level3"><h3 class="anchored" data-anchor-id="estimand">1. Estimand</h3>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>    name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'G'</span>, <span class="st">'D'</span>, <span class="st">'A'</span>, <span class="st">'G_star'</span>, <span class="st">'R'</span>, <span class="st">'U'</span><span class="op">)</span>,</span>
+<span>    x <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,    <span class="fl">2</span>,   <span class="fl">3</span>,   <span class="fl">2</span>,         <span class="fl">4</span>,   <span class="fl">4</span><span class="op">)</span>,</span>
+<span>    y <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,    <span class="fl">1</span>,   <span class="fl">0</span>,  <span class="op">-</span><span class="fl">1</span>,        <span class="op">-</span><span class="fl">1</span>,   <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Is there gender discrimination in graduate admissions?</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
+<span>    <span class="va">A</span> <span class="op">~</span> <span class="va">G</span>,</span>
+<span>  coords <span class="op">=</span> <span class="va">coords</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09-notes_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>G: gender</li>
+<li>A: admission</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
+<span>    <span class="va">D</span> <span class="op">~</span> <span class="va">G</span>,</span>
+<span>  <span class="va">A</span> <span class="op">~</span> <span class="va">D</span>,</span>
+<span>  coords <span class="op">=</span> <span class="va">coords</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09-notes_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>D: department</li>
+</ul>
+<p>Typically, department is considered a mediating variable. Departments differ in their number of applicants, number of accepted students, potential differences in applicants and acceptance by gender, etc</p>
+<p>What does the “causal effect of gender” mean?</p>
+<p>Really this is another variable - the perceived gender G*.</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
+<span>    <span class="va">A</span> <span class="op">~</span> <span class="va">R</span> <span class="op">+</span> <span class="va">G_star</span> <span class="op">+</span> <span class="va">D</span>,</span>
+<span>    <span class="va">G_star</span> <span class="op">~</span> <span class="va">G</span>,</span>
+<span>    <span class="va">D</span> <span class="op">~</span> <span class="va">G</span>,</span>
+<span>  coords <span class="op">=</span> <span class="va">coords</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09-notes_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Which path represents “discrimination”?</p>
+<ul>
+<li>direct discrimination: status-based discrimination from G -&gt; A. Requires strong assumptions.</li>
+<li>structural discrimination: indirect through department G -&gt; D -&gt; A. Requires strong assumptions.</li>
+<li>total discrimination: G -&gt; A and G -&gt; D -&gt; A, in other words: what an individuals experience. Requires mild assumptions.</li>
+</ul>
+<p>These three types of discrimination require different estimators.</p>
+</section><section id="generative-model" class="level3"><h3 class="anchored" data-anchor-id="generative-model">2. Generative model</h3>
+<ul>
+<li>Set number of applicants</li>
+<li>Sample gender</li>
+<li>Sampled with preference for different departments by gender (indirect effect)</li>
+<li>Define acceptance rate for departments</li>
+<li>Simulate acceptance</li>
+</ul>
+<p>Changing the acceptance rate where acceptance differs by department <strong>and</strong> gender, pattern of differences in acceptance rates is the same in this simulated data. This illustrates the fundamental problem of determining if discrimination is occurring.</p>
+<p>Generative model could be greatly improved:</p>
+<ul>
+<li>Admission rates depend upon size of applicant pool and the distribution of qualifications</li>
+<li>Admission rates are then based on ranking applicants to a set number of spaces</li>
+</ul></section><section id="statistical-models" class="level3"><h3 class="anchored" data-anchor-id="statistical-models">3. Statistical models</h3>
+<p>Total causal effect of G</p>
+<p><span class="math inline">\(A_{i} \sim Bernoulli(p_{i})\)</span></p>
+<p><span class="math inline">\(logit(p_{i}) = \alpha[G_{i}]\)</span></p>
+<p><span class="math inline">\(\alpha = [\alpha_{1}, \alpha_{2}]\)</span></p>
+<p>Direct causal effect of G</p>
+<p><span class="math inline">\(A_{i} \sim Bernoulli(p_{i})\)</span></p>
+<p><span class="math inline">\(logit(p_{i}) = \alpha[G_{i}, D_{i}]\)</span></p>
+<p><span class="math inline">\(\alpha = \begin{bmatrix} \alpha_{1, 1} &amp; \alpha_{1, 2} \\ \alpha_{2, 1} &amp; \alpha_{2, 2}\end{bmatrix}\)</span></p>
+</section><section id="validate-the-model" class="level3"><h3 class="anchored" data-anchor-id="validate-the-model">4. Validate the model</h3>
+<p>Use inverse logit function to transform variables back on probability scale. Determine if known parameters are recovered by the model.</p>
+</section><section id="analyze-the-data" class="level3"><h3 class="anchored" data-anchor-id="analyze-the-data">5. Analyze the data</h3>
+<p>To use a binomial distribution, aggregate the long format data into acceptance sums for each gender and department. This is equivalent to using the original data with a Bernoulli distribution.</p>
+<ul>
+<li>inspect trace plots and trank plots to ensure chains are well mixed</li>
+<li>extract samples from the posterior</li>
+<li>convert the entire posterior distribution back to the prediction scale with the inverse logit</li>
+<li>compute contrasts for total effect (across genders) and direct effects (within departments)</li>
+</ul>
+<section id="post-stratification" class="level4"><h4 class="anchored" data-anchor-id="post-stratification">Post stratification</h4>
+<p>Back to the question: what’s the average direct effect of gender across departments?</p>
+<p>This depends on the perception of gender on the admission officer</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
+<span>    <span class="va">A</span> <span class="op">~</span> <span class="va">G_star</span> <span class="op">+</span> <span class="va">D</span>,</span>
+<span>    <span class="va">G_star</span> <span class="op">~</span> <span class="va">G</span>,</span>
+<span>    <span class="va">D</span> <span class="op">~</span> <span class="va">G</span>,</span>
+<span>  coords <span class="op">=</span> <span class="va">coords</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="09-notes_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>To calculate the causal effect of G*, we must average (marginalize) over the departments. Process: simulate as if all applicants are women, then simulate as if all applicants are men. Then compute the contrasts.</p>
+<p>Post stratification is re-weighting estimates for a specific target population. Eg. at a different university, the distributions would differ, and we could predict how the consequences of intervention differ</p>
+</section></section></section><section id="survival-analysis" class="level2"><h2 class="anchored" data-anchor-id="survival-analysis">Survival analysis</h2>
+<p>How long did an event take to happen? Time-to-event.</p>
+<p>Cannot ignore censored cases, where event never happened.</p>
+<ul>
+<li>Left-censored: don’t know when time started</li>
+<li>Right-censored: observation ended before event</li>
+</ul>
+<section id="example-cat-adoptions" class="level3"><h3 class="anchored" data-anchor-id="example-cat-adoptions">Example: cat adoptions</h3>
+<p>Adoption rates of black and non-black cats</p>
+<p>Events: adopted, or something else (death, escape, censored)</p>
+<p>Outcome variables: days to event. Appropriate distributions are exponential and gamma. Exponential arises from a single part that needs to fail before the so-called machine dies, whereas the Gamma distribution requires multiple parts to fail.</p>
+<p>For simplest situation, time to adoption, this represents it:</p>
+<p><span class="math inline">\(D_{i} \sim Exponential(\lambda_{i})\)</span></p>
+<p><span class="math inline">\(p(D_{i} | \lambda_{i}) = \lambda_{i} exp(-\lambda_{i} D_{i})\)</span></p>
+<p>But what about the censored cats?</p>
+<p>Event happened = cumulative distribution, probability of event happening up to time x</p>
+<p>Event didn’t happen = complementary cumulative distribution, probability event hasn’t occurred up to time x</p>
+<p><span class="math inline">\(D_{i} = 1 \sim Exponential(\lambda_{i})\)</span></p>
+<p><span class="math inline">\(D_{i} = 0 \sim Exponential-CCDF(\lambda_{i})\)</span> (not-yet-adoptions)</p>
+<p><span class="math inline">\(\lambda_{i} = 1 / \mu_{i}\)</span></p>
+<p><span class="math inline">\(log \mu_{i} = \alpha_{CID[i]}\)</span></p>
+<ul>
+<li>
+<span class="math inline">\(D_{i} = 1\)</span>: observed adoptions</li>
+<li>
+<span class="math inline">\(D_{i} = 0\)</span>: not yet adoptions</li>
+</ul>
 
 
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
