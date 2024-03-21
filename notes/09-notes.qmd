@@ -8,20 +8,20 @@ date: "2024-03-21"
 source('R/packages.R')
 ```
 
-
 # Generalized linear models
 
 Linear models: expected value is an additive combination  of 
 parameters
 
 $$Y_{i} \sim Normal(\mu_{i}, \sigma)$$
-$$\mu_{i} = \alpha + \beta_{Z} X_{i} + \beta_{Z} Z_{i}$$
+$$\mu_{i} = \alpha + \beta_{X} X_{i} + \beta_{Z} Z_{i}$$
 
-Generalized linear models: expected value is **some function** of an additive
+Generalized linear models: expected value is *some function* of an additive
 combination of parameters
 
 $$Y_{i} \sim Bernoulli(p_{i})$$
-$$f(p_{i}) = \alpha + \beta_{Z} X_{i} + \beta_{Z} Z_{i}$$
+$$f(p_{i}) = \alpha + \beta_{X} X_{i} + \beta_{Z} Z_{i}$$
+
 - $Y_{i}$: 0/1 outcome
 - $p_{i}$: probability of event
 - $f(p_{i})$: f() maps probability scale to linear model scale
@@ -97,8 +97,8 @@ Logit link is a harsh transformation
 ```{r}
 p <- seq(0, 1, 0.01)
 
-ggplot(data.table(logit_p= logit(p), p = p)) + geom_line(aes(logit_p, p))
-
+ggplot(data.table(logit_p= logit(p), p = p)) + 
+	geom_line(aes(logit_p, p))
 ```
 
 
@@ -126,7 +126,6 @@ fairness. arXiv preprint arXiv:2207.13665.
 
 
 ```{r}
-suppressPackageStartupMessages(library(ggdag))
 coords <- data.frame(
 	name = c('G', 'D', 'A', 'G_star', 'R', 'U'),
 	x =    c(1,    2,   3,   2,         4,   4),
