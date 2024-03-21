@@ -233,10 +233,11 @@ the confound strength over some range and showing how the results change. This
 can be especially helpful if you can know the upper limits of the potential
 confound and can model its strength at that limit.
 
+
 ## Example: oceanic technology
 
-How is technological complexity related to population size? To social
-structure (contact)?
+How is technological complexity related to population size? To social structure
+(contact)?
 
 ```{r}
 coords <- data.frame(
@@ -258,16 +259,16 @@ dagify(
 ) |> ggdag_status(seed = 2) + theme_dag()
 ```
 
-Location is a confound, we will return to it later. Therefore, the results
-we produce today may be confounded by location. 
+Location is a confound, we will return to it later. Therefore, the results we
+produce today may be confounded by location.
 
 We want to stratify by contact rate (high/low) to study the moderation effect. 
 
 Tool count is not binomial since there is no maximum. The maximum entropy
-distribution in this case is the Poisson distribution. 
+distribution in this case is the Poisson distribution.
 
-The link function for the poisson distribution is log. The poisson distribution 
-takes the shape $\lambda$. 
+The link function for the poisson distribution is log. The poisson distribution
+takes the shape $\lambda$.
 
 
 $Y_{i} \sim Poisson(\lambda_{i})$
@@ -278,14 +279,11 @@ $\alpha \sim Normal(3, 0.5)$
 
 $\beta \sim Normal(0, 0.2)$
 
-The normal distribution with a mean of 3 and variance of 0.5 for alpha
-is weakly regularizing vs common defaults like normal 0, 10. 
+The normal distribution with a mean of 3 and variance of 0.5 for alpha is weakly
+regularizing vs common defaults like normal 0, 10.
 
-The logarithm of population is used because the background theory 
-is that there is a diminishing return of increased population size. 
-
-
-
+The logarithm of population is used because the background theory is that there
+is a diminishing return of increased population size.
 
 Model criticism: Why would the intercept not be 0? 0 people = 0 tools. And 
 why would the slopes of low contact and high contact cross over?
@@ -294,7 +292,7 @@ Two solutions:
 
 1. Use a robust model, in this case the gamma-Poisson (negative-binomial) 
 distribution
-1. Use a principle scientific model
+1. Use a principled scientific model
 
 ```{r}
 #| fig.height: 4
@@ -329,16 +327,16 @@ $T_{i} \sim Poisson(\lambda_{i})$
 
 $\lambda_{i} = \hat{T} = \frac{\alpha_{C} P^{\beta_{C}}}{\gamma}$
 
-The only trick is to constrain the parameters as positive. Either
-do it with `exp()` or use an appropriate prior (`dexp()`). Note probably
-use one or the other in the model but they are functionally equivalent.
+The only trick is to constrain the parameters as positive. Either do it with
+`exp()` or use an appropriate prior (`dexp()`). Note probably use one or the
+other in the model but they are functionally equivalent.
 
 
 ## Simpson's paradox
 
-Simpson's paradox: reversal of an association when groups are combined
-or separated. No way to know which association (combined/separated) is 
-correct without causal assumptions. 
+Simpson's paradox: reversal of an association when groups are combined or
+separated. No way to know which association (combined/separated) is correct
+without causal assumptions.
 
 The UC Berkeley data showed women are admitted at a lower rate unconditional on
 department but, conditional on department, women are admitted slightly more.
@@ -347,8 +345,8 @@ potential mediator effect in department and there is a potential collider and
 confound in ability. Pipes, forks and colliders can all be called "Simpson's
 paradox" but in order to understand them we need to think causally.
 
-In non-linear models, we can get similar types of confounds arising 
-from the ceiling and floor effects. 
+In non-linear models, we can get similar types of confounds arising from the
+ceiling and floor effects.
 
 ```{r}
 coords <- data.frame(
@@ -367,8 +365,6 @@ dagify(
 ) |> ggdag(seed = 2) + theme_dag()
 ```
 
-
-
 Model with X
 
 $logit(p_{i}) = \alpha + \beta X_{i}$
@@ -382,8 +378,8 @@ Model with X and different slopes and intercepts for Z
 $logit(p_{i}) = \alpha_{Z} + \beta_{Z} X_{i}$
 
 
-Cannot tell if the treatment X works since when Z = 1 is already at the
-maximum outcome. 
+Cannot tell if the treatment X works since when Z = 1 is already at the maximum
+outcome.
 
 ![](../graphics/stat_rethinking_l10_slide87.png)
 
