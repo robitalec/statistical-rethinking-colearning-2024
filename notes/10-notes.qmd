@@ -11,7 +11,7 @@ source('R/packages.R')
 
 # Counts
 
-Recall: Generalized linear models have expected value as *some function*
+Recall: Generalized linear models estimate the expected value as *some function*
 of an additive combination of parameters. 
 
 This means that a uniform change in predictor is not a uniform change in the
@@ -20,8 +20,7 @@ interact and moderate one another. Eg. if the outcome space is bounded between
 0-1 and one variable pushed the outcome towards 1, another variable cannot push
 the outcome further to 1 - it is bounded by this ceiling.
 
-
-Counts are distributions from constraints. Maximum entropy priors are counts 
+Counts are distributions with constraints. Maximum entropy priors for counts 
 include Binomial, Poisson and extensions of these. More event types include
 multinomial and categorical. Robust regressions include Beta-binomial, 
 gamma-Poisson. 
