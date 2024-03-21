@@ -111,17 +111,18 @@ always, anything below -4 = almost never.
 
 
 
-### Example: UC Berkeley Admissions
+## Example: UC Berkeley Admissions
 
 - Graduate school applications for 1973 UC Berkeley
 - Stratified by department and gender of application
 
 See more here:
 
-Traag, V.A. and Waltman, L., 2022. Causal foundations of bias, disparity and fairness. arXiv preprint arXiv:2207.13665.
+Traag, V.A. and Waltman, L., 2022. Causal foundations of bias, disparity and 
+fairness. arXiv preprint arXiv:2207.13665.
 
 
-#### 1. Estimand
+### 1. Estimand
 
 
 ```{r}
@@ -133,7 +134,7 @@ coords <- data.frame(
 )
 ```
 
-Was there gender discrimination in graduate admissions?
+Is there gender discrimination in graduate admissions?
 
 ```{r}
 dagify(
@@ -156,9 +157,13 @@ dagify(
 
 - D: department
 
-Typically, department is considered a mediating variable
+Typically, department is considered a mediating variable. Departments differ
+in their number of applicants, number of accepted students, potential 
+differences in applicants and acceptance by gender, etc
 
-What can the "causal effect of gender" mean?
+What does the "causal effect of gender" mean?
+
+Really this is another variable - the perceived gender G*. 
 
 ```{r}
 dagify(
@@ -172,26 +177,17 @@ dagify(
 
 Which path represents "discrimination"?
 
-- direct discrimination: status-based discrimination from G -> A
-- structural discrimination: indirect through department G -> D -> A
-- total discrimination: G -> A and G -> D -> A, what individuals experience
+- direct discrimination: status-based discrimination from G -> A. Requires
+strong assumptions. 
+- structural discrimination: indirect through department G -> D -> A. Requires
+strong assumptions. 
+- total discrimination: G -> A and G -> D -> A, in other words: 
+what an individuals experience. Requires mild assumptions. 
+
+These three types of discrimination require different estimators. 
 
 
-For now, we will ignore the unobserved confounds between the mediator and 
-the outcome. 
-```{r}
-dagify(
-	A ~ G_star + D,
-	G_star ~ G,
-	D ~ G + U,
-	A ~ U,
-  coords = coords
-) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
-```
-
-
-
-#### 2. Generative model
+### 2. Generative model
 
 
 - Set number of applicants
@@ -204,7 +200,7 @@ dagify(
 Changing the acceptance rate where acceptance differs by department **and** gender, 
 pattern of differences in acceptance rates is the same in this simulated data. 
 This illustrates the fundamental problem of determining if discrimination is
-occuring. 
+occurring. 
 
 Generative model could be greatly improved:
 
@@ -212,7 +208,7 @@ Generative model could be greatly improved:
 of qualifications
 - Admission rates are then based on ranking applicants to a set number of spaces
 
-#### 3. Statistical models
+### 3. Statistical models
 
 Total causal effect of G
 
@@ -232,13 +228,13 @@ $logit(p_{i}) = \alpha[G_{i}, D_{i}]$
 $\alpha = \begin{bmatrix} \alpha_{1, 1} & \alpha_{1, 2} \\ \alpha_{2, 1} & \alpha_{2, 2}\end{bmatrix}$
 
 
-#### 4. Validate the model
+### 4. Validate the model
 
 Use inverse logit function to transform variables back on probability scale.
 Determine if known parameters are recovered by the model. 
 
 
-#### 5. Analyze the data
+### 5. Analyze the data
 
 To use a binomial distribution, aggregate the long format data into acceptance
 sums for each gender and department. This is equivalent to using the original
@@ -246,14 +242,16 @@ data with a Bernoulli distribution.
 
 - inspect trace plots and trank plots to ensure chains are well mixed
 - extract samples from the posterior
-- convert the entire posterior distribution back to the prediction scale with the inverse logit 
+- convert the entire posterior distribution back to the prediction scale with 
+the inverse logit 
 - compute contrasts for total effect (across genders) and direct effects
 (within departments)
 
 
-##### Post stratification
+#### Post stratification
 
-Back to the question: what's the average direct effect of gender across departments?
+Back to the question: what's the average direct effect of gender across
+departments?
 
 This depends on the perception of gender on the admission officer
 
@@ -266,13 +264,11 @@ dagify(
 ) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
 ```
 
-To calculate the causal effect of G*, we must average (marginalize)
-over the departments. (Note still assuming no confounds). 
+To calculate the causal effect of G*, we must average (marginalize) over the
+departments. Process: simulate as if all applicants are women, then simulate as
+if all applicants are men. Then compute the contrasts.
 
-Simulate as if all applicants are women, then simulate as if all applicants 
-are men. Then compute the contrasts. 
-
-Post stratification is reweighing estimates for target population. 
+Post stratification is re-weighting estimates for a specific target population.
 Eg. at a different university, the distributions would differ, and we could
 predict how the consequences of intervention differ
 
