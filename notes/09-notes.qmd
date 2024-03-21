@@ -9,41 +9,30 @@ source('R/packages.R')
 ```
 
 
-## Generalized linear models
+# Generalized linear models
 
-### Modeling events
+Linear models: expected value is an additive combination  of 
+parameters
 
-> Like tide prediction engines (analog computers), the gears inside the machine
-bear no resemble to the observable predictions that they put out.
+$$Y_{i} \sim Normal(\mu_{i}, \sigma)$$
+$$\mu_{i} = \alpha + \beta_{Z} X_{i} + \beta_{Z} Z_{i}$$
 
-- Events are discrete, unordered outcomes
-- Observations are counts of events
-- Unknowns estimated are on the probability or log-odds/logit scale (probability it happens / probability it does not happen)
+Generalized linear models: expected value is **some function** of an additive
+combination of parameters
 
-Linear models: expected value is an additive linear combination of parameters. 
-Can only do this with the normal distribution because it is unbounded. 
-
-Other events are bounded. For example, probability of events are restricted
-to 0-1. 
-
-Generalized linear models: expected value is some function of an additive combination 
-of parameters. 
-
-$Y_{i} \sim Bernoulli(p_{i})$
-
-$f(p_{i}) = \alpha + \beta_{{X}} X_{i} + \beta_{Z} Z_{i}$
-
+$$Y_{i} \sim Bernoulli(p_{i})$$
+$$f(p_{i}) = \alpha + \beta_{Z} X_{i} + \beta_{Z} Z_{i}$$
 - $Y_{i}$: 0/1 outcome
 - $p_{i}$: probability of event
 - $f(p_{i})$: f() maps probability scale to linear model scale
 - $\alpha + \beta_{{X}} X_{i} + \beta_{Z} Z_{i})$: can be any real value
 
 
-$f$ is the link function
+In generalized linear models, all parameters interact because the 
+outcome is bounded. Gaussian models are the only type of model where
+this is not true since the outcome is unbounded. 
 
-$f(p_{i} = \alpha + \beta_{{X}} X_{i} + \beta_{Z} Z_{i})$
 
-$f^{-1}$ is the inverse link function. 
 
 $p_{i} = f^{-1}(\alpha + \beta_{{X}} X_{i} + \beta_{Z} Z_{i})$
 
