@@ -56,25 +56,29 @@ Distribution you want to use to model an observed variable is governed by the
 constraints on observation. Eg. you can't have negative counts. You can't use 
 some test to decide if your data are "Normal". 
 
+## Modeling events
 
-The distribution is matched to constraints on observed variables and the link 
-function is matched to this distribution. 
+> Like tide prediction engines (analog computers), the gears inside the machine
+bear no resemblance to the observable predictions that they output
 
-![](../graphics/stat_rethinking_2ed_f10_6.png)
+- Events are discrete, unordered outcomes
+- Observations are counts of events
+- Estimates are on the probability or log-odds/logit scale 
 
-- Exponential distribution: time to event that has a constant rate. Greater than 0, 
-single parameter $\lambda$ that defines the rate. 
-- Binomial distribution: count events bounded in an observation window. Some number of trials 
-- Poisson distribution: count events with constant rate. This is the count distribution of the exponentially distributed events. We don't know the maximum or number of coin tosses. 
-- Gamma distribution: sum up exponential processes. 
-- Normal distribution: Gamma distribution with large mean converges to the Normal distribution. 
-
-Distribution you want to use to model an observed variable is governed by the 
-constraints on observation. Eg. you can't have negative counts. You can't use 
-some test to decide if your data are "Normal". 
+These estimates are bounded,  eg. the probability of an event is restricted
+to 0-1. 
 
 
-### Logit link
+Two options, that are equivalent for inference: 
+
+- Logistic regression: binary [0,1] outcome and logit link, with Bernoulli
+distribution
+- Binomial regression: count [0, N] outcome and logit link, with Binomial
+distribution. Binomial variables are sums of Bernoulli variables. 
+
+
+
+## Logit link
 
 Bernoulli and binomial models most often use the logit link. 
 
@@ -98,7 +102,7 @@ ggplot(data.table(logit_p= logit(p), p = p)) + geom_line(aes(logit_p, p))
 ```
 
 
-### Logistic priors
+## Logistic priors
 
 The logit link compresses parameter distributions. Anything above +4 = almost
 always, anything below -4 = almost never. 
