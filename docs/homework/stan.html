@@ -152,6 +152,18 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Lecture 08 Notes</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/09-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 09 Notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/10-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 10 Notes</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -1114,6 +1126,57 @@ generated quantities {
 
 
 
+Model: h04_q03_m_lin_Massos_brms_stancode
+
+
+// generated with brms 2.20.4
+functions {
+}
+data {
+  int&lt;lower=1&gt; N;  // total number of observations
+  vector[N] Y;  // response variable
+  int&lt;lower=1&gt; K;  // number of population-level effects
+  matrix[N, K] X;  // population-level design matrix
+  int&lt;lower=1&gt; Kc;  // number of population-level effects after centering
+  int prior_only;  // should the likelihood be ignored?
+}
+transformed data {
+  matrix[N, Kc] Xc;  // centered version of X without an intercept
+  vector[Kc] means_X;  // column means of X before centering
+  for (i in 2:K) {
+    means_X[i - 1] = mean(X[, i]);
+    Xc[, i - 1] = X[, i] - means_X[i - 1];
+  }
+}
+parameters {
+  vector[Kc] b;  // regression coefficients
+  real Intercept;  // temporary intercept for centered predictors
+  real&lt;lower=0&gt; sigma;  // dispersion parameter
+}
+transformed parameters {
+  real lprior = 0;  // prior contributions to the log posterior
+  lprior += normal_lpdf(b | 20, 5);
+  lprior += normal_lpdf(Intercept | 125, 10);
+  lprior += exponential_lpdf(sigma | 1);
+}
+model {
+  // likelihood including constants
+  if (!prior_only) {
+    target += normal_id_glm_lpdf(Y | Xc, Intercept, b, sigma);
+  }
+  // priors including constants
+  target += lprior;
+}
+generated quantities {
+  // actual population-level intercept
+  real b_Intercept = Intercept - dot_product(means_X, b);
+}
+
+
+
+
+
+
 Model: h04_q03_m_log_Massos_brms_stancode
 
 
@@ -1243,57 +1306,6 @@ model {
   target += lprior;
 }
 generated quantities {
-}
-
-
-
-
-
-
-Model: h04_q03_m_lin_Massos_brms_stancode
-
-
-// generated with brms 2.20.4
-functions {
-}
-data {
-  int&lt;lower=1&gt; N;  // total number of observations
-  vector[N] Y;  // response variable
-  int&lt;lower=1&gt; K;  // number of population-level effects
-  matrix[N, K] X;  // population-level design matrix
-  int&lt;lower=1&gt; Kc;  // number of population-level effects after centering
-  int prior_only;  // should the likelihood be ignored?
-}
-transformed data {
-  matrix[N, Kc] Xc;  // centered version of X without an intercept
-  vector[Kc] means_X;  // column means of X before centering
-  for (i in 2:K) {
-    means_X[i - 1] = mean(X[, i]);
-    Xc[, i - 1] = X[, i] - means_X[i - 1];
-  }
-}
-parameters {
-  vector[Kc] b;  // regression coefficients
-  real Intercept;  // temporary intercept for centered predictors
-  real&lt;lower=0&gt; sigma;  // dispersion parameter
-}
-transformed parameters {
-  real lprior = 0;  // prior contributions to the log posterior
-  lprior += normal_lpdf(b | 20, 5);
-  lprior += normal_lpdf(Intercept | 125, 10);
-  lprior += exponential_lpdf(sigma | 1);
-}
-model {
-  // likelihood including constants
-  if (!prior_only) {
-    target += normal_id_glm_lpdf(Y | Xc, Intercept, b, sigma);
-  }
-  // priors including constants
-  target += lprior;
-}
-generated quantities {
-  // actual population-level intercept
-  real b_Intercept = Intercept - dot_product(means_X, b);
 }</code></pre>
 </div>
 </div>
