@@ -221,6 +221,16 @@ targets_h04 <- c(
 
 
 
+# Homework 05 -------------------------------------------------------------
+targets_h05 <- c(
+	tar_target(
+		grants,
+		data_grants()
+	)
+)
+
+
+
 # Targets: all ------------------------------------------------------------
 # Automatically grab all the "targets_*" lists above
 lapply(grep('targets', ls(), value = TRUE), get)
