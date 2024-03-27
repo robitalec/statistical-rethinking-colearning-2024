@@ -81,6 +81,32 @@ The adjustment set for the total effect is empty.
 ggdag_adjustment_set(dag, effect = 'total') + theme_dag()
 ```
 
+
+### Statistical model
+
+$$A_{i} \sim Binomial(p_{i})$$
+$$p_{i} = \alpha + \beta_{G} G_{i}$$
+$$\alpha \sim Normal(0, 0.2)$$
+$$\beta_{G} \sim Normal(0, 0.5)$$
+$$\sigma \sim Exponential(1)$$
+
+#### Prior predictive simulation
+
+```{r}
+```
+
+
+### Analyze the data
+
+```{r}
+data_grants
+```
+
+```{r}
+
+```
+
+
 ## Question 2
 
 > Now estimate the DIRECT causal effect of gender on grant awards. Use the same
