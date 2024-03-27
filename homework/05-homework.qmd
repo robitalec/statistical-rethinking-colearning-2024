@@ -118,9 +118,28 @@ for help
 
 What is the average direct causal effect of gender on grant awards, weighting
 each discipline in proportion to the number of applications in the sample. 
+
+### Scientific model
+
 ```{r}
+#| echo: false
+coords <- data.frame(
+	name = c('G', 'D', 'A'),
+	x =    c(1,    2,   3),
+	y =    c(0,    1,   0)
+)
 ```
 
+```{r}
+dag <- dagify(
+	D ~ G, 
+	A ~ G + D,
+  coords = coords,
+	exposure = 'G',
+	outcome = 'A'
+)
+ggdag_status(dag, seed = 2, layout = 'auto') + theme_dag()
+```
 ## Question 3 
 
 > OPTIONAL CHALLENGE. The data in data(UFClefties) are the outcomes of 205
