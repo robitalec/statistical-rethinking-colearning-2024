@@ -88,7 +88,6 @@ $$A_{i} \sim Binomial(p_{i})$$
 $$p_{i} = \alpha + \beta_{G} G_{i}$$
 $$\alpha \sim Normal(0, 0.2)$$
 $$\beta_{G} \sim Normal(0, 0.5)$$
-$$\sigma \sim Exponential(1)$$
 
 #### Prior predictive simulation
 
@@ -115,7 +114,10 @@ causal effect of gender, weighting each discipline in proportion to the number
 of applications in the sample. Refer to the marginal effect example in Lecture 9
 for help
 
+### Estimand 
 
+What is the average direct causal effect of gender on grant awards, weighting
+each discipline in proportion to the number of applications in the sample. 
 ```{r}
 ```
 
