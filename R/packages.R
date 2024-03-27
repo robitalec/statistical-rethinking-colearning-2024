@@ -2,6 +2,14 @@
 # Alec L. Robitaille
 
 
+# Installs ----------------------------------------------------------------
+# Sys.setenv(DOWNLOAD_STATIC_LIBV8 = 1)
+# install.packages("V8")
+# install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
+# devtools::install_github("rmcelreath/rethinking")
+# remotes::install_github('robitalec/zarg')
+# -------------------------------------------------------------------------
+
 library(targets)
 library(tarchetypes)
 library(qs)
@@ -40,13 +48,3 @@ library(mice)
 library(modelr)
 
 library(janitor)
-
-
-
-
-# Installs ----------------------------------------------------------------
-# Sys.setenv(DOWNLOAD_STATIC_LIBV8 = 1)
-# install.packages("V8")
-# install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
-# devtools::install_github("rmcelreath/rethinking")
-# remotes::install_github('robitalec/zarg')
