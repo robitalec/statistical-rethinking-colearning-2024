@@ -54,6 +54,33 @@ dag <- dagify(
 )
 ggdag_status(dag, seed = 2, layout = 'auto') + theme_dag()
 ```
+
+
+#### Backdoor criterion
+
+1. Identify all paths connecting treatment to the outcome, regardless of the
+direction of arrows
+
+- `G -> A`
+- `G -> D -> A`
+
+2. Identify paths with arrows entering the treatment (backdoor). These are 
+non-casual paths, because causal paths exit the treatment (frontdoor). 
+
+- ~~`G -> A`~~
+- ~~`G -> D -> A`~~
+
+
+3. Find adjustment sets that close all backdoor/non-causal paths. 
+
+There are no backdoor paths entering the treatment (G). There 
+is a direct path from G -> A and an indirect path through D. 
+The adjustment set for the total effect is empty. 
+
+```{r}
+ggdag_adjustment_set(dag, effect = 'total') + theme_dag()
+```
+
 ## Question 2
 
 > Now estimate the DIRECT causal effect of gender on grant awards. Use the same
