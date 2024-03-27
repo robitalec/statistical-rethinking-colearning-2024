@@ -29,6 +29,9 @@ researcher). But instead of departments, there are disciplines. Draw a DAG for
 this sample. Then use the backdoor criterion and a binomial GLM to estimate the
 TOTAL causal effect of gender on grant awards.
 
+### Estimand 
+
+What is the total causal effect of gender on grant awards?
 ```{r}
 ```
 
