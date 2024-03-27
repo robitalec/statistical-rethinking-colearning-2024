@@ -32,9 +32,28 @@ TOTAL causal effect of gender on grant awards.
 ### Estimand 
 
 What is the total causal effect of gender on grant awards?
+
+### Scientific model
+
 ```{r}
+#| echo: false
+coords <- data.frame(
+	name = c('G', 'D', 'A'),
+	x =    c(1,    2,   3),
+	y =    c(0,    1,   0)
+)
 ```
 
+```{r}
+dag <- dagify(
+	D ~ G, 
+	A ~ G + D,
+  coords = coords,
+	exposure = 'G',
+	outcome = 'A'
+)
+ggdag_status(dag, seed = 2, layout = 'auto') + theme_dag()
+```
 ## Question 2
 
 > Now estimate the DIRECT causal effect of gender on grant awards. Use the same
