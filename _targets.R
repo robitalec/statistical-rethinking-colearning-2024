@@ -250,6 +250,15 @@ targets_h05 <- c(
 		ufc,
 		data_ufc()
 	),
+	zar_brms(
+		h05_q03,
+		formula = n_win | trials(n_fight) ~ is_lefty,
+		data = ufc,
+		family = 'binomial',
+		prior = c(
+			prior(normal(0, 1), Intercept),
+			prior(normal(0, 0.5), b)
+		)
 	)
 )
 
