@@ -237,8 +237,26 @@ data_grants
 ```
 
 ```{r}
-# TODO: compute average direct effect weighting each discipline by 
-#       number of applications in sample. see marginal effect example in L09
+# Load model
+tar_load(h05_q02_brms_sample)
+h05_q02_brms_sample
+
+# Read N draws from the priors and append expected predictions
+n_draws <- 100
+q02_pred <- h05_q02_brms_sample |>
+	add_predicted_draws(newdata = grants, ndraws = n_draws)
+
+# Plot prior expectations for relationship between occasion and height
+ggplot(q02_pred) + 
+	stat_halfeye(aes(.prediction / applications, gender), alpha = 0.5) +
+	labs(x = 'Predicted acceptance rate', y = 'Gender') + 
+	facet_wrap(~discipline) + 
+	xlim(0, 1)
+
+# Estimated marginal effects
+marg_eff <- emmeans(h05_q02_brms_sample, ~gender + discipline)
+marg_eff
+contrast(marg_eff)
 ```
 
 ## Question 3 
