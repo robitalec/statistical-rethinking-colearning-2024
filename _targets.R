@@ -236,6 +236,15 @@ targets_h05 <- c(
 			prior(normal(0, 0.5), b)
 		)
 	),
+	zar_brms(
+		h05_q02,
+		formula = awards | trials(applications) ~ factor(gender) + factor(discipline),
+		data = grants,
+		family = 'binomial',
+		prior = c(
+			prior(normal(0, 1), Intercept),
+			prior(normal(0, 0.5), b)
+		)
 	)
 )
 
