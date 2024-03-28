@@ -245,6 +245,11 @@ targets_h05 <- c(
 			prior(normal(0, 1), Intercept),
 			prior(normal(0, 0.5), b)
 		)
+	),
+	tar_target(
+		ufc,
+		data_ufc()
+	),
 	)
 )
 
