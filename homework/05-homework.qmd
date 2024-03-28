@@ -132,6 +132,10 @@ ggplot(q01_pred) +
 	stat_halfeye(aes(.prediction / applications, gender), alpha = 0.5) +
 	labs(x = 'Predicted acceptance rate', y = 'Gender') + 
 	xlim(0, 1)
+# Estimated marginal effects
+marg_eff <- emmeans(h05_q01_brms_sample, ~gender)
+marg_eff
+contrast(marg_eff)
 ```
 
 
