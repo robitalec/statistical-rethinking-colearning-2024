@@ -220,12 +220,22 @@ targets_h04 <- c(
 )
 
 
-
 # Homework 05 -------------------------------------------------------------
 targets_h05 <- c(
 	tar_target(
 		grants,
 		data_grants()
+	),
+	zar_brms(
+		h05_q01,
+		formula = awards | trials(applications) ~ factor(gender),
+		data = grants,
+		family = 'binomial',
+		prior = c(
+			prior(normal(0, 1), Intercept),
+			prior(normal(0, 0.5), b)
+		)
+	),
 	)
 )
 
