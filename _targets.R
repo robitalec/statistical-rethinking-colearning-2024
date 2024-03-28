@@ -252,7 +252,7 @@ targets_h05 <- c(
 	),
 	zar_brms(
 		h05_q03,
-		formula = n_win | trials(n_fight) ~ is_lefty,
+		formula = n_win | trials(n_fight) ~ hand_pair,
 		data = ufc,
 		family = 'binomial',
 		prior = c(
