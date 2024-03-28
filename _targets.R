@@ -238,7 +238,7 @@ targets_h05 <- c(
 	),
 	zar_brms(
 		h05_q02,
-		formula = awards | trials(applications) ~ gender + discipline,
+		formula = awards | trials(applications) ~ gender * discipline,
 		data = grants,
 		family = 'binomial',
 		prior = c(
