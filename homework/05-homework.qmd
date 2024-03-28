@@ -208,25 +208,21 @@ $$\beta_{D} \sim Normal(0, 0.5)$$
 #### Prior predictive simulation
 
 ```{r}
-# Load data
-tar_load(grants)
-
-# Print priors used
-tar_read(h05_q02_brms_prior)
-
 # Load model
-tar_load(h05_q02_brms_sample_prior)
-h05_q02_brms_sample_prior
+tar_load(h05_q02_brms_sample)
+h05_q02_brms_sample
 
 # Read N draws from the priors and append expected predictions
 n_draws <- 100
-q02_pred_prior <- h05_q02_brms_sample_prior |>
+q02_pred <- h05_q02_brms_sample |>
 	add_predicted_draws(newdata = grants, ndraws = n_draws)
 
 # Plot prior expectations for relationship between occasion and height
-ggplot(q02_pred_prior) + 
-	stat_halfeye(aes(gender, .prediction / applications), alpha = 0.5) +
-	labs(x = 'Gender', y = 'Predicted acceptancee rate')
+ggplot(q02_pred) + 
+	stat_halfeye(aes(.prediction / applications, gender), alpha = 0.5) +
+	labs(x = 'Predicted acceptance rate', y = 'Gender') + 
+	facet_wrap(~discipline) + 
+  xlim(0, 1)
 ```
 
 
