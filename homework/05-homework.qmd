@@ -273,3 +273,36 @@ left-handers are over-represented among UFC fighters?
 
 What is the direct effect  of handedness on UFC match outcomes?
 
+### Analyze the data
+
+```{r}
+data_ufc
+```
+
+```{r}
+# Load data
+tar_load(ufc)
+
+# Load model
+tar_load(h05_q03_brms_sample)
+h05_q03_brms_sample
+
+n_draws <- 100
+q03_pred <- h05_q03_brms_sample |>
+	add_predicted_draws(newdata = ufc, ndraws = n_draws)
+
+q03_pred$Handedness <- c('R', 'L')[grepl('L-', q03_pred$hand_pair) + 1]
+ggplot(q03_pred) + 
+	stat_halfeye(aes(.prediction / n_fight, hand_pair), alpha = 0.5) +
+	labs(x = 'Predicted win rate', y = 'Hand pair') + 
+	facet_wrap(~Handedness, ncol  = 1, scales = 'free_y') +
+	labs(y = '') + 
+	xlim(0, 1)
+
+# Estimated marginal effects
+marg_eff <- emmeans(h05_q03_brms_sample, ~hand_pair, regrid = 'response')
+marg_eff
+contrast(marg_eff, method = 'pairwise')
+```
+
+
