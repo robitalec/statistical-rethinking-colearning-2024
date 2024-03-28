@@ -82,13 +82,6 @@ ggdag_adjustment_set(dag, effect = 'total') + theme_dag()
 ```
 
 
-### Statistical model
-
-$$A_{i} \sim Binomial(p_{i})$$
-$$p_{i} = \alpha + \beta_{G} G_{i}$$
-$$\alpha \sim Normal(0, 0.2)$$
-$$\beta_{G} \sim Normal(0, 0.5)$$
-
 #### Prior predictive simulation
 
 ```{r}
@@ -107,7 +100,7 @@ n_draws <- 100
 q01_pred_prior <- h05_q01_brms_sample_prior |>
 	add_predicted_draws(newdata = grants, ndraws = n_draws)
 
-# Plot prior expectations for relationship between occasion and height
+# Plot prior expectations for acceptance rate and gender
 ggplot(q01_pred_prior) + 
 	stat_halfeye(aes(.prediction / applications, gender), alpha = 0.5) +
 	labs(x = 'Predicted acceptance rate', y = 'Gender') + 
@@ -122,16 +115,16 @@ ggplot(q01_pred_prior) +
 tar_load(h05_q01_brms_sample)
 h05_q01_brms_sample
 
-# Read N draws from the priors and append expected predictions
 n_draws <- 100
 q01_pred <- h05_q01_brms_sample |>
 	add_predicted_draws(newdata = grants, ndraws = n_draws)
 
-# Plot prior expectations for relationship between occasion and height
+# Plot expectations for acceptance rate and gender
 ggplot(q01_pred) + 
 	stat_halfeye(aes(.prediction / applications, gender), alpha = 0.5) +
 	labs(x = 'Predicted acceptance rate', y = 'Gender') + 
 	xlim(0, 1)
+
 # Estimated marginal effects
 marg_eff <- emmeans(h05_q01_brms_sample, ~gender)
 marg_eff
@@ -201,14 +194,6 @@ ggdag_adjustment_set(dag, effect = 'direct') + theme_dag()
 ```
 
 
-### Statistical model
-
-$$A_{i} \sim Binomial(p_{i})$$
-$$p_{i} = \alpha + \beta_{G} G_{i} + \beta{D} D_{i}$$
-$$\alpha \sim Normal(0, 0.2)$$
-$$\beta_{G} \sim Normal(0, 0.5)$$
-$$\beta_{D} \sim Normal(0, 0.5)$$
-
 #### Prior predictive simulation
 
 ```{r}
@@ -216,12 +201,11 @@ $$\beta_{D} \sim Normal(0, 0.5)$$
 tar_load(h05_q02_brms_sample)
 h05_q02_brms_sample
 
-# Read N draws from the priors and append expected predictions
 n_draws <- 100
 q02_pred <- h05_q02_brms_sample |>
 	add_predicted_draws(newdata = grants, ndraws = n_draws)
 
-# Plot prior expectations for relationship between occasion and height
+# Plot prior expectations for acceptance rate and gender
 ggplot(q02_pred) + 
 	stat_halfeye(aes(.prediction / applications, gender), alpha = 0.5) +
 	labs(x = 'Predicted acceptance rate', y = 'Gender') + 
@@ -246,7 +230,7 @@ n_draws <- 100
 q02_pred <- h05_q02_brms_sample |>
 	add_predicted_draws(newdata = grants, ndraws = n_draws)
 
-# Plot prior expectations for relationship between occasion and height
+# Plot expectations for acceptance rate and gender
 ggplot(q02_pred) + 
 	stat_halfeye(aes(.prediction / applications, gender), alpha = 0.5) +
 	labs(x = 'Predicted acceptance rate', y = 'Gender') + 
