@@ -220,6 +220,49 @@ targets_h04 <- c(
 )
 
 
+# Homework 05 -------------------------------------------------------------
+targets_h05 <- c(
+	tar_target(
+		grants,
+		data_grants()
+	),
+	zar_brms(
+		h05_q01,
+		formula = awards | trials(applications) ~ gender,
+		data = grants,
+		family = 'binomial',
+		prior = c(
+			prior(normal(0, 1), Intercept),
+			prior(normal(0, 0.5), b)
+		)
+	),
+	zar_brms(
+		h05_q02,
+		formula = awards | trials(applications) ~ gender * discipline,
+		data = grants,
+		family = 'binomial',
+		prior = c(
+			prior(normal(0, 1), Intercept),
+			prior(normal(0, 0.5), b)
+		)
+	),
+	tar_target(
+		ufc,
+		data_ufc()
+	),
+	zar_brms(
+		h05_q03,
+		formula = n_win | trials(n_fight) ~ hand_pair,
+		data = ufc,
+		family = 'binomial',
+		prior = c(
+			prior(normal(0, 1), Intercept),
+			prior(normal(0, 0.5), b)
+		)
+	)
+)
+
+
 
 # Targets: all ------------------------------------------------------------
 # Automatically grab all the "targets_*" lists above

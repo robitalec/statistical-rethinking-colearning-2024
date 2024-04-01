@@ -201,6 +201,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../homework/05-homework.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 05</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../homework/stan.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Stan</span></a>
   </div>
@@ -1306,6 +1312,165 @@ model {
   target += lprior;
 }
 generated quantities {
+}
+
+
+
+
+
+
+Model: h05_q01_brms_stancode
+
+
+// generated with brms 2.20.4
+functions {
+}
+data {
+  int&lt;lower=1&gt; N;  // total number of observations
+  array[N] int Y;  // response variable
+  array[N] int trials;  // number of trials
+  int&lt;lower=1&gt; K;  // number of population-level effects
+  matrix[N, K] X;  // population-level design matrix
+  int&lt;lower=1&gt; Kc;  // number of population-level effects after centering
+  int prior_only;  // should the likelihood be ignored?
+}
+transformed data {
+  matrix[N, Kc] Xc;  // centered version of X without an intercept
+  vector[Kc] means_X;  // column means of X before centering
+  for (i in 2:K) {
+    means_X[i - 1] = mean(X[, i]);
+    Xc[, i - 1] = X[, i] - means_X[i - 1];
+  }
+}
+parameters {
+  vector[Kc] b;  // regression coefficients
+  real Intercept;  // temporary intercept for centered predictors
+}
+transformed parameters {
+  real lprior = 0;  // prior contributions to the log posterior
+  lprior += normal_lpdf(b | 0, 0.5);
+  lprior += normal_lpdf(Intercept | 0, 1);
+}
+model {
+  // likelihood including constants
+  if (!prior_only) {
+    // initialize linear predictor term
+    vector[N] mu = rep_vector(0.0, N);
+    mu += Intercept + Xc * b;
+    target += binomial_logit_lpmf(Y | trials, mu);
+  }
+  // priors including constants
+  target += lprior;
+}
+generated quantities {
+  // actual population-level intercept
+  real b_Intercept = Intercept - dot_product(means_X, b);
+}
+
+
+
+
+
+
+Model: h05_q02_brms_stancode
+
+
+// generated with brms 2.20.4
+functions {
+}
+data {
+  int&lt;lower=1&gt; N;  // total number of observations
+  array[N] int Y;  // response variable
+  array[N] int trials;  // number of trials
+  int&lt;lower=1&gt; K;  // number of population-level effects
+  matrix[N, K] X;  // population-level design matrix
+  int&lt;lower=1&gt; Kc;  // number of population-level effects after centering
+  int prior_only;  // should the likelihood be ignored?
+}
+transformed data {
+  matrix[N, Kc] Xc;  // centered version of X without an intercept
+  vector[Kc] means_X;  // column means of X before centering
+  for (i in 2:K) {
+    means_X[i - 1] = mean(X[, i]);
+    Xc[, i - 1] = X[, i] - means_X[i - 1];
+  }
+}
+parameters {
+  vector[Kc] b;  // regression coefficients
+  real Intercept;  // temporary intercept for centered predictors
+}
+transformed parameters {
+  real lprior = 0;  // prior contributions to the log posterior
+  lprior += normal_lpdf(b | 0, 0.5);
+  lprior += normal_lpdf(Intercept | 0, 1);
+}
+model {
+  // likelihood including constants
+  if (!prior_only) {
+    // initialize linear predictor term
+    vector[N] mu = rep_vector(0.0, N);
+    mu += Intercept + Xc * b;
+    target += binomial_logit_lpmf(Y | trials, mu);
+  }
+  // priors including constants
+  target += lprior;
+}
+generated quantities {
+  // actual population-level intercept
+  real b_Intercept = Intercept - dot_product(means_X, b);
+}
+
+
+
+
+
+
+Model: h05_q03_brms_stancode
+
+
+// generated with brms 2.20.4
+functions {
+}
+data {
+  int&lt;lower=1&gt; N;  // total number of observations
+  array[N] int Y;  // response variable
+  array[N] int trials;  // number of trials
+  int&lt;lower=1&gt; K;  // number of population-level effects
+  matrix[N, K] X;  // population-level design matrix
+  int&lt;lower=1&gt; Kc;  // number of population-level effects after centering
+  int prior_only;  // should the likelihood be ignored?
+}
+transformed data {
+  matrix[N, Kc] Xc;  // centered version of X without an intercept
+  vector[Kc] means_X;  // column means of X before centering
+  for (i in 2:K) {
+    means_X[i - 1] = mean(X[, i]);
+    Xc[, i - 1] = X[, i] - means_X[i - 1];
+  }
+}
+parameters {
+  vector[Kc] b;  // regression coefficients
+  real Intercept;  // temporary intercept for centered predictors
+}
+transformed parameters {
+  real lprior = 0;  // prior contributions to the log posterior
+  lprior += normal_lpdf(b | 0, 0.5);
+  lprior += normal_lpdf(Intercept | 0, 1);
+}
+model {
+  // likelihood including constants
+  if (!prior_only) {
+    // initialize linear predictor term
+    vector[N] mu = rep_vector(0.0, N);
+    mu += Intercept + Xc * b;
+    target += binomial_logit_lpmf(Y | trials, mu);
+  }
+  // priors including constants
+  target += lprior;
+}
+generated quantities {
+  // actual population-level intercept
+  real b_Intercept = Intercept - dot_product(means_X, b);
 }</code></pre>
 </div>
 </div>

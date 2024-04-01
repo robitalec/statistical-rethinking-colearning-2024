@@ -201,6 +201,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../homework/05-homework.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 05</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../homework/stan.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Stan</span></a>
   </div>
@@ -445,6 +451,49 @@ targets_h04 &lt;- c(
             prior(normal(0, 200), nlpar = 'theta', lb = 0),
             prior(normal(0, 200), nlpar = 'w', lb = 0),
             prior(exponential(1), sigma)
+        )
+    )
+)
+
+
+# Homework 05 -------------------------------------------------------------
+targets_h05 &lt;- c(
+    tar_target(
+        grants,
+        data_grants()
+    ),
+    zar_brms(
+        h05_q01,
+        formula = awards | trials(applications) ~ gender,
+        data = grants,
+        family = 'binomial',
+        prior = c(
+            prior(normal(0, 1), Intercept),
+            prior(normal(0, 0.5), b)
+        )
+    ),
+    zar_brms(
+        h05_q02,
+        formula = awards | trials(applications) ~ gender * discipline,
+        data = grants,
+        family = 'binomial',
+        prior = c(
+            prior(normal(0, 1), Intercept),
+            prior(normal(0, 0.5), b)
+        )
+    ),
+    tar_target(
+        ufc,
+        data_ufc()
+    ),
+    zar_brms(
+        h05_q03,
+        formula = n_win | trials(n_fight) ~ hand_pair,
+        data = ufc,
+        family = 'binomial',
+        prior = c(
+            prior(normal(0, 1), Intercept),
+            prior(normal(0, 0.5), b)
         )
     )
 )
