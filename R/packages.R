@@ -21,6 +21,7 @@ conflict_prefer_all('posterior', quiet = TRUE)
 conflict_prefer_all('emmeans', quiet = TRUE)
 
 library(data.table)
+library(stringi)
 
 library(devtools)
 
