@@ -212,19 +212,34 @@ ggdag_adjustment_set(dag, effect = 'direct') + theme_dag()
 
 ```{r}
 # Load model
-tar_load(h05_q02_brms_sample)
-h05_q02_brms_sample
+tar_load(h05_q02_brms_sample_prior)
+h05_q02_brms_sample_prior
 
 n_draws <- 100
-q02_pred <- h05_q02_brms_sample |>
+q02_pred_prior <- h05_q02_brms_sample_prior |>
 	add_predicted_draws(newdata = grants, ndraws = n_draws)
 
 # Plot prior expectations for acceptance rate and gender
-ggplot(q02_pred) + 
+ggplot(q02_pred_prior) + 
 	stat_halfeye(aes(.prediction / applications, gender), alpha = 0.5) +
 	labs(x = 'Predicted acceptance rate', y = 'Gender') + 
 	facet_wrap(~discipline) + 
   xlim(0, 1)
+
+# Compare estimates between gender
+setDT(q02_pred_prior)
+q02_pred_prior[, est := .prediction / applications]
+q02_pred_prior_compare <- dcast(q02_pred_prior,
+																.draw + discipline ~ gender,
+																value.var = 'est')
+
+# Plot prior expectations comparing gender
+ggplot(q02_pred_prior_compare) +
+	geom_density2d_filled(aes(f, m)) +
+	labs(x = 'F', y = 'M') +
+	facet_wrap(~ discipline) +
+	scale_fill_viridis_d() + 
+	coord_equal()
 ```
 
 
