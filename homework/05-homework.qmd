@@ -143,7 +143,7 @@ ggplot(q01_pred) +
 # Estimated marginal effects
 marg_eff <- emmeans(h05_q01_brms_sample, ~gender, regrid = 'response')
 marg_eff
-contrast(marg_eff)
+contrast(marg_eff, method = 'pairwise')
 ```
 
 
@@ -258,6 +258,7 @@ marg_eff <- emmeans(h05_q02_brms_sample, ~ gender | discipline,
 marg_eff
 contrast(marg_eff,  method = 'pairwise')
 ```
+
 
 ## Question 3 
 
