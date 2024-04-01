@@ -278,7 +278,7 @@ left-handers are over-represented among UFC fighters?
 
 - fight: Unique identifier for match
 - episode: Identifier for UFC episode
-- fight.in.episiode: Order of fight in episode
+- fight.in.episode: Order of fight in episode
 - fighter1.win: 1 if fighter 1 won the match; 0 if fight 2 won
 - fighter1: Unique identifier for fighter 1
 - fighter2: Unique identifier for fighter 2
