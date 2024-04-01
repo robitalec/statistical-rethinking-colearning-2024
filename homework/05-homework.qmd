@@ -1,0 +1,338 @@
+---
+title: "Homework 05"
+author: "Alec L. Robitaille"
+date: "2024-03-28"
+---
+
+## Setup
+
+```{r}
+#| include: false
+targets::tar_source('R')
+```
+
+
+```{r}
+#| eval: false
+targets::tar_source('R')
+```
+
+
+## Question 1
+
+> The data in data(NWOGrants) are outcomes for scientific funding applications
+for the Netherlands Organization for Scientific Research (NWO) from 2010–2012
+(see van der Lee and Ellemers doi:10.1073/pnas.1510159112). These data have a
+structure similar to the UCBAdmit data discussed in Chapter 11 and in lecture.
+There are applications and each has an associated gender (of the lead
+researcher). But instead of departments, there are disciplines. Draw a DAG for
+this sample. Then use the backdoor criterion and a binomial GLM to estimate the
+TOTAL causal effect of gender on grant awards.
+
+### Estimand 
+
+What is the total causal effect of gender on grant awards?
+
+### Scientific model
+
+```{r}
+#| echo: false
+coords <- data.frame(
+	name = c('G', 'D', 'A'),
+	x =    c(1,    2,   3),
+	y =    c(0,    1,   0)
+)
+```
+
+```{r}
+dag <- dagify(
+	D ~ G, 
+	A ~ G + D,
+  coords = coords,
+	exposure = 'G',
+	outcome = 'A'
+)
+ggdag_status(dag, seed = 2, layout = 'auto') + theme_dag()
+```
+
+
+#### Backdoor criterion
+
+1. Identify all paths connecting treatment to the outcome, regardless of the
+direction of arrows
+
+- `G -> A`
+- `G -> D -> A`
+
+2. Identify paths with arrows entering the treatment (backdoor). These are 
+non-casual paths, because causal paths exit the treatment (frontdoor). 
+
+- ~~`G -> A`~~
+- ~~`G -> D -> A`~~
+
+
+3. Find adjustment sets that close all backdoor/non-causal paths. 
+
+There are no backdoor paths entering the treatment (G). There 
+is a direct path from G -> A and an indirect path through D. 
+The adjustment set for the total effect is empty. 
+
+```{r}
+ggdag_adjustment_set(dag, effect = 'total') + theme_dag()
+```
+
+
+#### Prior predictive simulation
+
+```{r}
+# Load data
+tar_load(grants)
+
+# Print priors used
+tar_read(h05_q01_brms_prior)
+
+# Load model
+tar_load(h05_q01_brms_sample_prior)
+h05_q01_brms_sample_prior
+
+# Read N draws from the priors and append expected predictions
+n_draws <- 100
+q01_pred_prior <- h05_q01_brms_sample_prior |>
+	add_predicted_draws(newdata = grants, ndraws = n_draws)
+
+# Plot prior expectations for acceptance rate and gender
+ggplot(q01_pred_prior) + 
+	stat_halfeye(aes(.prediction / applications, gender), alpha = 0.5) +
+	labs(x = 'Predicted acceptance rate', y = 'Gender') + 
+	xlim(0, 1)
+
+# Compare estimates between gender
+setDT(q01_pred_prior)
+q01_pred_prior[, est := .prediction / applications]
+q01_pred_prior_compare <- dcast(q01_pred_prior,
+																.draw + discipline ~ gender,
+																value.var = 'est')
+
+# Plot prior expectations comparing gender
+ggplot(q01_pred_prior_compare) +
+	geom_density2d_filled(aes(f, m)) +
+	labs(x = 'F', y = 'M') +
+	scale_fill_viridis_d() + 
+	coord_equal()
+```
+
+
+### Analyze the data
+
+```{r}
+# Load model
+tar_load(h05_q01_brms_sample)
+h05_q01_brms_sample
+
+n_draws <- 100
+q01_pred <- h05_q01_brms_sample |>
+	add_predicted_draws(newdata = grants, ndraws = n_draws)
+
+# Plot expectations for acceptance rate and gender
+ggplot(q01_pred) + 
+	stat_halfeye(aes(.prediction / applications, gender), alpha = 0.5) +
+	labs(x = 'Predicted acceptance rate', y = 'Gender') + 
+	xlim(0, 1)
+
+# Estimated marginal effects
+marg_eff <- emmeans(h05_q01_brms_sample, ~gender, regrid = 'response')
+marg_eff
+contrast(marg_eff, method = 'pairwise')
+```
+
+
+## Question 2
+
+> Now estimate the DIRECT causal effect of gender on grant awards. Use the same
+DAG as above to justify one or more binomial models. Compute the average direct
+causal effect of gender, weighting each discipline in proportion to the number
+of applications in the sample. Refer to the marginal effect example in Lecture 9
+for help
+
+### Estimand 
+
+What is the average direct causal effect of gender on grant awards, weighting
+each discipline in proportion to the number of applications in the sample. 
+
+### Scientific model
+
+```{r}
+#| echo: false
+coords <- data.frame(
+	name = c('G', 'D', 'A'),
+	x =    c(1,    2,   3),
+	y =    c(0,    1,   0)
+)
+```
+
+```{r}
+dag <- dagify(
+	D ~ G, 
+	A ~ G + D,
+  coords = coords,
+	exposure = 'G',
+	outcome = 'A'
+)
+ggdag_status(dag, seed = 2, layout = 'auto') + theme_dag()
+```
+
+
+#### Backdoor criterion
+
+1. Identify all paths connecting treatment to the outcome, regardless of the
+direction of arrows
+
+- `G -> A`
+- `G -> D -> A`
+
+2. Identify paths with arrows entering the treatment (backdoor). These are 
+non-casual paths, because causal paths exit the treatment (frontdoor). 
+
+- ~~`G -> A`~~
+- ~~`G -> D -> A`~~
+
+
+3. Find adjustment sets that close all backdoor/non-causal paths. 
+
+There are no backdoor paths entering the treatment (G). There 
+is a direct path from G -> A and an indirect path through D. 
+The adjustment set for the direct effect includes D.  
+
+```{r}
+ggdag_adjustment_set(dag, effect = 'direct') + theme_dag()
+```
+
+
+#### Prior predictive simulation
+
+```{r}
+# Load model
+tar_load(h05_q02_brms_sample_prior)
+h05_q02_brms_sample_prior
+
+n_draws <- 100
+q02_pred_prior <- h05_q02_brms_sample_prior |>
+	add_predicted_draws(newdata = grants, ndraws = n_draws)
+
+# Plot prior expectations for acceptance rate and gender
+ggplot(q02_pred_prior) + 
+	stat_halfeye(aes(.prediction / applications, gender), alpha = 0.5) +
+	labs(x = 'Predicted acceptance rate', y = 'Gender') + 
+	facet_wrap(~discipline) + 
+  xlim(0, 1)
+
+# Compare estimates between gender
+setDT(q02_pred_prior)
+q02_pred_prior[, est := .prediction / applications]
+q02_pred_prior_compare <- dcast(q02_pred_prior,
+																.draw + discipline ~ gender,
+																value.var = 'est')
+
+# Plot prior expectations comparing gender
+ggplot(q02_pred_prior_compare) +
+	geom_density2d_filled(aes(f, m)) +
+	labs(x = 'F', y = 'M') +
+	facet_wrap(~ discipline) +
+	scale_fill_viridis_d() + 
+	coord_equal()
+```
+
+
+### Analyze the data
+
+```{r}
+data_grants
+```
+
+```{r}
+# Load model
+tar_load(h05_q02_brms_sample)
+h05_q02_brms_sample
+
+# Read N draws from the priors and append expected predictions
+n_draws <- 100
+q02_pred <- h05_q02_brms_sample |>
+	add_predicted_draws(newdata = grants, ndraws = n_draws)
+
+# Plot expectations for acceptance rate and gender
+ggplot(q02_pred) + 
+	stat_halfeye(aes(.prediction / applications, gender), alpha = 0.5) +
+	labs(x = 'Predicted acceptance rate', y = 'Gender') + 
+	facet_wrap(~discipline) + 
+	xlim(0, 1)
+
+# Estimated marginal effects
+marg_eff <- emmeans(h05_q02_brms_sample, ~ gender | discipline,
+										regrid = 'response')
+marg_eff
+contrast(marg_eff,  method = 'pairwise')
+```
+
+
+## Question 3 
+
+> OPTIONAL CHALLENGE. The data in data(UFClefties) are the outcomes of 205
+Ultimate Fighting Championship (UFC) matches (see ?UFClefties for details). It
+is widely believed that left-handed fighters (aka “Southpaws”) have an advantage
+against right-handed fighters, and left-handed men are indeed over-represented
+among fighters (and fencers and tennis players) compared to the general
+population. Estimate the average advantage, if any, that a left-handed fighter
+has against right-handed fighters. Based upon your estimate, why do you think
+left-handers are over-represented among UFC fighters?
+
+```{r}
+#| eval: false
+?UFClefties
+```
+
+- fight: Unique identifier for match
+- episode: Identifier for UFC episode
+- fight.in.episode: Order of fight in episode
+- fighter1.win: 1 if fighter 1 won the match; 0 if fight 2 won
+- fighter1: Unique identifier for fighter 1
+- fighter2: Unique identifier for fighter 2
+- fighter1.lefty: 1 if fighter 1 was left handed; 0 otherwise
+- fighter2.lefty: 1 if fighter 2 was left handed; 0 otherwise
+
+
+### Estimand
+
+What is the direct effect  of handedness on UFC match outcomes?
+
+### Analyze the data
+
+```{r}
+data_ufc
+```
+
+```{r}
+# Load data
+tar_load(ufc)
+
+# Load model
+tar_load(h05_q03_brms_sample)
+h05_q03_brms_sample
+
+n_draws <- 100
+q03_pred <- h05_q03_brms_sample |>
+	add_predicted_draws(newdata = ufc, ndraws = n_draws)
+
+# Plot predicted win rate by handedness
+ggplot(q03_pred) + 
+	stat_halfeye(aes(.prediction / n_fight, hand_pair), alpha = 0.5) +
+	labs(x = 'Predicted win rate', y = 'Handedness') + 
+	xlim(0, 1)
+
+# Estimated marginal effects
+marg_eff <- emmeans(h05_q03_brms_sample, ~hand_pair, regrid = 'response')
+marg_eff
+contrast(marg_eff)
+```
+
+Left handed fighters do not appear to have an advantage over right handed
+fighters. 
