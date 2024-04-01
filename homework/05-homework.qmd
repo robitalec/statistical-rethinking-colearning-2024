@@ -117,7 +117,6 @@ q01_pred_prior_compare <- dcast(q01_pred_prior,
 ggplot(q01_pred_prior_compare) +
 	geom_density2d_filled(aes(f, m)) +
 	labs(x = 'F', y = 'M') +
-	facet_wrap(~ discipline) +
 	scale_fill_viridis_d() + 
 	coord_equal()
 ```
