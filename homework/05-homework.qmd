@@ -308,7 +308,11 @@ n_draws <- 100
 q03_pred <- h05_q03_brms_sample |>
 	add_predicted_draws(newdata = ufc, ndraws = n_draws)
 
-q03_pred$Handedness <- c('R', 'L')[grepl('L-', q03_pred$hand_pair) + 1]
+q03_pred$Handedness <- c(
+	'Right handed', 
+	'Left handed'
+)[grepl('L-', q03_pred$hand_pair) + 1]
+
 ggplot(q03_pred) + 
 	stat_halfeye(aes(.prediction / n_fight, hand_pair), alpha = 0.5) +
 	labs(x = 'Predicted win rate', y = 'Hand pair') + 
