@@ -105,6 +105,21 @@ ggplot(q01_pred_prior) +
 	stat_halfeye(aes(.prediction / applications, gender), alpha = 0.5) +
 	labs(x = 'Predicted acceptance rate', y = 'Gender') + 
 	xlim(0, 1)
+
+# Compare estimates between gender
+setDT(q01_pred_prior)
+q01_pred_prior[, est := .prediction / applications]
+q01_pred_prior_compare <- dcast(q01_pred_prior,
+																.draw + discipline ~ gender,
+																value.var = 'est')
+
+# Plot prior expectations comparing gender
+ggplot(q01_pred_prior_compare) +
+	geom_density2d_filled(aes(f, m)) +
+	labs(x = 'F', y = 'M') +
+	facet_wrap(~ discipline) +
+	scale_fill_viridis_d() + 
+	coord_equal()
 ```
 
 
