@@ -109,9 +109,11 @@ ggplot(q01_pred_prior) +
 # Compare estimates between gender
 setDT(q01_pred_prior)
 q01_pred_prior[, est := .prediction / applications]
-q01_pred_prior_compare <- dcast(q01_pred_prior,
-																.draw + discipline ~ gender,
-																value.var = 'est')
+q01_pred_prior_compare <- dcast(
+	q01_pred_prior,
+	.draw + discipline ~ gender,
+	value.var = 'est'
+)
 
 # Plot prior expectations comparing gender
 ggplot(q01_pred_prior_compare) +
@@ -229,9 +231,11 @@ ggplot(q02_pred_prior) +
 # Compare estimates between gender
 setDT(q02_pred_prior)
 q02_pred_prior[, est := .prediction / applications]
-q02_pred_prior_compare <- dcast(q02_pred_prior,
-																.draw + discipline ~ gender,
-																value.var = 'est')
+q02_pred_prior_compare <- dcast(
+	q02_pred_prior,
+	.draw + discipline ~ gender,
+	value.var = 'est'
+)
 
 # Plot prior expectations comparing gender
 ggplot(q02_pred_prior_compare) +
@@ -267,8 +271,11 @@ ggplot(q02_pred) +
 	xlim(0, 1)
 
 # Estimated marginal effects
-marg_eff <- emmeans(h05_q02_brms_sample, ~ gender | discipline,
-										regrid = 'response')
+marg_eff <- emmeans(
+	h05_q02_brms_sample, 
+	~ gender | discipline,
+	regrid = 'response'
+)
 marg_eff
 contrast(marg_eff,  method = 'pairwise')
 ```
