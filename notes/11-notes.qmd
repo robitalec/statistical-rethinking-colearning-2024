@@ -46,3 +46,27 @@ $log \frac{Pr(R_{i} <= k)}{1-Pr(R_{i} <= k)} = \alpha_{k} + \phi_{i}$
 
 $R_{i} \sim OrderedLogit(\phi_{i}, \alpha)$
 
+
+## Example: Trolley problem
+
+- Runaway trolley, actor standing next to a switch
+- If you don't pull the switch, it will strike 5 people on the track
+- If you do pull the switch, it will strike 1 person on the track
+
+
+Scenarios that contain three principles
+
+- Action: taking an action is less morally permissible than not taking an action
+- Intention: eg. pulling the lever to strike the 1 person and this stopping the 
+trolley - this is necessary and intentional to save the 5 people
+- Contact: eg. pushing a large person on the track 
+
+Data:
+
+- 331 individuals
+- action, intention, contact
+- 30 different trolley problems
+- voluntary participation
+
+Response: how appropriate from 1-7
+
