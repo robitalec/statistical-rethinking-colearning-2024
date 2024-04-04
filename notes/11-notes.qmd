@@ -113,3 +113,27 @@ $\beta \sim Normal(0, 0.5)$
 
 $\alpha_{j} \sim Normal(0, 1)$
 
+
+### Total causal effect of gender
+
+$R_{i} \sim OrderedLogit(\phi_{i}, \alpha)$
+
+$\phi_{i} = \beta_{A}A_{i, G_{i}} + \beta_{C}C_{i, G_{i}} + \beta_{I}I_{i, G_{i}}$
+
+$\beta \sim Normal(0, 0.5)$
+
+$\alpha_{j} \sim Normal(0, 1)$
+
+
+```{r}
+#| fig.height: 4
+#| fig.width: 4 
+dagify(
+	R ~ X + S + E + Y + G,
+	E ~ Y + G,
+	exposure = 'G',
+  coords = coords
+) |> ggdag_status(seed = 2, layout = 'auto') + theme_dag() + guides(color = 'none')
+```
+
+
