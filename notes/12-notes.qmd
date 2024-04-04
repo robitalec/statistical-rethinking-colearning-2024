@@ -100,3 +100,54 @@ $\bar{\alpha} \sim Normal(0, 1.5)$
 ### Alpha bar
 
 Alpha bar represents average alpha that has a Normal(0, 1.5) prior. 
+
+### Sigma
+
+Sigma corresponds to variability of tanks (alphas). 
+
+$\alpha_{j} \sim Normal(\bar{\alpha}, 0.1)$
+
+At sigma = 0.1, we tell the model that the tanks are all very 
+similar and the result is estimates for each tank that are 
+all close to the average tank.  
+
+$\alpha_{j} \sim Normal(\bar{\alpha}, 5)$
+
+At sigma = 5, we tell the model that the tanks vary a lot and the prior does not
+create any constraints. This is equivalent to a categorical variable with
+anterograde amnesia where estimates are very close to their values with in-essence
+no pooling across tanks.
+
+If we manually select a value for sigma, we are choosing the width for the 
+prior distribution for the population and this allows estimates to be 
+more/less different from each other. 
+
+There is an optimal sigma for learning between total pooling/underfitting and no
+pooling/overfitting. We can find the optimal sigma using cross validation and
+comparing the PSIS values of each model. Note, this is different than defining a
+prior using the model fit to the sample data because we are evaluating how the
+model fits to out of sample data (cross validation).
+
+$\alpha_{j} \sim Normal(\bar{\alpha}, 1.79)$
+
+![](../graphics/stat_rethinking_l12_slide38.png)
+
+At the optimal sigma determined for this data, the estimate is not exactly at
+the observed value and we see shrinkage across the tanks towards the global
+mean.
+
+
+Alternatively, we can estimate it as a parameter in the model. 
+
+$S_{i} \sim Binomial(D_{i}, p_{i})$
+
+$logit(p_{i}) = \alpha_{T[i]}$
+
+$\alpha_{j} \sim Normal(\bar{\alpha}, \sigma)$
+
+$\bar{\alpha} \sim Normal(0, 1.5)$
+
+$\sigma ~  Exponential(1)$
+
+Alpha j is a mixture of normal distributions with different means and variations. 
+
