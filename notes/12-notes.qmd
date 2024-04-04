@@ -96,3 +96,7 @@ $\bar{\alpha} \sim Normal(0, 1.5)$
 
 <!-- ![](../graphics/stat_rethinking_l12_slide34.png) -->
 
+
+### Alpha bar
+
+Alpha bar represents average alpha that has a Normal(0, 1.5) prior. 
