@@ -137,3 +137,30 @@ dagify(
 ```
 
 
+### Endogenous selection
+
+Note - this is a voluntary sample and participation is influenced by
+age, education and gender. There is sample selection from this participation
+meaning the data is already stratified by the features of the participating population. 
+
+In addition, participation is a collider and conditioning on it makes 
+education, gender and age co-vary in the sample. Therefore, we 
+cannot estimate the total causal effect of gender. 
+
+```{r}
+#| fig.height: 4
+#| fig.width: 4 
+dagify(
+	R ~ X + S + E + Y + G,
+	E ~ Y + G,
+	P ~ E + Y + G,
+	exposure = 'P',
+  coords = coords
+) |> ggdag_status(seed = 2, layout = 'auto') + 
+	theme_dag() + 
+	guides(color = 'none')
+```
+
+To get the direct effect of gender, we need to stratify by age and education.
+We'll represent education as an ordered monotonic predictors. 
+
