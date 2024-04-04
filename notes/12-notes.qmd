@@ -60,3 +60,39 @@ distribution of all other cafes are updated when you observe a new cafe
 or an old cafe again. The population model learns variation from all cafes. 
 
 Reminder: the minimum sample size is 1
+
+## Example: reedfrogs
+
+- 48 tanks (T) of reedfrogs
+- treatments: density (D), size (G), predation (P)
+- outcome: survival (S)
+
+```{r}
+coords <- data.frame(
+	name = c('D', 'G', 'P', 'T', 'S'),
+	x =    c(1,    2,   3,   1,    2),
+	y =    c(0,    0,   0,   1,  1)
+)
+```
+
+```{r}
+#| fig.height: 4
+#| fig.width: 4 
+dagify(
+	S ~ D + G + P + T,
+  coords = coords
+) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
+```
+
+
+$S_{i} \sim Binomial(D_{i}, p_{i})$
+
+$logit(p_{i}) = \alpha_{T[i]}$
+
+$\alpha_{j} \sim Normal(\bar{\alpha}, \sigma)$
+
+$\bar{\alpha} \sim Normal(0, 1.5)$
+
+
+<!-- ![](../graphics/stat_rethinking_l12_slide34.png) -->
+
