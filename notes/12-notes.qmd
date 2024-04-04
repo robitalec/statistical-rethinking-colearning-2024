@@ -46,3 +46,16 @@ the global mean.
 Regularization with multilevel models is partial pooling, an adaptive 
 compromise. 
 
+
+## Example: cafes
+
+![](../graphics/stat_rethinking_l12_slide14.png)
+
+Top left plot is the population of cafes and the remaining plots are individual
+cafes. The black line is the current observation. The grey distribution is the 
+previous posterior distributions, now prior distributions. The prior of an 
+unobserved cafe is similar to previously observed cafes. The posterior
+distribution of all other cafes are updated when you observe a new cafe
+or an old cafe again. The population model learns variation from all cafes. 
+
+Reminder: the minimum sample size is 1
