@@ -207,3 +207,32 @@ plot_dirichlet(n, rep(7, n_cat))
 plot_dirichlet(n, seq(1, 7))
 ```
 
+### Example: Trolley problem
+
+![](../graphics/stat_rethinking_l11_slide78.png)
+
+Recall
+
+- R: response to the trolley story
+- X: action, intention, contact
+- S: story
+- E: education 
+- Y: age
+- G: gender
+
+bA, bI, bC are action, intention, contact
+
+
+There are only direct effects for: 
+
+- gender (eg. bA[1], bA[2]) because we stratified for education given the participation effect (a collider)
+- education (bE[1], bE[2]) again because of participation
+- age (bY[1], bY[2]) again because of participation and education
+
+This is a great example of complex causal effects. Instead of using the current
+sample which is contaminated by the participation bias, we can post-stratify
+(marginalize) to a new target that is representative of your estimand.
+Post-stratification simulation is the same as all previous examples of
+generative simulations using posterior samples.
+
+
