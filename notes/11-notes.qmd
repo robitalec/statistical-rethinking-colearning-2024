@@ -202,9 +202,10 @@ plot_dirichlet <- function(n, a) {
 		ylim(0, 1)
 }
 n <- 100
+n_cat <- 7
 plot_dirichlet(n, rep(2, n_cat))
 plot_dirichlet(n, rep(7, n_cat))
-plot_dirichlet(n, seq(1, 7))
+plot_dirichlet(n, seq(1, n_cat))
 ```
 
 ### Example: Trolley problem
