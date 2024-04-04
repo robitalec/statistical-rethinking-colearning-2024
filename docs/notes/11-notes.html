@@ -5,8 +5,8 @@
 <meta name="generator" content="quarto-1.3.450">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Alec L. Robitaille">
-<meta name="dcterms.date" content="2024-03-21">
-<title>Statistical Rethinking colearning 2024 - Lecture 09 Notes</title>
+<meta name="dcterms.date" content="2024-04-04">
+<title>Statistical Rethinking colearning 2024 - Lecture 11 Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -100,7 +100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/01-notes.html">Notes</a></li><li class="breadcrumb-item"><a href="../notes/09-notes.html">Lecture 09 Notes</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/01-notes.html">Notes</a></li><li class="breadcrumb-item"><a href="../notes/11-notes.html">Lecture 11 Notes</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -190,7 +190,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notes/09-notes.html" class="sidebar-item-text sidebar-link active">
+  <a href="../notes/09-notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 09 Notes</span></a>
   </div>
 </li>
@@ -202,7 +202,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notes/11-notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../notes/11-notes.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lecture 11 Notes</span></a>
   </div>
 </li>
@@ -276,35 +276,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
 <li>
-<a href="#generalized-linear-models" id="toc-generalized-linear-models" class="nav-link active" data-scroll-target="#generalized-linear-models">Generalized linear models</a>
+<a href="#ordered-categorical" id="toc-ordered-categorical" class="nav-link active" data-scroll-target="#ordered-categorical">Ordered categorical</a>
   <ul class="collapse">
-<li><a href="#distributions" id="toc-distributions" class="nav-link" data-scroll-target="#distributions">Distributions</a></li>
-  <li><a href="#modeling-events" id="toc-modeling-events" class="nav-link" data-scroll-target="#modeling-events">Modeling events</a></li>
-  <li><a href="#logit-link" id="toc-logit-link" class="nav-link" data-scroll-target="#logit-link">Logit link</a></li>
-  <li><a href="#logistic-priors" id="toc-logistic-priors" class="nav-link" data-scroll-target="#logistic-priors">Logistic priors</a></li>
-  <li>
-<a href="#example-uc-berkeley-admissions" id="toc-example-uc-berkeley-admissions" class="nav-link" data-scroll-target="#example-uc-berkeley-admissions">Example: UC Berkeley Admissions</a>
+<li>
+<a href="#example-trolley-problem" id="toc-example-trolley-problem" class="nav-link" data-scroll-target="#example-trolley-problem">Example: Trolley problem</a>
   <ul class="collapse">
-<li><a href="#estimand" id="toc-estimand" class="nav-link" data-scroll-target="#estimand">1. Estimand</a></li>
-  <li><a href="#generative-model" id="toc-generative-model" class="nav-link" data-scroll-target="#generative-model">2. Generative model</a></li>
-  <li><a href="#statistical-models" id="toc-statistical-models" class="nav-link" data-scroll-target="#statistical-models">3. Statistical models</a></li>
-  <li><a href="#validate-the-model" id="toc-validate-the-model" class="nav-link" data-scroll-target="#validate-the-model">4. Validate the model</a></li>
-  <li><a href="#analyze-the-data" id="toc-analyze-the-data" class="nav-link" data-scroll-target="#analyze-the-data">5. Analyze the data</a></li>
+<li><a href="#estimand" id="toc-estimand" class="nav-link" data-scroll-target="#estimand">Estimand</a></li>
+  <li><a href="#initial-model" id="toc-initial-model" class="nav-link" data-scroll-target="#initial-model">Initial model</a></li>
+  <li><a href="#total-causal-effect-of-gender" id="toc-total-causal-effect-of-gender" class="nav-link" data-scroll-target="#total-causal-effect-of-gender">Total causal effect of gender</a></li>
+  <li><a href="#endogenous-selection" id="toc-endogenous-selection" class="nav-link" data-scroll-target="#endogenous-selection">Endogenous selection</a></li>
+  </ul>
+</li>
   </ul>
 </li>
   <li>
-<a href="#survival-analysis" id="toc-survival-analysis" class="nav-link" data-scroll-target="#survival-analysis">Survival analysis</a>
+<a href="#ordered-monotonic-predictors" id="toc-ordered-monotonic-predictors" class="nav-link" data-scroll-target="#ordered-monotonic-predictors">Ordered monotonic predictors</a>
   <ul class="collapse">
-<li><a href="#example-cat-adoptions" id="toc-example-cat-adoptions" class="nav-link" data-scroll-target="#example-cat-adoptions">Example: cat adoptions</a></li>
+<li><a href="#example-trolley-problem-1" id="toc-example-trolley-problem-1" class="nav-link" data-scroll-target="#example-trolley-problem-1">Example: Trolley problem</a></li>
   </ul>
 </li>
-  </ul>
-</li>
-  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/edit/main/notes/09-notes.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+  <li><a href="#bonus-non-representative-samples-and-post-stratification" id="toc-bonus-non-representative-samples-and-post-stratification" class="nav-link" data-scroll-target="#bonus-non-representative-samples-and-post-stratification">Bonus: non-representative samples and post-stratification</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/edit/main/notes/11-notes.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Lecture 09 Notes</h1>
+<h1 class="title">Lecture 11 Notes</h1>
 </div>
 
 
@@ -321,7 +317,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 21, 2024</p>
+      <p class="date">April 4, 2024</p>
     </div>
   </div>
   
@@ -329,207 +325,187 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
-</header><section id="generalized-linear-models" class="level1"><h1>Generalized linear models</h1>
-<p>Linear models: expected value is an additive combination of parameters</p>
-<p><span class="math display">\[Y_{i} \sim Normal(\mu_{i}, \sigma)\]</span> <span class="math display">\[\mu_{i} = \alpha + \beta_{X} X_{i} + \beta_{Z} Z_{i}\]</span></p>
-<p>Generalized linear models: expected value is <em>some function</em> of an additive combination of parameters</p>
-<p><span class="math display">\[Y_{i} \sim Bernoulli(p_{i})\]</span> <span class="math display">\[f(p_{i}) = \alpha + \beta_{X} X_{i} + \beta_{Z} Z_{i}\]</span></p>
+</header><section id="ordered-categorical" class="level1"><h1>Ordered categorical</h1>
+<p>Ordered categorical variables are discrete types with ordered relationships.</p>
 <ul>
-<li>
-<span class="math inline">\(Y_{i}\)</span>: 0/1 outcome</li>
-<li>
-<span class="math inline">\(p_{i}\)</span>: probability of event</li>
-<li>
-<span class="math inline">\(f(p_{i})\)</span>: f() maps probability scale to linear model scale</li>
-<li>
-<span class="math inline">\(\alpha + \beta_{{X}} X_{i} + \beta_{Z} Z_{i})\)</span>: can be any real value</li>
+<li>not a count variable, not continuous</li>
+<li>bounded between min, max (eg. Trolley 1-7)</li>
+<li>eg. good, bad, excellent - not “cat, dog, chicken”</li>
+<li>distances between categories is not known or the same</li>
+<li>often there are “anchor points” and not everyone shares the same anchor point</li>
 </ul>
-<p>In generalized linear models, all parameters interact because the outcome is bounded. Gaussian models are the only type of model where this is not true since the outcome is unbounded.</p>
-<section id="distributions" class="level2"><h2 class="anchored" data-anchor-id="distributions">Distributions</h2>
-<p>Distributions are matched to the constraints on observed variables. The link function is matched to this distribution.</p>
-<p><img src="../graphics/stat_rethinking_2ed_f10_6.png" class="img-fluid"></p>
+<p>Modeling an ordered categorical requires converting the orders to cumulative frequency. Instead of the probability of 5 out of 10, we have the probability of 5 or less out of 10.</p>
+<p><img src="../graphics/stat_rethinking_l11_slide32.png" class="img-fluid"> Recall, cumulative log-odds is the log of the probability of x occurring divided by the probability of x not occurring.</p>
+<p>Now we are estimating cutpoints. The number of cutpoints we estimate is the number of categories - 1, since the cumulative probability of the last category is the total cumulative probability.</p>
+<p>Then estimating the probability of a specific category is the probability of all categories up to that category subtracting the probability of all categories up to the preceding category.</p>
+<p>To make it a function of the variables, either by stratifying the cutpoints or by offsetting each cutpoint by the value of a linear model <span class="math inline">\(\phi\)</span>.</p>
+<p><span class="math inline">\(\phi_{i} = \beta x_{i}\)</span></p>
+<p><span class="math inline">\(log \frac{Pr(R_{i} &lt;= k)}{1-Pr(R_{i} &lt;= k)} = \alpha_{k} + \phi_{i}\)</span></p>
+<p><span class="math inline">\(R_{i} \sim OrderedLogit(\phi_{i}, \alpha)\)</span></p>
+<section id="example-trolley-problem" class="level2"><h2 class="anchored" data-anchor-id="example-trolley-problem">Example: Trolley problem</h2>
 <ul>
-<li>Exponential distribution: time to event that has a constant rate. Greater than 0, single parameter <span class="math inline">\(\lambda\)</span> that defines the rate.</li>
-<li>Binomial distribution: count events bounded in an observation window. eg. some number of trials</li>
-<li>Poisson distribution: count events with constant rate. This is the count distribution of the exponentially distributed events. We don’t know the maximum or number of coin tosses.</li>
-<li>Gamma distribution: sum up exponential processes.</li>
-<li>Normal distribution: Gamma distribution with large mean converges to the Normal distribution.</li>
+<li>Runaway trolley, actor standing next to a switch</li>
+<li>If you don’t pull the switch, it will strike 5 people on the track</li>
+<li>If you do pull the switch, it will strike 1 person on the track</li>
 </ul>
-<p>Distribution you want to use to model an observed variable is governed by the constraints on observation. Eg. you can’t have negative counts. You can’t use some test to decide if your data are “Normal”.</p>
-</section><section id="modeling-events" class="level2"><h2 class="anchored" data-anchor-id="modeling-events">Modeling events</h2>
-<blockquote class="blockquote">
-<p>Like tide prediction engines (analog computers), the gears inside the machine bear no resemblance to the observable predictions that they output</p>
-</blockquote>
+<p>Scenarios that contain three principles</p>
 <ul>
-<li>Events are discrete, unordered outcomes</li>
-<li>Observations are counts of events</li>
-<li>Estimates are on the probability or log-odds/logit scale</li>
+<li>Action: taking an action is less morally permissible than not taking an action</li>
+<li>Intention: eg. pulling the lever to strike the 1 person and this stopping the trolley - this is necessary and intentional to save the 5 people</li>
+<li>Contact: eg. pushing a large person on the track</li>
 </ul>
-<p>These estimates are bounded, eg. the probability of an event is restricted to 0-1.</p>
-<p>Two options, that are equivalent for inference:</p>
+<p>Data:</p>
 <ul>
-<li>Logistic regression: binary [0,1] outcome and logit link, with Bernoulli distribution</li>
-<li>Binomial regression: count [0, N] outcome and logit link, with Binomial distribution. Binomial variables are sums of Bernoulli variables.</li>
-</ul></section><section id="logit-link" class="level2"><h2 class="anchored" data-anchor-id="logit-link">Logit link</h2>
-<p>Bernoulli and binomial models most often use the logit link.</p>
-<p><span class="math inline">\(logit\)</span> is the link function</p>
-<p><span class="math inline">\(logit(p_{i} = \alpha + \beta_{{X}} X_{i} + \beta_{Z} Z_{i})\)</span></p>
-<p><span class="math inline">\(logit^{-1}\)</span> (logistic) is the inverse link function.</p>
-<p><span class="math inline">\(p_{i} = logit^{-1}(\alpha + \beta_{{X}} X_{i} + \beta_{Z} Z_{i})\)</span></p>
-<p>Logit link is a harsh transformation</p>
+<li>331 individuals</li>
+<li>action, intention, contact</li>
+<li>30 different trolley problems</li>
+<li>voluntary participation</li>
+</ul>
+<p>Response: how appropriate from 1-7</p>
+<section id="estimand" class="level3"><h3 class="anchored" data-anchor-id="estimand">Estimand</h3>
+<p>How do action, intention and contact influence response to a trolley story?</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0.01</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="fu">data.table</span><span class="op">(</span>logit_p<span class="op">=</span> <span class="fu">logit</span><span class="op">(</span><span class="va">p</span><span class="op">)</span>, p <span class="op">=</span> <span class="va">p</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">logit_p</span>, <span class="va">p</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="09-notes_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section><section id="logistic-priors" class="level2"><h2 class="anchored" data-anchor-id="logistic-priors">Logistic priors</h2>
-<p>The logit link compresses parameter distributions. Anything above +4 = almost always, anything below -4 = almost never.</p>
-<p><img src="../graphics/stat_rethinking_l09_slide64.png" class="img-fluid"></p>
-</section><section id="example-uc-berkeley-admissions" class="level2"><h2 class="anchored" data-anchor-id="example-uc-berkeley-admissions">Example: UC Berkeley Admissions</h2>
-<ul>
-<li>Graduate school applications for 1973 UC Berkeley</li>
-<li>Stratified by department and gender of application</li>
-</ul>
-<p>See more here:</p>
-<p>Traag, V.A. and Waltman, L., 2022. Causal foundations of bias, disparity and fairness. arXiv preprint arXiv:2207.13665.</p>
-<section id="estimand" class="level3"><h3 class="anchored" data-anchor-id="estimand">1. Estimand</h3>
-<div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
-<span>    name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'G'</span>, <span class="st">'D'</span>, <span class="st">'A'</span>, <span class="st">'G_star'</span>, <span class="st">'R'</span>, <span class="st">'U'</span><span class="op">)</span>,</span>
-<span>    x <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,    <span class="fl">2</span>,   <span class="fl">3</span>,   <span class="fl">2</span>,         <span class="fl">4</span>,   <span class="fl">4</span><span class="op">)</span>,</span>
-<span>    y <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,    <span class="fl">1</span>,   <span class="fl">0</span>,  <span class="op">-</span><span class="fl">1</span>,        <span class="op">-</span><span class="fl">1</span>,   <span class="fl">1</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>    name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'X'</span>, <span class="st">'R'</span>, <span class="st">'S'</span>, <span class="st">'E'</span>, <span class="st">'Y'</span>, <span class="st">'G'</span>,  <span class="st">'P'</span><span class="op">)</span>,</span>
+<span>    x <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,    <span class="fl">2</span>,   <span class="fl">3</span>,   <span class="fl">1</span>,    <span class="fl">2</span>,   <span class="fl">3</span>,  <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    y <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,    <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="op">-</span><span class="fl">2</span>,  <span class="op">-</span><span class="fl">1</span>,  <span class="op">-</span><span class="fl">2</span>,  <span class="op">-</span><span class="fl">3</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Is there gender discrimination in graduate admissions?</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
+<span>    <span class="va">R</span> <span class="op">~</span> <span class="va">X</span> <span class="op">+</span> <span class="va">S</span> <span class="op">+</span> <span class="va">E</span> <span class="op">+</span> <span class="va">Y</span> <span class="op">+</span> <span class="va">G</span>,</span>
+<span>    <span class="va">E</span> <span class="op">~</span> <span class="va">Y</span> <span class="op">+</span> <span class="va">G</span>,</span>
+<span>  coords <span class="op">=</span> <span class="va">coords</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="11-notes_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<ul>
+<li>R: response to the trolley story</li>
+<li>X: action, intention, contact</li>
+<li>S: story</li>
+<li>E: education</li>
+<li>Y: age</li>
+<li>G: gender</li>
+</ul></section><section id="initial-model" class="level3"><h3 class="anchored" data-anchor-id="initial-model">Initial model</h3>
+<p><span class="math inline">\(R_{i} \sim OrderedLogit(\phi_{i}, \alpha)\)</span></p>
+<p><span class="math inline">\(\phi_{i} = \beta_{A}A_{i} + \beta_{C}C_{i} + \beta_{I}I_{i}\)</span></p>
+<p><span class="math inline">\(\beta \sim Normal(0, 0.5)\)</span></p>
+<p><span class="math inline">\(\alpha_{j} \sim Normal(0, 1)\)</span></p>
+</section><section id="total-causal-effect-of-gender" class="level3"><h3 class="anchored" data-anchor-id="total-causal-effect-of-gender">Total causal effect of gender</h3>
+<p><span class="math inline">\(R_{i} \sim OrderedLogit(\phi_{i}, \alpha)\)</span></p>
+<p><span class="math inline">\(\phi_{i} = \beta_{A}A_{i, G_{i}} + \beta_{C}C_{i, G_{i}} + \beta_{I}I_{i, G_{i}}\)</span></p>
+<p><span class="math inline">\(\beta \sim Normal(0, 0.5)\)</span></p>
+<p><span class="math inline">\(\alpha_{j} \sim Normal(0, 1)\)</span></p>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
-<span>    <span class="va">A</span> <span class="op">~</span> <span class="va">G</span>,</span>
+<span>    <span class="va">R</span> <span class="op">~</span> <span class="va">X</span> <span class="op">+</span> <span class="va">S</span> <span class="op">+</span> <span class="va">E</span> <span class="op">+</span> <span class="va">Y</span> <span class="op">+</span> <span class="va">G</span>,</span>
+<span>    <span class="va">E</span> <span class="op">~</span> <span class="va">Y</span> <span class="op">+</span> <span class="va">G</span>,</span>
+<span>    exposure <span class="op">=</span> <span class="st">'G'</span>,</span>
 <span>  coords <span class="op">=</span> <span class="va">coords</span></span>
-<span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag_status</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">guides</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'none'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="09-notes_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<p><img src="11-notes_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="384"></p>
 </div>
 </div>
-<ul>
-<li>G: gender</li>
-<li>A: admission</li>
-</ul>
+</section><section id="endogenous-selection" class="level3"><h3 class="anchored" data-anchor-id="endogenous-selection">Endogenous selection</h3>
+<p>Note - this is a voluntary sample and participation is influenced by age, education and gender. There is sample selection from this participation meaning the data is already stratified by the features of the participating population.</p>
+<p>In addition, participation is a collider and conditioning on it makes education, gender and age co-vary in the sample. Therefore, we cannot estimate the total causal effect of gender.</p>
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
-<span>    <span class="va">D</span> <span class="op">~</span> <span class="va">G</span>,</span>
-<span>  <span class="va">A</span> <span class="op">~</span> <span class="va">D</span>,</span>
+<span>    <span class="va">R</span> <span class="op">~</span> <span class="va">X</span> <span class="op">+</span> <span class="va">S</span> <span class="op">+</span> <span class="va">E</span> <span class="op">+</span> <span class="va">Y</span> <span class="op">+</span> <span class="va">G</span>,</span>
+<span>    <span class="va">E</span> <span class="op">~</span> <span class="va">Y</span> <span class="op">+</span> <span class="va">G</span>,</span>
+<span>    <span class="va">P</span> <span class="op">~</span> <span class="va">E</span> <span class="op">+</span> <span class="va">Y</span> <span class="op">+</span> <span class="va">G</span>,</span>
+<span>    exposure <span class="op">=</span> <span class="st">'P'</span>,</span>
 <span>  coords <span class="op">=</span> <span class="va">coords</span></span>
-<span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag_status</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu">guides</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'none'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="09-notes_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<p><img src="11-notes_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="384"></p>
 </div>
 </div>
-<ul>
-<li>D: department</li>
-</ul>
-<p>Typically, department is considered a mediating variable. Departments differ in their number of applicants, number of accepted students, potential differences in applicants and acceptance by gender, etc</p>
-<p>What does the “causal effect of gender” mean?</p>
-<p>Really this is another variable - the perceived gender G*.</p>
+<p>To get the direct effect of gender, we need to stratify by age and education. We’ll represent education as an ordered monotonic predictors.</p>
+</section></section></section><section id="ordered-monotonic-predictors" class="level1"><h1>Ordered monotonic predictors</h1>
+<p>Education is an ordered category, but it is unlikely that each level has the same effect for an equivalent unit change. We want a parameter for each level but we need to enforce ordering so there is always a larger or smaller effect than the previous level.</p>
+<p>Each category is the sum of the previous and the last category is equal to the maximum effect of the variable. Then the deltas are all summed up (0-1) and multiplied by the maximum effect. The delta parameters form a <strong>simplex</strong>, a vector that sums to 1.</p>
+<p><img src="../graphics/stat_rethinking_l11_slide63.png" class="img-fluid"></p>
+<p>We rescale the <span class="math inline">\(\phi\)</span> variables to sum to 1 (<span class="math inline">\(\beta_{E}\)</span>).</p>
+<p><span class="math display">\[\phi_{i} = \beta_{E} \sum_{j=0}^{E_{i}-1} \delta_{j}\]</span></p>
+<p>We model a simplex using a Dirichlet distribution. Dirichlet distributions take a vector <span class="math inline">\(a\)</span> (concentration parameters) that defines the differences among the categories. Larger values in <span class="math inline">\(a\)</span> indicate that there are smaller differences between categories.</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
-<span>    <span class="va">A</span> <span class="op">~</span> <span class="va">R</span> <span class="op">+</span> <span class="va">G_star</span> <span class="op">+</span> <span class="va">D</span>,</span>
-<span>    <span class="va">G_star</span> <span class="op">~</span> <span class="va">G</span>,</span>
-<span>    <span class="va">D</span> <span class="op">~</span> <span class="va">G</span>,</span>
-<span>  coords <span class="op">=</span> <span class="va">coords</span></span>
-<span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">plot_dirichlet</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span>, <span class="va">a</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">diri</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="op">(</span><span class="fu">rdirichlet</span><span class="op">(</span><span class="va">n</span>, <span class="va">a</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu">setnames</span><span class="op">(</span><span class="va">diri</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="va">diri</span><span class="op">[</span>, <span class="va">i</span> <span class="op">:=</span> <span class="va">.I</span><span class="op">]</span></span>
+<span>    <span class="va">melt_diri</span> <span class="op">&lt;-</span> <span class="fu">melt</span><span class="op">(</span><span class="va">diri</span>, id.vars <span class="op">=</span> <span class="st">'i'</span><span class="op">)</span></span>
+<span>    <span class="fu">ggplot</span><span class="op">(</span><span class="va">melt_diri</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">variable</span>, <span class="va">value</span>, group <span class="op">=</span> <span class="va">i</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">'category'</span>,</span>
+<span>                 y <span class="op">=</span> <span class="st">'probability'</span>,</span>
+<span>                 title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">'alpha ='</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">a</span>, collapse <span class="op">=</span> <span class="st">', '</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu">ylim</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
+<span><span class="va">n_cat</span> <span class="op">&lt;-</span> <span class="fl">7</span></span>
+<span><span class="fu">plot_dirichlet</span><span class="op">(</span><span class="va">n</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="va">n_cat</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="09-notes_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<p><img src="11-notes_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
-</div>
-<p>Which path represents “discrimination”?</p>
-<ul>
-<li>direct discrimination: status-based discrimination from G -&gt; A. Requires strong assumptions.</li>
-<li>structural discrimination: indirect through department G -&gt; D -&gt; A. Requires strong assumptions.</li>
-<li>total discrimination: G -&gt; A and G -&gt; D -&gt; A, in other words: what an individuals experience. Requires mild assumptions.</li>
-</ul>
-<p>These three types of discrimination require different estimators.</p>
-</section><section id="generative-model" class="level3"><h3 class="anchored" data-anchor-id="generative-model">2. Generative model</h3>
-<ul>
-<li>Set number of applicants</li>
-<li>Sample gender</li>
-<li>Sampled with preference for different departments by gender (indirect effect)</li>
-<li>Define acceptance rate for departments</li>
-<li>Simulate acceptance</li>
-</ul>
-<p>Changing the acceptance rate where acceptance differs by department <strong>and</strong> gender, pattern of differences in acceptance rates is the same in this simulated data. This illustrates the fundamental problem of determining if discrimination is occurring.</p>
-<p>Generative model could be greatly improved:</p>
-<ul>
-<li>Admission rates depend upon size of applicant pool and the distribution of qualifications</li>
-<li>Admission rates are then based on ranking applicants to a set number of spaces</li>
-</ul></section><section id="statistical-models" class="level3"><h3 class="anchored" data-anchor-id="statistical-models">3. Statistical models</h3>
-<p>Total causal effect of G</p>
-<p><span class="math inline">\(A_{i} \sim Bernoulli(p_{i})\)</span></p>
-<p><span class="math inline">\(logit(p_{i}) = \alpha[G_{i}]\)</span></p>
-<p><span class="math inline">\(\alpha = [\alpha_{1}, \alpha_{2}]\)</span></p>
-<p>Direct causal effect of G</p>
-<p><span class="math inline">\(A_{i} \sim Bernoulli(p_{i})\)</span></p>
-<p><span class="math inline">\(logit(p_{i}) = \alpha[G_{i}, D_{i}]\)</span></p>
-<p><span class="math inline">\(\alpha = \begin{bmatrix} \alpha_{1, 1} &amp; \alpha_{1, 2} \\ \alpha_{2, 1} &amp; \alpha_{2, 2}\end{bmatrix}\)</span></p>
-</section><section id="validate-the-model" class="level3"><h3 class="anchored" data-anchor-id="validate-the-model">4. Validate the model</h3>
-<p>Use inverse logit function to transform variables back on probability scale. Determine if known parameters are recovered by the model.</p>
-</section><section id="analyze-the-data" class="level3"><h3 class="anchored" data-anchor-id="analyze-the-data">5. Analyze the data</h3>
-<p>To use a binomial distribution, aggregate the long format data into acceptance sums for each gender and department. This is equivalent to using the original data with a Bernoulli distribution.</p>
-<ul>
-<li>inspect trace plots and trank plots to ensure chains are well mixed</li>
-<li>extract samples from the posterior</li>
-<li>convert the entire posterior distribution back to the prediction scale with the inverse logit</li>
-<li>compute contrasts for total effect (across genders) and direct effects (within departments)</li>
-</ul>
-<section id="post-stratification" class="level4"><h4 class="anchored" data-anchor-id="post-stratification">Post stratification</h4>
-<p>Back to the question: what’s the average direct effect of gender across departments?</p>
-<p>This depends on the perception of gender on the admission officer</p>
-<div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
-<span>    <span class="va">A</span> <span class="op">~</span> <span class="va">G_star</span> <span class="op">+</span> <span class="va">D</span>,</span>
-<span>    <span class="va">G_star</span> <span class="op">~</span> <span class="va">G</span>,</span>
-<span>    <span class="va">D</span> <span class="op">~</span> <span class="va">G</span>,</span>
-<span>  coords <span class="op">=</span> <span class="va">coords</span></span>
-<span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">plot_dirichlet</span><span class="op">(</span><span class="va">n</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">7</span>, <span class="va">n_cat</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="09-notes_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<p><img src="11-notes_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">plot_dirichlet</span><span class="op">(</span><span class="va">n</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n_cat</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="11-notes_files/figure-html/unnamed-chunk-6-3.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>To calculate the causal effect of G*, we must average (marginalize) over the departments. Process: simulate as if all applicants are women, then simulate as if all applicants are men. Then compute the contrasts.</p>
-<p>Post stratification is re-weighting estimates for a specific target population. Eg. at a different university, the distributions would differ, and we could predict how the consequences of intervention differ</p>
-</section></section></section><section id="survival-analysis" class="level2"><h2 class="anchored" data-anchor-id="survival-analysis">Survival analysis</h2>
-<p>How long did an event take to happen? Time-to-event.</p>
-<p>Cannot ignore censored cases, where event never happened.</p>
+<section id="example-trolley-problem-1" class="level3"><h3 class="anchored" data-anchor-id="example-trolley-problem-1">Example: Trolley problem</h3>
+<p><img src="../graphics/stat_rethinking_l11_slide78.png" class="img-fluid"></p>
+<p>Recall</p>
 <ul>
-<li>Left-censored: don’t know when time started</li>
-<li>Right-censored: observation ended before event</li>
+<li>R: response to the trolley story</li>
+<li>X: action, intention, contact</li>
+<li>S: story</li>
+<li>E: education</li>
+<li>Y: age</li>
+<li>G: gender</li>
 </ul>
-<section id="example-cat-adoptions" class="level3"><h3 class="anchored" data-anchor-id="example-cat-adoptions">Example: cat adoptions</h3>
-<p>Adoption rates of black and non-black cats</p>
-<p>Events: adopted, or something else (death, escape, censored)</p>
-<p>Outcome variables: days to event. Appropriate distributions are exponential and gamma. Exponential arises from a single part that needs to fail before the so-called machine dies, whereas the Gamma distribution requires multiple parts to fail.</p>
-<p>For simplest situation, time to adoption, this represents it:</p>
-<p><span class="math inline">\(D_{i} \sim Exponential(\lambda_{i})\)</span></p>
-<p><span class="math inline">\(p(D_{i} | \lambda_{i}) = \lambda_{i} exp(-\lambda_{i} D_{i})\)</span></p>
-<p>But what about the censored cats?</p>
-<p>Event happened = cumulative distribution, probability of event happening up to time x</p>
-<p>Event didn’t happen = complementary cumulative distribution, probability event hasn’t occurred up to time x</p>
-<p><span class="math inline">\(D_{i} = 1 \sim Exponential(\lambda_{i})\)</span></p>
-<p><span class="math inline">\(D_{i} = 0 \sim Exponential-CCDF(\lambda_{i})\)</span> (not-yet-adoptions)</p>
-<p><span class="math inline">\(\lambda_{i} = 1 / \mu_{i}\)</span></p>
-<p><span class="math inline">\(log \mu_{i} = \alpha_{CID[i]}\)</span></p>
+<p>bA, bI, bC are action, intention, contact</p>
+<p>There are only direct effects for:</p>
 <ul>
-<li>
-<span class="math inline">\(D_{i} = 1\)</span>: observed adoptions</li>
-<li>
-<span class="math inline">\(D_{i} = 0\)</span>: not yet adoptions</li>
+<li>gender (eg. bA[1], bA[2]) because we stratified for education given the participation effect (a collider)</li>
+<li>education (bE[1], bE[2]) again because of participation</li>
+<li>age (bY[1], bY[2]) again because of participation and education</li>
 </ul>
+<p>This is a great example of complex causal effects. Instead of using the current sample which is contaminated by the participation bias, we can post-stratify (marginalize) to a new target that is representative of your estimand. Post-stratification simulation is the same as all previous examples of generative simulations using posterior samples.</p>
+</section></section><section id="bonus-non-representative-samples-and-post-stratification" class="level1"><h1>Bonus: non-representative samples and post-stratification</h1>
+<p>Post-stratification or transport is a transparent, principled method for extrapolating from sample to population. It requires causal models of reasons the sample differs from population. All problems, whether they are descriptive, predictive or causal, have to consider the differences between the sample and the target population. Post stratification requires a causal model of the reasons that the sample differs from the population. Commonly used in surveys and elections (see multi-level regression and post-stratification “MRP”).</p>
+<p>The quality of data is more important than quantity of data. Bigger samples amplify biases.</p>
+<p>Example: larger surveys of COVID vaccination rate largely overestimated the CDC benchmark, while the smaller survey better represented the population</p>
+<p>Non-representative samples can outperform representative samples if we know how the sample differs from our target population.</p>
+<p>Example: Wang et al 2014, Xbox survey of election results for Obama vs Romney, post-stratified to target population</p>
+<p>Example of four age groups. Just because the sample differs from the population doesn’t tell us what we need to do statistically.</p>
+<p><img src="../graphics/stat_rethinking_l11_slide96.png" class="img-fluid"></p>
+<p>Selection nodes indicate reasons why the sample differs from the population. Eg. selection by age.</p>
+<p>Some selection is recoverable, eg. where age stratification in the sample that influences X. Influence on the outcome variable, eg. where anarchists don’t answer the phone, are not recoverable because the results you need are not in the data.</p>
+<p><img src="../graphics/stat_rethinking_l11_slide96.png" class="img-fluid"></p>
+<p>Many questions are really post-stratification questions: - justified descriptions require causal information and post-stratification - causal effects require causal information and post-stratification - time trends should account for changes in measurement/population - comparisons are post-stratification between populations</p>
+<p>Read more here:</p>
+<p>Deffner, D., Rohrer, J.M. and McElreath, R., 2022. A causal framework for cross-cultural generalizability. Advances in Methods and Practices in Psychological Science, 5(3), p.25152459221106366.</p>
+<p>Simple 4-step plan for honest scholarship</p>
+<ol type="1">
+<li>What are we trying to describe?</li>
+<li>What is the ideal data for doing so?</li>
+<li>What data do we actually have?</li>
+<li>What causes the differences between (2) and (3)?</li>
+<li>[optional] Is there a way to use (3) + (4) to do (1)?</li>
+</ol>
 
 
-</section></section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
