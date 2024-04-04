@@ -151,3 +151,19 @@ $\sigma ~  Exponential(1)$
 
 Alpha j is a mixture of normal distributions with different means and variations. 
 
+
+### Estimates
+
+The posterior distribution for sigma is around the range that we expected 
+from the PSIS approach. 
+
+Comparing the multilevel model (more parameters) to a model fit with a fixed
+sigma (less parameters), we see that the multilevel model has a better WAIC
+estimate which indicates it has less overfitting. This is contrary to the
+expectation that more parameters leads to more overfitting since multilevel
+models reduce overfitting.
+
+The estimates for smaller tanks (with less frogs/observations) have smaller
+evidence and result in more conservative estimates (closer) to the global mean.
+Alternatively, larger tanks with more observations are less conservative.
+
