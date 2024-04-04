@@ -167,3 +167,18 @@ The estimates for smaller tanks (with less frogs/observations) have smaller
 evidence and result in more conservative estimates (closer) to the global mean.
 Alternatively, larger tanks with more observations are less conservative.
 
+
+### Predators
+
+Stratifying by predators absent/present, we see a reduction in 
+tank level survival (obviously).
+But the interesting thing is that the predictions between the model
+with and without predators is extremely similar. The difference is, however, 
+in the sigma values where the model with predators has an estimate sigma 
+around half that of the model without predators. The predator variable has
+explained approximately half of the variation on the log odds scale of the 
+tanks. 
+
+To emphasize, sigma is not the variation among the units, it's the variation 
+among the parameters net all the other effects in the model. 
+
