@@ -103,3 +103,13 @@ dagify(
 
 
 
+### Initial model
+
+$R_{i} \sim OrderedLogit(\phi_{i}, \alpha)$
+
+$\phi_{i} = \beta_{A}A_{i} + \beta_{C}C_{i} + \beta_{I}I_{i}$
+
+$\beta \sim Normal(0, 0.5)$
+
+$\alpha_{j} \sim Normal(0, 1)$
+
