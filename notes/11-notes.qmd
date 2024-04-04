@@ -164,3 +164,27 @@ dagify(
 To get the direct effect of gender, we need to stratify by age and education.
 We'll represent education as an ordered monotonic predictors. 
 
+
+# Ordered monotonic predictors
+
+Education is an ordered category, but it is unlikely that each level has the 
+same effect for an equivalent unit change. We want a parameter for each level
+but we need to enforce ordering so there is always a larger or smaller effect
+than the previous level. 
+
+Each category is the sum of the previous and the last category 
+is equal to the maximum effect of the variable. Then the deltas are all 
+summed up (0-1) and multiplied by the maximum effect. The delta parameters 
+form a **simplex**, a vector that sums to 1. 
+
+![](../graphics/stat_rethinking_l11_slide63.png)
+
+We rescale the $\phi$ variables to sum to 1 ($\beta_{E}$). 
+
+$$\phi_{i} = \beta_{E} \sum_{j=0}^{E_{i}-1} \delta_{j}$$
+
+We model a simplex using a Dirichlet distribution. Dirichlet distributions
+take a vector $a$ (concentration parameters) that defines the differences among 
+the categories. Larger values in $a$ indicate that there are smaller differences
+between categories. 
+
