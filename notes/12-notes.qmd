@@ -8,3 +8,27 @@ date: "2024-04-04"
 source('R/packages.R')
 ```
 
+
+# Multilevel models
+
+Repeat observations within groups can be modeled using categorical variables eg.
+a vector of alphas for each individual. Categorical variables have 
+*anterograde amnesia*, when estimating eg. the beta for an individual, 
+this estimate does not contribute anything to the next individual. 
+
+Multilevel models are made up of two kinds of models
+
+1. Model observations of groups/individuals 
+1. Model populations of groups/individuals (clusters)
+
+The population model creates a kind of memory. Advantages of multilevel model
+include: 
+
+- more efficient estimation 
+- resists overfitting
+
+The order that we estimate clusters does not matter, because we update the 
+population level model with every cluster estimate and that 
+population level model contributes to all clusters' estimates. The 
+information gathered from each cluster is pooled. 
+
