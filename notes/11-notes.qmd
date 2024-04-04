@@ -188,3 +188,22 @@ take a vector $a$ (concentration parameters) that defines the differences among
 the categories. Larger values in $a$ indicate that there are smaller differences
 between categories. 
 
+```{r}
+plot_dirichlet <- function(n, a) {
+	diri <- data.table(rdirichlet(n, a))
+	setnames(diri, as.character(seq_along(a)))
+	diri[, i := .I]
+	melt_diri <- melt(diri, id.vars = 'i')
+	ggplot(melt_diri) +
+		geom_line(aes(variable, value, group = i), alpha = 0.2) +
+		labs(x = 'category',
+				 y = 'probability',
+				 title = paste('alpha =', paste0(a, collapse = ', '))) +
+		ylim(0, 1)
+}
+n <- 100
+plot_dirichlet(n, rep(2, n_cat))
+plot_dirichlet(n, rep(7, n_cat))
+plot_dirichlet(n, seq(1, 7))
+```
+
