@@ -70,3 +70,36 @@ Data:
 
 Response: how appropriate from 1-7
 
+
+### Estimand
+
+How do action, intention and contact influence response to a trolley story?
+
+```{r}
+coords <- data.frame(
+	name = c('X', 'R', 'S', 'E', 'Y', 'G',  'P'),
+	x =    c(1,    2,   3,   1,    2,   3,  2),
+	y =    c(0,    0,   0,   -2,  -1,  -2,  -3)
+)
+```
+
+```{r}
+#| fig.height: 4
+#| fig.width: 4 
+dagify(
+	R ~ X + S + E + Y + G,
+	E ~ Y + G,
+  coords = coords
+) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
+```
+
+
+- R: response to the trolley story
+- X: action, intention, contact
+- S: story
+- E: education 
+- Y: age
+- G: gender
+
+
+
