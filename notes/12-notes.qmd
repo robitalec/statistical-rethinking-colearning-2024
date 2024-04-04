@@ -182,3 +182,20 @@ tanks.
 To emphasize, sigma is not the variation among the units, it's the variation 
 among the parameters net all the other effects in the model. 
 
+# Varying effects
+
+Recommended default is to use partial pooling if there are >1 clusters
+
+Superstitions: 
+
+1. ~~Units must be sampled at random~~
+1. ~~Number of units must be large~~
+1. ~~Assumes Gaussian variation~~
+
+
+Practical difficulties
+
+1. How to use more than one cluster type at the same time?
+1. How to sample efficiently?
+1. Slopes? Confounds?
+
