@@ -34,3 +34,47 @@ prior distribution of alpha j? You might try Exponential(10) and
 Exponential(0.1) for example.
 
 
+#### Prior predictive simulation
+
+```{r}
+# Load data
+tar_load(reedfrog)
+
+# Print priors used
+tar_read(h06_q01_exp_1_brms_prior)
+tar_read(h06_q01_exp_0pt1_brms_prior)
+tar_read(h06_q01_exp_10_brms_prior)
+
+# Load model
+tar_load(h06_q01_exp_1_brms_sample_prior)
+tar_load(h06_q01_exp_0pt1_brms_sample_prior)
+tar_load(h06_q01_exp_10_brms_sample_prior)
+
+# Read N draws from the priors and append expected predictions
+n_draws <- 100
+q01_exp_1_prior <- h06_q01_exp_1_brms_sample_prior |>
+	add_predicted_draws(newdata = reedfrog, ndraws = n_draws)
+q01_exp_0pt1_prior <- h06_q01_exp_0pt1_brms_sample_prior |>
+	add_predicted_draws(newdata = reedfrog, ndraws = n_draws)
+q01_exp_10_prior <- h06_q01_exp_10_brms_sample_prior |>
+	add_predicted_draws(newdata = reedfrog, ndraws = n_draws)
+
+
+# Plot prior expectations for survival rate and tank
+g1 <- ggplot(q01_pred_prior) + 
+	stat_halfeye(aes(tank, .prediction), alpha = 0.5) +
+	labs(x = 'Tank', y = 'Predicted survival rate') + 
+	xlim(0, 1)
+g0pt1 <- ggplot(q01_pred_prior) + 
+	stat_halfeye(aes(tank, .prediction), alpha = 0.5) +
+	labs(x = 'Tank', y = 'Predicted survival rate') + 
+	xlim(0, 1)
+g10 <- ggplot(q01_pred_prior) + 
+	stat_halfeye(aes(tank, .prediction), alpha = 0.5) +
+	labs(x = 'Tank', y = 'Predicted survival rate') + 
+	xlim(0, 1)
+
+g1 / g0pt1 / g10
+```
+
+
