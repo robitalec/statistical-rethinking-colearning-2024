@@ -117,3 +117,9 @@ ggdag(dag, seed = 2, layout = 'auto') + theme_dag()
 - treatments: density (D), size (G), predation (P)
 - outcome: survival (S)
 
+
+### Adjustment set
+
+```{r}
+ggdag_adjustment_set(dag, effect = 'direct') + theme_dag()
+```
