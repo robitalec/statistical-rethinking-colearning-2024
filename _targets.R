@@ -271,6 +271,22 @@ targets_h06 <- c(
 		reedfrogs,
 		data_reedfrogs()
 	),
+	zar_brms(
+		h06_q01_exp_1,
+
+	),
+	zar_brms(
+		h06_q01_exp_0pt1,
+
+	),
+	zar_brms(
+		h06_q01_exp_10,
+
+	)
+)
+
+
+
 # Targets: all ------------------------------------------------------------
 # Automatically grab all the "targets_*" lists above
 lapply(grep('targets', ls(), value = TRUE), get)
