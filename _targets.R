@@ -264,6 +264,13 @@ targets_h05 <- c(
 
 
 
+
+# Homework 06 -------------------------------------------------------------
+targets_h06 <- c(
+	tar_target(
+		reedfrogs,
+		data_reedfrogs()
+	),
 # Targets: all ------------------------------------------------------------
 # Automatically grab all the "targets_*" lists above
 lapply(grep('targets', ls(), value = TRUE), get)
