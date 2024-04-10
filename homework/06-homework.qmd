@@ -1,0 +1,19 @@
+---
+title: "Homework 06"
+author: "Alec L. Robitaille"
+date: "2024-04-11"
+---
+
+## Setup
+
+```{r}
+#| include: false
+targets::tar_source('R')
+```
+
+
+```{r}
+#| eval: false
+targets::tar_source('R')
+```
+
