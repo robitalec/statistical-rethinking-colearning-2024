@@ -78,3 +78,13 @@ g1 / g0pt1 / g10
 ```
 
 
+## Question 2
+
+> Revisit the Reedfrog survival data, data(reedfrogs). Start with the varying
+effects model from the book and lecture. Then modify it to estimate the causal
+effects of the treatment variables pred and size, including how size might
+modify the effect of predation. An easy approach is to estimate an effect for
+each combination of pred and size. Justify your model with a DAG of this
+experiment
+
+### Estimand
