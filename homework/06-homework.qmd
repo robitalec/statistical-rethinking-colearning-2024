@@ -91,3 +91,29 @@ experiment
 
 What is the causal effect of predation and size on survival?
 
+### Scientific model
+
+```{r}
+coords <- data.frame(
+	name = c('D', 'G', 'P', 'T', 'S'),
+	x =    c(1,    2,   3,   1,    2),
+	y =    c(0,    0,   0,   1,  1)
+)
+```
+
+```{r}
+#| fig.height: 4
+#| fig.width: 4 
+dag <- dagify(
+	S ~ D + G + P + T,
+  coords = coords,
+	outcome = 'S',
+	exposure = c('G', 'P')
+)
+ggdag(dag, seed = 2, layout = 'auto') + theme_dag()
+```
+
+- 48 tanks (T) of reedfrogs
+- treatments: density (D), size (G), predation (P)
+- outcome: survival (S)
+
