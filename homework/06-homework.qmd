@@ -172,3 +172,8 @@ unique values in the id variable. Include action, intention, and contact as
 treatment effects of interest. Compare the varying intercepts model and a model
 that ignores individuals. What is the impact of individual variation in these
 data?
+
+### Estimand
+
+What is the causal effect of action, intention and contact on survey 
+responses, considering the variation of individuals?
