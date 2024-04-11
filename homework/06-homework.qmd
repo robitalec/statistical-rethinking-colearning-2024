@@ -63,17 +63,22 @@ q01_exp_10_prior <- h06_q01_exp_10_brms_sample_prior |>
 
 
 # Plot prior expectations for survival rate and tank
-g1 <- ggplot(q01_pred_prior) + 
+g0pt1 <- ggplot(q01_exp_1_prior) + 
 	stat_halfeye(aes(tank, .prediction), alpha = 0.5) +
-	labs(x = 'Tank', y = 'Predicted survival rate') + 
+	labs(x = 'Tank', y = 'Predicted survival rate', 
+			 title = expression(sigma ~ Exponential(0.1))) + 
 	xlim(0, 1)
-g0pt1 <- ggplot(q01_pred_prior) + 
+
+g1 <- ggplot(q01_exp_0pt1_prior) + 
 	stat_halfeye(aes(tank, .prediction), alpha = 0.5) +
-	labs(x = 'Tank', y = 'Predicted survival rate') + 
+	labs(x = 'Tank', y = 'Predicted survival rate', 
+			 title = expression(sigma ~ Exponential(1))) + 
 	xlim(0, 1)
-g10 <- ggplot(q01_pred_prior) + 
+
+g10 <- ggplot(q01_exp_10_prior) + 
 	stat_halfeye(aes(tank, .prediction), alpha = 0.5) +
-	labs(x = 'Tank', y = 'Predicted survival rate') + 
+	labs(x = 'Tank', y = 'Predicted survival rate', 
+			 title = expression(sigma ~ Exponential(10))) + 
 	xlim(0, 1)
 
 g1 / g0pt1 / g10
