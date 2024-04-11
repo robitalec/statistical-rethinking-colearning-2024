@@ -54,8 +54,10 @@ tar_load(h06_q01_exp_10_brms_sample_prior)
 n_draws <- 100
 q01_exp_1_prior <- h06_q01_exp_1_brms_sample_prior |>
 	add_predicted_draws(newdata = reedfrog, ndraws = n_draws)
+
 q01_exp_0pt1_prior <- h06_q01_exp_0pt1_brms_sample_prior |>
 	add_predicted_draws(newdata = reedfrog, ndraws = n_draws)
+
 q01_exp_10_prior <- h06_q01_exp_10_brms_sample_prior |>
 	add_predicted_draws(newdata = reedfrog, ndraws = n_draws)
 
