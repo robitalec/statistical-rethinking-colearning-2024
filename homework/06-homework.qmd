@@ -25,7 +25,7 @@ to simulate the prior distribution of tank survival probabilities. Start by
 using this prior:
 
 $$\alpha_{j} \sim Normal(\bar{\alpha}, \sigma)$$
-$$\bar{alpha} \sim Normal(0, 1)$$
+$$\bar{\alpha} \sim Normal(0, 1)$$
 $$\sigma \sim Exponential(1)$$
 
 > Be sure to transform the alpha j values to the probability scale for plotting
