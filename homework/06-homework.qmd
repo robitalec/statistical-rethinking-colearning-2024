@@ -160,3 +160,15 @@ marg_eff
 plot(marg_eff) + labs(x = 'Survival', y = 'Size : Predation')
 ```
 
+
+
+## Question 3
+
+> 3-OPTIONAL CHALLENGE. Return to the Trolley data, data(Trolley), from Chapter
+12. Define and fit a varying intercepts model for these data. By this I mean to
+add an intercept parameter for the individual participants to the linear model.
+Cluster the varying intercepts on individual participants, as indicated by the
+unique values in the id variable. Include action, intention, and contact as
+treatment effects of interest. Compare the varying intercepts model and a model
+that ignores individuals. What is the impact of individual variation in these
+data?
