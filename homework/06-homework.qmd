@@ -145,3 +145,18 @@ ggdag(dag, seed = 2, layout = 'auto') + theme_dag()
 ```{r}
 ggdag_adjustment_set(dag, effect = 'direct') + theme_dag()
 ```
+
+
+### Analyze the data
+
+```{r}
+# Load model
+tar_load(h06_q02_brms_sample)
+h06_q02_brms_sample
+
+# Estimated marginal effects
+marg_eff <- emmeans(h06_q02_brms_sample, ~ size*pred, regrid = 'response')
+marg_eff
+plot(marg_eff) + labs(x = 'Survival', y = 'Size : Predation')
+```
+
