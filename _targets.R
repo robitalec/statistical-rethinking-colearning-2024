@@ -312,6 +312,10 @@ targets_h06 <- c(
 			prior(exponential(10), sd)
 		)
 	),
+	tar_target(
+		trolley,
+		data_trolley()
+	),
 	)
 )
 
