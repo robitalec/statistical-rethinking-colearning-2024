@@ -272,16 +272,35 @@ targets_h06 <- c(
 		data_reedfrogs()
 	),
 	zar_brms(
-		h06_q01_exp_1,
-
+		h06_q01_exp_0pt1,
+		formula = surv | trials(density) ~ (1 | tank),
+		data = reedfrogs,
+		family = 'binomial',
+		prior = c(
+			prior(normal(0, 1), Intercept),
+			prior(exponential(0.1), sd)
+		)
 	),
 	zar_brms(
-		h06_q01_exp_0pt1,
-
+		h06_q01_exp_1,
+		formula = surv | trials(density) ~ (1 | tank),
+		data = reedfrogs,
+		family = 'binomial',
+		prior = c(
+			prior(normal(0, 1), Intercept),
+			prior(exponential(1), sd)
+		)
 	),
+
 	zar_brms(
 		h06_q01_exp_10,
-
+		formula = surv | trials(density) ~ (1 | tank),
+		data = reedfrogs,
+		family = 'binomial',
+		prior = c(
+			prior(normal(0, 1), Intercept),
+			prior(exponential(10), sd)
+		)
 	)
 )
 
