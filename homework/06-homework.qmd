@@ -177,3 +177,30 @@ data?
 
 What is the causal effect of action, intention and contact on survey 
 responses, considering the variation of individuals?
+
+### Scientific model
+
+```{r}
+coords <- data.frame(
+    name = c('X', 'R', 'S', 'E', 'Y', 'G',  'P'),
+    x =    c(1,    2,   3,   1,    2,   3,  2),
+    y =    c(0,    0,   0,   -2,  -1,  -2,  -3)
+)
+
+dag <- dagify(
+    R ~ X + S + E + Y + G,
+    E ~ Y + G,
+  coords = coords
+)
+ggdag(dag, seed = 2, layout = 'auto') + theme_dag()
+```
+
+- R: response to the trolley story
+- X: action, intention, contact
+- S: story
+- E: education
+- Y: age
+- G: gender
+
+
+
