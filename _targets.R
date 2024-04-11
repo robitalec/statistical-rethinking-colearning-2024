@@ -317,8 +317,19 @@ targets_h06 <- c(
 		data_trolley()
 	),
 	zar_brms(
-		h06_q03,
+		h06_q03_ind_var,
 		formula = response ~ action + intention + contact  + (1 | id),
+		data = trolley,
+		family = 'cumulative',
+		prior = c(
+			prior(normal(0, 1), Intercept),
+			prior(normal(0, 1), b),
+			prior(exponential(1), sd)
+		)
+	),
+	zar_brms(
+		h06_q03_no_ind_var,
+		formula = response ~ action + intention + contact,
 		data = trolley,
 		family = 'cumulative',
 		prior = c(
