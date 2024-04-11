@@ -38,51 +38,66 @@ Exponential(0.1) for example.
 
 ```{r}
 # Load data
-tar_load(reedfrog)
-
-# Print priors used
-tar_read(h06_q01_exp_1_brms_prior)
-tar_read(h06_q01_exp_0pt1_brms_prior)
-tar_read(h06_q01_exp_10_brms_prior)
-
-# Load model
-tar_load(h06_q01_exp_1_brms_sample_prior)
-tar_load(h06_q01_exp_0pt1_brms_sample_prior)
-tar_load(h06_q01_exp_10_brms_sample_prior)
-
-# Read N draws from the priors and append expected predictions
-n_draws <- 100
-q01_exp_1_prior <- h06_q01_exp_1_brms_sample_prior |>
-	add_predicted_draws(newdata = reedfrog, ndraws = n_draws)
-
-q01_exp_0pt1_prior <- h06_q01_exp_0pt1_brms_sample_prior |>
-	add_predicted_draws(newdata = reedfrog, ndraws = n_draws)
-
-q01_exp_10_prior <- h06_q01_exp_10_brms_sample_prior |>
-	add_predicted_draws(newdata = reedfrog, ndraws = n_draws)
-
-
-# Plot prior expectations for survival rate and tank
-g0pt1 <- ggplot(q01_exp_1_prior) + 
-	stat_halfeye(aes(tank, .prediction), alpha = 0.5) +
-	labs(x = 'Tank', y = 'Predicted survival rate', 
-			 title = expression(sigma ~ Exponential(0.1))) + 
-	xlim(0, 1)
-
-g1 <- ggplot(q01_exp_0pt1_prior) + 
-	stat_halfeye(aes(tank, .prediction), alpha = 0.5) +
-	labs(x = 'Tank', y = 'Predicted survival rate', 
-			 title = expression(sigma ~ Exponential(1))) + 
-	xlim(0, 1)
-
-g10 <- ggplot(q01_exp_10_prior) + 
-	stat_halfeye(aes(tank, .prediction), alpha = 0.5) +
-	labs(x = 'Tank', y = 'Predicted survival rate', 
-			 title = expression(sigma ~ Exponential(10))) + 
-	xlim(0, 1)
-
-g1 / g0pt1 / g10
+tar_load(reedfrogs)
 ```
+
+::: {.panel-tabset}
+
+## Exponential(1)
+```{r}
+tar_load(h06_q01_exp_1_brms_sample_prior)
+h06_q01_exp_1_brms_sample_prior$prior
+```
+
+
+```{r prior_exp_1_areas}
+#| fig-width: 7
+#| fig-height: 12
+mcmc_areas(
+	h06_q01_exp_1_brms_sample_prior,
+	regex_pars = 'r_tank', 
+	transformations = inv_logit
+)
+```
+
+## Exponential(0.1)
+
+```{r}
+tar_load(h06_q01_exp_0pt1_brms_sample_prior)
+h06_q01_exp_0pt1_brms_sample_prior$prior
+```
+
+
+```{r prior_exp_0pt1_areas}
+#| fig-width: 7
+#| fig-height: 12
+mcmc_areas(
+	h06_q01_exp_0pt1_brms_sample_prior,
+	regex_pars = 'r_tank',
+	transformations = inv_logit
+)
+```
+
+## Exponential(10)
+
+```{r}
+tar_load(h06_q01_exp_10_brms_sample_prior)
+h06_q01_exp_10_brms_sample_prior$prior
+```
+
+
+```{r prior_exp_10_areas}
+#| fig-width: 7
+#| fig-height: 12
+mcmc_areas(
+	h06_q01_exp_10_brms_sample_prior, 
+	regex_pars = 'r_tank', 
+	transformations = inv_logit
+)
+```
+:::
+
+
 
 
 ## Question 2
