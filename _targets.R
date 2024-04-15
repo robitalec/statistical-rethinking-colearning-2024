@@ -334,8 +334,7 @@ targets_h06 <- c(
 		family = 'cumulative',
 		prior = c(
 			prior(normal(0, 1), Intercept),
-			prior(normal(0, 1), b),
-			prior(exponential(1), sd)
+			prior(normal(0, 1), b)
 		)
 	)
 )
