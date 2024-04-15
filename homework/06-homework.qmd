@@ -214,3 +214,19 @@ tar_load(h06_q03_ind_var_brms_sample)
 h06_q03_no_ind_var_brms_sample
 h06_q03_ind_var_brms_sample
 ```
+
+
+```{r}
+tidy_selected_vars <- function(m, vars) {
+	draws <- tidy_draws(m) |>
+		gather_variables()
+	setDT(draws)
+	draws[.variable %in% vars]
+}
+sel_vars <- c('b_action', 'b_intention', 'b_contact')
+
+no_ind_var <- tidy_selected_vars(h06_q03_no_ind_var_brms_sample, sel_vars)
+no_ind_var[, type := 'No individual variation']
+
+ind_var <- tidy_selected_vars(h06_q03_ind_var_brms_sample, sel_vars)
+ind_var[, type := 'Varying intercepts for each individual']
