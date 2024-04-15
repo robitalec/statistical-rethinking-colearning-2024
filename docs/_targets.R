@@ -264,6 +264,83 @@ targets_h05 <- c(
 
 
 
+
+# Homework 06 -------------------------------------------------------------
+targets_h06 <- c(
+	tar_target(
+		reedfrogs,
+		data_reedfrogs()
+	),
+	zar_brms(
+		h06_q01_exp_0pt1,
+		formula = surv | trials(density) ~ (1 | tank),
+		data = reedfrogs,
+		family = 'binomial',
+		prior = c(
+			prior(normal(0, 1), Intercept),
+			prior(exponential(0.1), sd)
+		)
+	),
+	zar_brms(
+		h06_q01_exp_1,
+		formula = surv | trials(density) ~ (1 | tank),
+		data = reedfrogs,
+		family = 'binomial',
+		prior = c(
+			prior(normal(0, 1), Intercept),
+			prior(exponential(1), sd)
+		)
+	),
+	zar_brms(
+		h06_q01_exp_10,
+		formula = surv | trials(density) ~ (1 | tank),
+		data = reedfrogs,
+		family = 'binomial',
+		prior = c(
+			prior(normal(0, 1), Intercept),
+			prior(exponential(10), sd)
+		)
+	),
+	zar_brms(
+		h06_q02,
+		formula = surv | trials(density) ~ 1 + pred * size + (1 | tank),
+		data = reedfrogs,
+		family = 'binomial',
+		prior = c(
+			prior(normal(0, 1), Intercept),
+			prior(normal(0, 1), b),
+			prior(exponential(10), sd)
+		)
+	),
+	tar_target(
+		trolley,
+		data_trolley()
+	),
+	zar_brms(
+		h06_q03_ind_var,
+		formula = response ~ action + intention + contact  + (1 | id),
+		data = trolley,
+		family = 'cumulative',
+		prior = c(
+			prior(normal(0, 1), Intercept),
+			prior(normal(0, 1), b),
+			prior(exponential(1), sd)
+		)
+	),
+	zar_brms(
+		h06_q03_no_ind_var,
+		formula = response ~ action + intention + contact,
+		data = trolley,
+		family = 'cumulative',
+		prior = c(
+			prior(normal(0, 1), Intercept),
+			prior(normal(0, 1), b)
+		)
+	)
+)
+
+
+
 # Targets: all ------------------------------------------------------------
 # Automatically grab all the "targets_*" lists above
 lapply(grep('targets', ls(), value = TRUE), get)

@@ -255,6 +255,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../homework/06-homework.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 06</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../homework/stan.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Stan</span></a>
   </div>
@@ -463,14 +469,14 @@ Formula: scale_avgfood ~ scale_area
   Draws: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
          total post-warmup draws = 4000
 
-Population-Level Effects: 
+Regression Coefficients:
            Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-Intercept      0.00      0.04    -0.08     0.09 1.00     4133     2920
-scale_area     0.88      0.04     0.79     0.96 1.00     3977     2592
+Intercept      0.00      0.04    -0.08     0.08 1.00     3699     2926
+scale_area     0.88      0.04     0.79     0.96 1.00     3679     2858
 
-Family Specific Parameters: 
+Further Distributional Parameters:
       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sigma     0.47      0.03     0.42     0.54 1.00     4200     3199
+sigma     0.48      0.03     0.42     0.55 1.00     3407     2766
 
 Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
@@ -592,14 +598,14 @@ Formula: scale_weight ~ scale_avgfood
   Draws: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
          total post-warmup draws = 4000
 
-Population-Level Effects: 
+Regression Coefficients:
               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-Intercept        -0.00      0.08    -0.17     0.16 1.00     4018     3210
-scale_avgfood    -0.03      0.09    -0.21     0.16 1.00     4588     2795
+Intercept        -0.00      0.08    -0.16     0.16 1.00     3785     2936
+scale_avgfood    -0.03      0.09    -0.21     0.16 1.00     3952     2672
 
-Family Specific Parameters: 
+Further Distributional Parameters:
       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sigma     1.01      0.07     0.89     1.15 1.00     3718     2931
+sigma     1.01      0.07     0.89     1.15 1.00     3807     2932
 
 Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
@@ -707,15 +713,15 @@ Formula: scale_weight ~ scale_avgfood + scale_groupsize
   Draws: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
          total post-warmup draws = 4000
 
-Population-Level Effects: 
+Regression Coefficients:
                 Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-Intercept           0.00      0.08    -0.15     0.16 1.00     2887     2343
-scale_avgfood       0.47      0.18     0.12     0.84 1.00     2013     2108
-scale_groupsize    -0.57      0.18    -0.92    -0.21 1.00     2066     2067
+Intercept           0.00      0.08    -0.16     0.17 1.00     2708     2390
+scale_avgfood       0.48      0.18     0.12     0.84 1.00     2063     2176
+scale_groupsize    -0.57      0.18    -0.92    -0.20 1.00     2073     2276
 
-Family Specific Parameters: 
+Further Distributional Parameters:
       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sigma     0.96      0.06     0.85     1.10 1.00     2765     2561
+sigma     0.96      0.07     0.85     1.10 1.00     3148     2479
 
 Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
