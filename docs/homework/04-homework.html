@@ -255,6 +255,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../homework/06-homework.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 06</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../homework/stan.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Stan</span></a>
   </div>
@@ -327,7 +333,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>          elpd_diff se_diff
 m6_9_loo     0.0       0.0 
-m6_10_loo -194.0      17.6 </code></pre>
+m6_10_loo -194.1      17.6 </code></pre>
 </div>
 </div>
 <p>The criterion of model fit selected is the Bayesian LOO estimate of the expected log pointwise predictive density (ELPD). The model with the highest LOO ELPD is model 6.9 which includes a known collider: marriage status. Model 6.9 is expected to make better predictions but not expected to yield the correct causal inference. Model 6.10 without marriage status has a lower LOO ELPD, “a coarse measure of uncertainty about the predictive performance of unknown future data” (<a href="https://mc-stan.org/loo/reference/loo-glossary.html">{loo} glossary</a>), but is expected to yield the correct causal inference.</p>
@@ -366,11 +372,11 @@ m6_10_loo -194.0      17.6 </code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>       elpd_diff se_diff
 q02_m7  0.0       0.0   
-q02_m5 -0.4       1.6   
-q02_m6 -0.4       1.7   
+q02_m6 -0.5       1.7   
+q02_m5 -0.5       1.6   
 q02_m3 -4.0       3.0   
 q02_m2 -5.3       3.6   
-q02_m1 -5.4       3.7   
+q02_m1 -5.5       3.7   
 q02_m4 -5.9       3.6   </code></pre>
 </div>
 </div>
@@ -431,23 +437,20 @@ q02_m4 -5.9       3.6   </code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m_lin</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">h04_q03_m_lin_Massos_brms_sample</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">add_criterion</span><span class="op">(</span><span class="st">'loo'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Found 2 observations with a pareto_k &gt; 0.7 in model
-'tar_read(h04_q03_m_lin_Massos_brms_sample)'. It is recommended to set
-'moment_match = TRUE' in order to perform moment matching for problematic
-observations.</code></pre>
+'tar_read(h04_q03_m_lin_Massos_brms_sample)'. We recommend to set 'moment_match
+= TRUE' in order to perform moment matching for problematic observations.</code></pre>
 </div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m_exp</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">h04_q03_m_exp_Massos_brms_sample</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">add_criterion</span><span class="op">(</span><span class="st">'loo'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Found 2 observations with a pareto_k &gt; 0.7 in model
-'tar_read(h04_q03_m_exp_Massos_brms_sample)'. It is recommended to set
-'moment_match = TRUE' in order to perform moment matching for problematic
-observations.</code></pre>
+'tar_read(h04_q03_m_exp_Massos_brms_sample)'. We recommend to set 'moment_match
+= TRUE' in order to perform moment matching for problematic observations.</code></pre>
 </div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m_wei</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">h04_q03_m_wei_Massos_brms_sample</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">add_criterion</span><span class="op">(</span><span class="st">'loo'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Found 2 observations with a pareto_k &gt; 0.7 in model
-'tar_read(h04_q03_m_wei_Massos_brms_sample)'. It is recommended to set
-'moment_match = TRUE' in order to perform moment matching for problematic
-observations.</code></pre>
+<pre><code>Warning: Found 3 observations with a pareto_k &gt; 0.7 in model
+'tar_read(h04_q03_m_wei_Massos_brms_sample)'. We recommend to set 'moment_match
+= TRUE' in order to perform moment matching for problematic observations.</code></pre>
 </div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">loo_compare</span><span class="op">(</span></span>
 <span>    <span class="va">m_lin</span>,</span>
@@ -457,8 +460,8 @@ observations.</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>      elpd_diff se_diff
 m_exp  0.0       0.0   
-m_wei -1.4       9.4   
-m_lin -8.8      10.1   </code></pre>
+m_wei -1.1       8.0   
+m_lin -9.3       9.5   </code></pre>
 </div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">theme_set</span><span class="op">(</span><span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>

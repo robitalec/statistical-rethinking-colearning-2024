@@ -171,7 +171,9 @@ h02_q03_brms_sample_prior
 
 # Read N draws from the priors and append expected predictions
 n_draws <- 100
-q03_newdata <- na.omit(DT)[, .(occasion_factor = unique(occasion_factor))]
+q02_newdata <- data_grid(DT, age = seq_range(age, 20))
+
+q03_newdata <- na.omit(DT)[, .(occasion_factor = droplevels(unique(occasion_factor)))]
 q03_epred_prior <- h02_q03_brms_sample_prior |>
 	add_epred_draws(newdata = q03_newdata, ndraws = n_draws)
 

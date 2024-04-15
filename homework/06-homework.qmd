@@ -1,0 +1,249 @@
+---
+title: "Homework 06"
+author: "Alec L. Robitaille"
+date: "2024-04-11"
+---
+
+## Setup
+
+```{r}
+#| include: false
+targets::tar_source('R')
+```
+
+
+```{r}
+#| eval: false
+targets::tar_source('R')
+```
+
+
+## Question 1
+
+> Conduct a prior predictive simulation for the Reedfrog model. By this I mean
+to simulate the prior distribution of tank survival probabilities. Start by
+using this prior:
+
+$$\alpha_{j} \sim Normal(\bar{\alpha}, \sigma)$$
+$$\bar{\alpha} \sim Normal(0, 1)$$
+$$\sigma \sim Exponential(1)$$
+
+> Be sure to transform the alpha j values to the probability scale for plotting
+and summary. How does increasing the width of the prior on sigma change the
+prior distribution of alpha j? You might try Exponential(10) and
+Exponential(0.1) for example.
+
+
+#### Prior predictive simulation
+
+```{r}
+# Load data
+tar_load(reedfrogs)
+```
+
+::: {.panel-tabset}
+
+## Exponential(1)
+```{r}
+tar_load(h06_q01_exp_1_brms_sample_prior)
+h06_q01_exp_1_brms_sample_prior$prior
+```
+
+
+```{r prior_exp_1_areas}
+#| fig-width: 7
+#| fig-height: 12
+mcmc_areas(
+	h06_q01_exp_1_brms_sample_prior,
+	regex_pars = 'r_tank', 
+	transformations = inv_logit
+)
+```
+
+## Exponential(0.1)
+
+```{r}
+tar_load(h06_q01_exp_0pt1_brms_sample_prior)
+h06_q01_exp_0pt1_brms_sample_prior$prior
+```
+
+
+```{r prior_exp_0pt1_areas}
+#| fig-width: 7
+#| fig-height: 12
+mcmc_areas(
+	h06_q01_exp_0pt1_brms_sample_prior,
+	regex_pars = 'r_tank',
+	transformations = inv_logit
+)
+```
+
+## Exponential(10)
+
+```{r}
+tar_load(h06_q01_exp_10_brms_sample_prior)
+h06_q01_exp_10_brms_sample_prior$prior
+```
+
+
+```{r prior_exp_10_areas}
+#| fig-width: 7
+#| fig-height: 12
+mcmc_areas(
+	h06_q01_exp_10_brms_sample_prior, 
+	regex_pars = 'r_tank', 
+	transformations = inv_logit
+)
+```
+:::
+
+
+
+
+## Question 2
+
+> Revisit the Reedfrog survival data, data(reedfrogs). Start with the varying
+effects model from the book and lecture. Then modify it to estimate the causal
+effects of the treatment variables pred and size, including how size might
+modify the effect of predation. An easy approach is to estimate an effect for
+each combination of pred and size. Justify your model with a DAG of this
+experiment
+
+### Estimand
+
+What is the causal effect of predation and size on survival?
+
+### Scientific model
+
+```{r}
+coords <- data.frame(
+	name = c('D', 'G', 'P', 'T', 'S'),
+	x =    c(1,    2,   3,   1,    2),
+	y =    c(0,    0,   0,   1,  1)
+)
+```
+
+```{r}
+#| fig.height: 4
+#| fig.width: 4 
+dag <- dagify(
+	S ~ D + G + P + T,
+  coords = coords,
+	outcome = 'S',
+	exposure = c('G', 'P')
+)
+ggdag(dag, seed = 2, layout = 'auto') + theme_dag()
+```
+
+- 48 tanks (T) of reedfrogs
+- treatments: density (D), size (G), predation (P)
+- outcome: survival (S)
+
+
+### Adjustment set
+
+```{r}
+ggdag_adjustment_set(dag, effect = 'direct') + theme_dag()
+```
+
+
+### Analyze the data
+
+```{r}
+# Load model
+tar_load(h06_q02_brms_sample)
+h06_q02_brms_sample
+
+# Estimated marginal effects
+marg_eff <- emmeans(h06_q02_brms_sample, ~ size*pred, regrid = 'response')
+marg_eff
+plot(marg_eff) + labs(x = 'Survival', y = 'Size : Predation')
+```
+
+
+
+## Question 3
+
+> 3-OPTIONAL CHALLENGE. Return to the Trolley data, data(Trolley), from Chapter
+12. Define and fit a varying intercepts model for these data. By this I mean to
+add an intercept parameter for the individual participants to the linear model.
+Cluster the varying intercepts on individual participants, as indicated by the
+unique values in the id variable. Include action, intention, and contact as
+treatment effects of interest. Compare the varying intercepts model and a model
+that ignores individuals. What is the impact of individual variation in these
+data?
+
+### Estimand
+
+What is the causal effect of action, intention and contact on survey 
+responses, considering the variation of individuals?
+
+### Scientific model
+
+```{r}
+coords <- data.frame(
+    name = c('X', 'R', 'S', 'E', 'Y', 'G',  'P'),
+    x =    c(1,    2,   3,   1,    2,   3,  2),
+    y =    c(0,    0,   0,   -2,  -1,  -2,  -3)
+)
+
+dag <- dagify(
+    R ~ X + S + E + Y + G,
+    E ~ Y + G,
+  coords = coords
+)
+ggdag(dag, seed = 2, layout = 'auto') + theme_dag()
+```
+
+- R: response to the trolley story
+- X: action, intention, contact
+- S: story
+- E: education
+- Y: age
+- G: gender
+
+
+### Analyze the data
+
+```{r}
+tar_load(trolley)
+
+tar_load(h06_q03_no_ind_var_brms_sample)
+tar_load(h06_q03_ind_var_brms_sample)
+
+h06_q03_no_ind_var_brms_sample
+h06_q03_ind_var_brms_sample
+```
+
+
+```{r}
+tidy_selected_vars <- function(m, vars) {
+	draws <- tidy_draws(m) |>
+		gather_variables()
+	setDT(draws)
+	draws[.variable %in% vars]
+}
+sel_vars <- c('b_action', 'b_intention', 'b_contact')
+
+no_ind_var <- tidy_selected_vars(h06_q03_no_ind_var_brms_sample, sel_vars)
+no_ind_var[, type := 'No individual variation']
+
+ind_var <- tidy_selected_vars(h06_q03_ind_var_brms_sample, sel_vars)
+ind_var[, type := 'Varying intercepts for each individual']
+
+ggplot(rbindlist(list(no_ind_var, ind_var))) + 
+	stat_halfeye(position = 'dodge', 
+							 aes(inv_logit(.value),
+							 		type,
+							 		fill = type),
+							 alpha = 0.2) + 
+	guides(fill = 'none') + 
+	labs(x = 'inv_logit(parameter estimate)', y = '') + 
+	xlim(0, 1) + 
+	facet_wrap(~.variable, ncol = 1)
+```
+
+Parameter estimates for intention, action and contact for the model that 
+includes varying intercepts for each individual are consistently lower than 
+the model that ignores individual variation. 
+

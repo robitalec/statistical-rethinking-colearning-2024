@@ -255,6 +255,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../homework/06-homework.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 06</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../homework/stan.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Stan</span></a>
   </div>
@@ -400,10 +406,10 @@ Formula: awards | trials(applications) ~ gender
   Draws: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
          total post-warmup draws = 4000
 
-Population-Level Effects: 
+Regression Coefficients:
           Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-Intercept    -0.01      1.02    -2.00     2.00 1.00     3428     2485
-genderm      -0.01      0.50    -1.00     0.97 1.00     3457     2306
+Intercept     0.00      1.03    -2.06     2.02 1.00     2813     2191
+genderm       0.01      0.51    -0.95     0.98 1.00     2877     2447
 
 Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
@@ -454,10 +460,10 @@ Formula: awards | trials(applications) ~ gender
   Draws: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
          total post-warmup draws = 4000
 
-Population-Level Effects: 
+Regression Coefficients:
           Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-Intercept    -1.73      0.08    -1.90    -1.58 1.00     2537     2717
-genderm       0.20      0.11    -0.01     0.40 1.00     2975     2181
+Intercept    -1.73      0.08    -1.89    -1.58 1.00     2099     2415
+genderm       0.20      0.10     0.00     0.40 1.00     2437     2009
 
 Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
@@ -480,8 +486,8 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <span><span class="va">marg_eff</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> gender  prob lower.HPD upper.HPD
- f      0.150     0.131     0.171
- m      0.177     0.159     0.197
+ f      0.151      0.13     0.169
+ m      0.177      0.16     0.196
 
 Point estimate displayed: median 
 HPD interval probability: 0.95 </code></pre>
@@ -489,7 +495,7 @@ HPD interval probability: 0.95 </code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">contrast</span><span class="op">(</span><span class="va">marg_eff</span>, method <span class="op">=</span> <span class="st">'pairwise'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> contrast estimate lower.HPD upper.HPD
- f - m     -0.0271   -0.0541   0.00114
+ f - m      -0.027    -0.054    -9e-04
 
 Point estimate displayed: median 
 HPD interval probability: 0.95 </code></pre>
@@ -553,45 +559,45 @@ Formula: awards | trials(applications) ~ gender * discipline
   Draws: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
          total post-warmup draws = 4000
 
-Population-Level Effects: 
+Regression Coefficients:
                                      Estimate Est.Error l-95% CI u-95% CI Rhat
-Intercept                               -0.01      1.03    -2.04     2.04 1.00
-genderm                                 -0.01      0.50    -0.99     0.97 1.00
-disciplineEarthDlifesciences             0.00      0.49    -0.97     0.96 1.00
-disciplineHumanities                     0.00      0.51    -1.01     1.01 1.00
-disciplineInterdisciplinary              0.00      0.51    -0.98     0.98 1.00
-disciplineMedicalsciences               -0.00      0.52    -1.04     1.02 1.00
-disciplinePhysicalsciences              -0.00      0.50    -0.96     0.97 1.00
-disciplinePhysics                        0.00      0.50    -0.97     0.93 1.00
-disciplineSocialsciences                 0.00      0.51    -0.99     1.00 1.00
-disciplineTechnicalsciences             -0.00      0.50    -1.00     0.99 1.00
-genderm:disciplineEarthDlifesciences     0.01      0.50    -0.96     0.99 1.00
-genderm:disciplineHumanities            -0.01      0.52    -1.03     1.02 1.00
-genderm:disciplineInterdisciplinary      0.01      0.51    -0.98     1.01 1.00
-genderm:disciplineMedicalsciences       -0.01      0.50    -1.00     0.97 1.00
-genderm:disciplinePhysicalsciences       0.00      0.49    -0.94     0.95 1.00
-genderm:disciplinePhysics                0.00      0.50    -1.00     1.00 1.00
-genderm:disciplineSocialsciences         0.00      0.50    -0.97     1.00 1.00
-genderm:disciplineTechnicalsciences      0.00      0.50    -0.97     1.00 1.00
+Intercept                               -0.00      1.05    -2.10     2.05 1.00
+genderm                                 -0.01      0.49    -0.95     0.93 1.00
+disciplineEarthDlifesciences             0.01      0.49    -0.96     0.94 1.00
+disciplineHumanities                    -0.00      0.50    -1.00     0.98 1.00
+disciplineInterdisciplinary              0.01      0.49    -0.97     1.00 1.00
+disciplineMedicalsciences                0.01      0.50    -0.95     0.99 1.00
+disciplinePhysicalsciences              -0.00      0.50    -1.01     1.00 1.00
+disciplinePhysics                        0.00      0.49    -0.95     0.95 1.00
+disciplineSocialsciences                -0.00      0.50    -0.99     1.00 1.00
+disciplineTechnicalsciences              0.00      0.50    -0.99     0.97 1.00
+genderm:disciplineEarthDlifesciences    -0.01      0.49    -0.97     0.93 1.00
+genderm:disciplineHumanities             0.00      0.50    -0.99     0.97 1.00
+genderm:disciplineInterdisciplinary      0.00      0.49    -0.95     0.97 1.00
+genderm:disciplineMedicalsciences       -0.00      0.51    -1.00     1.00 1.00
+genderm:disciplinePhysicalsciences       0.00      0.49    -0.95     0.97 1.00
+genderm:disciplinePhysics                0.00      0.49    -0.97     0.96 1.00
+genderm:disciplineSocialsciences        -0.01      0.49    -0.97     0.97 1.00
+genderm:disciplineTechnicalsciences     -0.00      0.52    -1.01     1.02 1.00
                                      Bulk_ESS Tail_ESS
-Intercept                               10154     2918
-genderm                                 10065     3098
-disciplineEarthDlifesciences             9760     2495
-disciplineHumanities                     9684     2775
-disciplineInterdisciplinary              8490     2706
-disciplineMedicalsciences               10905     3089
-disciplinePhysicalsciences              10042     3185
-disciplinePhysics                       10402     2986
-disciplineSocialsciences                 9889     2998
-disciplineTechnicalsciences              9872     3122
-genderm:disciplineEarthDlifesciences    11056     3184
-genderm:disciplineHumanities            10391     2941
-genderm:disciplineInterdisciplinary     11056     2951
-genderm:disciplineMedicalsciences        9912     2767
-genderm:disciplinePhysicalsciences       8404     2777
-genderm:disciplinePhysics                8614     3211
-genderm:disciplineSocialsciences        11292     2982
-genderm:disciplineTechnicalsciences     10272     3136
+Intercept                               10050     3041
+genderm                                  9734     3080
+disciplineEarthDlifesciences            10434     3091
+disciplineHumanities                    10855     3129
+disciplineInterdisciplinary              9156     2472
+disciplineMedicalsciences                8572     2919
+disciplinePhysicalsciences               8718     2633
+disciplinePhysics                        8932     2912
+disciplineSocialsciences                 9990     2659
+disciplineTechnicalsciences              9379     2440
+genderm:disciplineEarthDlifesciences     8581     2724
+genderm:disciplineHumanities            10051     2918
+genderm:disciplineInterdisciplinary     10877     3046
+genderm:disciplineMedicalsciences        9390     2485
+genderm:disciplinePhysicalsciences       9484     2786
+genderm:disciplinePhysics               10029     3119
+genderm:disciplineSocialsciences        11004     2580
+genderm:disciplineTechnicalsciences     10558     2616
 
 Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
@@ -661,45 +667,45 @@ Formula: awards | trials(applications) ~ gender * discipline
   Draws: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
          total post-warmup draws = 4000
 
-Population-Level Effects: 
+Regression Coefficients:
                                      Estimate Est.Error l-95% CI u-95% CI Rhat
 Intercept                               -1.40      0.16    -1.72    -1.08 1.00
-genderm                                  0.15      0.17    -0.19     0.49 1.00
-disciplineEarthDlifesciences            -0.26      0.24    -0.72     0.21 1.00
+genderm                                  0.15      0.18    -0.19     0.51 1.00
+disciplineEarthDlifesciences            -0.26      0.24    -0.73     0.20 1.00
 disciplineHumanities                    -0.09      0.22    -0.52     0.34 1.00
-disciplineInterdisciplinary             -0.05      0.26    -0.56     0.46 1.00
-disciplineMedicalsciences               -0.56      0.22    -0.99    -0.12 1.00
-disciplinePhysicalsciences               0.04      0.29    -0.53     0.60 1.00
-disciplinePhysics                        0.12      0.36    -0.60     0.81 1.00
-disciplineSocialsciences                -0.58      0.20    -0.97    -0.19 1.00
-disciplineTechnicalsciences             -0.05      0.27    -0.58     0.46 1.00
-genderm:disciplineEarthDlifesciences     0.32      0.27    -0.22     0.85 1.00
-genderm:disciplineHumanities            -0.40      0.27    -0.93     0.11 1.00
-genderm:disciplineInterdisciplinary     -0.56      0.32    -1.17     0.07 1.00
-genderm:disciplineMedicalsciences        0.30      0.26    -0.21     0.80 1.00
-genderm:disciplinePhysicalsciences      -0.20      0.32    -0.81     0.41 1.00
-genderm:disciplinePhysics                0.09      0.37    -0.64     0.82 1.00
-genderm:disciplineSocialsciences         0.11      0.23    -0.35     0.56 1.00
-genderm:disciplineTechnicalsciences     -0.33      0.29    -0.90     0.25 1.00
+disciplineInterdisciplinary             -0.05      0.26    -0.55     0.45 1.00
+disciplineMedicalsciences               -0.55      0.22    -0.99    -0.14 1.00
+disciplinePhysicalsciences               0.04      0.29    -0.52     0.62 1.00
+disciplinePhysics                        0.11      0.36    -0.61     0.81 1.00
+disciplineSocialsciences                -0.58      0.20    -0.99    -0.19 1.00
+disciplineTechnicalsciences             -0.06      0.26    -0.58     0.46 1.00
+genderm:disciplineEarthDlifesciences     0.32      0.28    -0.23     0.86 1.00
+genderm:disciplineHumanities            -0.40      0.27    -0.94     0.12 1.00
+genderm:disciplineInterdisciplinary     -0.57      0.32    -1.18     0.07 1.00
+genderm:disciplineMedicalsciences        0.30      0.26    -0.20     0.81 1.00
+genderm:disciplinePhysicalsciences      -0.20      0.32    -0.81     0.43 1.00
+genderm:disciplinePhysics                0.09      0.37    -0.63     0.83 1.00
+genderm:disciplineSocialsciences         0.10      0.24    -0.38     0.56 1.00
+genderm:disciplineTechnicalsciences     -0.32      0.30    -0.93     0.26 1.00
                                      Bulk_ESS Tail_ESS
-Intercept                                3163     2922
-genderm                                  3075     2809
-disciplineEarthDlifesciences             4112     2936
-disciplineHumanities                     3942     2618
-disciplineInterdisciplinary              4609     3009
-disciplineMedicalsciences                3951     2682
-disciplinePhysicalsciences               4442     3192
-disciplinePhysics                        5287     2847
-disciplineSocialsciences                 3387     2802
-disciplineTechnicalsciences              4657     3290
-genderm:disciplineEarthDlifesciences     4227     3544
-genderm:disciplineHumanities             4450     3142
-genderm:disciplineInterdisciplinary      5120     3369
-genderm:disciplineMedicalsciences        4073     3125
-genderm:disciplinePhysicalsciences       4390     2892
-genderm:disciplinePhysics                4726     3263
-genderm:disciplineSocialsciences         3624     3176
-genderm:disciplineTechnicalsciences      4773     2468
+Intercept                                3115     3113
+genderm                                  3151     2937
+disciplineEarthDlifesciences             4294     3094
+disciplineHumanities                     3294     3068
+disciplineInterdisciplinary              4775     3450
+disciplineMedicalsciences                3591     3016
+disciplinePhysicalsciences               5005     3153
+disciplinePhysics                        5280     2992
+disciplineSocialsciences                 3394     2766
+disciplineTechnicalsciences              5155     3064
+genderm:disciplineEarthDlifesciences     4088     3064
+genderm:disciplineHumanities             4441     3109
+genderm:disciplineInterdisciplinary      5366     3277
+genderm:disciplineMedicalsciences        4154     2744
+genderm:disciplinePhysicalsciences       4939     2592
+genderm:disciplinePhysics                4894     3107
+genderm:disciplineSocialsciences         4204     3396
+genderm:disciplineTechnicalsciences      5018     3158
 
 Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
@@ -729,48 +735,48 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>discipline = Chemical sciences:
  gender  prob lower.HPD upper.HPD
- f      0.198    0.1529     0.255
- m      0.223    0.1628     0.283
+ f      0.198    0.1515     0.252
+ m      0.223    0.1647     0.287
 
 discipline = Earth/life sciences:
  gender  prob lower.HPD upper.HPD
- f      0.160    0.1120     0.217
- m      0.234    0.1764     0.299
+ f      0.160    0.1095     0.216
+ m      0.235    0.1766     0.301
 
 discipline = Humanities:
  gender  prob lower.HPD upper.HPD
- f      0.184    0.1368     0.240
- m      0.150    0.1083     0.193
+ f      0.184    0.1360     0.238
+ m      0.150    0.1077     0.193
 
 discipline = Interdisciplinary:
  gender  prob lower.HPD upper.HPD
- f      0.191    0.1264     0.268
- m      0.135    0.0815     0.199
+ f      0.191    0.1203     0.259
+ m      0.134    0.0802     0.199
 
 discipline = Medical sciences:
  gender  prob lower.HPD upper.HPD
- f      0.124    0.0894     0.161
- m      0.183    0.1367     0.225
+ f      0.125    0.0903     0.162
+ m      0.183    0.1381     0.231
 
 discipline = Physical sciences:
  gender  prob lower.HPD upper.HPD
- f      0.205    0.1221     0.297
- m      0.198    0.1405     0.264
+ f      0.206    0.1222     0.294
+ m      0.197    0.1405     0.266
 
 discipline = Physics:
  gender  prob lower.HPD upper.HPD
- f      0.217    0.1165     0.362
- m      0.262    0.1692     0.362
+ f      0.218    0.1136     0.344
+ m      0.263    0.1706     0.371
 
 discipline = Social sciences:
  gender  prob lower.HPD upper.HPD
- f      0.121    0.0940     0.151
- m      0.151    0.1203     0.184
+ f      0.121    0.0943     0.153
+ m      0.152    0.1210     0.184
 
 discipline = Technical sciences:
  gender  prob lower.HPD upper.HPD
- f      0.191    0.1219     0.273
- m      0.165    0.1125     0.213
+ f      0.189    0.1205     0.270
+ m      0.165    0.1155     0.215
 
 Point estimate displayed: median 
 HPD interval probability: 0.95 </code></pre>
@@ -779,39 +785,39 @@ HPD interval probability: 0.95 </code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>discipline = Chemical sciences:
  contrast estimate lower.HPD upper.HPD
- f - m    -0.02486   -0.0841  0.030021
+ f - m    -0.02545   -0.0858   0.03182
 
 discipline = Earth/life sciences:
  contrast estimate lower.HPD upper.HPD
- f - m    -0.07416   -0.1502  0.002433
+ f - m    -0.07495   -0.1496   0.00464
 
 discipline = Humanities:
  contrast estimate lower.HPD upper.HPD
- f - m     0.03451   -0.0272  0.098652
+ f - m     0.03418   -0.0368   0.09296
 
 discipline = Interdisciplinary:
  contrast estimate lower.HPD upper.HPD
- f - m     0.05597   -0.0273  0.139433
+ f - m     0.05635   -0.0296   0.13891
 
 discipline = Medical sciences:
  contrast estimate lower.HPD upper.HPD
- f - m    -0.05778   -0.1101  0.000952
+ f - m    -0.05828   -0.1128  -0.00116
 
 discipline = Physical sciences:
  contrast estimate lower.HPD upper.HPD
- f - m     0.00726   -0.0835  0.108650
+ f - m     0.00858   -0.0861   0.10683
 
 discipline = Physics:
  contrast estimate lower.HPD upper.HPD
- f - m    -0.04371   -0.1713  0.092540
+ f - m    -0.04396   -0.1687   0.09336
 
 discipline = Social sciences:
  contrast estimate lower.HPD upper.HPD
- f - m    -0.02984   -0.0721  0.014087
+ f - m    -0.03054   -0.0732   0.01164
 
 discipline = Technical sciences:
  contrast estimate lower.HPD upper.HPD
- f - m     0.02663   -0.0519  0.111879
+ f - m     0.02428   -0.0525   0.11833
 
 Point estimate displayed: median 
 HPD interval probability: 0.95 </code></pre>
@@ -876,11 +882,11 @@ Formula: n_win | trials(n_fight) ~ hand_pair
   Draws: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
          total post-warmup draws = 4000
 
-Population-Level Effects: 
+Regression Coefficients:
              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-Intercept        0.16      0.17    -0.17     0.49 1.00     3828     3033
-hand_pairLMR    -0.18      0.25    -0.68     0.33 1.00     2905     2332
-hand_pairRMR    -0.30      0.39    -1.07     0.46 1.00     2678     2486
+Intercept        0.17      0.17    -0.15     0.49 1.00     3577     2914
+hand_pairLMR    -0.19      0.25    -0.70     0.32 1.00     2995     2318
+hand_pairRMR    -0.27      0.39    -1.04     0.49 1.00     2336     2590
 
 Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
@@ -903,9 +909,9 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <span><span class="va">marg_eff</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> hand_pair  prob lower.HPD upper.HPD
- L-L       0.541     0.460     0.621
- L-R       0.495     0.396     0.600
- R-R       0.466     0.282     0.649
+ L-L       0.542     0.461     0.619
+ L-R       0.496     0.396     0.607
+ R-R       0.475     0.284     0.655
 
 Point estimate displayed: median 
 HPD interval probability: 0.95 </code></pre>
@@ -913,9 +919,9 @@ HPD interval probability: 0.95 </code></pre>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">contrast</span><span class="op">(</span><span class="va">marg_eff</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> contrast     estimate lower.HPD upper.HPD
- (L-L) effect  0.03861   -0.0352    0.1142
- (L-R) effect -0.00462   -0.0998    0.0984
- (R-R) effect -0.03546   -0.1540    0.0974
+ (L-L) effect  0.03835   -0.0419    0.1087
+ (L-R) effect -0.00875   -0.1053    0.0883
+ (R-R) effect -0.02895   -0.1519    0.0997
 
 Point estimate displayed: median 
 HPD interval probability: 0.95 </code></pre>
