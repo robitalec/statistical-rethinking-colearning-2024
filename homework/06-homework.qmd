@@ -203,4 +203,14 @@ ggdag(dag, seed = 2, layout = 'auto') + theme_dag()
 - G: gender
 
 
+### Analyze the data
 
+```{r}
+tar_load(trolley)
+
+tar_load(h06_q03_no_ind_var_brms_sample)
+tar_load(h06_q03_ind_var_brms_sample)
+
+h06_q03_no_ind_var_brms_sample
+h06_q03_ind_var_brms_sample
+```
