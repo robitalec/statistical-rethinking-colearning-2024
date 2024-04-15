@@ -230,3 +230,15 @@ no_ind_var[, type := 'No individual variation']
 
 ind_var <- tidy_selected_vars(h06_q03_ind_var_brms_sample, sel_vars)
 ind_var[, type := 'Varying intercepts for each individual']
+
+ggplot(rbindlist(list(no_ind_var, ind_var))) + 
+	stat_halfeye(position = 'dodge', 
+							 aes(inv_logit(.value),
+							 		type,
+							 		fill = type),
+							 alpha = 0.2) + 
+	guides(fill = 'none') + 
+	labs(x = 'inv_logit(parameter estimate)', y = '') + 
+	xlim(0, 1) + 
+	facet_wrap(~.variable, ncol = 1)
+```
