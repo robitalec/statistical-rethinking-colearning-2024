@@ -242,3 +242,8 @@ ggplot(rbindlist(list(no_ind_var, ind_var))) +
 	xlim(0, 1) + 
 	facet_wrap(~.variable, ncol = 1)
 ```
+
+Parameter estimates for intention, action and contact for the model that 
+includes varying intercepts for each individual are consistently lower than 
+the model that ignores individual variation. 
+
