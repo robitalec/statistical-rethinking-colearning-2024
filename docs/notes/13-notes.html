@@ -5,8 +5,8 @@
 <meta name="generator" content="quarto-1.4.553">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Alec L. Robitaille">
-<meta name="dcterms.date" content="2024-01-25">
-<title>Statistical Rethinking colearning 2024 - Lecture 01 Notes</title>
+<meta name="dcterms.date" content="2024-04-17">
+<title>Statistical Rethinking colearning 2024 - Lecture 13 Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -18,6 +18,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -64,7 +98,32 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
+}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 </head>
 <body class="nav-sidebar floating">
 
@@ -73,7 +132,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/01-notes.html">Notes</a></li><li class="breadcrumb-item"><a href="../notes/01-notes.html">Lecture 01 Notes</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/01-notes.html">Notes</a></li><li class="breadcrumb-item"><a href="../notes/13-notes.html">Lecture 13 Notes</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -115,7 +174,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notes/01-notes.html" class="sidebar-item-text sidebar-link active">
+  <a href="../notes/01-notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 01 Notes</span></a>
   </div>
 </li>
@@ -187,7 +246,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notes/13-notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../notes/13-notes.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lecture 13 Notes</span></a>
   </div>
 </li>
@@ -260,14 +319,20 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#directed-acyclic-graphs" id="toc-directed-acyclic-graphs" class="nav-link active" data-scroll-target="#directed-acyclic-graphs">Directed acyclic graphs</a></li>
-  <li><a href="#golems" id="toc-golems" class="nav-link" data-scroll-target="#golems">Golems</a></li>
-  <li><a href="#owls" id="toc-owls" class="nav-link" data-scroll-target="#owls">Owls</a></li>
-  </ul><div class="toc-actions"><ul><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/edit/main/notes/01-notes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<li><a href="#clusters-and-features" id="toc-clusters-and-features" class="nav-link active" data-scroll-target="#clusters-and-features">Clusters and features</a></li>
+  <li>
+<a href="#strategy-for-modeling-varying-effects" id="toc-strategy-for-modeling-varying-effects" class="nav-link" data-scroll-target="#strategy-for-modeling-varying-effects">Strategy for modeling varying effects</a>
+  <ul class="collapse">
+<li><a href="#example-bangladesh-fertility-survey" id="toc-example-bangladesh-fertility-survey" class="nav-link" data-scroll-target="#example-bangladesh-fertility-survey">Example: Bangladesh fertility survey</a></li>
+  <li><a href="#varying-intercepts-on-each-district" id="toc-varying-intercepts-on-each-district" class="nav-link" data-scroll-target="#varying-intercepts-on-each-district">Varying intercepts on each district</a></li>
+  <li><a href="#varying-intercepts-on-districts-and-slopes-on-urban" id="toc-varying-intercepts-on-districts-and-slopes-on-urban" class="nav-link" data-scroll-target="#varying-intercepts-on-districts-and-slopes-on-urban">Varying intercepts on districts and slopes on urban</a></li>
+  </ul>
+</li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/edit/main/notes/13-notes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/01-notes.html">Notes</a></li><li class="breadcrumb-item"><a href="../notes/01-notes.html">Lecture 01 Notes</a></li></ol></nav><div class="quarto-title">
-<h1 class="title">Lecture 01 Notes</h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/01-notes.html">Notes</a></li><li class="breadcrumb-item"><a href="../notes/13-notes.html">Lecture 13 Notes</a></li></ol></nav><div class="quarto-title">
+<h1 class="title">Lecture 13 Notes</h1>
 </div>
 
 
@@ -284,7 +349,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 25, 2024</p>
+      <p class="date">April 17, 2024</p>
     </div>
   </div>
   
@@ -293,76 +358,95 @@ ul.task-list li input[type="checkbox"] {
   
 
 
-</header><section id="directed-acyclic-graphs" class="level1"><h1>Directed acyclic graphs</h1>
-<p>Statistical models process data but to provide scientific insight, we need scientific/causal models. Causes of data cannot be extracted from the data alone.</p>
-<p>Causal inference is the prediction of intervention and imputation of missing observations.</p>
+</header><section id="clusters-and-features" class="level1"><h1>Clusters and features</h1>
+<p>Clusters: kinds of groups in the data</p>
+<p>Features: aspects of the model (parameters) that vary by cluster</p>
+<p>Examples (clusters -&gt; features):</p>
 <ul>
-<li>Causal prediction: knowing a cause means being able to predict the consequences of an intervention (“what if I do this?”).</li>
-<li>Causal imputation: knowing a cause means being able to construct unobserved counterfactual outcomes (“what if I had done something else?”).</li>
+<li>tanks -&gt; survival</li>
+<li>stories -&gt; treatment effect</li>
+<li>individuals -&gt; average responses</li>
+<li>departments -&gt; admission rate, bias</li>
 </ul>
+<p>Adding more clusters involves adding more index variables and more population priors.</p>
+<p>Adding more features involves adding more parameters, increasing the dimensions in each population prior.</p>
+<p>Varying effects are a way to measure unmeasured confounds. Unmeasured features of clusters leave an imprint on the data that can be estimated given repeat observations of each cluster and partial pooling among clusters.</p>
+<p>This helps us, from the predictive perspective, to regularize cluster-level variance, and, from the causal perspective, to manage unobserved confounds and competing causes using cluster-level causes.</p>
+<p>Practical difficulties of varying effects:</p>
+<ul>
+<li>How to use more than one cluster type at the same time?</li>
+<li>How to calculate predictions? At which level?</li>
+<li>How to sample chains efficiently?</li>
+<li>Group-level confounding</li>
+</ul></section><section id="strategy-for-modeling-varying-effects" class="level1"><h1>Strategy for modeling varying effects</h1>
+<ol type="1">
+<li>Varying intercept on one cluster</li>
+<li>Varying intercept for one cluster, slope for another cluster. This is two 1-dimensional distributions where information is not shared across.</li>
+<li>Correlated varying effects</li>
+</ol>
+<section id="example-bangladesh-fertility-survey" class="level2"><h2 class="anchored" data-anchor-id="example-bangladesh-fertility-survey">Example: Bangladesh fertility survey</h2>
+<p>Outcome: contraceptive use</p>
+<p>Variables: age, living children, urban/rural, districts</p>
 <div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>    name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'A'</span>, <span class="st">'C'</span>, <span class="st">'D'</span>, <span class="st">'K'</span>, <span class="st">'U'</span><span class="op">)</span>,</span>
+<span>    x <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,    <span class="fl">2</span>,    <span class="fl">3</span>,   <span class="fl">1.5</span>, <span class="fl">2.5</span><span class="op">)</span>,</span>
+<span>    y <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,    <span class="fl">0.5</span>,    <span class="fl">0</span>,  <span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu">dagify</span><span class="op">(</span></span>
+<span>    <span class="va">C</span> <span class="op">~</span> <span class="va">A</span> <span class="op">+</span> <span class="va">K</span> <span class="op">+</span> <span class="va">D</span> <span class="op">+</span> <span class="va">U</span>,</span>
+<span>    <span class="va">K</span> <span class="op">~</span> <span class="va">A</span> <span class="op">+</span> <span class="va">U</span>,</span>
+<span>    <span class="va">U</span> <span class="op">~</span> <span class="va">D</span>,</span>
+<span>  coords <span class="op">=</span> <span class="va">coords</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="01-notes_files/figure-html/01_dag-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="13-notes_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="384"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>In addition,</p>
 <ul>
-<li>X is a treatment</li>
-<li>Y is an outcome</li>
-<li>B is a competing cause of Y</li>
-<li>A is an influence of the treatment X</li>
-<li>C is a common cause of X and Y (a confound)</li>
-</ul>
-<p>Relationships between <em>all</em> variables can impact outcomes.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>DAGs inherently represent unidirectional relationships at one moment in time with variable influencing other variables. Reciprocal relationships can be drawn in DAGs using multiple variables for different time periods eg. intelligence (youth) → educational attainment → income → intelligence (adult) (Rohrer 2018).</p>
-</div>
-</div>
-<p>DAGs are not specific to one model and therefore can be used for different queries and related models. These different models should not necessarily include all variables, and DAGs help us determine appropriate controls for each question. DAGs are logically specific and can be used to test and refine the causal model.</p>
-<p>Causes are always something to consider regardless if the application is descriptive or inferential because a sample always differs from the population, and we must think about the causes of this difference.</p>
-<p>DAGs are transparent scientific assumptions to</p>
-<ul>
-<li>justify scientific effort</li>
-<li>expose scientific assumptions to useful critique</li>
-<li>connect theories to statistical models</li>
-</ul></section><section id="golems" class="level1"><h1>Golems</h1>
-<p>Statistical models are powerful but dangerous and have no wisdom or foresight. Flowcharts of tests that are isolated for specific uses are not intuitive or appropriate for research science. Null hypothesis rejection is not appropriate, feasible or ethical in many contexts.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Reflect
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>What are other process models that are consistent with this same fact?</p>
-</div>
-</div>
-</section><section id="owls" class="level1"><h1>Owls</h1>
-<p>Emphasis on documenting and testing code, using a <em>respectable</em> workflow</p>
-<ol type="1">
-<li>Theoretical estimand</li>
-<li>Scientific (causal) model</li>
-<li>Use the theoretical estimand and the scientific model to build a statistical model</li>
-<li>Simulate from the scientific model to validate that the statistical model yields the theoretical estimand</li>
-<li>Analyse the real data</li>
-</ol>
+<li><p>group level confounds: unmeasured things about districts may influence features of individuals in those districts (eg. history of districts)</p></li>
+<li><p>unmeasured variables: family</p></li>
+</ul></section><section id="varying-intercepts-on-each-district" class="level2"><h2 class="anchored" data-anchor-id="varying-intercepts-on-each-district">Varying intercepts on each district</h2>
+<p><span class="math inline">\(C_{i} \sim Bernoulli(D_{i}, p_{i})\)</span></p>
+<p><span class="math inline">\(logit(p_{i}) = \alpha_{D[i]}\)</span></p>
+<p><span class="math inline">\(\alpha_{j} \sim Normal(\bar{\alpha}, \sigma)\)</span></p>
+<p><span class="math inline">\(\bar{\alpha} \sim Normal(0, 1)\)</span></p>
+<p><span class="math inline">\(\sigma \sim  Exponential(1)\)</span></p>
+<p>(Bernoulli distribution since contraception is 0/1 outcome)</p>
+<p>Note the uneven sampling across districts, where because of partial pooling there is shrinkage in the clusters. More shrinkage in clusters with less observations eg. the districts with 2 and 13 observations, and less in clusters with more observations eg. the districts with 35 and 45 observations.</p>
+<p><img src="../graphics/stat_rethinking_l13_slide42.png" class="img-fluid"></p>
+<p>In addition, for one district there is no data. The minimum sample size is 0, because you have a prior. This is an informed prior because it is estimated from all the other districts, including the variation across all districts. This is in essence a prediction.</p>
+<p><img src="../graphics/stat_rethinking_l13_slide43.png" class="img-fluid"></p>
+</section><section id="varying-intercepts-on-districts-and-slopes-on-urban" class="level2"><h2 class="anchored" data-anchor-id="varying-intercepts-on-districts-and-slopes-on-urban">Varying intercepts on districts and slopes on urban</h2>
+<p>District features are potential group-level confounds. To estimate the total effect of urban (U), we need to stratify by district but not by kids (K) because the total effect of U passes through K.</p>
+<p><span class="math inline">\(C_{i} \sim Bernoulli(D_{i}, p_{i})\)</span></p>
+<p><span class="math inline">\(logit(p_{i}) = \alpha_{D[i]} + \beta_{D[i]}U_{i}\)</span></p>
+<p><span class="math inline">\(\alpha_{j} \sim Normal(\bar{\alpha}, \sigma)\)</span></p>
+<p><span class="math inline">\(\beta_{j} \sim Normal(\bar{\beta}, \tau)\)</span></p>
+<p><span class="math inline">\(\bar{\alpha}, \bar{\beta} \sim Normal(0, 1)\)</span></p>
+<p><span class="math inline">\(\sigma, \tau \sim  Exponential(1)\)</span></p>
+<p>Result: ~4/2000 transitions with a divergence. For 2000 samples, tau’s number of effective samples (n_eff) are quite low.</p>
+<p>The problem is that there are priors that define the shape of other priors. They <em>locate</em> the priors, and are called “centered”. We can re-express the same thing using non-centered priors that are transformed to replace the nested priors with a Normal(0, 1) prior. These are mathematically equivalent but the non-centered model is much more efficient.</p>
+<p>Z score is a standardized Gaussian deviation. Subtract by the mean and divide by the standard deviation. Easily reversible by adding the mean and multiplying by the standard deviation.</p>
+<p><span class="math inline">\(C_{i} \sim Bernoulli(D_{i}, p_{i})\)</span></p>
+<p><span class="math inline">\(logit(p_{i}) = \alpha_{D[i]} + \beta_{D[i]}U_{i}\)</span></p>
+<p><span class="math inline">\(\alpha_{j} = \bar{\alpha} + Z_{\alpha, j} * \sigma\)</span></p>
+<p><span class="math inline">\(\beta_{j} = \bar{\beta} + Z_{\beta, j} * \sigma\)</span></p>
+<p><span class="math inline">\(Z_{\alpha, j} \sim Normal(0, 1)\)</span></p>
+<p><span class="math inline">\(Z_{\beta, j} \sim Normal(0, 1)\)</span></p>
+<p><span class="math inline">\(\bar{\alpha}, \bar{\beta} \sim Normal(0, 1)\)</span></p>
+<p><span class="math inline">\(\sigma, \tau \sim  Exponential(1)\)</span></p>
+<p>Result: much more efficient sampling.</p>
+<p>Sample size drops as you add more clusters and cut up the data.</p>
+<p><img src="../graphics/stat_rethinking_l13_slide63.png" class="img-fluid"> The urban estimates look more uncertain, possibly due to lower sample sizes in urban areas (there are less urban areas).</p>
+<p><img src="../graphics/stat_rethinking_l13_slide64.png" class="img-fluid"></p>
 
 
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -919,4 +1003,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/edit/main/notes/01-notes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/edit/main/notes/13-notes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
