@@ -1,0 +1,9 @@
+---
+title: "Lecture 13 Notes"
+author: "Alec L. Robitaille"
+date: "2024-04-17"
+---
+
+```{r, include = FALSE}
+source('R/packages.R')
+```
