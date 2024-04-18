@@ -85,3 +85,34 @@ In addition,
 of individuals in those districts (eg. history of districts)
 
 - unmeasured variables: family
+
+
+## Varying intercepts on each district
+
+$C_{i} \sim Bernoulli(D_{i}, p_{i})$
+
+$logit(p_{i}) = \alpha_{D[i]}$
+
+$\alpha_{j} \sim Normal(\bar{\alpha}, \sigma)$
+
+$\bar{\alpha} \sim Normal(0, 1)$
+
+$\sigma \sim  Exponential(1)$
+
+
+(Bernoulli distribution since contraception is 0/1 outcome)
+
+
+Note the uneven sampling across districts, where because of partial pooling
+there is shrinkage in the clusters. More shrinkage in clusters with less
+observations eg. the districts with 2 and 13 observations, and less in clusters
+with more observations eg. the districts with 35 and 45 observations. 
+
+![](../graphics/stat_rethinking_l13_slide42.png)
+
+In addition, for one district there is no data. The minimum sample size is 0, 
+because you have a prior. This is an informed prior because it is estimated
+from all the other districts, including the variation across all districts. 
+This is in essence a prediction. 
+
+![](../graphics/stat_rethinking_l13_slide43.png)
