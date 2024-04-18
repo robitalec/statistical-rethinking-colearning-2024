@@ -7,3 +7,49 @@ date: "2024-04-18"
 ```{r, include = FALSE}
 source('R/packages.R')
 ```
+
+
+# Correlated features
+
+One prior distribution for each cluster
+
+1. One feature: one-dimensional distribution, eg. a varying intercepts ($\alpha_{j} \sim Normal(\bar{\alpha}, \sigma)$)
+1. Two features: two-dimensional distribution, ideally not two 1-D distributions but one 2-D distribution ($[\alpha_{j}, \beta_{j}] \sim MVNormal([\bar{\alpha}, \bar{\beta}], \sum)$)
+1. N features: N-dimensional distribution ($[\alpha_{j, 1...N}] \sim MVNormal(A, \sum)$)
+
+
+Correlated varying effects take priors that learn correlation structure
+using partial pooling across features. 
+
+
+## Model specification
+
+$[\alpha_{j}, \beta_{j}] \sim MVNormal([\bar{\alpha}, \bar{\beta}], R, [\sigma, \tau])$
+
+- $[\alpha_{j}, \beta_{j}]$: features for district j
+- $MVNormal$
+	- $[\bar{\alpha}, \bar{\beta}]$: feature means
+	- $R$: correlation matrix
+	- $[\sigma, \tau])$: standard deviations
+
+$R \sim LKJCorr(4)$
+
+The LKJ prior is a prior distribution for correlations
+
+```{r}
+alpha_bar <- 0
+beta_bar <- 10
+mu <- c(alpha_bar, beta_bar)
+
+rho <- -0.8
+R <- matrix(c(1, rho, rho, 1), 2, 2)
+
+n <- 100
+mvnorm_prior <- rmvnorm(n, mu, sigma = R)
+
+ggplot(data.frame(mvnorm_prior), aes(X1, X2)) + 
+	geom_point() + 
+	stat_ellipse(level = .89) + 
+	labs(x = 'alpha', y = 'beta') + 
+	theme_bw()
+```
