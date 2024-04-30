@@ -201,9 +201,3 @@ m <- fit_social_relations_model(
 															iter_sampling = 500)
 )
 ```
-
-
-library(amen)
-Y <- dcast(gifts, left ~ right, value.var = 'n_gift')
-ame(Y, family = ')
-
