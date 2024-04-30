@@ -175,6 +175,8 @@ $$\alpha \sim Normal(0, 1)$$
 
 This is a model with partial pooling for network ties. 
 
+More details on this model in the textbook section 14.4. 
+
 ```{r}
 library(STRAND)
 
