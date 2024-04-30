@@ -49,3 +49,13 @@ dagify(
 ```
 
 
+
+# Network permutation
+
+A principled approach to modeling networks requires thinking 
+generatively about social relationships. Network permutation 
+methods do not have a generative model underpinning their 
+approach. They consider some null network and compare if observed
+networks differ from the null. See eg. Hart et al 2021. 
+
+
