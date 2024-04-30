@@ -104,3 +104,27 @@ dagify(
   coords = coords
 ) |> ggdag_status(seed = 2, layout = 'auto') + theme_dag()
 ```
+
+
+```{r}
+# Number of households
+N <- 25
+
+# Set up dyads
+combs <- CJ(left = seq.int(N), right = seq.int(N))
+dyads <- combs[left != right & left < right]
+
+# Simulate friendships
+dyads[, f := rbern(.N, 0.1)]
+
+# Simulate directed ties
+# - alpha is the base rate of the ties, where inv_logit(-3) = 0.04743
+alpha <- -3
+# - probability of the tie if 1 if friends, and base rate if not
+dyads[, p_tie := f + (1 - f) * inv_logit(alpha)]
+# - tie between left and right
+dyads[, y := rbern(.N, prob = p_tie)]
+
+# Ties
+ties <- dyads[y == 1]
+```
