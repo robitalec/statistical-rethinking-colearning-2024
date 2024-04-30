@@ -226,3 +226,8 @@ bisonR:::get_bison_model_data(
 	model_type = 'count',
 	directed = TRUE
 )
+
+library(amen)
+Y <- dcast(gifts, left ~ right, value.var = 'n_gift')
+ame(Y, family = ')
+
