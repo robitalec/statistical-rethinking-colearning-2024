@@ -131,9 +131,14 @@ lambda <- log(c(0.5, 2))
 gifts <- dyads[, n_gift := rpois(.N, exp(lambda[1 + y]))]
 ```
 
+The known social relationships are shown here, but other
+than in a generative simulation, these relationships 
+are latent and can't be truly known - only estimated from
+behaviours. 
 
 ```{r}
 library(igraph)
-g <- graph_from_data_frame(ties)
+g <- graph_from_data_frame(dyads[f == 1])
 plot(g)
 ```
+
