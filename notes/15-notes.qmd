@@ -174,3 +174,30 @@ $$\alpha \sim Normal(0, 1)$$
 (this is a simpler covariance matrix than the generalized ones from L14)
 
 This is a model with partial pooling for network ties. 
+
+```{r}
+library(STRAND)
+
+mat <- as.matrix(dcast(gifts, left ~ right, value.var = 'n_gift')[, -1])
+dimnames(mat) <- list(colnames(mat), colnames(mat))
+outcome <- list(mat)
+
+dat <- make_strand_data(
+	outcome = outcome,
+	block_covariates = NULL,
+	individual_covariates = NULL,
+	dyadic_covariates = NULL,
+	outcome_mode = "poisson",
+	exposure = NULL
+)
+
+m <- fit_social_relations_model(
+	data = dat,
+	focal_regression = ~ 1,
+	target_regression = ~ 1,
+	dyad_regression = ~ 1,
+	mode = 'vb',
+	stan_mcmc_parameters = list(chains = 1, iter_warmup = 500, 
+															iter_sampling = 500)
+)
+```
