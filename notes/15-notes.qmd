@@ -203,30 +203,6 @@ m <- fit_social_relations_model(
 ```
 
 
-
-```{r}
-library(bisonR)
-??bisonR
-
-gifts[, left := factor(left)]
-gifts[, right := factor(right)]
-me <- bison_model(
-	formula = n_gift ~ dyad(left, right),
-	data = gifts,
-	model_type = 'count',
-	directed = TRUE,
-	partial_pooling = TRUE,
-	zero_inflated = TRUE,
-	priors = get_default_priors('count')
-)
-
-bisonR:::get_bison_model_data(
-	formula = n_gift ~ dyad(left, right),
-	observations = gifts,
-	model_type = 'count',
-	directed = TRUE
-)
-
 library(amen)
 Y <- dcast(gifts, left ~ right, value.var = 'n_gift')
 ame(Y, family = ')
