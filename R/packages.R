@@ -48,4 +48,6 @@ library(emmeans)
 library(mice)
 library(modelr)
 
+library(spatsoc)
+
 library(janitor)
