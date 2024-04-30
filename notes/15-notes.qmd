@@ -126,8 +126,9 @@ dyads[, p_tie := f + (1 - f) * inv_logit(alpha)]
 # - tie between left and right
 dyads[, y := rbern(.N, prob = p_tie)]
 
-# Ties
-ties <- dyads[y == 1]
+# Gifts
+lambda <- log(c(0.5, 2))
+gifts <- dyads[, n_gift := rpois(.N, exp(lambda[1 + y]))]
 ```
 
 
