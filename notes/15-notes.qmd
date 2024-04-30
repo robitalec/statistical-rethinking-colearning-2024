@@ -112,10 +112,11 @@ N <- 25
 
 # Set up dyads
 combs <- CJ(left = seq.int(N), right = seq.int(N))
-dyads <- combs[left != right & left < right]
+dyads <- combs[left != right]
+dyad_id(dyads, 'left', 'right')
 
 # Simulate friendships
-dyads[, f := rbern(.N, 0.1)]
+dyads[, f := rbern(1, 0.1), by = dyadID]
 
 # Simulate directed ties
 # - alpha is the base rate of the ties, where inv_logit(-3) = 0.04743
