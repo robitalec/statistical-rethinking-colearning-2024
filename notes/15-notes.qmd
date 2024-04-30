@@ -128,3 +128,10 @@ dyads[, y := rbern(.N, prob = p_tie)]
 # Ties
 ties <- dyads[y == 1]
 ```
+
+
+```{r}
+library(igraph)
+g <- graph_from_data_frame(ties)
+plot(g)
+```
