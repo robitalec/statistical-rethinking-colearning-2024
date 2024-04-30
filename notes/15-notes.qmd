@@ -7,3 +7,18 @@ date: "2024-05-02"
 ```{r, include = FALSE}
 source('R/packages.R')
 ```
+
+
+# Social networks
+
+Social network are patterns of directed exchange. Social networks 
+are abstractions, not data. 
+
+Social relationships are latent variables, they cannot be directly
+observed but the behaviours that contribute to them can be. 
+
+Relationships are paired, eg. A to B and B to A, and either of these
+can motivate behaviours. These relationships don't have to be 
+symmetrical, eg. A may perceive their relationship with B as 
+stronger than B does. 
+
