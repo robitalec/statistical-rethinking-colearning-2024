@@ -61,7 +61,7 @@ dagify(
 ) |> ggdag_status(seed = 2, layout = 'auto') + theme_dag()
 ```
 
-Approach: There any backdoor paths through household features, but
+Approach: There many backdoor paths through household features, but
 start with the simplest model first and scaffold your way up
 by adding complexity slowly. 
 
@@ -157,7 +157,7 @@ $$log(\lambda_{AB}) = \alpha + T_{AB}$$
 - $\alpha$ is the average rate of gift giving, independent of social ties
 - $T_{AB}$ is the tie between A and B
 
-We also included the relationships from the opposite directions
+We also include the relationships from the opposite directions
 
 $$G_{BA} \sim Poisson(\lambda_{BA})$$
 
@@ -222,7 +222,7 @@ ggplot(data = sum_m) +
 	geom_vline(xintercept = 0, alpha = 0.2) + 
 	expand_limits(x = 0) +
 	labs(y = '', x = 'HPDI 0.05-0.95') + 
-	theme_bw(24)
+	theme_bw()
 ```
 
 ### Generative model with wealth considered
@@ -273,9 +273,9 @@ dyads[, y := rbern(.N, prob = p_tie)]
 bWG <- 0.5
 bWR <- -1
 lambda <- log(c(0.5, 2))
-gifts <- dyads[, n_gift := rpois(.N, exp(lambda[1 + y] +
-																				 	bWG * left_wealth + 
-																				 	bWR * right_wealth))]
+gifts <- dyads[, n_gift := rpois(
+	.N, exp(lambda[1 + y] + bWG * left_wealth +  bWR * right_wealth)
+)]
 ```
 
 
@@ -320,7 +320,7 @@ ggplot(data = sum_m) +
 	geom_vline(xintercept = 0, alpha = 0.2) + 
 	expand_limits(x = 0) +
 	labs(y = '', x = 'HPDI 0.05-0.95') + 
-	theme_bw(24)
+	theme_bw()
 ```
 
 Note the two new parameters, target and focal coefficients 
@@ -514,7 +514,7 @@ coords <- data.frame(
 	y =    c(1,   0,     0,      1)
 )
 dagify(
-	per ~ H0 + H1,
+	delta ~ H0 + H1,
 	H1 ~ H0 + X,
   coords = coords
 ) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
