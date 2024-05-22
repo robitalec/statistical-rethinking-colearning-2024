@@ -416,3 +416,110 @@ dagify(
 ) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
 ```
 
+
+# Bonus: constructed variables
+
+Folk tradition of building outcome variables as a back-alley form of "control":
+ratios, differences, transformations. 
+
+- BMI
+- ratios/rates eg. per capita, per unit time
+- differences eg. change scores, difference from reference
+
+Arithmetic is not stratification. It assumes a fixed relationship, which you
+should instead be estimating it. It also ignores uncertainty. 
+
+Do not use model predictions as data. (Stats on stats).
+
+Use causal logic, justify, test. Model what you measure. 
+
+
+## Example: dividing GDP by population
+
+Outcome variable log GDP per capita. 
+Ratio assumes the effect of population on GDP is linear. "we do not include
+population density since dependent variable is already in per capita terms" - 
+dividing is not way to control for a variable. 
+
+```{r}
+#| fig.height: 4
+#| fig.width: 5
+coords <- data.frame(
+	name = c('P', 'per', 'GDP', 'X'),
+	x =    c(0,   0,     1,      1),
+	y =    c(1,   0,     0,      1)
+)
+dagify(
+	per ~ P + GDP,
+	GDP ~ P + X,
+	X ~ P,
+  coords = coords
+) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
+```
+
+- "per" represents GPD / P (GDP per capita)
+- dividing does not stratify GDP by P
+- the division implies the arrow between P and GDP
+- the backdoor path from the variable X through P is not closed by dividing by P
+
+
+## Example: per unit time
+
+- T is observation time
+- Y is number of observed transfers
+- X is cause of interest
+- per is Y / T
+
+```{r}
+#| fig.height: 4
+#| fig.width: 5
+coords <- data.frame(
+	name = c('T', 'per', 'Y', 'X'),
+	x =    c(0,   0,     1,      1),
+	y =    c(1,   0,     0,      1)
+)
+dagify(
+	per ~ T + Y,
+	Y ~ T + X,
+  coords = coords
+) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
+```
+
+Problem: attempting to correct for observation differences in sampling across
+units, eg. number contacts across time for individuals with varying sample
+rates, by dividing by the number of observations. 
+
+See section 11.2.3 on Poisson regression for including exposure to account
+for differences in sampling. 
+
+The number of observations over time is not the true rate, we should be  
+estimating them since they are a latent variable. When T is larger, precision
+increases, and when T is smaller, precision decreases. Units with the smallest
+sampling effort have overweighted contributions to estimates. 
+
+## Example: change score
+
+- H0 is baseline height
+- H1 is post-treatment height
+- X is cause of interest
+- delta is H1 - H0, change score
+
+```{r}
+#| fig.height: 4
+#| fig.width: 5
+coords <- data.frame(
+	name = c('H0', 'delta', 'H1', 'X'),
+	x =    c(0,   0,     1,      1),
+	y =    c(1,   0,     0,      1)
+)
+dagify(
+	per ~ H0 + H1,
+	H1 ~ H0 + X,
+  coords = coords
+) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
+```
+
+Modeling the change score implies there is a linear relationship. If there
+are any floor/ceiling effects, eg. max observable height, then the linear
+assumption is not held. 
+
