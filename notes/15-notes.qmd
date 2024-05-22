@@ -179,14 +179,6 @@ This is a model with partial pooling for network ties.
 
 More details on this model in the textbook section 14.4. 
 
-```{r}
-library(bisonR)
-m <- bison_model(
-	n_gift | 1 ~ dyad(left, right),
-	data = gifts,
-	partial_pooling = TRUE,
-	model_type = 'count'
-)
 
 
 
