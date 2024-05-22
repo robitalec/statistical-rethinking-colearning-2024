@@ -324,4 +324,47 @@ ggplot(data = sum_m) +
 
 Note the two new parameters, target and focal coefficients 
 (in degree and out degree), wealth. 
+
+
+### Statistical model with generalized household traits
+
+$$G_{AB} \sim Poisson(\lambda_{AB})$$
+$$log(\lambda_{AB}) = \alpha + \texttt{T}_{AB} + \texttt{G}_{A} + \texttt{R}_{B}$$
+
+We have linear models for the tie strength with $T_{AB}$ representing 
+a varying effect and $\beta_{A}A_{AB}$ representing the effect of the association
+between A and B. 
+
+$$\texttt{T}_{AB} = T_{AB} + \beta_{A}A_{AB}$$
+
+And we have linear models for giving with $G_{A}$ representing 
+a varying effect and $\beta_{W,G}W_{A}$ representing the effect of A's wealth 
+on giving.
+
+$$\texttt{G}_{A} = G_{A} + \beta_{W,G}W_{A}$$
+
+And we have linear models for receiving with $R_{B}$ representing 
+a varying effect and $\beta_{W,R}W_{B}$ representing the effect of B's wealth 
+on receiving.
+
+$$\texttt{R}_{B} = G_{B} + \beta_{W,R}W_{B}$$
+These three linear models are symmetrical, so we include them again
+with directions inverted:
+
+$$G_{BA} \sim Poisson(\lambda_{BA})$$
+$$log(\lambda_{BA}) = \alpha + \texttt{T}_{BA} + \texttt{G}_{B} + \texttt{R}_{A}$$
+$$\texttt{T}_{BA} = T_{BA} + \beta_{B}B_{BA}$$
+$$\texttt{G}_{B} = G_{B} + \beta_{W,G}W_{B}$$
+$$\texttt{R}_{A} = G_{A} + \beta_{W,R}W_{A}$$
+
+$$\begin{pmatrix}P \\ B \end{pmatrix} \sim MVNormal \begin{pmatrix} \begin{bmatrix}0 \\ 0\end{bmatrix}, \begin{bmatrix} \sigma^{2}, \rho\sigma^{2} \\ \rho\sigma^{2}, \sigma^{2}\end{bmatrix}\end{pmatrix}$$
+
+
+
+$$\rho \sim LKJCorr(2)$$
+
+$$\sigma \sim Exponential(1)$$
+
+$$\alpha \sim Normal(0, 1)$$
+
 ```
