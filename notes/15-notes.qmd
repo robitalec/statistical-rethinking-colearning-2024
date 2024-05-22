@@ -179,14 +179,15 @@ This is a model with partial pooling for network ties.
 
 More details on this model in the textbook section 14.4. 
 
+At the moment (2024), the {brms} package can't be used to fit these kinds 
+of models. Here is a first go at using the {STRAND} package for fitting the 
+simulated gift giving network. 
 
-
-
-
-
+```{r}
 library(STRAND)
 
 mat <- as.matrix(dcast(gifts, left ~ right, value.var = 'n_gift')[, -1])
+mat[is.na(mat)] <- 0
 dimnames(mat) <- list(colnames(mat), colnames(mat))
 outcome <- list(mat)
 
@@ -204,10 +205,20 @@ m <- fit_social_relations_model(
 	focal_regression = ~ 1,
 	target_regression = ~ 1,
 	dyad_regression = ~ 1,
-	mode = 'vb',
-	stan_mcmc_parameters = list(chains = 1, iter_warmup = 500, 
-															iter_sampling = 500)
+	stan_mcmc_parameters = list(chains = 4)
 )
+
+sum_m <- data.table(summarize_strand_results(m)$summary)
+sum_m[, colnames(sum_m)[-1] := lapply(.SD,  as.numeric), 
+			.SDcols = colnames(sum_m)[-1]]
+
+ggplot(data = sum_m) + 
+	geom_segment(aes(y = Variable, x = `HPDI:0.05`, xend = `HPDI:0.95`)) +
+	geom_point(aes(y = Variable, x = Mean)) +
+	geom_vline(xintercept = 0, alpha = 0.2) + 
+	expand_limits(x = 0) +
+	labs(y = '', x = 'HPDI 0.05-0.95') + 
+	theme_bw(24)
 ```
 
 ### Generative model with wealth considered
