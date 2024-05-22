@@ -189,7 +189,6 @@ of models. Here is a first go at using the {STRAND} package for fitting the
 simulated gift giving network. 
 
 ```{r}
-
 mat <- as.matrix(dcast(gifts, left ~ right, value.var = 'n_gift')[, -1])
 mat[is.na(mat)] <- 0
 dimnames(mat) <- list(colnames(mat), colnames(mat))
@@ -285,16 +284,18 @@ We also add generalized giving and receiving variables to account for
 households that may, disregarding reciprocity, receive/give more 
 frequently. 
 
+Again, a first go using the {STRAND} package. 
+
 ```{r}
 mat <- as.matrix(dcast(gifts, left ~ right, value.var = 'n_gift')[, -1])
+mat[is.na(mat)] <- 0
 dimnames(mat) <- list(colnames(mat), colnames(mat))
-indiv <- gifts[, .(weal)]
 outcome <- list(mat)
 
 dat <- make_strand_data(
 	outcome = outcome,
 	block_covariates = NULL,
-	individual_covariates = NULL,
+	individual_covariates = unique(dyads[, .(id = left, wealth = left_wealth)]),
 	dyadic_covariates = NULL,
 	outcome_mode = "poisson",
 	exposure = NULL
@@ -302,13 +303,25 @@ dat <- make_strand_data(
 
 m <- fit_social_relations_model(
 	data = dat,
-	focal_regression = ~ 1,
-	target_regression = ~ 1,
+	focal_regression = ~ wealth,
+	target_regression = ~ wealth,
 	dyad_regression = ~ 1,
-	mode = 'vb',
-	stan_mcmc_parameters = list(chains = 1, iter_warmup = 500, 
-															iter_sampling = 500)
+	stan_mcmc_parameters = list(chains = 4)
 )
+
+sum_m <- data.table(summarize_strand_results(m)$summary)
+sum_m[, colnames(sum_m)[-1] := lapply(.SD,  as.numeric), 
+			.SDcols = colnames(sum_m)[-1]]
+
+ggplot(data = sum_m) + 
+	geom_segment(aes(y = Variable, x = `HPDI:0.05`, xend = `HPDI:0.95`)) +
+	geom_point(aes(y = Variable, x = Mean)) +
+	geom_vline(xintercept = 0, alpha = 0.2) + 
+	expand_limits(x = 0) +
+	labs(y = '', x = 'HPDI 0.05-0.95') + 
+	theme_bw(24)
 ```
 
+Note the two new parameters, target and focal coefficients 
+(in degree and out degree), wealth. 
 ```
