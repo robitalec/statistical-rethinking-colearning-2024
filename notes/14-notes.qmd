@@ -6,6 +6,7 @@ date: "2024-04-18"
 
 ```{r, include = FALSE}
 source('R/packages.R')
+conflicts_prefer(rethinking::rmvnorm)
 ```
 
 

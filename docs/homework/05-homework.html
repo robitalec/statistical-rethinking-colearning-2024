@@ -231,6 +231,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Lecture 14 Notes</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/15-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 15 Notes</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -422,8 +428,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  normal(0, 0.5)         b                            &lt;NA&gt; &lt;NA&gt;   user</code></pre>
 </div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load model</span></span>
-<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h05_q01_brms_sample_prior</span><span class="op">)</span></span>
-<span><span class="va">h05_q01_brms_sample_prior</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h05_q01_brms_sample_prior</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)</code></pre>
+</div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">h05_q01_brms_sample_prior</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: binomial 
   Links: mu = logit 
@@ -441,7 +465,7 @@ Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
 scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Read N draws from the priors and append expected predictions</span></span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Read N draws from the priors and append expected predictions</span></span>
 <span><span class="va">n_draws</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
 <span><span class="va">q01_pred_prior</span> <span class="op">&lt;-</span> <span class="va">h05_q01_brms_sample_prior</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">add_predicted_draws</span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">grants</span>, ndraws <span class="op">=</span> <span class="va">n_draws</span><span class="op">)</span></span>
@@ -457,7 +481,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Compare estimates between gender</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Compare estimates between gender</span></span>
 <span><span class="fu">setDT</span><span class="op">(</span><span class="va">q01_pred_prior</span><span class="op">)</span></span>
 <span><span class="va">q01_pred_prior</span><span class="op">[</span>, <span class="va">est</span> <span class="op">:=</span> <span class="va">.prediction</span> <span class="op">/</span> <span class="va">applications</span><span class="op">]</span></span>
 <span><span class="va">q01_pred_prior_compare</span> <span class="op">&lt;-</span> <span class="fu">dcast</span><span class="op">(</span></span>
@@ -481,9 +505,27 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 </section></section><section id="analyze-the-data" class="level3"><h3 class="anchored" data-anchor-id="analyze-the-data">Analyze the data</h3>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load model</span></span>
-<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h05_q01_brms_sample</span><span class="op">)</span></span>
-<span><span class="va">h05_q01_brms_sample</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load model</span></span>
+<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h05_q01_brms_sample</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)</code></pre>
+</div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">h05_q01_brms_sample</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: binomial 
   Links: mu = logit 
@@ -501,7 +543,7 @@ Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
 scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n_draws</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n_draws</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
 <span><span class="va">q01_pred</span> <span class="op">&lt;-</span> <span class="va">h05_q01_brms_sample</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">add_predicted_draws</span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">grants</span>, ndraws <span class="op">=</span> <span class="va">n_draws</span><span class="op">)</span></span>
 <span></span>
@@ -516,7 +558,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Estimated marginal effects</span></span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Estimated marginal effects</span></span>
 <span><span class="va">marg_eff</span> <span class="op">&lt;-</span> <span class="fu">emmeans</span><span class="op">(</span><span class="va">h05_q01_brms_sample</span>, <span class="op">~</span><span class="va">gender</span>, regrid <span class="op">=</span> <span class="st">'response'</span><span class="op">)</span></span>
 <span><span class="va">marg_eff</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -527,7 +569,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 Point estimate displayed: median 
 HPD interval probability: 0.95 </code></pre>
 </div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">contrast</span><span class="op">(</span><span class="va">marg_eff</span>, method <span class="op">=</span> <span class="st">'pairwise'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">contrast</span><span class="op">(</span><span class="va">marg_eff</span>, method <span class="op">=</span> <span class="st">'pairwise'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> contrast estimate lower.HPD upper.HPD
  f - m      -0.027    -0.054    -9e-04
@@ -544,7 +586,7 @@ HPD interval probability: 0.95 </code></pre>
 <p>What is the average direct causal effect of gender on grant awards, weighting each discipline in proportion to the number of applications in the sample.</p>
 </section><section id="scientific-model-1" class="level3"><h3 class="anchored" data-anchor-id="scientific-model-1">Scientific model</h3>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dag</span> <span class="op">&lt;-</span> <span class="fu">dagify</span><span class="op">(</span></span>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dag</span> <span class="op">&lt;-</span> <span class="fu">dagify</span><span class="op">(</span></span>
 <span>    <span class="va">D</span> <span class="op">~</span> <span class="va">G</span>, </span>
 <span>    <span class="va">A</span> <span class="op">~</span> <span class="va">G</span> <span class="op">+</span> <span class="va">D</span>,</span>
 <span>  coords <span class="op">=</span> <span class="va">coords</span>,</span>
@@ -579,7 +621,7 @@ HPD interval probability: 0.95 </code></pre>
 </ol>
 <p>There are no backdoor paths entering the treatment (G). There is a direct path from G -&gt; A and an indirect path through D. The adjustment set for the direct effect includes D.</p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggdag_adjustment_set</span><span class="op">(</span><span class="va">dag</span>, effect <span class="op">=</span> <span class="st">'direct'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggdag_adjustment_set</span><span class="op">(</span><span class="va">dag</span>, effect <span class="op">=</span> <span class="st">'direct'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="05-homework_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
@@ -589,9 +631,27 @@ HPD interval probability: 0.95 </code></pre>
 </div>
 </section><section id="prior-predictive-simulation-1" class="level4"><h4 class="anchored" data-anchor-id="prior-predictive-simulation-1">Prior predictive simulation</h4>
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load model</span></span>
-<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h05_q02_brms_sample_prior</span><span class="op">)</span></span>
-<span><span class="va">h05_q02_brms_sample_prior</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load model</span></span>
+<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h05_q02_brms_sample_prior</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)</code></pre>
+</div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">h05_q02_brms_sample_prior</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: binomial 
   Links: mu = logit 
@@ -644,7 +704,7 @@ Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
 scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n_draws</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n_draws</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
 <span><span class="va">q02_pred_prior</span> <span class="op">&lt;-</span> <span class="va">h05_q02_brms_sample_prior</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">add_predicted_draws</span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">grants</span>, ndraws <span class="op">=</span> <span class="va">n_draws</span><span class="op">)</span></span>
 <span></span>
@@ -660,7 +720,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Compare estimates between gender</span></span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Compare estimates between gender</span></span>
 <span><span class="fu">setDT</span><span class="op">(</span><span class="va">q02_pred_prior</span><span class="op">)</span></span>
 <span><span class="va">q02_pred_prior</span><span class="op">[</span>, <span class="va">est</span> <span class="op">:=</span> <span class="va">.prediction</span> <span class="op">/</span> <span class="va">applications</span><span class="op">]</span></span>
 <span><span class="va">q02_pred_prior_compare</span> <span class="op">&lt;-</span> <span class="fu">dcast</span><span class="op">(</span></span>
@@ -685,7 +745,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 </section></section><section id="analyze-the-data-1" class="level3"><h3 class="anchored" data-anchor-id="analyze-the-data-1">Analyze the data</h3>
 <div class="cell">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data_grants</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data_grants</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>function() {
   data("NWOGrants")
@@ -703,9 +763,47 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load model</span></span>
-<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h05_q02_brms_sample</span><span class="op">)</span></span>
-<span><span class="va">h05_q02_brms_sample</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load model</span></span>
+<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h05_q02_brms_sample</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)</code></pre>
+</div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">h05_q02_brms_sample</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: binomial 
   Links: mu = logit 
@@ -758,7 +856,7 @@ Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
 scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Read N draws from the priors and append expected predictions</span></span>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Read N draws from the priors and append expected predictions</span></span>
 <span><span class="va">n_draws</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
 <span><span class="va">q02_pred</span> <span class="op">&lt;-</span> <span class="va">h05_q02_brms_sample</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">add_predicted_draws</span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">grants</span>, ndraws <span class="op">=</span> <span class="va">n_draws</span><span class="op">)</span></span>
@@ -775,7 +873,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Estimated marginal effects</span></span>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Estimated marginal effects</span></span>
 <span><span class="va">marg_eff</span> <span class="op">&lt;-</span> <span class="fu">emmeans</span><span class="op">(</span></span>
 <span>    <span class="va">h05_q02_brms_sample</span>, </span>
 <span>    <span class="op">~</span> <span class="va">gender</span> <span class="op">|</span> <span class="va">discipline</span>,</span>
@@ -831,7 +929,7 @@ discipline = Technical sciences:
 Point estimate displayed: median 
 HPD interval probability: 0.95 </code></pre>
 </div>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">contrast</span><span class="op">(</span><span class="va">marg_eff</span>,  method <span class="op">=</span> <span class="st">'pairwise'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">contrast</span><span class="op">(</span><span class="va">marg_eff</span>,  method <span class="op">=</span> <span class="st">'pairwise'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>discipline = Chemical sciences:
  contrast estimate lower.HPD upper.HPD
@@ -878,7 +976,7 @@ HPD interval probability: 0.95 </code></pre>
 <p>OPTIONAL CHALLENGE. The data in data(UFClefties) are the outcomes of 205 Ultimate Fighting Championship (UFC) matches (see ?UFClefties for details). It is widely believed that left-handed fighters (aka “Southpaws”) have an advantage against right-handed fighters, and left-handed men are indeed over-represented among fighters (and fencers and tennis players) compared to the general population. Estimate the average advantage, if any, that a left-handed fighter has against right-handed fighters. Based upon your estimate, why do you think left-handers are over-represented among UFC fighters?</p>
 </blockquote>
 <div class="cell">
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">?</span><span class="va">UFClefties</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">?</span><span class="va">UFClefties</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>fight: Unique identifier for match</li>
@@ -894,7 +992,7 @@ HPD interval probability: 0.95 </code></pre>
 <p>What is the direct effect of handedness on UFC match outcomes?</p>
 </section><section id="analyze-the-data-2" class="level3"><h3 class="anchored" data-anchor-id="analyze-the-data-2">Analyze the data</h3>
 <div class="cell">
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data_ufc</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data_ufc</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>function() {
     data("UFClefties")
@@ -918,12 +1016,30 @@ HPD interval probability: 0.95 </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load data</span></span>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load data</span></span>
 <span><span class="fu">tar_load</span><span class="op">(</span><span class="va">ufc</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Load model</span></span>
-<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h05_q03_brms_sample</span><span class="op">)</span></span>
-<span><span class="va">h05_q03_brms_sample</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h05_q03_brms_sample</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)</code></pre>
+</div>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">h05_q03_brms_sample</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: binomial 
   Links: mu = logit 
@@ -942,7 +1058,7 @@ Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
 scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n_draws</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n_draws</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
 <span><span class="va">q03_pred</span> <span class="op">&lt;-</span> <span class="va">h05_q03_brms_sample</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">add_predicted_draws</span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">ufc</span>, ndraws <span class="op">=</span> <span class="va">n_draws</span><span class="op">)</span></span>
 <span></span>
@@ -957,7 +1073,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Estimated marginal effects</span></span>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Estimated marginal effects</span></span>
 <span><span class="va">marg_eff</span> <span class="op">&lt;-</span> <span class="fu">emmeans</span><span class="op">(</span><span class="va">h05_q03_brms_sample</span>, <span class="op">~</span><span class="va">hand_pair</span>, regrid <span class="op">=</span> <span class="st">'response'</span><span class="op">)</span></span>
 <span><span class="va">marg_eff</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -969,7 +1085,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 Point estimate displayed: median 
 HPD interval probability: 0.95 </code></pre>
 </div>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">contrast</span><span class="op">(</span><span class="va">marg_eff</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">contrast</span><span class="op">(</span><span class="va">marg_eff</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> contrast     estimate lower.HPD upper.HPD
  (L-L) effect  0.03835   -0.0419    0.1087

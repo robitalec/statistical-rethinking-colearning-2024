@@ -189,6 +189,7 @@ of models. Here is a first go at using the {STRAND} package for fitting the
 simulated gift giving network. 
 
 ```{r}
+conflicts_prefer(STRAND::rmvnorm)
 mat <- as.matrix(dcast(gifts, left ~ right, value.var = 'n_gift')[, -1])
 mat[is.na(mat)] <- 0
 dimnames(mat) <- list(colnames(mat), colnames(mat))
