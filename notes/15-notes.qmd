@@ -20,34 +20,7 @@ observed but the behaviours that contribute to them can be.
 Relationships are paired, eg. A to B and B to A, and either of these
 can motivate behaviours. These relationships don't have to be 
 symmetrical, eg. A may perceive their relationship with B as 
-stronger than B does. 
-
-
-## Example: gift giving
-
-- Ha, Hb: household A, B
-	- features of households, eg. location, wealth, etc.
-- Gab: A gives to B
-- Tab: Social tie from A to B
-- Tba: Social tie from B to A
-
-```{r}
-#| fig.height: 4
-#| fig.width: 5
-coords <- data.frame(
-	name = c('Ha', 'Hb', 'Gab', 'Tab', 'Tba'),
-	x =    c(1,       3,     2,     2,     2),
-	y =    c(0,       0,  0.25,    -1,     1)
-)
-dagify(
-	Gab ~ Ha + Hb + Tab + Tba,
-	Tba ~ Ha + Hb,
-	Tab ~ Ha + Hb,
-	latent = c('Tab', 'Tba'),
-  coords = coords
-) |> ggdag_status(seed = 2, layout = 'auto') + theme_dag()
-```
-
+stronger than B does. Relationships can cause other relationships. 
 
 
 # Network permutation
@@ -58,7 +31,14 @@ methods do not have a generative model underpinning their
 approach. They consider some null network and compare if observed
 networks differ from the null. See eg. Hart et al 2021. 
 
+# Network uncertainty
 
+Networks are uncertain, and, using the approach described in this lecture, the
+uncertainty can be retained in our downstream estimates (eg. centrality) by using
+the entire posterior distribution of networks, instead of reducing to a single
+network to calculate network metrics.
+
+![](../graphics/stat_rethinking_l15_slide62.png)
 
 ## Example: Koster Leckie
 
@@ -84,6 +64,31 @@ dagify(
 Approach: There any backdoor paths through household features, but
 start with the simplest model first and scaffold your way up
 by adding complexity slowly. 
+
+## Example: gift giving
+
+- Ha, Hb: household A, B
+	- features of households, eg. location, wealth, etc.
+- Gab: A gives to B
+- Tab: Social tie from A to B
+- Tba: Social tie from B to A
+
+```{r}
+#| fig.height: 4
+#| fig.width: 5
+coords <- data.frame(
+	name = c('Ha', 'Hb', 'Gab', 'Tab', 'Tba'),
+	x =    c(1,       3,     2,     2,     2),
+	y =    c(0,       0,  0.25,    -1,     1)
+)
+dagify(
+	Gab ~ Ha + Hb + Tab + Tba,
+	Tba ~ Ha + Hb,
+	Tab ~ Ha + Hb,
+	latent = c('Tab', 'Tba'),
+  coords = coords
+) |> ggdag_status(seed = 2, layout = 'auto') + theme_dag()
+```
 
 
 ### Generative model without backdoor paths
@@ -184,7 +189,6 @@ of models. Here is a first go at using the {STRAND} package for fitting the
 simulated gift giving network. 
 
 ```{r}
-library(STRAND)
 
 mat <- as.matrix(dcast(gifts, left ~ right, value.var = 'n_gift')[, -1])
 mat[is.na(mat)] <- 0
