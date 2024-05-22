@@ -161,17 +161,19 @@ $$log(\lambda_{BA}) = \alpha + T_{BA}$$
 - $T_{BA}$ is the tie between B and A
 
 $$\begin{pmatrix}P \\ B \end{pmatrix} \sim MVNormal \begin{pmatrix} \begin{bmatrix}0 \\ 0\end{bmatrix}, \begin{bmatrix} \sigma^{2}, \rho\sigma^{2} \\ \rho\sigma^{2}, \sigma^{2}\end{bmatrix}\end{pmatrix}$$
+
+- $\rho\sigma^{2}$ is the covariance within dyads
+- $\sigma^{2}$ is the variance among ties
+- the covariance matrix is symmetric, so there is only one standard deviation 
+(this is a simpler covariance matrix than the generalized ones from L14)
+
+
 $$\rho \sim LKJCorr(2)$$
 
 $$\sigma \sim Exponential(1)$$
 
 $$\alpha \sim Normal(0, 1)$$
 
-
-- $\rho\sigma^{2}$ is the covariance within dyads (bottom left, top right)
-- $\sigma^{2}$ is the variance among ties (top left, bottom right)
-- the covariance matrix is symmetric, there is only one standard deviation 
-(this is a simpler covariance matrix than the generalized ones from L14)
 
 This is a model with partial pooling for network ties. 
 
