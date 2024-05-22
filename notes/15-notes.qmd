@@ -118,7 +118,7 @@ dyad_id(dyads, 'left', 'right')
 # Simulate friendships
 dyads[, f := rbern(1, 0.1), by = dyadID]
 
-# Simulate directed ties
+# Simulate directed ties (in observed data, this is a latent variable)
 # - alpha is the base rate of the ties, where inv_logit(-3) = 0.04743
 alpha <- -3
 # - probability of the tie if 1 if friends, and base rate if not
