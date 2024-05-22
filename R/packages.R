@@ -47,6 +47,7 @@ library(bayesplot)
 library(emmeans)
 library(mice)
 library(modelr)
+library(STRAND)
 
 library(spatsoc)
 
