@@ -231,6 +231,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Lecture 14 Notes</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/15-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 15 Notes</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -447,8 +453,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     exponential(1)     sigma                            &lt;NA&gt; &lt;NA&gt;   user</code></pre>
 </div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load model</span></span>
-<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h02_q02_brms_sample_prior</span><span class="op">)</span></span>
-<span><span class="va">h02_q02_brms_sample_prior</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h02_q02_brms_sample_prior</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)</code></pre>
+</div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">h02_q02_brms_sample_prior</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: gaussian 
   Links: mu = identity; sigma = identity 
@@ -470,7 +496,7 @@ Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
 scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Read N draws from the priors and append expected predictions</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Read N draws from the priors and append expected predictions</span></span>
 <span><span class="va">n_draws</span> <span class="op">&lt;-</span> <span class="fl">50</span></span>
 <span><span class="va">q02_draws</span> <span class="op">&lt;-</span> <span class="va">h02_q02_brms_sample_prior</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">add_epred_draws</span><span class="op">(</span>newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">DT</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,</span>
@@ -489,9 +515,49 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 </section><section id="analyse-the-data" class="level3"><h3 class="anchored" data-anchor-id="analyse-the-data">Analyse the data</h3>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load model</span></span>
-<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h02_q02_brms_sample</span><span class="op">)</span></span>
-<span><span class="va">h02_q02_brms_sample</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load model</span></span>
+<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h02_q02_brms_sample</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)</code></pre>
+</div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">h02_q02_brms_sample</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: gaussian 
   Links: mu = identity; sigma = identity 
@@ -513,7 +579,7 @@ Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
 scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Tidy draws</span></span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Tidy draws</span></span>
 <span><span class="va">q02_draws</span> <span class="op">&lt;-</span> <span class="va">h02_q02_brms_sample</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu">tidy_draws</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -545,7 +611,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </blockquote>
 <section id="prior-predictive-simulation-1" class="level3"><h3 class="anchored" data-anchor-id="prior-predictive-simulation-1">Prior predictive simulation</h3>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Function for preparing Oxboys data</span></span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Function for preparing Oxboys data</span></span>
 <span><span class="va">data_Oxboys</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>function() {
@@ -568,7 +634,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load data</span></span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load data</span></span>
 <span><span class="va">DT</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">prep_Oxboys</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Print priors used</span></span>
@@ -579,9 +645,29 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
    normal(3, 1)         b                            &lt;NA&gt; &lt;NA&gt;   user
  exponential(1)     sigma                            &lt;NA&gt; &lt;NA&gt;   user</code></pre>
 </div>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load model</span></span>
-<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h02_q03_brms_sample_prior</span><span class="op">)</span></span>
-<span><span class="va">h02_q03_brms_sample_prior</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load model</span></span>
+<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h02_q03_brms_sample_prior</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)</code></pre>
+</div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">h02_q03_brms_sample_prior</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: gaussian 
   Links: mu = identity; sigma = identity 
@@ -609,7 +695,7 @@ Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
 scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Read N draws from the priors and append expected predictions</span></span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Read N draws from the priors and append expected predictions</span></span>
 <span><span class="va">n_draws</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
 <span><span class="va">q02_newdata</span> <span class="op">&lt;-</span> <span class="fu">data_grid</span><span class="op">(</span><span class="va">DT</span>, age <span class="op">=</span> <span class="fu">seq_range</span><span class="op">(</span><span class="va">age</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -635,9 +721,49 @@ Caused by error in `seq.default()`:
 </div>
 </section><section id="analyse-the-data-1" class="level3"><h3 class="anchored" data-anchor-id="analyse-the-data-1">Analyse the data</h3>
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load model</span></span>
-<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h02_q03_brms_sample</span><span class="op">)</span></span>
-<span><span class="va">h02_q03_brms_sample</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load model</span></span>
+<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h02_q03_brms_sample</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)
+Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
+replacing with NULL (see https://github.com/traversc/qs/issues/93)</code></pre>
+</div>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">h02_q03_brms_sample</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: gaussian 
   Links: mu = identity; sigma = identity 
@@ -665,7 +791,7 @@ Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
 scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Expectation draws</span></span>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Expectation draws</span></span>
 <span><span class="va">q03_epred</span> <span class="op">&lt;-</span> <span class="va">h02_q03_brms_sample</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">add_epred_draws</span><span class="op">(</span>newdata <span class="op">=</span> <span class="va">q03_newdata</span>, ndraws <span class="op">=</span> <span class="va">n_draws</span><span class="op">)</span></span>
 <span></span>
@@ -679,7 +805,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Tidy draws</span></span>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Tidy draws</span></span>
 <span><span class="va">q03_draws</span>  <span class="op">&lt;-</span> <span class="va">h02_q03_brms_sample</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">tidy_draws</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">data.table</span><span class="op">(</span><span class="op">)</span></span>

@@ -6,8 +6,9 @@
 # Sys.setenv(DOWNLOAD_STATIC_LIBV8 = 1)
 # install.packages("V8")
 # install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
-# devtools::install_github("rmcelreath/rethinking")
+# remotes::install_github("rmcelreath/rethinking")
 # remotes::install_github('robitalec/zarg')
+# remotets::install_github('ctross/STRAND')
 # -------------------------------------------------------------------------
 
 library(targets)
@@ -47,5 +48,8 @@ library(bayesplot)
 library(emmeans)
 library(mice)
 library(modelr)
+library(STRAND)
+
+library(spatsoc)
 
 library(janitor)

@@ -1,0 +1,526 @@
+---
+title: "Lecture 15 Notes"
+author: "Alec L. Robitaille"
+date: "2024-05-22"
+---
+
+```{r, include = FALSE}
+source('R/packages.R')
+```
+
+
+# Social networks
+
+Social network are patterns of directed exchange. Social networks 
+are abstractions, not data. 
+
+Social relationships are latent variables, they cannot be directly
+observed but the behaviours that contribute to them can be. 
+
+Relationships are paired, eg. A to B and B to A, and either of these
+can motivate behaviours. These relationships don't have to be 
+symmetrical, eg. A may perceive their relationship with B as 
+stronger than B does. Relationships can cause other relationships. 
+
+
+# Network permutation
+
+A principled approach to modeling networks requires thinking 
+generatively about social relationships. Network permutation 
+methods do not have a generative model underpinning their 
+approach. They consider some null network and compare if observed
+networks differ from the null. See eg. Hart et al 2021. 
+
+# Network uncertainty
+
+Networks are uncertain, and, using the approach described in this lecture, the
+uncertainty can be retained in our downstream estimates (eg. centrality) by using
+the entire posterior distribution of networks, instead of reducing to a single
+network to calculate network metrics.
+
+![](../graphics/stat_rethinking_l15_slide62.png)
+
+## Example: Koster Leckie
+
+Food transfers between households
+
+```{r}
+#| fig.height: 4
+#| fig.width: 5
+coords <- data.frame(
+	name = c('Ha', 'Hb', 'Gab', 'Tab', 'Tba'),
+	x =    c(1,       3,     2,     2,     2),
+	y =    c(0,       0,  0.25,    -1,     1)
+)
+dagify(
+	Gab ~ Ha + Hb + Tab + Tba,
+	Tba ~ Ha + Hb,
+	Tab ~ Ha + Hb,
+	latent = c('Tab', 'Tba'),
+  coords = coords
+) |> ggdag_status(seed = 2, layout = 'auto') + theme_dag()
+```
+
+Approach: There any backdoor paths through household features, but
+start with the simplest model first and scaffold your way up
+by adding complexity slowly. 
+
+## Example: gift giving
+
+- Ha, Hb: household A, B
+	- features of households, eg. location, wealth, etc.
+- Gab: A gives to B
+- Tab: Social tie from A to B
+- Tba: Social tie from B to A
+
+```{r}
+#| fig.height: 4
+#| fig.width: 5
+coords <- data.frame(
+	name = c('Ha', 'Hb', 'Gab', 'Tab', 'Tba'),
+	x =    c(1,       3,     2,     2,     2),
+	y =    c(0,       0,  0.25,    -1,     1)
+)
+dagify(
+	Gab ~ Ha + Hb + Tab + Tba,
+	Tba ~ Ha + Hb,
+	Tab ~ Ha + Hb,
+	latent = c('Tab', 'Tba'),
+  coords = coords
+) |> ggdag_status(seed = 2, layout = 'auto') + theme_dag()
+```
+
+
+### Generative model without backdoor paths
+
+```{r}
+#| fig.height: 4
+#| fig.width: 5
+coords <- data.frame(
+	name = c('Ha', 'Hb', 'Gab', 'Tab', 'Tba'),
+	x =    c(1,       3,     2,     2,     2),
+	y =    c(0,       0,  0.25,    -1,     1)
+)
+dagify(
+	Gab ~ Tab + Tba,
+	Tba ~ Ha + Hb,
+	Tab ~ Ha + Hb,
+	latent = c('Tab', 'Tba'),
+  coords = coords
+) |> ggdag_status(seed = 2, layout = 'auto') + theme_dag()
+```
+
+
+```{r}
+# Number of households
+N <- 25
+
+# Set up dyads
+combs <- CJ(left = seq.int(N), right = seq.int(N))
+dyads <- combs[left != right]
+dyad_id(dyads, 'left', 'right')
+
+# Simulate friendships
+dyads[, f := rbern(1, 0.1), by = dyadID]
+
+# Simulate directed ties (in observed data, this is a latent variable)
+# - alpha is the base rate of the ties, where inv_logit(-3) = 0.04743
+alpha <- -3
+# - probability of the tie is 1 if friends, and base rate if not
+dyads[, p_tie := f + (1 - f) * inv_logit(alpha)]
+# - tie between left and right
+dyads[, y := rbern(.N, prob = p_tie)]
+
+# Gifts
+lambda <- log(c(0.5, 2))
+gifts <- dyads[, n_gift := rpois(.N, exp(lambda[1 + y]))]
+```
+
+The known social relationships are shown here, but other
+than in a generative simulation, these relationships 
+are latent and can't be truly known - only estimated from
+behaviours. 
+
+```{r}
+library(igraph)
+g <- graph_from_data_frame(dyads[f == 1])
+plot(g)
+```
+
+### Statistical model without backdoor paths
+
+$$G_{AB} \sim Poisson(\lambda_{AB})$$
+
+$$log(\lambda_{AB}) = \alpha + T_{AB}$$
+
+- Gift giving is a count, modeled using a Poisson
+- $\alpha$ is the average rate of gift giving, independent of social ties
+- $T_{AB}$ is the tie between A and B
+
+We also included the relationships from the opposite directions
+
+$$G_{BA} \sim Poisson(\lambda_{BA})$$
+
+$$log(\lambda_{BA}) = \alpha + T_{BA}$$
+
+- $T_{BA}$ is the tie between B and A
+
+$$\begin{pmatrix}P \\ B \end{pmatrix} \sim MVNormal \begin{pmatrix} \begin{bmatrix}0 \\ 0\end{bmatrix}, \begin{bmatrix} \sigma^{2}, \rho\sigma^{2} \\ \rho\sigma^{2}, \sigma^{2}\end{bmatrix}\end{pmatrix}$$
+
+- $\rho\sigma^{2}$ is the covariance within dyads
+- $\sigma^{2}$ is the variance among ties
+- the covariance matrix is symmetric, so there is only one standard deviation 
+(this is a simpler covariance matrix than the generalized ones from L14)
+
+
+$$\rho \sim LKJCorr(2)$$
+
+$$\sigma \sim Exponential(1)$$
+
+$$\alpha \sim Normal(0, 1)$$
+
+
+This is a model with partial pooling for network ties. 
+
+More details on this model in the textbook section 14.4. 
+
+At the moment (2024), the {brms} package can't be used to fit these kinds 
+of models. Here is a first go at using the {STRAND} package for fitting the 
+simulated gift giving network. 
+
+```{r}
+conflicts_prefer(STRAND::rmvnorm)
+mat <- as.matrix(dcast(gifts, left ~ right, value.var = 'n_gift')[, -1])
+mat[is.na(mat)] <- 0
+dimnames(mat) <- list(colnames(mat), colnames(mat))
+outcome <- list(mat)
+
+dat <- make_strand_data(
+	outcome = outcome,
+	block_covariates = NULL,
+	individual_covariates = NULL,
+	dyadic_covariates = NULL,
+	outcome_mode = "poisson",
+	exposure = NULL
+)
+
+m <- fit_social_relations_model(
+	data = dat,
+	focal_regression = ~ 1,
+	target_regression = ~ 1,
+	dyad_regression = ~ 1,
+	stan_mcmc_parameters = list(chains = 4)
+)
+
+sum_m <- data.table(summarize_strand_results(m)$summary)
+sum_m[, colnames(sum_m)[-1] := lapply(.SD,  as.numeric), 
+			.SDcols = colnames(sum_m)[-1]]
+
+ggplot(data = sum_m) + 
+	geom_segment(aes(y = Variable, x = `HPDI:0.05`, xend = `HPDI:0.95`)) +
+	geom_point(aes(y = Variable, x = Mean)) +
+	geom_vline(xintercept = 0, alpha = 0.2) + 
+	expand_limits(x = 0) +
+	labs(y = '', x = 'HPDI 0.05-0.95') + 
+	theme_bw(24)
+```
+
+### Generative model with wealth considered
+
+```{r}
+#| fig.height: 4
+#| fig.width: 5
+coords <- data.frame(
+	name = c('Ha', 'Hb', 'Gab', 'Tab', 'Tba'),
+	x =    c(1,       3,     2,     2,     2),
+	y =    c(0,       0,  0.25,    -1,     1)
+)
+dagify(
+	Gab ~ Tab + Tba + Ha + Hb,
+	Tba ~ Ha + Hb,
+	Tab ~ Ha + Hb,
+	latent = c('Tab', 'Tba'),
+  coords = coords
+) |> ggdag_status(seed = 2, layout = 'auto') + theme_dag()
+```
+
+```{r}
+# Number of households
+N <- 25
+
+# Set up dyads
+combs <- CJ(left = seq.int(N), right = seq.int(N))
+dyads <- combs[left != right]
+dyad_id(dyads, 'left', 'right')
+
+# Simulate friendships
+dyads[, f := rbern(1, 0.1), by = dyadID]
+
+# Simulate wealth
+wealth_key <- dyads[, .(id = unique(c(left, right)))][, wealth := rnorm(.N)]
+dyads[wealth_key, left_wealth := wealth, on = .(left == id)]
+dyads[wealth_key, right_wealth := wealth, on = .(right == id)]
+
+# Simulate directed ties
+# - alpha is the base rate of the ties, where inv_logit(-3) = 0.04743
+alpha <- -3
+# - probability of the tie if 1 if friends, and base rate if not
+dyads[, p_tie := f + (1 - f) * inv_logit(alpha)]
+# - tie between left and right
+dyads[, y := rbern(.N, prob = p_tie)]
+
+# Gifts
+bWG <- 0.5
+bWR <- -1
+lambda <- log(c(0.5, 2))
+gifts <- dyads[, n_gift := rpois(.N, exp(lambda[1 + y] +
+																				 	bWG * left_wealth + 
+																				 	bWR * right_wealth))]
+```
+
+
+### Statistical model with wealth considered
+
+We also add generalized giving and receiving variables to account for 
+households that may, disregarding reciprocity, receive/give more 
+frequently. 
+
+Again, a first go using the {STRAND} package. 
+
+```{r}
+mat <- as.matrix(dcast(gifts, left ~ right, value.var = 'n_gift')[, -1])
+mat[is.na(mat)] <- 0
+dimnames(mat) <- list(colnames(mat), colnames(mat))
+outcome <- list(mat)
+
+dat <- make_strand_data(
+	outcome = outcome,
+	block_covariates = NULL,
+	individual_covariates = unique(dyads[, .(id = left, wealth = left_wealth)]),
+	dyadic_covariates = NULL,
+	outcome_mode = "poisson",
+	exposure = NULL
+)
+
+m <- fit_social_relations_model(
+	data = dat,
+	focal_regression = ~ wealth,
+	target_regression = ~ wealth,
+	dyad_regression = ~ 1,
+	stan_mcmc_parameters = list(chains = 4)
+)
+
+sum_m <- data.table(summarize_strand_results(m)$summary)
+sum_m[, colnames(sum_m)[-1] := lapply(.SD,  as.numeric), 
+			.SDcols = colnames(sum_m)[-1]]
+
+ggplot(data = sum_m) + 
+	geom_segment(aes(y = Variable, x = `HPDI:0.05`, xend = `HPDI:0.95`)) +
+	geom_point(aes(y = Variable, x = Mean)) +
+	geom_vline(xintercept = 0, alpha = 0.2) + 
+	expand_limits(x = 0) +
+	labs(y = '', x = 'HPDI 0.05-0.95') + 
+	theme_bw(24)
+```
+
+Note the two new parameters, target and focal coefficients 
+(in degree and out degree), wealth. 
+
+
+### Statistical model with generalized household traits
+
+$$G_{AB} \sim Poisson(\lambda_{AB})$$
+$$log(\lambda_{AB}) = \alpha + \texttt{T}_{AB} + \texttt{G}_{A} + \texttt{R}_{B}$$
+
+We have linear models for the tie strength with $T_{AB}$ representing 
+a varying effect and $\beta_{A}A_{AB}$ representing the effect of the association
+between A and B. 
+
+$$\texttt{T}_{AB} = T_{AB} + \beta_{A}A_{AB}$$
+
+And we have linear models for giving with $G_{A}$ representing 
+a varying effect and $\beta_{W,G}W_{A}$ representing the effect of A's wealth 
+on giving.
+
+$$\texttt{G}_{A} = G_{A} + \beta_{W,G}W_{A}$$
+
+And we have linear models for receiving with $R_{B}$ representing 
+a varying effect and $\beta_{W,R}W_{B}$ representing the effect of B's wealth 
+on receiving.
+
+$$\texttt{R}_{B} = G_{B} + \beta_{W,R}W_{B}$$
+These three linear models are symmetrical, so we include them again
+with directions inverted:
+
+$$G_{BA} \sim Poisson(\lambda_{BA})$$
+$$log(\lambda_{BA}) = \alpha + \texttt{T}_{BA} + \texttt{G}_{B} + \texttt{R}_{A}$$
+$$\texttt{T}_{BA} = T_{BA} + \beta_{B}B_{BA}$$
+$$\texttt{G}_{B} = G_{B} + \beta_{W,G}W_{B}$$
+$$\texttt{R}_{A} = G_{A} + \beta_{W,R}W_{A}$$
+
+$$\begin{pmatrix}P \\ B \end{pmatrix} \sim MVNormal \begin{pmatrix} \begin{bmatrix}0 \\ 0\end{bmatrix}, \begin{bmatrix} \sigma^{2}, \rho\sigma^{2} \\ \rho\sigma^{2}, \sigma^{2}\end{bmatrix}\end{pmatrix}$$
+
+
+
+$$\rho \sim LKJCorr(2)$$
+
+$$\sigma \sim Exponential(1)$$
+
+$$\alpha \sim Normal(0, 1)$$
+
+
+# Additional structures: triangles
+
+Relationships tend to come in triangles, termed triangle closures. 
+
+```{r}
+#| fig.height: 4
+#| fig.width: 5
+coords <- data.frame(
+	name = c('A', 'B', 'C'),
+	x =    c(1, 3, 2),
+	y =    c(1, 1, 0)
+)
+dagify(
+	A ~ B + C,
+	B ~ C + A,
+	C ~ A + B,
+  coords = coords
+) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
+```
+
+Lots of generative reasons why this might occur, eg. 
+
+- Block models where ties are more common within certain groups eg. families, 
+groups, etc
+- Relationships cause relationships eg. A friends with B and C, B and C meet 
+through A and and become friends
+
+
+For example, Ka and Kb represent the block membership for individuals A, B
+respectively.  
+
+```{r}
+#| fig.height: 4
+#| fig.width: 5
+coords <- data.frame(
+	name = c('Ha', 'Hb', 'Gab', 'Tab', 'Tba', 'Ka', 'Kb'),
+	x =    c(1,       3,     2,     2,     2,    0,    4),
+	y =    c(0,       0,  0.25,    -1,     1,    0,    0)
+)
+dagify(
+	Gab ~ Ha + Hb + Tab + Tba,
+	Tba ~ Ha + Hb + Ka + Kb,
+	Tab ~ Ha + Hb + Ka + Kb,
+	latent = c('Tab', 'Tba'),
+  coords = coords
+) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
+```
+
+
+# Bonus: constructed variables
+
+Folk tradition of building outcome variables as a back-alley form of "control":
+ratios, differences, transformations. 
+
+- BMI
+- ratios/rates eg. per capita, per unit time
+- differences eg. change scores, difference from reference
+
+Arithmetic is not stratification. It assumes a fixed relationship, which you
+should instead be estimating it. It also ignores uncertainty. 
+
+Do not use model predictions as data. (Stats on stats).
+
+Use causal logic, justify, test. Model what you measure. 
+
+
+## Example: dividing GDP by population
+
+Outcome variable log GDP per capita. 
+Ratio assumes the effect of population on GDP is linear. "we do not include
+population density since dependent variable is already in per capita terms" - 
+dividing is not way to control for a variable. 
+
+```{r}
+#| fig.height: 4
+#| fig.width: 5
+coords <- data.frame(
+	name = c('P', 'per', 'GDP', 'X'),
+	x =    c(0,   0,     1,      1),
+	y =    c(1,   0,     0,      1)
+)
+dagify(
+	per ~ P + GDP,
+	GDP ~ P + X,
+	X ~ P,
+  coords = coords
+) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
+```
+
+- "per" represents GPD / P (GDP per capita)
+- dividing does not stratify GDP by P
+- the division implies the arrow between P and GDP
+- the backdoor path from the variable X through P is not closed by dividing by P
+
+
+## Example: per unit time
+
+- T is observation time
+- Y is number of observed transfers
+- X is cause of interest
+- per is Y / T
+
+```{r}
+#| fig.height: 4
+#| fig.width: 5
+coords <- data.frame(
+	name = c('T', 'per', 'Y', 'X'),
+	x =    c(0,   0,     1,      1),
+	y =    c(1,   0,     0,      1)
+)
+dagify(
+	per ~ T + Y,
+	Y ~ T + X,
+  coords = coords
+) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
+```
+
+Problem: attempting to correct for observation differences in sampling across
+units, eg. number contacts across time for individuals with varying sample
+rates, by dividing by the number of observations. 
+
+See section 11.2.3 on Poisson regression for including exposure to account
+for differences in sampling. 
+
+The number of observations over time is not the true rate, we should be  
+estimating them since they are a latent variable. When T is larger, precision
+increases, and when T is smaller, precision decreases. Units with the smallest
+sampling effort have overweighted contributions to estimates. 
+
+## Example: change score
+
+- H0 is baseline height
+- H1 is post-treatment height
+- X is cause of interest
+- delta is H1 - H0, change score
+
+```{r}
+#| fig.height: 4
+#| fig.width: 5
+coords <- data.frame(
+	name = c('H0', 'delta', 'H1', 'X'),
+	x =    c(0,   0,     1,      1),
+	y =    c(1,   0,     0,      1)
+)
+dagify(
+	per ~ H0 + H1,
+	H1 ~ H0 + X,
+  coords = coords
+) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
+```
+
+Modeling the change score implies there is a linear relationship. If there
+are any floor/ceiling effects, eg. max observable height, then the linear
+assumption is not held. 
+
