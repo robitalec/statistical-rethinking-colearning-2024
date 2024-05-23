@@ -98,3 +98,23 @@ $$T_{i} \sim Poisson (\lambda_{i})$$
 $$\lambda_{i} = \hat{T}$$
 $$\hat{T} = \frac{\alpha P ^{\beta}}{\gamma}$$
 
+
+### Statistical model with spatial covariation, but without population
+
+Varying intercepts model
+
+
+$$T_{i} \sim Poisson (\lambda_{i})$$
+
+$$log \lambda_{i} = \bar{\alpha} + \alpha_{S_{[i]}}$$
+$$\hat{T} = \frac{\alpha P ^{\beta}}{\gamma}$$ 
+
+- $\bar{\alpha}$: mean across islands
+- $\alpha_{S_{[i]}$: deviation from mean by island
+
+$$\begin{bmatrix} \alpha_{1} \\ \alpha_{2} \\ .. \\ \alpha_{10} \end{bmatrix} \sim MVNormal(\begin{bmatrix} 0 \\ 0 \\ ... \\ 0 \end{bmatrix}, K)$$
+- vector of varying effects
+- vector of zeros
+- covariance matrix, a 10x10 kernel
+
+
