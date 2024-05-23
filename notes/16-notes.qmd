@@ -248,3 +248,19 @@ $$\beta_{G}, \beta_{M} \sim Normal(0, 0.5)$$
 $$\sigma \sim Exponential(1)$$
 
 
+### Statistical model re-expressed with a multivariate normal
+
+You can always re-express a linear regression of this type (a normal 
+distribution assigned to each individual outcome, in this case $B_{i}$) with a 
+multivariate normal distribution. This is an equivalent notation. The subscript
+i is taken off the outcome B, indicating they all come from some multivariate 
+distribution with some mean $\mu$ and covariance matrix  $K$. 
+
+$$B \sim MVNormal(\mu_{i}, K)$$
+$$\mu_{i} = \alpha + \beta_{G} G_{i} + \beta_{M} M_{i} + u_{i}$$
+$$K = I \sigma ^2$$
+- I is the identity matrix
+
+$$\alpha \sim Normal(0,  1)$$
+$$\beta_{G}, \beta_{M} \sim Normal(0, 0.5)$$
+$$\sigma \sim Exponential(1)$$
