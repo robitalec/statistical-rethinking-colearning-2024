@@ -207,3 +207,34 @@ Some next steps:
 - Alternatives to regressions
 	- Ringen, Martin, Jaeggi 2021
 	- Gonzalez-Forero, Gardner 2018
+
+## Example: primates, social brain hypothesis
+
+Data includes life history traits, eg. mass, brain volume, group size. 
+Lots of missing data, measurement error and unobserved confounding. 
+
+```{r}
+#| fig.height: 4
+#| fig.width: 5
+coords <- data.frame(
+	name = c('G', 'B', 'M', 'u', 'h'),
+	x =    c(1,    3,   2,   2,   3),
+	y =    c(1,    1,   0,   -1,  -1)
+)
+dagify(
+	G ~ M + u,
+	B ~ G + M + u,
+	M ~ u,
+	u ~ h,
+  coords = coords
+) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
+```
+
+- G: group size
+- B: brain volume
+- M: mass
+- u: unobserved confounds
+- h: history of exposures, environments, descent
+
+This is just one potential causal diagram. Reminder: there is no
+interpretation without causal representation. 
