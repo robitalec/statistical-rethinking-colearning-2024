@@ -238,3 +238,13 @@ dagify(
 
 This is just one potential causal diagram. Reminder: there is no
 interpretation without causal representation. 
+
+### Statistical model without phylogeny
+
+$$B_{i} \sim Normal(\mu_{i}, \sigma)$$
+$$\mu_{i} = \alpha + \beta_{G} G_{i} + \beta_{M} M_{i}$$
+$$\alpha \sim Normal(0,  1)$$
+$$\beta_{G}, \beta_{M} \sim Normal(0, 0.5)$$
+$$\sigma \sim Exponential(1)$$
+
+
