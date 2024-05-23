@@ -138,3 +138,18 @@ $$k_{i, j} = n^{2} exp(-\rho d^{2}_{i, j})$$
 $$\bar{\alpha} \sim Normal(3, 0.5)$$
 $$n^{2} \sim Exponential(2)$$
 $$\rho^{2} \sim Exponential(0.5)$$
+
+#### Prior predictive simulation
+
+```{r}
+n <- 20
+DT <- CJ(dist = seq(1, 7, length.out = 100), id = LETTERS[seq.int(20)])
+DT[, eta := rexp(1, 2), by = id]
+DT[, rho := rexp(1, 0.5), by = id]
+
+DT[, covar := eta * exp(-rho * dist ^ 2)]
+
+ggplot(DT) + 
+	geom_line(aes(dist, covar, group = id), alpha = 0.4) + 
+	labs(x = 'Distance', y = 'Covariance')
+```
