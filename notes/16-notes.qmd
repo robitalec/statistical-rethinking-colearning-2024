@@ -153,3 +153,14 @@ ggplot(DT) +
 	geom_line(aes(dist, covar, group = id), alpha = 0.4) + 
 	labs(x = 'Distance', y = 'Covariance')
 ```
+
+### Statistical model with quadratic L2 kernel and population size
+
+
+$$T_{i} \sim Poisson (\lambda_{i})$$
+$$log \lambda_{i} = \frac{\bar{\alpha}P^{\beta}}{\gamma} exp(\alpha_{S_{[i]}})$$
+$$\begin{bmatrix} \alpha_{1} \\ \alpha_{2} \\ .. \\ \alpha_{10} \end{bmatrix} \sim MVNormal(\begin{bmatrix} 0 \\ 0 \\ ... \\ 0 \end{bmatrix}, K)$$
+$$k_{i, j} = n^{2} exp(-\rho d^{2}_{i, j})$$
+$$\bar{\alpha}, \beta, \gamma \sim Exponential(1)$$
+$$n^{2} \sim Exponential(2)$$
+$$\rho^{2} \sim Exponential(0.5)$$
