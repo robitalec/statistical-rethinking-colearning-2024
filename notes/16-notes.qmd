@@ -264,3 +264,22 @@ $$K = I \sigma ^2$$
 $$\alpha \sim Normal(0,  1)$$
 $$\beta_{G}, \beta_{M} \sim Normal(0, 0.5)$$
 $$\sigma \sim Exponential(1)$$
+
+
+### Statistical model with covariance matrix
+
+$$B \sim MVNormal(\mu_{i}, K)$$
+$$\mu_{i} = \alpha + \beta_{G} G_{i} + \beta_{M} M_{i} + u_{i}$$
+$$K = n^2 exp(-\rho d_{i, j})$$
+- I is the identity matrix
+
+$$\alpha \sim Normal(0,  1)$$
+$$\beta_{G}, \beta_{M} \sim Normal(0, 0.5)$$
+$$n^2 \sim HalfNormal(1, 0.25)$$
+- $n^2$ is the maximum covariance prior
+
+$$\rho \sim HalfNormal(3, 0.25)$$
+
+- $\rho$ is the rate prior
+
+
