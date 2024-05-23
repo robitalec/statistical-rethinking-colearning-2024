@@ -118,3 +118,23 @@ $$\begin{bmatrix} \alpha_{1} \\ \alpha_{2} \\ .. \\ \alpha_{10} \end{bmatrix} \s
 - covariance matrix, a 10x10 kernel
 
 
+### Statistical model with quadratic L2 kernel, without population size
+
+
+Varying intercepts model
+
+
+$$T_{i} \sim Poisson (\lambda_{i})$$
+
+$$log \lambda_{i} = \bar{\alpha} + \alpha_{S_{[i]}}$$
+$$\begin{bmatrix} \alpha_{1} \\ \alpha_{2} \\ .. \\ \alpha_{10} \end{bmatrix} \sim MVNormal(\begin{bmatrix} 0 \\ 0 \\ ... \\ 0 \end{bmatrix}, K)$$
+
+$$k_{i, j} = n^{2} exp(-\rho d^{2}_{i, j})$$
+- $k_{i, j}$: covariance
+- $n^{2}$: max covariance
+- $\rho$: rate of decline
+- $d^{2}_{i, j}$: distance i, j
+
+$$\bar{\alpha} \sim Normal(3, 0.5)$$
+$$n^{2} \sim Exponential(2)$$
+$$\rho^{2} \sim Exponential(0.5)$$
