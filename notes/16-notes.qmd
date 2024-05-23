@@ -52,3 +52,32 @@ Ornstein-Uhlenbeck
 Periodic
 
 - cyclical variables eg. time of day, orientation
+
+## Example: oceanic technology
+
+Number of tool types associated with population size
+
+Spatial covariation where islands close together share unobserved 
+confounds and innovations. The effect of spatial covariation is to make
+closer islands have more similar tools or change in tools. 
+
+```{r}
+#| fig.height: 4
+#| fig.width: 5
+coords <- data.frame(
+	name = c('T', 'C', 'P', 'U'),
+	x =    c(1,    2,   0,  1),
+	y =    c(1,    1,   1,  0)
+)
+dagify(
+	T ~ P + C + U,
+	P ~ U,
+  coords = coords
+) |> ggdag(seed = 2, layout = 'auto') + theme_dag()
+```
+
+- T: tools
+- P: population
+- C: contact
+- U: unobserved confounds
+
