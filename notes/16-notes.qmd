@@ -7,3 +7,30 @@ date: "2024-05-22"
 ```{r, include = FALSE}
 source('R/packages.R')
 ```
+
+
+# Gaussian processes
+
+Gaussian process is "an infinite-dimensional generalization
+of multivariate normal distributions". Instead of a conventional 
+covariance matrix, use a kernel function that generalizes to infinite
+dimensions/observations/predictions. It allows you to use a smaller 
+number of parameters, inside the covariance matrix, with regularization. 
+
+Given the kernel function, the covariance can get arbitrarily large 
+because it doesn't add any more parameters. 
+
+The kernel function can be based on differences, eg. space, time, age. 
+These are continuous ordered categories. Partial pooling where points 
+that are closer together to pool more. 
+
+The kernel function describes the expected covariance between any
+two points separated by a given distance. The kernel function is estimated 
+along with the other parameters. 
+
+Also see:
+
+- Automatic relevance determination (ARD) for multiple distance dimensions
+- Multi-output Gaussian processes, eg. multiple traits at the same time
+with covariation
+- Telemetry, navigation (Kalman filter)
