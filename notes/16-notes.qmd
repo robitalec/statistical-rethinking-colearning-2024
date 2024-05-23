@@ -164,3 +164,46 @@ $$k_{i, j} = n^{2} exp(-\rho d^{2}_{i, j})$$
 $$\bar{\alpha}, \beta, \gamma \sim Exponential(1)$$
 $$n^{2} \sim Exponential(2)$$
 $$\rho^{2} \sim Exponential(0.5)$$
+
+# Phylogenetic regression
+
+Phylogenetic comparative methods are dominated by causal salad. 
+Tossing factors into regression and interpreting every coefficient as
+causal. "Controlling for phylogeny" is often required by reviewers, 
+papers often use AIC or cross validation criteria as a stand-in for causal
+inference. 
+
+Phylogenetic causation is a dynamical system where causation passes from one
+generation to the next, from the most recent ancestor to the subsequent 
+time. The evolutionary history, however, is not known so the micro histories
+that may have happened have impacted the macro state, ie the pattern
+of covariation of living species. We want to model in a way that averages over
+the large number of possible histories. 
+
+Two conjoint problems:
+
+- What is the history (phylogeny)?
+	- has improved with modern genomics but there is huge uncertainty, process
+	not stationary and there is no one phylogeny correct for all traits
+- How to use it to model causes?
+
+Like social networks, phylogenies do not exist. 
+
+Different parts of the genome have different histories. 
+Tree space is hard to explore statistically. 
+
+An evolutionary model and tree structure give us the pattern of covariation 
+at the tips. Covariance declines with phylogenetic distance. The patttern 
+of covariation at the tips can be used as a proxy for the unobserved confounds. 
+
+This requires an assumption about the covariance relationship with phylogenetic
+distance. Some options include the Ornstein-Uhlenbeck and Brownian motion. 
+
+Some next steps: 
+
+- What about phylogenetic uncertainty?
+- Is group size a heritable trait?
+- There is joint causation in complex machines (gliders and hedgehogs) over time
+- Alternatives to regressions
+	- Ringen, Martin, Jaeggi 2021
+	- Gonzalez-Forero, Gardner 2018
