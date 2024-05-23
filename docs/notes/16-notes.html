@@ -5,8 +5,8 @@
 <meta name="generator" content="quarto-1.4.553">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Alec L. Robitaille">
-<meta name="dcterms.date" content="2024-04-18">
-<title>Statistical Rethinking colearning 2024 - Lecture 14 Notes</title>
+<meta name="dcterms.date" content="2024-05-22">
+<title>Statistical Rethinking colearning 2024 - Lecture 16 Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -132,7 +132,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/01-notes.html">Notes</a></li><li class="breadcrumb-item"><a href="../notes/14-notes.html">Lecture 14 Notes</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/01-notes.html">Notes</a></li><li class="breadcrumb-item"><a href="../notes/16-notes.html">Lecture 16 Notes</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -252,7 +252,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notes/14-notes.html" class="sidebar-item-text sidebar-link active">
+  <a href="../notes/14-notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 14 Notes</span></a>
   </div>
 </li>
@@ -264,7 +264,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notes/16-notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../notes/16-notes.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lecture 16 Notes</span></a>
   </div>
 </li>
@@ -338,18 +338,38 @@ window.Quarto = {
    
   <ul>
 <li>
-<a href="#correlated-features" id="toc-correlated-features" class="nav-link active" data-scroll-target="#correlated-features">Correlated features</a>
+<a href="#gaussian-processes" id="toc-gaussian-processes" class="nav-link active" data-scroll-target="#gaussian-processes">Gaussian processes</a>
   <ul class="collapse">
-<li><a href="#model-specification" id="toc-model-specification" class="nav-link" data-scroll-target="#model-specification">Model specification</a></li>
-  <li><a href="#example-bangladesh-fertility-survey" id="toc-example-bangladesh-fertility-survey" class="nav-link" data-scroll-target="#example-bangladesh-fertility-survey">Example: Bangladesh fertility survey</a></li>
+<li><a href="#kernel-functions" id="toc-kernel-functions" class="nav-link" data-scroll-target="#kernel-functions">Kernel functions</a></li>
+  <li>
+<a href="#example-oceanic-technology" id="toc-example-oceanic-technology" class="nav-link" data-scroll-target="#example-oceanic-technology">Example: oceanic technology</a>
+  <ul class="collapse">
+<li><a href="#statistical-model-without-spatial-covariation" id="toc-statistical-model-without-spatial-covariation" class="nav-link" data-scroll-target="#statistical-model-without-spatial-covariation">Statistical model without spatial covariation</a></li>
+  <li><a href="#statistical-model-with-spatial-covariation-but-without-population" id="toc-statistical-model-with-spatial-covariation-but-without-population" class="nav-link" data-scroll-target="#statistical-model-with-spatial-covariation-but-without-population">Statistical model with spatial covariation, but without population</a></li>
+  <li><a href="#statistical-model-with-quadratic-l2-kernel-without-population-size" id="toc-statistical-model-with-quadratic-l2-kernel-without-population-size" class="nav-link" data-scroll-target="#statistical-model-with-quadratic-l2-kernel-without-population-size">Statistical model with quadratic L2 kernel, without population size</a></li>
+  <li><a href="#statistical-model-with-quadratic-l2-kernel-and-population-size" id="toc-statistical-model-with-quadratic-l2-kernel-and-population-size" class="nav-link" data-scroll-target="#statistical-model-with-quadratic-l2-kernel-and-population-size">Statistical model with quadratic L2 kernel and population size</a></li>
   </ul>
 </li>
-  <li><a href="#divergent-transitions" id="toc-divergent-transitions" class="nav-link" data-scroll-target="#divergent-transitions">Divergent transitions</a></li>
-  </ul><div class="toc-actions"><ul><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/edit/main/notes/14-notes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+  </ul>
+</li>
+  <li>
+<a href="#phylogenetic-regression" id="toc-phylogenetic-regression" class="nav-link" data-scroll-target="#phylogenetic-regression">Phylogenetic regression</a>
+  <ul class="collapse">
+<li>
+<a href="#example-primates-social-brain-hypothesis" id="toc-example-primates-social-brain-hypothesis" class="nav-link" data-scroll-target="#example-primates-social-brain-hypothesis">Example: primates, social brain hypothesis</a>
+  <ul class="collapse">
+<li><a href="#statistical-model-without-phylogeny" id="toc-statistical-model-without-phylogeny" class="nav-link" data-scroll-target="#statistical-model-without-phylogeny">Statistical model without phylogeny</a></li>
+  <li><a href="#statistical-model-re-expressed-with-a-multivariate-normal" id="toc-statistical-model-re-expressed-with-a-multivariate-normal" class="nav-link" data-scroll-target="#statistical-model-re-expressed-with-a-multivariate-normal">Statistical model re-expressed with a multivariate normal</a></li>
+  <li><a href="#statistical-model-with-covariance-matrix" id="toc-statistical-model-with-covariance-matrix" class="nav-link" data-scroll-target="#statistical-model-with-covariance-matrix">Statistical model with covariance matrix</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/edit/main/notes/16-notes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/01-notes.html">Notes</a></li><li class="breadcrumb-item"><a href="../notes/14-notes.html">Lecture 14 Notes</a></li></ol></nav><div class="quarto-title">
-<h1 class="title">Lecture 14 Notes</h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/01-notes.html">Notes</a></li><li class="breadcrumb-item"><a href="../notes/16-notes.html">Lecture 16 Notes</a></li></ol></nav><div class="quarto-title">
+<h1 class="title">Lecture 16 Notes</h1>
 </div>
 
 
@@ -366,7 +386,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 18, 2024</p>
+      <p class="date">May 22, 2024</p>
     </div>
   </div>
   
@@ -375,100 +395,185 @@ window.Quarto = {
   
 
 
-</header><section id="correlated-features" class="level1"><h1>Correlated features</h1>
-<p>One prior distribution for each cluster</p>
-<ol type="1">
-<li>One feature: one-dimensional distribution, eg. a varying intercepts (<span class="math inline">\(\alpha_{j} \sim Normal(\bar{\alpha}, \sigma)\)</span>)</li>
-<li>Two features: two-dimensional distribution, ideally not two 1-D distributions but one 2-D distribution (<span class="math inline">\([\alpha_{j}, \beta_{j}] \sim MVNormal([\bar{\alpha}, \bar{\beta}], \sum)\)</span>)</li>
-<li>N features: N-dimensional distribution (<span class="math inline">\([\alpha_{j, 1...N}] \sim MVNormal(A, \sum)\)</span>)</li>
-</ol>
-<p>Correlated varying effects take priors that learn correlation structure using partial pooling across features.</p>
-<section id="model-specification" class="level2"><h2 class="anchored" data-anchor-id="model-specification">Model specification</h2>
-<p><span class="math inline">\([\alpha_{j}, \beta_{j}] \sim MVNormal([\bar{\alpha}, \bar{\beta}], R, [\sigma, \tau])\)</span></p>
+</header><section id="gaussian-processes" class="level1"><h1>Gaussian processes</h1>
+<p>Gaussian process is “an infinite-dimensional generalization of multivariate normal distributions”. Instead of a conventional covariance matrix, use a kernel function that generalizes to infinite dimensions/observations/predictions. It allows you to use a smaller number of parameters, inside the covariance matrix, with regularization.</p>
+<p>Given the kernel function, the covariance can get arbitrarily large because it doesn’t add any more parameters.</p>
+<p>The kernel function can be based on differences, eg. space, time, age. These are continuous ordered categories. Partial pooling where points that are closer together to pool more.</p>
+<p>The kernel function describes the expected covariance between any two points separated by a given distance. The kernel function is estimated along with the other parameters.</p>
+<p>Also see:</p>
 <ul>
-<li>
-<span class="math inline">\([\alpha_{j}, \beta_{j}]\)</span>: features for district j</li>
-<li>
-<span class="math inline">\(MVNormal\)</span>
+<li>Automatic relevance determination (ARD) for multiple distance dimensions</li>
+<li>Multi-output Gaussian processes, eg. multiple traits at the same time with covariation</li>
+<li>Telemetry, navigation (Kalman filter)</li>
+</ul>
+<section id="kernel-functions" class="level2"><h2 class="anchored" data-anchor-id="kernel-functions">Kernel functions</h2>
+<p>Goal is to describe the macro state, “what’s the shape of decline in covariation”. Some options:</p>
+<p>Quadratic (L2)</p>
 <ul>
-<li>
-<span class="math inline">\([\bar{\alpha}, \bar{\beta}]\)</span>: feature means</li>
-<li>
-<span class="math inline">\(R\)</span>: correlation matrix</li>
-<li>
-<span class="math inline">\([\sigma, \tau])\)</span>: standard deviations</li>
+<li>Gaussian covariance kernel</li>
 </ul>
-</li>
+<p>Ornstein-Uhlenbeck</p>
+<ul>
+<li>exponential decline</li>
 </ul>
-<p><span class="math inline">\(R \sim LKJCorr(4)\)</span></p>
-<p>The LKJ prior is a prior distribution for correlations</p>
+<p>Periodic</p>
+<ul>
+<li>cyclical variables eg. time of day, orientation</li>
+</ul></section><section id="example-oceanic-technology" class="level2"><h2 class="anchored" data-anchor-id="example-oceanic-technology">Example: oceanic technology</h2>
+<p>Number of tool types associated with population size</p>
+<p>Spatial covariation where islands close together share unobserved confounds and innovations. The effect of spatial covariation is to make closer islands have more similar tools or change in tools.</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">alpha_bar</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
-<span><span class="va">beta_bar</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
-<span><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">alpha_bar</span>, <span class="va">beta_bar</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">rho</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">0.8</span></span>
-<span><span class="va">R</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">rho</span>, <span class="va">rho</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
-<span><span class="va">mvnorm_prior</span> <span class="op">&lt;-</span> <span class="fu">rmvnorm</span><span class="op">(</span><span class="va">n</span>, <span class="va">mu</span>, sigma <span class="op">=</span> <span class="va">R</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">mvnorm_prior</span><span class="op">)</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">X1</span>, <span class="va">X2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">stat_ellipse</span><span class="op">(</span>level <span class="op">=</span> <span class="fl">.89</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">'alpha'</span>, y <span class="op">=</span> <span class="st">'beta'</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="14-notes_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section><section id="example-bangladesh-fertility-survey" class="level2"><h2 class="anchored" data-anchor-id="example-bangladesh-fertility-survey">Example: Bangladesh fertility survey</h2>
-<p>Outcome: contraceptive use</p>
-<p>Variables: age, living children, urban/rural, districts</p>
-<div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
-<span>    name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'A'</span>, <span class="st">'C'</span>, <span class="st">'D'</span>, <span class="st">'K'</span>, <span class="st">'U'</span><span class="op">)</span>,</span>
-<span>    x <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,    <span class="fl">2</span>,    <span class="fl">3</span>,   <span class="fl">1.5</span>, <span class="fl">2.5</span><span class="op">)</span>,</span>
-<span>    y <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,    <span class="fl">0.5</span>,    <span class="fl">0</span>,  <span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>    name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'T'</span>, <span class="st">'C'</span>, <span class="st">'P'</span>, <span class="st">'U'</span><span class="op">)</span>,</span>
+<span>    x <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,    <span class="fl">2</span>,   <span class="fl">0</span>,  <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    y <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,    <span class="fl">1</span>,   <span class="fl">1</span>,  <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu">dagify</span><span class="op">(</span></span>
-<span>    <span class="va">C</span> <span class="op">~</span> <span class="va">A</span> <span class="op">+</span> <span class="va">K</span> <span class="op">+</span> <span class="va">D</span> <span class="op">+</span> <span class="va">U</span>,</span>
-<span>    <span class="va">K</span> <span class="op">~</span> <span class="va">A</span> <span class="op">+</span> <span class="va">U</span>,</span>
-<span>    <span class="va">U</span> <span class="op">~</span> <span class="va">D</span>,</span>
+<span>    <span class="cn">T</span> <span class="op">~</span> <span class="va">P</span> <span class="op">+</span> <span class="va">C</span> <span class="op">+</span> <span class="va">U</span>,</span>
+<span>    <span class="va">P</span> <span class="op">~</span> <span class="va">U</span>,</span>
 <span>  coords <span class="op">=</span> <span class="va">coords</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="14-notes_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="384"></p>
+<figure class="figure"><p><img src="16-notes_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="480"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>From the previous lecture, the varying intercepts for district and slopes for urban.</p>
-<p><span class="math inline">\(C_{i} \sim Bernoulli(D_{i}, p_{i})\)</span></p>
-<p><span class="math inline">\(logit(p_{i}) = \alpha_{D[i]} + \beta_{D[i]}U_{i}\)</span></p>
-<p><span class="math inline">\(\alpha_{j} = \bar{\alpha} + Z_{\alpha, j} * \sigma\)</span></p>
-<p><span class="math inline">\(\beta_{j} = \bar{\beta} + Z_{\beta, j} * \sigma\)</span></p>
-<p><span class="math inline">\(Z_{\alpha, j} \sim Normal(0, 1)\)</span></p>
-<p><span class="math inline">\(Z_{\beta, j} \sim Normal(0, 1)\)</span></p>
-<p><span class="math inline">\(\bar{\alpha}, \bar{\beta} \sim Normal(0, 1)\)</span></p>
-<p><span class="math inline">\(\sigma, \tau \sim  Exponential(1)\)</span></p>
-<p><img src="../graphics/stat_rethinking_l14_slide05.png" class="img-fluid"></p>
-<p>There is useful information to transfer across features, here we note there is a correlation between rural and urban probability of use within districts. A model that uses two 1-dimensional distributions (intercepts and slopes) does not consider the covariance structure between rural and urban within district.</p>
-<p>Comparing the centered and non-centered model specification for the model using the multivariate normal specification with correlated features.</p>
-<p><img src="../graphics/stat_rethinking_l14_slide36.png" class="img-fluid"></p>
-<p>Simulating synthetic data for this kind of complex system is challenging and is likely best done with more detailed tools than eg. expecting a linear responses, instead with eg. an agent based model.</p>
-</section></section><section id="divergent-transitions" class="level1"><h1>Divergent transitions</h1>
-<p>Because of high curvature, the physics simulation runs off the surface. One option is to choose a smaller step size, but this results in much longer sampling time. Alternatively, re-express the “centered” model as a “non-centered” model.</p>
-<p><img src="../graphics/stat_rethinking_l14_slide66.png" class="img-fluid"></p>
-<p><img src="../graphics/stat_rethinking_l14_slide36.png" class="img-fluid"></p>
-<p><img src="../graphics/stat_rethinking_l14_slide78.png" class="img-fluid"></p>
+<ul>
+<li>T: tools</li>
+<li>P: population</li>
+<li>C: contact</li>
+<li>U: unobserved confounds</li>
+</ul>
+<section id="statistical-model-without-spatial-covariation" class="level3"><h3 class="anchored" data-anchor-id="statistical-model-without-spatial-covariation">Statistical model without spatial covariation</h3>
+<p>Functional relationship</p>
+<p><span class="math display">\[\Delta(T) = \alpha P^{\beta} - \gamma T\]</span></p>
+<ul>
+<li>
+<span class="math inline">\(\Delta(T)\)</span>: change in tools</li>
+<li>
+<span class="math inline">\(\alpha\)</span>: innovation rate</li>
+<li>
+<span class="math inline">\(\beta\)</span>: diminishing returns</li>
+<li>
+<span class="math inline">\(\gamma\)</span>: rate of loss</li>
+</ul>
+<p>Statistical model</p>
+<p><span class="math display">\[T_{i} \sim Poisson (\lambda_{i})\]</span> <span class="math display">\[\lambda_{i} = \hat{T}\]</span> <span class="math display">\[\hat{T} = \frac{\alpha P ^{\beta}}{\gamma}\]</span></p>
+</section><section id="statistical-model-with-spatial-covariation-but-without-population" class="level3"><h3 class="anchored" data-anchor-id="statistical-model-with-spatial-covariation-but-without-population">Statistical model with spatial covariation, but without population</h3>
+<p>Varying intercepts model</p>
+<p><span class="math display">\[T_{i} \sim Poisson (\lambda_{i})\]</span></p>
+<p><span class="math display">\[log \lambda_{i} = \bar{\alpha} + \alpha_{S_{[i]}}\]</span> <span class="math display">\[\hat{T} = \frac{\alpha P ^{\beta}}{\gamma}\]</span></p>
+<ul>
+<li>
+<span class="math inline">\(\bar{\alpha}\)</span>: mean across islands</li>
+<li>
+<span class="math inline">\(\alpha_{S_{[i]}\)</span>: deviation from mean by island</li>
+</ul>
+<p><span class="math display">\[\begin{bmatrix} \alpha_{1} \\ \alpha_{2} \\ .. \\ \alpha_{10} \end{bmatrix} \sim MVNormal(\begin{bmatrix} 0 \\ 0 \\ ... \\ 0 \end{bmatrix}, K)\]</span> - vector of varying effects - vector of zeros - covariance matrix, a 10x10 kernel</p>
+</section><section id="statistical-model-with-quadratic-l2-kernel-without-population-size" class="level3"><h3 class="anchored" data-anchor-id="statistical-model-with-quadratic-l2-kernel-without-population-size">Statistical model with quadratic L2 kernel, without population size</h3>
+<p>Varying intercepts model</p>
+<p><span class="math display">\[T_{i} \sim Poisson (\lambda_{i})\]</span></p>
+<p><span class="math display">\[log \lambda_{i} = \bar{\alpha} + \alpha_{S_{[i]}}\]</span> <span class="math display">\[\begin{bmatrix} \alpha_{1} \\ \alpha_{2} \\ .. \\ \alpha_{10} \end{bmatrix} \sim MVNormal(\begin{bmatrix} 0 \\ 0 \\ ... \\ 0 \end{bmatrix}, K)\]</span></p>
+<p><span class="math display">\[k_{i, j} = n^{2} exp(-\rho d^{2}_{i, j})\]</span> - <span class="math inline">\(k_{i, j}\)</span>: covariance - <span class="math inline">\(n^{2}\)</span>: max covariance - <span class="math inline">\(\rho\)</span>: rate of decline - <span class="math inline">\(d^{2}_{i, j}\)</span>: distance i, j</p>
+<p><span class="math display">\[\bar{\alpha} \sim Normal(3, 0.5)\]</span> <span class="math display">\[n^{2} \sim Exponential(2)\]</span> <span class="math display">\[\rho^{2} \sim Exponential(0.5)\]</span></p>
+<section id="prior-predictive-simulation" class="level4"><h4 class="anchored" data-anchor-id="prior-predictive-simulation">Prior predictive simulation</h4>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">20</span></span>
+<span><span class="va">DT</span> <span class="op">&lt;-</span> <span class="fu">CJ</span><span class="op">(</span>dist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">7</span>, length.out <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>, id <span class="op">=</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq.int</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">DT</span><span class="op">[</span>, <span class="va">eta</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html">rexp</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, by <span class="op">=</span> <span class="va">id</span><span class="op">]</span></span>
+<span><span class="va">DT</span><span class="op">[</span>, <span class="va">rho</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html">rexp</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.5</span><span class="op">)</span>, by <span class="op">=</span> <span class="va">id</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">DT</span><span class="op">[</span>, <span class="va">covar</span> <span class="op">:=</span> <span class="va">eta</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="va">rho</span> <span class="op">*</span> <span class="va">dist</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">DT</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">dist</span>, <span class="va">covar</span>, group <span class="op">=</span> <span class="va">id</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">'Distance'</span>, y <span class="op">=</span> <span class="st">'Covariance'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="16-notes_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section></section><section id="statistical-model-with-quadratic-l2-kernel-and-population-size" class="level3"><h3 class="anchored" data-anchor-id="statistical-model-with-quadratic-l2-kernel-and-population-size">Statistical model with quadratic L2 kernel and population size</h3>
+<p><span class="math display">\[T_{i} \sim Poisson (\lambda_{i})\]</span> <span class="math display">\[log \lambda_{i} = \frac{\bar{\alpha}P^{\beta}}{\gamma} exp(\alpha_{S_{[i]}})\]</span> <span class="math display">\[\begin{bmatrix} \alpha_{1} \\ \alpha_{2} \\ .. \\ \alpha_{10} \end{bmatrix} \sim MVNormal(\begin{bmatrix} 0 \\ 0 \\ ... \\ 0 \end{bmatrix}, K)\]</span> <span class="math display">\[k_{i, j} = n^{2} exp(-\rho d^{2}_{i, j})\]</span> <span class="math display">\[\bar{\alpha}, \beta, \gamma \sim Exponential(1)\]</span> <span class="math display">\[n^{2} \sim Exponential(2)\]</span> <span class="math display">\[\rho^{2} \sim Exponential(0.5)\]</span></p>
+</section></section></section><section id="phylogenetic-regression" class="level1"><h1>Phylogenetic regression</h1>
+<p>Phylogenetic comparative methods are dominated by causal salad. Tossing factors into regression and interpreting every coefficient as causal. “Controlling for phylogeny” is often required by reviewers, papers often use AIC or cross validation criteria as a stand-in for causal inference.</p>
+<p>Phylogenetic causation is a dynamical system where causation passes from one generation to the next, from the most recent ancestor to the subsequent time. The evolutionary history, however, is not known so the micro histories that may have happened have impacted the macro state, ie the pattern of covariation of living species. We want to model in a way that averages over the large number of possible histories.</p>
+<p>Two conjoint problems:</p>
+<ul>
+<li>What is the history (phylogeny)?
+<ul>
+<li>has improved with modern genomics but there is huge uncertainty, process not stationary and there is no one phylogeny correct for all traits</li>
+</ul>
+</li>
+<li>How to use it to model causes?</li>
+</ul>
+<p>Like social networks, phylogenies do not exist.</p>
+<p>Different parts of the genome have different histories. Tree space is hard to explore statistically.</p>
+<p>An evolutionary model and tree structure give us the pattern of covariation at the tips. Covariance declines with phylogenetic distance. The patttern of covariation at the tips can be used as a proxy for the unobserved confounds.</p>
+<p>This requires an assumption about the covariance relationship with phylogenetic distance. Some options include the Ornstein-Uhlenbeck and Brownian motion.</p>
+<p>Some next steps:</p>
+<ul>
+<li>What about phylogenetic uncertainty?</li>
+<li>Is group size a heritable trait?</li>
+<li>There is joint causation in complex machines (gliders and hedgehogs) over time</li>
+<li>Alternatives to regressions
+<ul>
+<li>Ringen, Martin, Jaeggi 2021</li>
+<li>Gonzalez-Forero, Gardner 2018</li>
+</ul>
+</li>
+</ul>
+<section id="example-primates-social-brain-hypothesis" class="level2"><h2 class="anchored" data-anchor-id="example-primates-social-brain-hypothesis">Example: primates, social brain hypothesis</h2>
+<p>Data includes life history traits, eg. mass, brain volume, group size. Lots of missing data, measurement error and unobserved confounding.</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>    name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'G'</span>, <span class="st">'B'</span>, <span class="st">'M'</span>, <span class="st">'u'</span>, <span class="st">'h'</span><span class="op">)</span>,</span>
+<span>    x <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,    <span class="fl">3</span>,   <span class="fl">2</span>,   <span class="fl">2</span>,   <span class="fl">3</span><span class="op">)</span>,</span>
+<span>    y <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,    <span class="fl">1</span>,   <span class="fl">0</span>,   <span class="op">-</span><span class="fl">1</span>,  <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu">dagify</span><span class="op">(</span></span>
+<span>    <span class="va">G</span> <span class="op">~</span> <span class="va">M</span> <span class="op">+</span> <span class="va">u</span>,</span>
+<span>    <span class="va">B</span> <span class="op">~</span> <span class="va">G</span> <span class="op">+</span> <span class="va">M</span> <span class="op">+</span> <span class="va">u</span>,</span>
+<span>    <span class="va">M</span> <span class="op">~</span> <span class="va">u</span>,</span>
+<span>    <span class="va">u</span> <span class="op">~</span> <span class="va">h</span>,</span>
+<span>  coords <span class="op">=</span> <span class="va">coords</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="16-notes_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>G: group size</li>
+<li>B: brain volume</li>
+<li>M: mass</li>
+<li>u: unobserved confounds</li>
+<li>h: history of exposures, environments, descent</li>
+</ul>
+<p>This is just one potential causal diagram. Reminder: there is no interpretation without causal representation.</p>
+<section id="statistical-model-without-phylogeny" class="level3"><h3 class="anchored" data-anchor-id="statistical-model-without-phylogeny">Statistical model without phylogeny</h3>
+<p><span class="math display">\[B_{i} \sim Normal(\mu_{i}, \sigma)\]</span> <span class="math display">\[\mu_{i} = \alpha + \beta_{G} G_{i} + \beta_{M} M_{i}\]</span> <span class="math display">\[\alpha \sim Normal(0,  1)\]</span> <span class="math display">\[\beta_{G}, \beta_{M} \sim Normal(0, 0.5)\]</span> <span class="math display">\[\sigma \sim Exponential(1)\]</span></p>
+</section><section id="statistical-model-re-expressed-with-a-multivariate-normal" class="level3"><h3 class="anchored" data-anchor-id="statistical-model-re-expressed-with-a-multivariate-normal">Statistical model re-expressed with a multivariate normal</h3>
+<p>You can always re-express a linear regression of this type (a normal distribution assigned to each individual outcome, in this case <span class="math inline">\(B_{i}\)</span>) with a multivariate normal distribution. This is an equivalent notation. The subscript i is taken off the outcome B, indicating they all come from some multivariate distribution with some mean <span class="math inline">\(\mu\)</span> and covariance matrix <span class="math inline">\(K\)</span>.</p>
+<p><span class="math display">\[B \sim MVNormal(\mu_{i}, K)\]</span> <span class="math display">\[\mu_{i} = \alpha + \beta_{G} G_{i} + \beta_{M} M_{i} + u_{i}\]</span> <span class="math display">\[K = I \sigma ^2\]</span> - I is the identity matrix</p>
+<p><span class="math display">\[\alpha \sim Normal(0,  1)\]</span> <span class="math display">\[\beta_{G}, \beta_{M} \sim Normal(0, 0.5)\]</span> <span class="math display">\[\sigma \sim Exponential(1)\]</span></p>
+</section><section id="statistical-model-with-covariance-matrix" class="level3"><h3 class="anchored" data-anchor-id="statistical-model-with-covariance-matrix">Statistical model with covariance matrix</h3>
+<p><span class="math display">\[B \sim MVNormal(\mu_{i}, K)\]</span> <span class="math display">\[\mu_{i} = \alpha + \beta_{G} G_{i} + \beta_{M} M_{i} + u_{i}\]</span> <span class="math display">\[K = n^2 exp(-\rho d_{i, j})\]</span> - I is the identity matrix</p>
+<p><span class="math display">\[\alpha \sim Normal(0,  1)\]</span> <span class="math display">\[\beta_{G}, \beta_{M} \sim Normal(0, 0.5)\]</span> <span class="math display">\[n^2 \sim HalfNormal(1, 0.25)\]</span> - <span class="math inline">\(n^2\)</span> is the maximum covariance prior</p>
+<p><span class="math display">\[\rho \sim HalfNormal(3, 0.25)\]</span></p>
+<ul>
+<li>
+<span class="math inline">\(\rho\)</span> is the rate prior</li>
+</ul>
 
 
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1025,4 +1130,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/edit/main/notes/14-notes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/edit/main/notes/16-notes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
