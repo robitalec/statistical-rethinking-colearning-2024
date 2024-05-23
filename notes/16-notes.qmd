@@ -34,3 +34,21 @@ Also see:
 - Multi-output Gaussian processes, eg. multiple traits at the same time
 with covariation
 - Telemetry, navigation (Kalman filter)
+
+
+## Kernel functions
+
+Goal is to describe the macro state, "what's the shape of decline
+in covariation". Some options:
+
+Quadratic (L2)
+
+- Gaussian covariance kernel
+
+Ornstein-Uhlenbeck
+
+- exponential decline
+
+Periodic
+
+- cyclical variables eg. time of day, orientation
