@@ -81,3 +81,20 @@ dagify(
 - C: contact
 - U: unobserved confounds
 
+### Statistical model without spatial covariation
+
+Functional relationship
+
+$$\Delta(T) = \alpha P^{\beta} - \gamma T$$
+
+- $\Delta(T)$: change in tools
+- $\alpha$: innovation rate
+- $\beta$: diminishing returns
+- $\gamma$: rate of loss
+
+Statistical model
+
+$$T_{i} \sim Poisson (\lambda_{i})$$
+$$\lambda_{i} = \hat{T}$$
+$$\hat{T} = \frac{\alpha P ^{\beta}}{\gamma}$$
+
