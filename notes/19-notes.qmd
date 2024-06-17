@@ -6,6 +6,7 @@ date: "2024-06-17"
 
 ```{r, include = FALSE}
 source('R/packages.R')
+source('R/data_Howell1.R')
 ```
 
 ## Scientific models
