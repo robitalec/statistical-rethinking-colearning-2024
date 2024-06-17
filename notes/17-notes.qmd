@@ -1,0 +1,23 @@
+---
+title: "Lecture 17 Notes"
+author: "Alec L. Robitaille"
+date: "2024-05-23"
+---
+
+```{r, include = FALSE}
+source('R/packages.R')
+```
+
+
+# Measurement error
+
+TODO
+
+## Example: marriage and divorce rate
+
+TODO
+
+# Misclassification
+
+
+## Example: Himba
