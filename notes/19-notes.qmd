@@ -11,19 +11,19 @@ source('R/data_Howell1.R')
 
 ## Scientific models
 
-Linear models are additive combinations of variables
-They can be used for many applications, the fit is ok but not ideal
-Using linear models gives up scientific information we could use to better inform statistical analysis
+Linear models are additive combinations of variables. They can be used for many
+applications, and the fit is ok but not ideal. Using linear models is like 
+fitting a square peg in a round hole - it can work but we give up
+give up scientific information we could use to better inform our statistical 
+analysis.
 
-
-LMs, GLMs, GLMMs are flexible machines for decscribing associations
-
-Without an external causal model, linear models have no causal interpretation
-
+LMs, GLMs, GLMMs are flexible machines for describing associations. Without an 
+external causal model, linear models have no causal interpretation.
 
 ### Example: height
 
-The weight of humans is proportional to height. For example, represent humans as a cylinder. 
+The weight of humans is proportional to height. For example, represent humans as
+a cylinder.
 
 Starting from the equation for the volume of a cylinder:
 
@@ -41,7 +41,9 @@ And simplified, the formula for the expected weight is
 
 $W = k \pi p^{2}h^{3}$
 
-This is not a regression model, it is a scientific model that arises from the physical structure of human bodies. 
+This is not a regression model, it is a scientific model that arises from the
+physical structure of human bodies (assuming human bodies are well 
+approximated by a cylinder).
 
 
 ### Statistical model
@@ -54,8 +56,7 @@ $p \sim Distribution($
 
 $k \sim Distribution()$
 
-
-Set priors: choose measurement scales and simulate. 
+How to set priors? Choose measurement scales and simulate. 
 
 Units: 
 
@@ -63,33 +64,23 @@ Units:
 - $k$: $kg/cm^{3}$ 
 - $h^{3}$
 
-Measurement scales are social constructs, and it can be easier to divide them out. 
-We can do that by rescaling by, eg. the mean height and weight, resulting in the same data dimensionless. 
-By dividing by the mean, anything larger than 1 is larger than the mean, anything less than 1 is less than the mean. 
+Measurement scales are social constructs, and it can be easier to divide them
+out. We can do that by rescaling by, eg. the mean height and weight, resulting
+in the same data dimensionless. By dividing by the mean, anything larger than 1
+is larger than the mean, anything less than 1 is less than the mean.
 
+P is a proportion, therefore between 0-1, in this case < 0.5 because the
+radius of a body in this population is less than a half of its height.
 
-P is a proporiton, therefore between 0-1, less than 0.5 in this case because the radius of a body in this population is less than a half of its height. 
-
-k is a density, it is a positive real number, greater than 1. 
-
+k is a density, a positive real number > 1. 
 Beta distribution is for proportions, 
 
+Weight is a positive real, variance scales with the mean. Growth is
+multiplicative, log-normal is natural choice.
 
-```{r}
-ggplot() + 
-    stat_function(fun = dbeta, args = list(shape1 = 25, shape2 = 50)) + 
-    xlim(0, 1) + 
-    labs(x = 'p', y = 'dbeta(x, 25, 50)')
-
-ggplot() + 
-    stat_function(fun = dexp, args = list(rate = 0.5)) + 
-    xlim(0, 5) + 
-    labs(x = 'k', y = 'dexp(0.5)')
-```
-
-Weight is a positive real, variance scales with the mean. Growth is multiplicative, log-normal is natural choice. 
-
-LogNormal is parameterized using the mu and sigma: mu in log-normal is mean of log, not mean of observed. Therefore when we model, we need to exponentiate mu because the formula corresponds to weight on the natural scale. 
+LogNormal is parameterized using the mu and sigma: mu in log-normal is mean of
+log, not mean of observed. Therefore, when we model we need to exponentiate mu
+because the formula corresponds to weight on the natural scale.
 
 
 $W_{i} \sim LogNormal(\mu_{i}, \sigma)$
@@ -103,14 +94,25 @@ $k \sim Exponential(0.5)$
 $\sigma \sim Exponential(1)$
 
 
+```{r}
+ggplot() +
+	stat_function(fun = dbeta, args = list(shape1 = 25, shape2 = 50)) +
+	xlim(0, 1) +
+	labs(x = 'p', y = 'dbeta(x, 25, 50)')
+
+ggplot() +
+	stat_function(fun = dexp, args = list(rate = 0.5)) +
+	xlim(0, 5) +
+	labs(x = 'k', y = 'dexp(0.5)')
+```
 
 ```{r}
 DT <- data_Howell()
 
 form <- bf(scale_weight_div_mean ~ log(k * 3.1415 * p ^ 2 * scale_height_div_mean ^ 3),
-       p ~ 1,
-       k ~ 1,
-       nl = TRUE)
+					 p ~ 1,
+					 k ~ 1,
+					 nl = TRUE)
 
 get_prior(form, data = DT, family = 'lognormal')
 ```
@@ -133,12 +135,17 @@ ggplot(pred, aes(scale_height_div_mean, .prediction)) +
     labs(x = 'Height (scaled)', y = 'Weight (scaled)')
 ```
 
-Help translating this model from `rethinking` to `brms` from the [brms translation of Statistical Rethinking 2nd edition](https://bookdown.org/content/4857/generalized-linear-madness.html#geometric-people)
+Help translating this model from `rethinking` to `brms` from the 
+[brms translation of Statistical Rethinking 2nd edition](https://bookdown.org/content/4857/generalized-linear-madness.html#geometric-people).
 
+Models using scientific structure can be easier to tune, because differences
+from prediction error are more closely tied to the problem at hand, rather than
+geocentric type models.
 
-Models using scientific structure can be easier to tune, because differences from prediction error are more closely tied to the problem at hand, rather than geocentric type models. 
-
-The posterior shows that the relationship between k and p is a negative curve where as k increases the values for p decrease. The model has identified a mathematical function in our formula, that could be used directly instead of including these parameters in the model.
+The posterior shows that the relationship between k and p is a negative curve
+where as k increases the values for p decrease. The model has identified a
+mathematical function in our formula, that could be used directly instead of
+including these parameters in the model.
 
 ```{r kp_rel}
 ggplot(as_draws_df(m_l19_nl_howell)) + 
@@ -147,7 +154,8 @@ ggplot(as_draws_df(m_l19_nl_howell)) +
 ```
 
 
-Taking an example individual with scaled height = 1 and scaled weight = 1, we can solve for k. 
+Taking an example individual with scaled height = 1 and scaled weight = 1, we
+can solve for k.
 
 $\mu_{i} = k \pi p^{2} h^{3}$
 
@@ -170,9 +178,8 @@ $\theta$ is used to represent $k p^2$ and therefore it must be
 $\theta \approx \pi^{-1}$
 
 Given this, there are no parameters in the model, it is dimensionless. 
-Restructuring the model without those two fparameters, the model returns 
-the same result and, as a bonus, fits much more efficiently.   
-
+Restructuring the model without those two parameters, the model returns 
+the same result and, as a bonus, it fits much more efficiently.   
 
 ```{r l19_nl_howell_no_dim}
 tar_load(m_l19_nl_howell_no_dim)
@@ -194,11 +201,13 @@ ggplot(pred_no_dim, aes(scale_height_div_mean, .prediction)) +
 
 ## State-based models
 
-What we want is a latent state but what we have is only emissions or behaviours of a latent variable. A misguided approach would be to just analyse this data as if it is a categorical variable, disregarding the difference between the behaviour and the underlying latent state. 
+What we want is a latent state but what we have is only emissions or behaviours
+of a latent variable. A misguided approach would be to just analyse this data as
+if it is a categorical variable, disregarding the difference between the
+behaviour and the underlying latent state.
 
-This family of models if common in movement, learning, population dynamics, international relations, family planning.
-
-
+This family of models is common in movement, learning, population dynamics,
+international relations, family planning.
 
 ### Example: social conformity
 
@@ -212,8 +221,8 @@ Majority choice is consistent with many strategies:
 - random demonstrator would follow majority 3/4 the time 
 - random demonstration would follow majority 1/2 the time
 
-
-Total evidence for majority choice is exaggerated because multiple processes lead to the majority choice beyond a majority preference. 
+Total evidence for majority choice is exaggerated because multiple processes
+lead to the majority choice beyond a majority preference.
 
 
 Strategy space:
@@ -225,8 +234,8 @@ Strategy space:
 1. Follow first (copy the first demonstrator)
 
 
-
-This is a state based model. There are three possible observations: unchosen, majority or minority. 
+This is a state based model. There are three possible observations: unchosen,
+majority or minority.
 
 $Y_{i} \sim Categorical(\theta)$
 
@@ -240,28 +249,22 @@ $p \sim Dirichlet([4, 4, 4, 4, 4])$
 - $Pr(Y=j | S)$ is the probability of choice j assuming strategy S
 
 
-
 ### Example: population dynamics
 
-Latent states can be time varying. Example: ecological dynamics with numbers of different species over time. 
+Latent states can be time varying. Example: ecological dynamics with numbers of
+different species over time.
 
-Estimand: how do different species interact? How do interactions influence population dynamics?
+Estimand: how do different species interact? How do interactions influence
+population dynamics?
 
-Lotka Voltera equations specify the change in number of individuals over time. 
+Lotka-Voltera equations specify the change in number of individuals over time. 
 
-$\frac{dH}{dt} = H_{t} * \texttt{birth rate} - H_{t} * \texttt{death rate}$
+$\frac{dH}{dt} = H_{t} * b_{H} - H_{t} (L_{t} m_{H})$
 
-$\frac{dL}{dt} = H_{t} * \texttt{birth rate} - H_{t} * \texttt{death rate}$
+$\frac{dL}{dt} = L(H_{t} * b_{L}) - L_{t} * m_{L}$
 
-Filling in the interdependence
-
-$\frac{dH}{dt} = H_{t} b_{H} - H_{t} (L_{t} m_{H})$
-
-$\frac{dL}{dt} = H_{t} * (H_{t} b_{L}) - H_{t} * m_{L}$
-
-
-- $m_{H}$ is the impact of lynx on hares
-
+- $m_{H}$ the survival of hares depends on lynx
+- $H_{t} * b_{L}$ the birth rate of lynx depdends on hare
 
 Model
 
@@ -270,8 +273,6 @@ $h_{t} \sim LogNormal(log(p_{H}H_{t}, \sigma_{H})$
 $l_{t} \sim LogNormal(log(p_{L}L_{t}, \sigma_{L})$ 
 
 
-Without causal model, little hope to understand ecological interventions
-
-
-This is an example of cyclic (vs acyclic), but because it is modeled through time it is 
+Without causal model, little hope to understand ecological interventions. 
+Note this is an example of using the built in ODE solver in Stan. 
 
