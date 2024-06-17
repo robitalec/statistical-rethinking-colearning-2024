@@ -20,6 +20,8 @@ conflict_prefer_all('brms', quiet = TRUE)
 conflict_prefer_all('tidybayes', quiet = TRUE)
 conflict_prefer_all('posterior', quiet = TRUE)
 conflict_prefer_all('emmeans', quiet = TRUE)
+conflict_prefer_all('stats', quiet = TRUE)
+conflicts_prefer(rethinking::HPDI)
 
 library(data.table)
 library(stringi)
