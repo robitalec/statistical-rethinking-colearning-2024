@@ -12,15 +12,15 @@ source('R/packages.R')
 # Stargazing
 
 Fortune telling frameworks (eg. horoscopes, tarot cards, linear models) has to
-be vague, derived from vague facts the advice has to be vague. Also often an
-exaggerated importance.
+be vague - derived from vague facts the advice has to be vague. Also, often 
+has an exaggerated importance.
 
 Cannot offload subjective responsibility onto an objective procedure
 
-Tendency to focus on parts that are mathematical, objective - the quality of the
-data analysis
+Tendency to focus on parts that are mathematical, objective (the quality of the
+data analysis)
 
-Other things that are also important
+Other things that are also important: 
 
 - quality of theory
 - quality of data
@@ -30,14 +30,14 @@ Other things that are also important
 
 ## Planning
 
-### Goal setting
+Goal setting
 
-- estimands defined at the beginning
+	- Define estimates at the beginning
 
-### Theory building
+Theory building
 
-- Which assumptions will we make to construct an appropriate estimator?
-- Causal model
+	- Which assumptions will we make to construct an appropriate estimator?
+	- Causal model
 
 Levels of theory building
 
@@ -52,9 +52,8 @@ implications.
 
 Best way to learn models is to read models.
 
-#### DAGs
 
-Heuristic causal models
+Heuristic causal models (DAGs)
 
 1. Treatment and outcome
 1. Other causes
@@ -62,17 +61,14 @@ Heuristic causal models
 1. Unobserved causes
 
 
-### Justified sampling plan
-
-
-### Justified analysis plan
-
-
-### Documentation
-
-
-### Open software and data formats
-
+- Justified sampling plan
+- Justified analysis plan
+- Documentation
+- Open software and data formats
+	- "Especially for academics, not ethical to use closed, proprietary, expensive
+software or data formats"
+	- Future self might also thank you, since you may no longer have access 
+to software in the future
 
 ## Working
 
@@ -81,42 +77,36 @@ Heuristic causal models
 1. Test pipeline on synthetic data
 1. Run pipeline on empirical data
 
-
-### Control
+Control
 
 - version control (Git)
 - history
 - backup
 - accountability
 
-
-### Incremental testing
+Incremental testing
 
 - build things iteratively
 - test each piece
 
-### Documentation
+Documentation
 
 - comment everything
 - for you and for others
 
-
-### Review
+Review
 
 - at least two people should look at each thing you do
 - explain the code to someone (rubber ducky)
 
-
-
 ## Reporting
 
+Sharing materials
 
-### Sharing materials
+- Papers are an advertisement, the data and its analysis are the product. 
+Data and code should be available through a link, not "by request"
 
-Papers are an advertisement, the data and its analysis are the product. Data and code should be available through a link, not "by request"
-
-
-### Describing methods
+Describing methods
 
 - math-stats notation of statistical model (software independent)
 - explanation of how math-stats model provides estimand
@@ -124,37 +114,50 @@ Papers are an advertisement, the data and its analysis are the product. Data and
 - diagnostics, code tests
 - cite software packages
 
+> "To estimate the reciprocity within dyads, we model the correlation within
+dyads in giving, using a multilevel mixed-membership model (textbook citation).
+To control for confounding from generalized giving and receiving, as indicated
+by the DAG in the previous section, we stratify giving and receiving by
+household. The full model with priors is presented at right. We estimated the
+posterior distribution using Hamiltonian Monte Carlo as implemented in Stan
+version 2.29 (citation). We validated the model on simulated data and assessed
+convergence by inspection of trace plots, R-hat values, and effective sample
+sizes. Diagnostics are reported in Appendix B and all results can be replicated
+using the code available at LINK."
+
 Justifying priors
 
-"Priors were chosen through prior predictive simulation so that pre-data predictions span the range of scientifically plausible outcomes. In the results, we explicitly compared the posterior distribution to the prior, so that the impact of the sample is obvious. "
+>  "Priors were chosen through prior predictive simulation so that pre-data
+predictions span the range of scientifically plausible outcomes. In the results,
+we explicitly compared the posterior distribution to the prior, so that the
+impact of the sample is obvious. "
 
-Responding to reviewers: change discussion from statistics to causal models, scientific models. 
+Responding to reviewers
 
-Point readers to a primer paper on Bayesian statistics in your field. 
+	- change discussion from statistics to causal models, scientific models.
+	- Point readers to a primer paper on Bayesian statistics in your field. 
 
-### Describing data
+Describing data
 
-Sample size, but specifically the structure of your data - how many observations of how many units?
-
-At which level (across or within clusters) are variables measured?
-
-Missing values
-
-
-### Describing results
-
-Focus of results typically are on estimands, presented using marginal causal effects
-
-Warn against causal interpretation of control variables (Table 2 fallacy)
-
-Sample realizations > Densities > Intervals
+- Sample size, but specifically the structure of your data: how many 
+observations of how many units?
+- At which level (across or within clusters) are variables measured?
+- Missing values
 
 
-### Making decisions
+Describing results
 
-Academic research: communicate uncertainty, conditional on sample and models
+- Focus of results typically are on estimands, presented using marginal causal
+effects
+- Warn against causal interpretation of control variables (Table 2 fallacy)
+- Sample realizations > Densities > Intervals
 
-Industry, applied research: what should we do, given uncertainty, conditional on sample and models?
+
+Making decisions
+
+- Academic research: communicate uncertainty, conditional on sample and models
+- Industry, applied research: what should we do, given uncertainty, 
+conditional on sample and models?
 
 Bayesian decision theory:
 
