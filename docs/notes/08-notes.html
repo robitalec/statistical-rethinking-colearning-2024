@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.555">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Alec L. Robitaille">
 <meta name="dcterms.date" content="2024-03-07">
@@ -266,6 +266,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="../notes/16-notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 16 Notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/19-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 19 Notes</span></a>
   </div>
 </li>
       </ul>
@@ -562,24 +568,9 @@ model {
 <span>    chains <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>    cores <span class="op">=</span> <span class="fl">4</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/tmp/Rtmp0jHh30/model-1c2414557a270.stan', line 19, column 4 to column 29)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 </code></pre>
-</div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu">precis</span><span class="op">(</span><span class="va">mQ</span>, depth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu">precis</span><span class="op">(</span><span class="va">mQ</span>, depth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="08-notes_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
@@ -593,7 +584,7 @@ model {
 <p><span class="math display">\[S_{i} \sim Normal(\mu_{i}, \sigma)\]</span> <span class="math display">\[\mu_{i} = Q_{W[i]} + O_{X[i]}\]</span> <span class="math display">\[Q_{j} \sim Normal(0, 1)\]</span> <span class="math display">\[O_{j} \sim Normal(0, 1)\]</span></p>
 <p><span class="math display">\[\sigma \sim Exponential(1)\]</span></p>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mQO</span> <span class="op">&lt;-</span> <span class="fu">ulam</span><span class="op">(</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mQO</span> <span class="op">&lt;-</span> <span class="fu">ulam</span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html">alist</a></span><span class="op">(</span></span>
 <span>        <span class="va">S</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span>,</span>
 <span>        <span class="va">mu</span> <span class="op">&lt;-</span> <span class="va">Q</span><span class="op">[</span><span class="va">W</span><span class="op">]</span> <span class="op">+</span> <span class="va">O</span><span class="op">[</span><span class="va">X</span><span class="op">]</span>,</span>
@@ -605,24 +596,9 @@ model {
 <span>    chains <span class="op">=</span> <span class="fl">4</span> ,</span>
 <span>    cores <span class="op">=</span> <span class="fl">4</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/tmp/Rtmp0jHh30/model-1c24127a249e.stan', line 21, column 4 to column 29)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Chain 3 </code></pre>
-</div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu">precis</span><span class="op">(</span><span class="va">mQO</span>, <span class="fl">2</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu">precis</span><span class="op">(</span><span class="va">mQO</span>, <span class="fl">2</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="08-notes_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
@@ -635,7 +611,7 @@ model {
 <p>Judges’ biases are a competing cause and we use two additional latent variables (H and D) to measure them. <span class="math inline">\(\mu_{i}\)</span> is the expected score of a wine and it is calculated by multiplying the judge discrimination (D) by wine quality added to origin (O) subtracted by judge harshness (H). Harshness represents how good a wine has to be to give it an average score. Discriminatory judges give very disperse scores to different wines, whereas non-discriminatory judges give similar scores to all wines. This formulation comes from common judge or item response models.</p>
 <p><span class="math display">\[S_{i} \sim Normal(\mu_{i}, \sigma)\]</span> <span class="math display">\[\mu_{i} = (Q_{W[i]} + O_{X[i]} - H_{J[i]})D_{J[i]}\]</span> <span class="math display">\[Q_{j} \sim Normal(0, 1)\]</span> <span class="math display">\[O_{j} \sim Normal(0, 1)\]</span> <span class="math display">\[H_{j} \sim Normal(0, 1)\]</span> <span class="math display">\[D_{j} \sim Normal(0, 1)\]</span> <span class="math display">\[\sigma \sim Exponential(1)\]</span></p>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mQOJ</span> <span class="op">&lt;-</span> <span class="fu">ulam</span><span class="op">(</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mQOJ</span> <span class="op">&lt;-</span> <span class="fu">ulam</span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html">alist</a></span><span class="op">(</span></span>
 <span>        <span class="va">S</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span>,</span>
 <span>        <span class="va">mu</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">Q</span><span class="op">[</span><span class="va">W</span><span class="op">]</span> <span class="op">+</span> <span class="va">O</span><span class="op">[</span><span class="va">X</span><span class="op">]</span> <span class="op">-</span> <span class="va">H</span><span class="op">[</span><span class="va">J</span><span class="op">]</span><span class="op">)</span> <span class="op">*</span> <span class="va">D</span><span class="op">[</span><span class="va">J</span><span class="op">]</span>,</span>
@@ -650,7 +626,7 @@ model {
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu">precis</span><span class="op">(</span><span class="va">mQOJ</span>, <span class="fl">2</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu">precis</span><span class="op">(</span><span class="va">mQOJ</span>, <span class="fl">2</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="08-notes_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
