@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.555">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Statistical Rethinking colearning 2024</title>
 <style>
@@ -205,6 +205,12 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../notes/16-notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 16 Notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/19-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 19 Notes</span></a>
   </div>
 </li>
       </ul>
@@ -624,7 +630,38 @@ targets_h06 &lt;- c(
     )
 )
 
-
+# Lecture 19 --------------------------------------------------------------
+targets_lecture_19 &lt;- c(
+    tar_target(
+        m_l19_nl_howell,
+        brm(
+            bf(
+                scale_weight_div_mean ~ log(k * 3.1415 * p ^ 2 * scale_height_div_mean ^ 3),
+                p ~ 1,
+                k ~ 1,
+                nl = TRUE),
+            prior = c(
+                prior(beta(25, 50), nlpar = p, lb = 0, ub = 1),
+                prior(exponential(0.5), nlpar = k, lb = 0),
+                prior(exponential(1), class = sigma)
+            ),
+            data = data_Howell(),
+            family = 'lognormal'
+        )
+    ),
+    tar_target(
+        m_l19_nl_howell_no_dim,
+        brm(
+            bf(
+                scale_weight_div_mean ~ log(scale_height_div_mean ^ 3)),
+            prior = c(
+                prior(exponential(1), class = sigma)
+            ),
+            data = data_Howell(),
+            family = 'lognormal'
+        )
+    )
+)
 
 # Targets: all ------------------------------------------------------------
 # Automatically grab all the "targets_*" lists above

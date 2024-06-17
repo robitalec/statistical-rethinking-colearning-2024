@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.555">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Alec L. Robitaille">
 <meta name="dcterms.date" content="2024-04-11">
@@ -268,6 +268,12 @@ window.Quarto = {
  <span class="menu-text">Lecture 16 Notes</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/19-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 19 Notes</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -412,50 +418,8 @@ window.Quarto = {
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h06_q01_exp_1_brms_sample_prior</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)</code></pre>
-</div>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">h06_q01_exp_1_brms_sample_prior</span><span class="op">$</span><span class="va">prior</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h06_q01_exp_1_brms_sample_prior</span><span class="op">)</span></span>
+<span><span class="va">h06_q01_exp_1_brms_sample_prior</span><span class="op">$</span><span class="va">prior</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          prior     class      coef group resp dpar nlpar lb ub       source
    normal(0, 1) Intercept                                               user
@@ -465,7 +429,7 @@ replacing with NULL (see https://github.com/traversc/qs/issues/93)</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">mcmc_areas</span><span class="op">(</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">mcmc_areas</span><span class="op">(</span></span>
 <span>    <span class="va">h06_q01_exp_1_brms_sample_prior</span>,</span>
 <span>    regex_pars <span class="op">=</span> <span class="st">'r_tank'</span>, </span>
 <span>    transformations <span class="op">=</span> <span class="va">inv_logit</span></span>
@@ -480,50 +444,8 @@ replacing with NULL (see https://github.com/traversc/qs/issues/93)</code></pre>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h06_q01_exp_0pt1_brms_sample_prior</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)</code></pre>
-</div>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">h06_q01_exp_0pt1_brms_sample_prior</span><span class="op">$</span><span class="va">prior</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h06_q01_exp_0pt1_brms_sample_prior</span><span class="op">)</span></span>
+<span><span class="va">h06_q01_exp_0pt1_brms_sample_prior</span><span class="op">$</span><span class="va">prior</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            prior     class      coef group resp dpar nlpar lb ub       source
      normal(0, 1) Intercept                                               user
@@ -533,7 +455,7 @@ replacing with NULL (see https://github.com/traversc/qs/issues/93)</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">mcmc_areas</span><span class="op">(</span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">mcmc_areas</span><span class="op">(</span></span>
 <span>    <span class="va">h06_q01_exp_0pt1_brms_sample_prior</span>,</span>
 <span>    regex_pars <span class="op">=</span> <span class="st">'r_tank'</span>,</span>
 <span>    transformations <span class="op">=</span> <span class="va">inv_logit</span></span>
@@ -548,50 +470,8 @@ replacing with NULL (see https://github.com/traversc/qs/issues/93)</code></pre>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h06_q01_exp_10_brms_sample_prior</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)</code></pre>
-</div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">h06_q01_exp_10_brms_sample_prior</span><span class="op">$</span><span class="va">prior</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h06_q01_exp_10_brms_sample_prior</span><span class="op">)</span></span>
+<span><span class="va">h06_q01_exp_10_brms_sample_prior</span><span class="op">$</span><span class="va">prior</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           prior     class      coef group resp dpar nlpar lb ub       source
     normal(0, 1) Intercept                                               user
@@ -601,7 +481,7 @@ replacing with NULL (see https://github.com/traversc/qs/issues/93)</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">mcmc_areas</span><span class="op">(</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">mcmc_areas</span><span class="op">(</span></span>
 <span>    <span class="va">h06_q01_exp_10_brms_sample_prior</span>, </span>
 <span>    regex_pars <span class="op">=</span> <span class="st">'r_tank'</span>, </span>
 <span>    transformations <span class="op">=</span> <span class="va">inv_logit</span></span>
@@ -624,14 +504,14 @@ replacing with NULL (see https://github.com/traversc/qs/issues/93)</code></pre>
 <p>What is the causal effect of predation and size on survival?</p>
 </section><section id="scientific-model" class="level3"><h3 class="anchored" data-anchor-id="scientific-model">Scientific model</h3>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
 <span>    name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'D'</span>, <span class="st">'G'</span>, <span class="st">'P'</span>, <span class="st">'T'</span>, <span class="st">'S'</span><span class="op">)</span>,</span>
 <span>    x <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,    <span class="fl">2</span>,   <span class="fl">3</span>,   <span class="fl">1</span>,    <span class="fl">2</span><span class="op">)</span>,</span>
 <span>    y <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,    <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="fl">1</span>,  <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dag</span> <span class="op">&lt;-</span> <span class="fu">dagify</span><span class="op">(</span></span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dag</span> <span class="op">&lt;-</span> <span class="fu">dagify</span><span class="op">(</span></span>
 <span>    <span class="va">S</span> <span class="op">~</span> <span class="va">D</span> <span class="op">+</span> <span class="va">G</span> <span class="op">+</span> <span class="va">P</span> <span class="op">+</span> <span class="cn">T</span>,</span>
 <span>  coords <span class="op">=</span> <span class="va">coords</span>,</span>
 <span>    outcome <span class="op">=</span> <span class="st">'S'</span>,</span>
@@ -651,7 +531,7 @@ replacing with NULL (see https://github.com/traversc/qs/issues/93)</code></pre>
 <li>outcome: survival (S)</li>
 </ul></section><section id="adjustment-set" class="level3"><h3 class="anchored" data-anchor-id="adjustment-set">Adjustment set</h3>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggdag_adjustment_set</span><span class="op">(</span><span class="va">dag</span>, effect <span class="op">=</span> <span class="st">'direct'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggdag_adjustment_set</span><span class="op">(</span><span class="va">dag</span>, effect <span class="op">=</span> <span class="st">'direct'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="06-homework_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
@@ -661,51 +541,9 @@ replacing with NULL (see https://github.com/traversc/qs/issues/93)</code></pre>
 </div>
 </section><section id="analyze-the-data" class="level3"><h3 class="anchored" data-anchor-id="analyze-the-data">Analyze the data</h3>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load model</span></span>
-<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h06_q02_brms_sample</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)</code></pre>
-</div>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">h06_q02_brms_sample</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load model</span></span>
+<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h06_q02_brms_sample</span><span class="op">)</span></span>
+<span><span class="va">h06_q02_brms_sample</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: binomial 
   Links: mu = logit 
@@ -717,33 +555,33 @@ Formula: surv | trials(density) ~ 1 + pred * size + (1 | tank)
 Multilevel Hyperparameters:
 ~tank (Number of levels: 48) 
               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sd(Intercept)     0.60      0.12     0.39     0.85 1.00     2119     2662
+sd(Intercept)     0.60      0.11     0.39     0.84 1.00     2366     3084
 
 Regression Coefficients:
                    Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-Intercept              2.43      0.26     1.92     2.95 1.00     2665     2768
-predpred              -2.75      0.32    -3.37    -2.11 1.00     2044     2637
-sizesmall              0.15      0.35    -0.53     0.85 1.00     2555     2874
-predpred:sizesmall     0.57      0.43    -0.31     1.42 1.00     1893     1980
+Intercept              2.42      0.26     1.92     2.95 1.00     3325     3205
+predpred              -2.74      0.32    -3.37    -2.09 1.00     2578     2881
+sizesmall              0.16      0.35    -0.52     0.86 1.00     2709     3141
+predpred:sizesmall     0.56      0.43    -0.31     1.40 1.00     2404     2819
 
 Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
 scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Estimated marginal effects</span></span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Estimated marginal effects</span></span>
 <span><span class="va">marg_eff</span> <span class="op">&lt;-</span> <span class="fu">emmeans</span><span class="op">(</span><span class="va">h06_q02_brms_sample</span>, <span class="op">~</span> <span class="va">size</span><span class="op">*</span><span class="va">pred</span>, regrid <span class="op">=</span> <span class="st">'response'</span><span class="op">)</span></span>
 <span><span class="va">marg_eff</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> size  pred  prob lower.HPD upper.HPD
- big   no   0.918     0.878     0.953
- small no   0.929     0.890     0.960
- big   pred 0.419     0.320     0.524
- small pred 0.598     0.491     0.695
+ big   no   0.918     0.876     0.953
+ small no   0.929     0.892     0.961
+ big   pred 0.418     0.319     0.524
+ small pred 0.598     0.496     0.697
 
 Point estimate displayed: median 
 HPD interval probability: 0.95 </code></pre>
 </div>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">marg_eff</span><span class="op">)</span> <span class="op">+</span> <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">'Survival'</span>, y <span class="op">=</span> <span class="st">'Size : Predation'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">marg_eff</span><span class="op">)</span> <span class="op">+</span> <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">'Survival'</span>, y <span class="op">=</span> <span class="st">'Size : Predation'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="06-homework_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
@@ -759,7 +597,7 @@ HPD interval probability: 0.95 </code></pre>
 <p>What is the causal effect of action, intention and contact on survey responses, considering the variation of individuals?</p>
 </section><section id="scientific-model-1" class="level3"><h3 class="anchored" data-anchor-id="scientific-model-1">Scientific model</h3>
 <div class="cell">
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
 <span>    name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'X'</span>, <span class="st">'R'</span>, <span class="st">'S'</span>, <span class="st">'E'</span>, <span class="st">'Y'</span>, <span class="st">'G'</span>,  <span class="st">'P'</span><span class="op">)</span>,</span>
 <span>    x <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,    <span class="fl">2</span>,   <span class="fl">3</span>,   <span class="fl">1</span>,    <span class="fl">2</span>,   <span class="fl">3</span>,  <span class="fl">2</span><span class="op">)</span>,</span>
 <span>    y <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,    <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="op">-</span><span class="fl">2</span>,  <span class="op">-</span><span class="fl">1</span>,  <span class="op">-</span><span class="fl">2</span>,  <span class="op">-</span><span class="fl">3</span><span class="op">)</span></span>
@@ -787,71 +625,12 @@ HPD interval probability: 0.95 </code></pre>
 <li>G: gender</li>
 </ul></section><section id="analyze-the-data-1" class="level3"><h3 class="anchored" data-anchor-id="analyze-the-data-1">Analyze the data</h3>
 <div class="cell">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">tar_load</span><span class="op">(</span><span class="va">trolley</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">tar_load</span><span class="op">(</span><span class="va">trolley</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h06_q03_no_ind_var_brms_sample</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)</code></pre>
-</div>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h06_q03_ind_var_brms_sample</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)
-Warning in qs::qread(file = path, use_alt_rep = TRUE): PROMSXP detected,
-replacing with NULL (see https://github.com/traversc/qs/issues/93)</code></pre>
-</div>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">h06_q03_no_ind_var_brms_sample</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h06_q03_no_ind_var_brms_sample</span><span class="op">)</span></span>
+<span><span class="fu">tar_load</span><span class="op">(</span><span class="va">h06_q03_ind_var_brms_sample</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">h06_q03_no_ind_var_brms_sample</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: cumulative 
   Links: mu = logit; disc = identity 
@@ -862,15 +641,15 @@ Formula: response ~ action + intention + contact
 
 Regression Coefficients:
              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-Intercept[1]    -2.83      0.05    -2.93    -2.74 1.00     2446     2329
-Intercept[2]    -2.15      0.04    -2.24    -2.07 1.00     2662     2471
-Intercept[3]    -1.57      0.04    -1.65    -1.49 1.00     2945     2769
-Intercept[4]    -0.55      0.04    -0.62    -0.48 1.00     3405     3015
-Intercept[5]     0.12      0.04     0.05     0.19 1.00     3663     2834
-Intercept[6]     1.02      0.04     0.95     1.10 1.00     3872     3294
-action          -0.71      0.04    -0.79    -0.62 1.00     3533     2874
-intention       -0.72      0.04    -0.79    -0.65 1.00     4633     2867
-contact         -0.96      0.05    -1.06    -0.85 1.00     3912     2746
+Intercept[1]    -2.83      0.05    -2.92    -2.74 1.00     2852     2513
+Intercept[2]    -2.15      0.04    -2.24    -2.07 1.00     3311     2649
+Intercept[3]    -1.57      0.04    -1.65    -1.49 1.00     3371     2981
+Intercept[4]    -0.55      0.04    -0.62    -0.48 1.00     3692     3232
+Intercept[5]     0.12      0.04     0.05     0.19 1.00     3963     3357
+Intercept[6]     1.02      0.04     0.95     1.10 1.00     4207     3415
+action          -0.71      0.04    -0.79    -0.62 1.00     3790     2873
+intention       -0.72      0.04    -0.79    -0.65 1.00     4356     3247
+contact         -0.96      0.05    -1.06    -0.86 1.00     4065     2910
 
 Further Distributional Parameters:
      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
@@ -880,7 +659,7 @@ Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
 scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">h06_q03_ind_var_brms_sample</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">h06_q03_ind_var_brms_sample</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: cumulative 
   Links: mu = logit; disc = identity 
@@ -892,19 +671,19 @@ Formula: response ~ action + intention + contact + (1 | id)
 Multilevel Hyperparameters:
 ~id (Number of levels: 331) 
               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sd(Intercept)     1.88      0.08     1.73     2.05 1.01      604     1267
+sd(Intercept)     1.89      0.08     1.73     2.05 1.00      654     1167
 
 Regression Coefficients:
              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-Intercept[1]    -3.97      0.11    -4.19    -3.74 1.01      304      888
-Intercept[2]    -3.05      0.11    -3.27    -2.83 1.01      282      817
-Intercept[3]    -2.27      0.11    -2.47    -2.05 1.01      276      703
-Intercept[4]    -0.80      0.11    -1.01    -0.59 1.01      270      688
-Intercept[5]     0.24      0.11     0.04     0.45 1.01      268      741
-Intercept[6]     1.64      0.11     1.43     1.86 1.01      291      846
-action          -0.95      0.04    -1.04    -0.87 1.00     6504     3449
-intention       -0.95      0.04    -1.03    -0.88 1.00     8442     3062
-contact         -1.27      0.05    -1.38    -1.17 1.00     6207     3181
+Intercept[1]    -3.95      0.12    -4.17    -3.73 1.01      373      838
+Intercept[2]    -3.03      0.11    -3.25    -2.82 1.01      354      742
+Intercept[3]    -2.25      0.11    -2.46    -2.03 1.01      345      737
+Intercept[4]    -0.78      0.11    -0.99    -0.57 1.01      336      754
+Intercept[5]     0.26      0.11     0.04     0.47 1.01      334      838
+Intercept[6]     1.66      0.11     1.44     1.88 1.01      357      825
+action          -0.96      0.04    -1.04    -0.87 1.00     6949     3184
+intention       -0.95      0.04    -1.03    -0.88 1.00     7202     3024
+contact         -1.27      0.05    -1.38    -1.17 1.00     6878     3113
 
 Further Distributional Parameters:
      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
@@ -916,7 +695,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_selected_vars</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">m</span>, <span class="va">vars</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tidy_selected_vars</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">m</span>, <span class="va">vars</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">draws</span> <span class="op">&lt;-</span> <span class="fu">tidy_draws</span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>        <span class="fu">gather_variables</span><span class="op">(</span><span class="op">)</span></span>
 <span>    <span class="fu">setDT</span><span class="op">(</span><span class="va">draws</span><span class="op">)</span></span>

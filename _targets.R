@@ -339,7 +339,38 @@ targets_h06 <- c(
 	)
 )
 
-
+# Lecture 19 --------------------------------------------------------------
+targets_lecture_19 <- c(
+	tar_target(
+		m_l19_nl_howell,
+		brm(
+			bf(
+				scale_weight_div_mean ~ log(k * 3.1415 * p ^ 2 * scale_height_div_mean ^ 3),
+				p ~ 1,
+				k ~ 1,
+				nl = TRUE),
+			prior = c(
+				prior(beta(25, 50), nlpar = p, lb = 0, ub = 1),
+				prior(exponential(0.5), nlpar = k, lb = 0),
+				prior(exponential(1), class = sigma)
+			),
+			data = data_Howell(),
+			family = 'lognormal'
+		)
+	),
+	tar_target(
+		m_l19_nl_howell_no_dim,
+		brm(
+			bf(
+				scale_weight_div_mean ~ log(scale_height_div_mean ^ 3)),
+			prior = c(
+				prior(exponential(1), class = sigma)
+			),
+			data = data_Howell(),
+			family = 'lognormal'
+		)
+	)
+)
 
 # Targets: all ------------------------------------------------------------
 # Automatically grab all the "targets_*" lists above

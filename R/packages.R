@@ -8,7 +8,7 @@
 # install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
 # remotes::install_github("rmcelreath/rethinking")
 # remotes::install_github('robitalec/zarg')
-# remotets::install_github('ctross/STRAND')
+# remotes::install_github('ctross/STRAND')
 # -------------------------------------------------------------------------
 
 library(targets)
@@ -20,6 +20,8 @@ conflict_prefer_all('brms', quiet = TRUE)
 conflict_prefer_all('tidybayes', quiet = TRUE)
 conflict_prefer_all('posterior', quiet = TRUE)
 conflict_prefer_all('emmeans', quiet = TRUE)
+conflict_prefer_all('stats', quiet = TRUE)
+conflicts_prefer(rethinking::HPDI)
 
 library(data.table)
 library(stringi)
