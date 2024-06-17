@@ -213,6 +213,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Lecture 19 Notes</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/20-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 20 Notes</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -616,7 +622,9 @@ targets_h06 &lt;- c(
             prior(normal(0, 1), Intercept),
             prior(normal(0, 1), b),
             prior(exponential(1), sd)
-        )
+        ),
+        cores = 30
+
     ),
     zar_brms(
         h06_q03_no_ind_var,
