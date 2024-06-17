@@ -325,7 +325,9 @@ targets_h06 <- c(
 			prior(normal(0, 1), Intercept),
 			prior(normal(0, 1), b),
 			prior(exponential(1), sd)
-		)
+		),
+		cores = 30
+
 	),
 	zar_brms(
 		h06_q03_no_ind_var,
