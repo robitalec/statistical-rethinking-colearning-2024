@@ -5,8 +5,8 @@
 <meta name="generator" content="quarto-1.4.555">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Alec L. Robitaille">
-<meta name="dcterms.date" content="2024-04-04">
-<title>Statistical Rethinking colearning 2024 - Lecture 11 Notes</title>
+<meta name="dcterms.date" content="2024-06-17">
+<title>Statistical Rethinking colearning 2024 - Lecture 20 Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -18,40 +18,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -98,32 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
+}</script>
 </head>
 <body class="nav-sidebar floating">
 
@@ -132,7 +73,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/01-notes.html">Notes</a></li><li class="breadcrumb-item"><a href="../notes/11-notes.html">Lecture 11 Notes</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/01-notes.html">Notes</a></li><li class="breadcrumb-item"><a href="../notes/20-notes.html">Lecture 20 Notes</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -234,7 +175,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notes/11-notes.html" class="sidebar-item-text sidebar-link active">
+  <a href="../notes/11-notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 11 Notes</span></a>
   </div>
 </li>
@@ -276,7 +217,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notes/20-notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../notes/20-notes.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lecture 20 Notes</span></a>
   </div>
 </li>
@@ -350,31 +291,19 @@ window.Quarto = {
    
   <ul>
 <li>
-<a href="#ordered-categorical" id="toc-ordered-categorical" class="nav-link active" data-scroll-target="#ordered-categorical">Ordered categorical</a>
+<a href="#stargazing" id="toc-stargazing" class="nav-link active" data-scroll-target="#stargazing">Stargazing</a>
   <ul class="collapse">
-<li>
-<a href="#example-trolley-problem" id="toc-example-trolley-problem" class="nav-link" data-scroll-target="#example-trolley-problem">Example: Trolley problem</a>
-  <ul class="collapse">
-<li><a href="#estimand" id="toc-estimand" class="nav-link" data-scroll-target="#estimand">Estimand</a></li>
-  <li><a href="#initial-model" id="toc-initial-model" class="nav-link" data-scroll-target="#initial-model">Initial model</a></li>
-  <li><a href="#total-causal-effect-of-gender" id="toc-total-causal-effect-of-gender" class="nav-link" data-scroll-target="#total-causal-effect-of-gender">Total causal effect of gender</a></li>
-  <li><a href="#endogenous-selection" id="toc-endogenous-selection" class="nav-link" data-scroll-target="#endogenous-selection">Endogenous selection</a></li>
+<li><a href="#planning" id="toc-planning" class="nav-link" data-scroll-target="#planning">Planning</a></li>
+  <li><a href="#working" id="toc-working" class="nav-link" data-scroll-target="#working">Working</a></li>
+  <li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting">Reporting</a></li>
+  <li><a href="#horoscopes-for-research" id="toc-horoscopes-for-research" class="nav-link" data-scroll-target="#horoscopes-for-research">Horoscopes for research</a></li>
   </ul>
 </li>
-  </ul>
-</li>
-  <li>
-<a href="#ordered-monotonic-predictors" id="toc-ordered-monotonic-predictors" class="nav-link" data-scroll-target="#ordered-monotonic-predictors">Ordered monotonic predictors</a>
-  <ul class="collapse">
-<li><a href="#example-trolley-problem-1" id="toc-example-trolley-problem-1" class="nav-link" data-scroll-target="#example-trolley-problem-1">Example: Trolley problem</a></li>
-  </ul>
-</li>
-  <li><a href="#bonus-non-representative-samples-and-post-stratification" id="toc-bonus-non-representative-samples-and-post-stratification" class="nav-link" data-scroll-target="#bonus-non-representative-samples-and-post-stratification">Bonus: non-representative samples and post-stratification</a></li>
-  </ul><div class="toc-actions"><ul><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/edit/main/notes/11-notes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/edit/main/notes/20-notes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/01-notes.html">Notes</a></li><li class="breadcrumb-item"><a href="../notes/11-notes.html">Lecture 11 Notes</a></li></ol></nav><div class="quarto-title">
-<h1 class="title">Lecture 11 Notes</h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/01-notes.html">Notes</a></li><li class="breadcrumb-item"><a href="../notes/20-notes.html">Lecture 20 Notes</a></li></ol></nav><div class="quarto-title">
+<h1 class="title">Lecture 20 Notes</h1>
 </div>
 
 
@@ -391,7 +320,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 4, 2024</p>
+      <p class="date">June 17, 2024</p>
     </div>
   </div>
   
@@ -400,205 +329,133 @@ window.Quarto = {
   
 
 
-</header><section id="ordered-categorical" class="level1"><h1>Ordered categorical</h1>
-<p>Ordered categorical variables are discrete types with ordered relationships.</p>
+</header><section id="stargazing" class="level1"><h1>Stargazing</h1>
+<p>Fortune telling frameworks (eg. horoscopes, tarot cards, linear models) has to be vague - derived from vague facts the advice has to be vague. Also, often has an exaggerated importance.</p>
+<p>Cannot offload subjective responsibility onto an objective procedure</p>
+<p>Tendency to focus on parts that are mathematical, objective (the quality of the data analysis)</p>
+<p>Other things that are also important:</p>
 <ul>
-<li>not a count variable, not continuous</li>
-<li>bounded between min, max (eg. Trolley 1-7)</li>
-<li>eg. good, bad, excellent - not “cat, dog, chicken”</li>
-<li>distances between categories is not known or the same</li>
-<li>often there are “anchor points” and not everyone shares the same anchor point</li>
+<li>quality of theory</li>
+<li>quality of data</li>
+<li>quality of code and procedures</li>
+<li>code documentation</li>
+<li>reporting</li>
 </ul>
-<p>Modeling an ordered categorical requires converting the orders to cumulative frequency. Instead of the probability of 5 out of 10, we have the probability of 5 or less out of 10.</p>
-<p><img src="../graphics/stat_rethinking_l11_slide32.png" class="img-fluid"> Recall, cumulative log-odds is the log of the probability of x occurring divided by the probability of x not occurring.</p>
-<p>Now we are estimating cutpoints. The number of cutpoints we estimate is the number of categories - 1, since the cumulative probability of the last category is the total cumulative probability.</p>
-<p>Then estimating the probability of a specific category is the probability of all categories up to that category subtracting the probability of all categories up to the preceding category.</p>
-<p>To make it a function of the variables, either by stratifying the cutpoints or by offsetting each cutpoint by the value of a linear model <span class="math inline">\(\phi\)</span>.</p>
-<p><span class="math inline">\(\phi_{i} = \beta x_{i}\)</span></p>
-<p><span class="math inline">\(log \frac{Pr(R_{i} &lt;= k)}{1-Pr(R_{i} &lt;= k)} = \alpha_{k} + \phi_{i}\)</span></p>
-<p><span class="math inline">\(R_{i} \sim OrderedLogit(\phi_{i}, \alpha)\)</span></p>
-<section id="example-trolley-problem" class="level2"><h2 class="anchored" data-anchor-id="example-trolley-problem">Example: Trolley problem</h2>
-<ul>
-<li>Runaway trolley, actor standing next to a switch</li>
-<li>If you don’t pull the switch, it will strike 5 people on the track</li>
-<li>If you do pull the switch, it will strike 1 person on the track</li>
-</ul>
-<p>Scenarios that contain three principles</p>
-<ul>
-<li>Action: taking an action is less morally permissible than not taking an action</li>
-<li>Intention: eg. pulling the lever to strike the 1 person and this stopping the trolley - this is necessary and intentional to save the 5 people</li>
-<li>Contact: eg. pushing a large person on the track</li>
-</ul>
-<p>Data:</p>
-<ul>
-<li>331 individuals</li>
-<li>action, intention, contact</li>
-<li>30 different trolley problems</li>
-<li>voluntary participation</li>
-</ul>
-<p>Response: how appropriate from 1-7</p>
-<section id="estimand" class="level3"><h3 class="anchored" data-anchor-id="estimand">Estimand</h3>
-<p>How do action, intention and contact influence response to a trolley story?</p>
-<div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
-<span>    name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'X'</span>, <span class="st">'R'</span>, <span class="st">'S'</span>, <span class="st">'E'</span>, <span class="st">'Y'</span>, <span class="st">'G'</span>,  <span class="st">'P'</span><span class="op">)</span>,</span>
-<span>    x <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,    <span class="fl">2</span>,   <span class="fl">3</span>,   <span class="fl">1</span>,    <span class="fl">2</span>,   <span class="fl">3</span>,  <span class="fl">2</span><span class="op">)</span>,</span>
-<span>    y <span class="op">=</span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,    <span class="fl">0</span>,   <span class="fl">0</span>,   <span class="op">-</span><span class="fl">2</span>,  <span class="op">-</span><span class="fl">1</span>,  <span class="op">-</span><span class="fl">2</span>,  <span class="op">-</span><span class="fl">3</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
-<span>    <span class="va">R</span> <span class="op">~</span> <span class="va">X</span> <span class="op">+</span> <span class="va">S</span> <span class="op">+</span> <span class="va">E</span> <span class="op">+</span> <span class="va">Y</span> <span class="op">+</span> <span class="va">G</span>,</span>
-<span>    <span class="va">E</span> <span class="op">~</span> <span class="va">Y</span> <span class="op">+</span> <span class="va">G</span>,</span>
-<span>  coords <span class="op">=</span> <span class="va">coords</span></span>
-<span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="11-notes_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="384"></p>
-</figure>
-</div>
-</div>
-</div>
-<ul>
-<li>R: response to the trolley story</li>
-<li>X: action, intention, contact</li>
-<li>S: story</li>
-<li>E: education</li>
-<li>Y: age</li>
-<li>G: gender</li>
-</ul></section><section id="initial-model" class="level3"><h3 class="anchored" data-anchor-id="initial-model">Initial model</h3>
-<p><span class="math inline">\(R_{i} \sim OrderedLogit(\phi_{i}, \alpha)\)</span></p>
-<p><span class="math inline">\(\phi_{i} = \beta_{A}A_{i} + \beta_{C}C_{i} + \beta_{I}I_{i}\)</span></p>
-<p><span class="math inline">\(\beta \sim Normal(0, 0.5)\)</span></p>
-<p><span class="math inline">\(\alpha_{j} \sim Normal(0, 1)\)</span></p>
-</section><section id="total-causal-effect-of-gender" class="level3"><h3 class="anchored" data-anchor-id="total-causal-effect-of-gender">Total causal effect of gender</h3>
-<p><span class="math inline">\(R_{i} \sim OrderedLogit(\phi_{i}, \alpha)\)</span></p>
-<p><span class="math inline">\(\phi_{i} = \beta_{A}A_{i, G_{i}} + \beta_{C}C_{i, G_{i}} + \beta_{I}I_{i, G_{i}}\)</span></p>
-<p><span class="math inline">\(\beta \sim Normal(0, 0.5)\)</span></p>
-<p><span class="math inline">\(\alpha_{j} \sim Normal(0, 1)\)</span></p>
-<div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
-<span>    <span class="va">R</span> <span class="op">~</span> <span class="va">X</span> <span class="op">+</span> <span class="va">S</span> <span class="op">+</span> <span class="va">E</span> <span class="op">+</span> <span class="va">Y</span> <span class="op">+</span> <span class="va">G</span>,</span>
-<span>    <span class="va">E</span> <span class="op">~</span> <span class="va">Y</span> <span class="op">+</span> <span class="va">G</span>,</span>
-<span>    exposure <span class="op">=</span> <span class="st">'G'</span>,</span>
-<span>  coords <span class="op">=</span> <span class="va">coords</span></span>
-<span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag_status</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">guides</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'none'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="11-notes_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="384"></p>
-</figure>
-</div>
-</div>
-</div>
-</section><section id="endogenous-selection" class="level3"><h3 class="anchored" data-anchor-id="endogenous-selection">Endogenous selection</h3>
-<p>Note - this is a voluntary sample and participation is influenced by age, education and gender. There is sample selection from this participation meaning the data is already stratified by the features of the participating population.</p>
-<p>In addition, participation is a collider and conditioning on it makes education, gender and age co-vary in the sample. Therefore, we cannot estimate the total causal effect of gender.</p>
-<div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dagify</span><span class="op">(</span></span>
-<span>    <span class="va">R</span> <span class="op">~</span> <span class="va">X</span> <span class="op">+</span> <span class="va">S</span> <span class="op">+</span> <span class="va">E</span> <span class="op">+</span> <span class="va">Y</span> <span class="op">+</span> <span class="va">G</span>,</span>
-<span>    <span class="va">E</span> <span class="op">~</span> <span class="va">Y</span> <span class="op">+</span> <span class="va">G</span>,</span>
-<span>    <span class="va">P</span> <span class="op">~</span> <span class="va">E</span> <span class="op">+</span> <span class="va">Y</span> <span class="op">+</span> <span class="va">G</span>,</span>
-<span>    exposure <span class="op">=</span> <span class="st">'P'</span>,</span>
-<span>  coords <span class="op">=</span> <span class="va">coords</span></span>
-<span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ggdag_status</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2</span>, layout <span class="op">=</span> <span class="st">'auto'</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">theme_dag</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">guides</span><span class="op">(</span>color <span class="op">=</span> <span class="st">'none'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="11-notes_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="384"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>To get the direct effect of gender, we need to stratify by age and education. We’ll represent education as an ordered monotonic predictors.</p>
-</section></section></section><section id="ordered-monotonic-predictors" class="level1"><h1>Ordered monotonic predictors</h1>
-<p>Education is an ordered category, but it is unlikely that each level has the same effect for an equivalent unit change. We want a parameter for each level but we need to enforce ordering so there is always a larger or smaller effect than the previous level.</p>
-<p>Each category is the sum of the previous and the last category is equal to the maximum effect of the variable. Then the deltas are all summed up (0-1) and multiplied by the maximum effect. The delta parameters form a <strong>simplex</strong>, a vector that sums to 1.</p>
-<p><img src="../graphics/stat_rethinking_l11_slide63.png" class="img-fluid"></p>
-<p>We rescale the <span class="math inline">\(\phi\)</span> variables to sum to 1 (<span class="math inline">\(\beta_{E}\)</span>).</p>
-<p><span class="math display">\[\phi_{i} = \beta_{E} \sum_{j=0}^{E_{i}-1} \delta_{j}\]</span></p>
-<p>We model a simplex using a Dirichlet distribution. Dirichlet distributions take a vector <span class="math inline">\(a\)</span> (concentration parameters) that defines the differences among the categories. Larger values in <span class="math inline">\(a\)</span> indicate that there are smaller differences between categories.</p>
-<div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">plot_dirichlet</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span>, <span class="va">a</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">diri</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="op">(</span><span class="fu">rdirichlet</span><span class="op">(</span><span class="va">n</span>, <span class="va">a</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="fu">setnames</span><span class="op">(</span><span class="va">diri</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="va">diri</span><span class="op">[</span>, <span class="va">i</span> <span class="op">:=</span> <span class="va">.I</span><span class="op">]</span></span>
-<span>    <span class="va">melt_diri</span> <span class="op">&lt;-</span> <span class="fu">melt</span><span class="op">(</span><span class="va">diri</span>, id.vars <span class="op">=</span> <span class="st">'i'</span><span class="op">)</span></span>
-<span>    <span class="fu">ggplot</span><span class="op">(</span><span class="va">melt_diri</span><span class="op">)</span> <span class="op">+</span></span>
-<span>        <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">variable</span>, <span class="va">value</span>, group <span class="op">=</span> <span class="va">i</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>        <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">'category'</span>,</span>
-<span>                 y <span class="op">=</span> <span class="st">'probability'</span>,</span>
-<span>                 title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">'alpha ='</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">a</span>, collapse <span class="op">=</span> <span class="st">', '</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>        <span class="fu">ylim</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
-<span><span class="va">n_cat</span> <span class="op">&lt;-</span> <span class="fl">7</span></span>
-<span><span class="fu">plot_dirichlet</span><span class="op">(</span><span class="va">n</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="va">n_cat</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="11-notes_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">plot_dirichlet</span><span class="op">(</span><span class="va">n</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">7</span>, <span class="va">n_cat</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="11-notes_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">plot_dirichlet</span><span class="op">(</span><span class="va">n</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n_cat</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="11-notes_files/figure-html/unnamed-chunk-6-3.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<section id="example-trolley-problem-1" class="level3"><h3 class="anchored" data-anchor-id="example-trolley-problem-1">Example: Trolley problem</h3>
-<p><img src="../graphics/stat_rethinking_l11_slide78.png" class="img-fluid"></p>
-<p>Recall</p>
-<ul>
-<li>R: response to the trolley story</li>
-<li>X: action, intention, contact</li>
-<li>S: story</li>
-<li>E: education</li>
-<li>Y: age</li>
-<li>G: gender</li>
-</ul>
-<p>bA, bI, bC are action, intention, contact</p>
-<p>There are only direct effects for:</p>
-<ul>
-<li>gender (eg. bA[1], bA[2]) because we stratified for education given the participation effect (a collider)</li>
-<li>education (bE[1], bE[2]) again because of participation</li>
-<li>age (bY[1], bY[2]) again because of participation and education</li>
-</ul>
-<p>This is a great example of complex causal effects. Instead of using the current sample which is contaminated by the participation bias, we can post-stratify (marginalize) to a new target that is representative of your estimand. Post-stratification simulation is the same as all previous examples of generative simulations using posterior samples.</p>
-</section></section><section id="bonus-non-representative-samples-and-post-stratification" class="level1"><h1>Bonus: non-representative samples and post-stratification</h1>
-<p>Post-stratification or transport is a transparent, principled method for extrapolating from sample to population. It requires causal models of reasons the sample differs from population. All problems, whether they are descriptive, predictive or causal, have to consider the differences between the sample and the target population. Post stratification requires a causal model of the reasons that the sample differs from the population. Commonly used in surveys and elections (see multi-level regression and post-stratification “MRP”).</p>
-<p>The quality of data is more important than quantity of data. Bigger samples amplify biases.</p>
-<p>Example: larger surveys of COVID vaccination rate largely overestimated the CDC benchmark, while the smaller survey better represented the population</p>
-<p>Non-representative samples can outperform representative samples if we know how the sample differs from our target population.</p>
-<p>Example: Wang et al 2014, Xbox survey of election results for Obama vs Romney, post-stratified to target population</p>
-<p>Example of four age groups. Just because the sample differs from the population doesn’t tell us what we need to do statistically.</p>
-<p><img src="../graphics/stat_rethinking_l11_slide96.png" class="img-fluid"></p>
-<p>Selection nodes indicate reasons why the sample differs from the population. Eg. selection by age.</p>
-<p>Some selection is recoverable, eg. where age stratification in the sample that influences X. Influence on the outcome variable, eg. where anarchists don’t answer the phone, are not recoverable because the results you need are not in the data.</p>
-<p><img src="../graphics/stat_rethinking_l11_slide96.png" class="img-fluid"></p>
-<p>Many questions are really post-stratification questions: - justified descriptions require causal information and post-stratification - causal effects require causal information and post-stratification - time trends should account for changes in measurement/population - comparisons are post-stratification between populations</p>
-<p>Read more here:</p>
-<p>Deffner, D., Rohrer, J.M. and McElreath, R., 2022. A causal framework for cross-cultural generalizability. Advances in Methods and Practices in Psychological Science, 5(3), p.25152459221106366.</p>
-<p>Simple 4-step plan for honest scholarship</p>
+<section id="planning" class="level2"><h2 class="anchored" data-anchor-id="planning">Planning</h2>
+<p>Goal setting</p>
+<pre><code>- Define estimates at the beginning</code></pre>
+<p>Theory building</p>
+<pre><code>- Which assumptions will we make to construct an appropriate estimator?
+- Causal model</code></pre>
+<p>Levels of theory building</p>
 <ol type="1">
-<li>What are we trying to describe?</li>
-<li>What is the ideal data for doing so?</li>
-<li>What data do we actually have?</li>
-<li>What causes the differences between (2) and (3)?</li>
-<li>[optional] Is there a way to use (3) + (4) to do (1)?</li>
+<li>Heuristic causal model (DAGs)</li>
+<li>Structural causal models (synthetic functions that identify in precise mathematical ways the relationships between variables)</li>
+<li>Dynamic models (eg. ODEs)</li>
+<li>Agent-based models (most fine grained approach)</li>
+</ol>
+<p>These all specify or imply algebraic systems that can be analysed for their implications.</p>
+<p>Best way to learn models is to read models.</p>
+<p>Heuristic causal models (DAGs)</p>
+<ol type="1">
+<li>Treatment and outcome</li>
+<li>Other causes</li>
+<li>Other effects</li>
+<li>Unobserved causes</li>
+</ol>
+<ul>
+<li>Justified sampling plan</li>
+<li>Justified analysis plan</li>
+<li>Documentation</li>
+<li>Open software and data formats
+<ul>
+<li>“Especially for academics, not ethical to use closed, proprietary, expensive software or data formats”</li>
+<li>Future self might also thank you, since you may no longer have access to software in the future</li>
+</ul>
+</li>
+</ul></section><section id="working" class="level2"><h2 class="anchored" data-anchor-id="working">Working</h2>
+<ol type="1">
+<li>Express theory as probabilistic program</li>
+<li>Prove planned analysis could work (conditionally on assumptions)</li>
+<li>Test pipeline on synthetic data</li>
+<li>Run pipeline on empirical data</li>
+</ol>
+<p>Control</p>
+<ul>
+<li>version control (Git)</li>
+<li>history</li>
+<li>backup</li>
+<li>accountability</li>
+</ul>
+<p>Incremental testing</p>
+<ul>
+<li>build things iteratively</li>
+<li>test each piece</li>
+</ul>
+<p>Documentation</p>
+<ul>
+<li>comment everything</li>
+<li>for you and for others</li>
+</ul>
+<p>Review</p>
+<ul>
+<li>at least two people should look at each thing you do</li>
+<li>explain the code to someone (rubber ducky)</li>
+</ul></section><section id="reporting" class="level2"><h2 class="anchored" data-anchor-id="reporting">Reporting</h2>
+<p>Sharing materials</p>
+<ul>
+<li>Papers are an advertisement, the data and its analysis are the product. Data and code should be available through a link, not “by request”</li>
+</ul>
+<p>Describing methods</p>
+<ul>
+<li>math-stats notation of statistical model (software independent)</li>
+<li>explanation of how math-stats model provides estimand</li>
+<li>algorithm used to produce estimate</li>
+<li>diagnostics, code tests</li>
+<li>cite software packages</li>
+</ul>
+<blockquote class="blockquote">
+<p>“To estimate the reciprocity within dyads, we model the correlation within dyads in giving, using a multilevel mixed-membership model (textbook citation). To control for confounding from generalized giving and receiving, as indicated by the DAG in the previous section, we stratify giving and receiving by household. The full model with priors is presented at right. We estimated the posterior distribution using Hamiltonian Monte Carlo as implemented in Stan version 2.29 (citation). We validated the model on simulated data and assessed convergence by inspection of trace plots, R-hat values, and effective sample sizes. Diagnostics are reported in Appendix B and all results can be replicated using the code available at LINK.”</p>
+</blockquote>
+<p>Justifying priors</p>
+<blockquote class="blockquote">
+<p>“Priors were chosen through prior predictive simulation so that pre-data predictions span the range of scientifically plausible outcomes. In the results, we explicitly compared the posterior distribution to the prior, so that the impact of the sample is obvious.”</p>
+</blockquote>
+<p>Responding to reviewers</p>
+<pre><code>- change discussion from statistics to causal models, scientific models.
+- Point readers to a primer paper on Bayesian statistics in your field. </code></pre>
+<p>Describing data</p>
+<ul>
+<li>Sample size, but specifically the structure of your data: how many observations of how many units?</li>
+<li>At which level (across or within clusters) are variables measured?</li>
+<li>Missing values</li>
+</ul>
+<p>Describing results</p>
+<ul>
+<li>Focus of results typically are on estimands, presented using marginal causal effects</li>
+<li>Warn against causal interpretation of control variables (Table 2 fallacy)</li>
+<li>Sample realizations &gt; Densities &gt; Intervals</li>
+</ul>
+<p>Making decisions</p>
+<ul>
+<li>Academic research: communicate uncertainty, conditional on sample and models</li>
+<li>Industry, applied research: what should we do, given uncertainty, conditional on sample and models?</li>
+</ul>
+<p>Bayesian decision theory:</p>
+<ol type="1">
+<li>State costs and benefits of outcomes</li>
+<li>Compute posterior benefits of hypothetical policy choices (interventions)</li>
+</ol></section><section id="horoscopes-for-research" class="level2"><h2 class="anchored" data-anchor-id="horoscopes-for-research">Horoscopes for research</h2>
+<p>Fixes:</p>
+<ol type="1">
+<li>No statistics without associated causal model</li>
+<li>Prove that your code works in principle</li>
+<li>Share as much as possible</li>
+<li>Beware of proxies for research quality</li>
 </ol>
 
 
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1155,4 +1012,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/edit/main/notes/11-notes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/edit/main/notes/20-notes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/robitalec/statistical-rethinking-colearning-2024/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
