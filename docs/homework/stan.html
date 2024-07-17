@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.54">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Statistical Rethinking colearning 2024</title>
+<title>stan – Statistical Rethinking colearning 2024</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -68,13 +68,13 @@ ul.task-list li input[type="checkbox"] {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../homework/01-homework.html">Homework</a></li><li class="breadcrumb-item"><a href="../homework/stan.html">Stan</a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -104,9 +104,9 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Notes</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -223,9 +223,9 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Homework</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -284,64 +284,13 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
         
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>Model: h01_q02_brms_stancode
-
-
-// generated with brms 2.20.4
-functions {
-}
-data {
-  int&lt;lower=1&gt; N;  // total number of observations
-  vector[N] Y;  // response variable
-  int&lt;lower=1&gt; K;  // number of population-level effects
-  matrix[N, K] X;  // population-level design matrix
-  int&lt;lower=1&gt; Kc;  // number of population-level effects after centering
-  int prior_only;  // should the likelihood be ignored?
-}
-transformed data {
-  matrix[N, Kc] Xc;  // centered version of X without an intercept
-  vector[Kc] means_X;  // column means of X before centering
-  for (i in 2:K) {
-    means_X[i - 1] = mean(X[, i]);
-    Xc[, i - 1] = X[, i] - means_X[i - 1];
-  }
-}
-parameters {
-  vector[Kc] b;  // regression coefficients
-  real Intercept;  // temporary intercept for centered predictors
-  real&lt;lower=0&gt; sigma;  // dispersion parameter
-}
-transformed parameters {
-  real lprior = 0;  // prior contributions to the log posterior
-  lprior += normal_lpdf(b | 3, 0.5);
-  lprior += normal_lpdf(Intercept | 22.5, 0.5);
-  lprior += exponential_lpdf(sigma | 1);
-}
-model {
-  // likelihood including constants
-  if (!prior_only) {
-    target += normal_id_glm_lpdf(Y | Xc, Intercept, b, sigma);
-  }
-  // priors including constants
-  target += lprior;
-}
-generated quantities {
-  // actual population-level intercept
-  real b_Intercept = Intercept - dot_product(means_X, b);
-}
-
-
-
-
-
-
-Model: h02_q02_brms_stancode
+<pre><code>Model: h02_q02_brms_stancode
 
 
 // generated with brms 2.21.0
@@ -705,57 +654,6 @@ generated quantities {
 
 
 
-Model: h04_q01_m69_brms_stancode
-
-
-// generated with brms 2.20.4
-functions {
-}
-data {
-  int&lt;lower=1&gt; N;  // total number of observations
-  vector[N] Y;  // response variable
-  int&lt;lower=1&gt; K;  // number of population-level effects
-  matrix[N, K] X;  // population-level design matrix
-  int&lt;lower=1&gt; Kc;  // number of population-level effects after centering
-  int prior_only;  // should the likelihood be ignored?
-}
-transformed data {
-  matrix[N, Kc] Xc;  // centered version of X without an intercept
-  vector[Kc] means_X;  // column means of X before centering
-  for (i in 2:K) {
-    means_X[i - 1] = mean(X[, i]);
-    Xc[, i - 1] = X[, i] - means_X[i - 1];
-  }
-}
-parameters {
-  vector[Kc] b;  // regression coefficients
-  real Intercept;  // temporary intercept for centered predictors
-  real&lt;lower=0&gt; sigma;  // dispersion parameter
-}
-transformed parameters {
-  real lprior = 0;  // prior contributions to the log posterior
-  lprior += normal_lpdf(b | 0, 2);
-  lprior += normal_lpdf(Intercept | 0, 1);
-  lprior += exponential_lpdf(sigma | 1);
-}
-model {
-  // likelihood including constants
-  if (!prior_only) {
-    target += normal_id_glm_lpdf(Y | Xc, Intercept, b, sigma);
-  }
-  // priors including constants
-  target += lprior;
-}
-generated quantities {
-  // actual population-level intercept
-  real b_Intercept = Intercept - dot_product(means_X, b);
-}
-
-
-
-
-
-
 Model: h04_q02_m_1_brms_stancode
 
 
@@ -1011,115 +909,6 @@ generated quantities {
 
 
 
-Model: h04_q02_m_exp_brms_stancode
-
-
-// generated with brms 2.20.4
-functions {
-}
-data {
-  int&lt;lower=1&gt; N;  // total number of observations
-  vector[N] Y;  // response variable
-  int&lt;lower=1&gt; K_b1;  // number of population-level effects
-  matrix[N, K_b1] X_b1;  // population-level design matrix
-  int&lt;lower=1&gt; K_b2;  // number of population-level effects
-  matrix[N, K_b2] X_b2;  // population-level design matrix
-  // covariates for non-linear functions
-  vector[N] C_1;
-  int prior_only;  // should the likelihood be ignored?
-}
-transformed data {
-}
-parameters {
-  vector[K_b1] b_b1;  // regression coefficients
-  vector[K_b2] b_b2;  // regression coefficients
-  real&lt;lower=0&gt; sigma;  // dispersion parameter
-}
-transformed parameters {
-  real lprior = 0;  // prior contributions to the log posterior
-  lprior += normal_lpdf(b_b1 | 0, 2);
-  lprior += normal_lpdf(b_b2 | 0, 2);
-  lprior += exponential_lpdf(sigma | 1);
-}
-model {
-  // likelihood including constants
-  if (!prior_only) {
-    // initialize linear predictor term
-    vector[N] nlp_b1 = rep_vector(0.0, N);
-    // initialize linear predictor term
-    vector[N] nlp_b2 = rep_vector(0.0, N);
-    // initialize non-linear predictor term
-    vector[N] mu;
-    nlp_b1 += X_b1 * b_b1;
-    nlp_b2 += X_b2 * b_b2;
-    for (n in 1:N) {
-      // compute non-linear predictor values
-      mu[n] = (nlp_b1[n] * exp(nlp_b2[n] * C_1[n]));
-    }
-    target += normal_lpdf(Y | mu, sigma);
-  }
-  // priors including constants
-  target += lprior;
-}
-generated quantities {
-}
-
-
-
-
-
-
-Model: h04_q02_m_lin_brms_stancode
-
-
-// generated with brms 2.20.4
-functions {
-}
-data {
-  int&lt;lower=1&gt; N;  // total number of observations
-  vector[N] Y;  // response variable
-  int&lt;lower=1&gt; K;  // number of population-level effects
-  matrix[N, K] X;  // population-level design matrix
-  int&lt;lower=1&gt; Kc;  // number of population-level effects after centering
-  int prior_only;  // should the likelihood be ignored?
-}
-transformed data {
-  matrix[N, Kc] Xc;  // centered version of X without an intercept
-  vector[Kc] means_X;  // column means of X before centering
-  for (i in 2:K) {
-    means_X[i - 1] = mean(X[, i]);
-    Xc[, i - 1] = X[, i] - means_X[i - 1];
-  }
-}
-parameters {
-  vector[Kc] b;  // regression coefficients
-  real Intercept;  // temporary intercept for centered predictors
-  real&lt;lower=0&gt; sigma;  // dispersion parameter
-}
-transformed parameters {
-  real lprior = 0;  // prior contributions to the log posterior
-  lprior += normal_lpdf(b | 0, 0.5);
-  lprior += normal_lpdf(Intercept | 0, 0.2);
-  lprior += exponential_lpdf(sigma | 1);
-}
-model {
-  // likelihood including constants
-  if (!prior_only) {
-    target += normal_id_glm_lpdf(Y | Xc, Intercept, b, sigma);
-  }
-  // priors including constants
-  target += lprior;
-}
-generated quantities {
-  // actual population-level intercept
-  real b_Intercept = Intercept - dot_product(means_X, b);
-}
-
-
-
-
-
-
 Model: h04_q03_m_exp_Massos_brms_stancode
 
 
@@ -1237,74 +1026,6 @@ model {
 generated quantities {
   // actual population-level intercept
   real b_Intercept = Intercept - dot_product(means_X, b);
-}
-
-
-
-
-
-
-Model: h04_q03_m_log_Massos_brms_stancode
-
-
-// generated with brms 2.20.4
-functions {
-}
-data {
-  int&lt;lower=1&gt; N;  // total number of observations
-  vector[N] Y;  // response variable
-  int&lt;lower=1&gt; K_L;  // number of population-level effects
-  matrix[N, K_L] X_L;  // population-level design matrix
-  int&lt;lower=1&gt; K_k;  // number of population-level effects
-  matrix[N, K_k] X_k;  // population-level design matrix
-  int&lt;lower=1&gt; K_x0;  // number of population-level effects
-  matrix[N, K_x0] X_x0;  // population-level design matrix
-  // covariates for non-linear functions
-  array[N] int C_1;
-  int prior_only;  // should the likelihood be ignored?
-}
-transformed data {
-}
-parameters {
-  vector&lt;lower=0&gt;[K_L] b_L;  // regression coefficients
-  vector&lt;lower=0&gt;[K_k] b_k;  // regression coefficients
-  vector&lt;lower=0&gt;[K_x0] b_x0;  // regression coefficients
-  real&lt;lower=0&gt; sigma;  // dispersion parameter
-}
-transformed parameters {
-  real lprior = 0;  // prior contributions to the log posterior
-  lprior += normal_lpdf(b_L | 0, 2)
-    - 1 * normal_lccdf(0 | 0, 2);
-  lprior += normal_lpdf(b_k | 0, 2)
-    - 1 * normal_lccdf(0 | 0, 2);
-  lprior += normal_lpdf(b_x0 | 0, 2)
-    - 1 * normal_lccdf(0 | 0, 2);
-  lprior += exponential_lpdf(sigma | 1);
-}
-model {
-  // likelihood including constants
-  if (!prior_only) {
-    // initialize linear predictor term
-    vector[N] nlp_L = rep_vector(0.0, N);
-    // initialize linear predictor term
-    vector[N] nlp_k = rep_vector(0.0, N);
-    // initialize linear predictor term
-    vector[N] nlp_x0 = rep_vector(0.0, N);
-    // initialize non-linear predictor term
-    vector[N] mu;
-    nlp_L += X_L * b_L;
-    nlp_k += X_k * b_k;
-    nlp_x0 += X_x0 * b_x0;
-    for (n in 1:N) {
-      // compute non-linear predictor values
-      mu[n] = (nlp_L[n] / (1 + exp(1) ^ ( - nlp_k[n] * (C_1[n] - nlp_x0[n]))));
-    }
-    target += normal_lpdf(Y | mu, sigma);
-  }
-  // priors including constants
-  target += lprior;
-}
-generated quantities {
 }
 
 
@@ -2171,18 +1892,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -2214,7 +1924,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -2222,7 +1954,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
